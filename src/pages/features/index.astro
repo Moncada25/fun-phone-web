@@ -14,8 +14,9 @@ import FeatureBlock from '../../components/FeatureBlock.astro';
       // Dark mode por defecto SIEMPRE (a menos que el usuario lo cambie manualmente)
       if (localStorage.getItem('darkMode') === null) {
         localStorage.setItem('darkMode', 'true');
-        document.documentElement.classList.add('dark');
-      } else if (localStorage.getItem('darkMode') === 'true') {
+      }
+      
+      if (localStorage.getItem('darkMode') === 'true') {
         document.documentElement.classList.add('dark');
       } else {
         document.documentElement.classList.remove('dark');
