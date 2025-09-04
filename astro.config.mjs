@@ -6,4 +6,5 @@ export default defineConfig({
   integrations: [tailwind()],
   site: 'https://moncada25.github.io/fun-phone-web/',
   base: '/fun-phone-web/',
+  trailingSlash: 'always'
 });
