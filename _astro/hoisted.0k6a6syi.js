@@ -1,0 +1,1 @@
+import"./Navbar.astro_astro_type_script_index_0_lang.CREMH3Tq.js";localStorage.getItem("darkMode")===null?(localStorage.setItem("darkMode","true"),document.documentElement.classList.add("dark")):localStorage.getItem("darkMode")==="true"?document.documentElement.classList.add("dark"):document.documentElement.classList.remove("dark");
