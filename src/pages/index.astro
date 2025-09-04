@@ -13,18 +13,18 @@ import PermissionsBlock from '../components/PermissionsBlock.astro';
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Fun Phone: Dialer & Contacts</title>
     <meta name="description" content="Tu centro completo de llamadas, contactos y productividad. No data shared. No data collected. Descarga Fun Phone en Google Play." />
-    <link rel="manifest" href="/fun-phone-privacy-policy/site.webmanifest" />
-    <link rel="icon" type="image/png" sizes="192x192" href="/fun-phone-privacy-policy/assets/icon-192.png" />
-    <link rel="icon" type="image/png" sizes="512x512" href="/fun-phone-privacy-policy/assets/icon-512.png" />
+    <link rel="manifest" href={import.meta.env.BASE_URL + 'site.webmanifest'} />
+    <link rel="icon" type="image/png" sizes="192x192" href={import.meta.env.BASE_URL + 'assets/icon-192.png'} />
+    <link rel="icon" type="image/png" sizes="512x512" href={import.meta.env.BASE_URL + 'assets/icon-512.png'} />
     <meta name="theme-color" content="#0066e0" />
     <meta property="og:title" content="Fun Phone: Dialer & Contacts" />
     <meta property="og:description" content="Tu centro completo de llamadas, contactos y productividad. No data shared. No data collected." />
-    <meta property="og:image" content="/fun-phone-privacy-policy/assets/og-cover.png" />
-    <meta property="og:url" content="https://moncada25.github.io/fun-phone-privacy-policy/" />
+    <meta property="og:image" content={import.meta.env.BASE_URL + 'assets/og-cover.png'} />
+    <meta property="og:url" content="https://moncada25.github.io/fun-phone-web/" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Fun Phone: Dialer & Contacts" />
     <meta name="twitter:description" content="Your complete hub for calls, contacts, and productivity. No data shared. No data collected." />
-    <meta name="twitter:image" content="/fun-phone-privacy-policy/assets/og-cover.png" />
+    <meta name="twitter:image" content={import.meta.env.BASE_URL + 'assets/og-cover.png'} />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -60,7 +60,7 @@ import PermissionsBlock from '../components/PermissionsBlock.astro';
             <p class="mb-8 text-xl md:text-2xl text-accent font-semibold">La app de teléfono que respeta tu privacidad y te da el control total.</p>
             <div class="flex flex-col md:flex-row justify-center items-center gap-4 mb-8">
               <a href="https://play.google.com/store/apps/details?id=com.bookverse.contacts" class="bg-accent text-white px-8 py-4 rounded-2xl shadow-xl font-bold text-xl hover:bg-blue-700 transition">Descargar en Google Play</a>
-              <a href="/fun-phone-privacy-policy/features/" class="text-accent underline font-semibold text-lg">Ver funciones</a>
+              <a href={import.meta.env.BASE_URL + 'features/'} class="text-accent underline font-semibold text-lg">Ver funciones</a>
             </div>
             <div class="mt-6 flex justify-center">
               <PrivacyBadge />
@@ -72,7 +72,7 @@ import PermissionsBlock from '../components/PermissionsBlock.astro';
             <h1 class="text-4xl md:text-6xl font-extrabold mb-6 tracking-tight">Make your calls fun, safe and productive!</h1>
             <p class="mb-8 text-xl md:text-2xl text-accent font-semibold">The phone app that respects your privacy and gives you total control.</p>
             <div class="flex flex-col md:flex-row justify-center items-center gap-4 mb-8">
-              <a href="/fun-phone-privacy-policy/features/" class="text-accent underline font-semibold text-lg">See features</a>
+              <a href={import.meta.env.BASE_URL + 'features/'} class="text-accent underline font-semibold text-lg">See features</a>
             </div>
             <div class="mt-6 flex justify-center">
               <PrivacyBadge />
@@ -94,7 +94,7 @@ import PermissionsBlock from '../components/PermissionsBlock.astro';
 
       <!-- TEASERS -->
       <section class="grid md:grid-cols-2 gap-6 mt-12">
-        <a href="/fun-phone-privacy-policy/features/" class="block bg-white dark:bg-neutral-800 rounded-2xl shadow p-6 border border-gray-100 dark:border-neutral-700 hover:shadow-lg transition">
+        <a href={import.meta.env.BASE_URL + 'features/'} class="block bg-white dark:bg-neutral-800 rounded-2xl shadow p-6 border border-gray-100 dark:border-neutral-700 hover:shadow-lg transition">
           <template x-if="lang==='es'">
             <div>
               <h2 class="text-xl font-semibold mb-2">Explora todas las funciones</h2>
@@ -108,7 +108,7 @@ import PermissionsBlock from '../components/PermissionsBlock.astro';
             </div>
           </template>
         </a>
-        <a href="/fun-phone-privacy-policy/faq/" class="block bg-white dark:bg-neutral-800 rounded-2xl shadow p-6 border border-gray-100 dark:border-neutral-700 hover:shadow-lg transition">
+        <a href={import.meta.env.BASE_URL + 'faq/'} class="block bg-white dark:bg-neutral-800 rounded-2xl shadow p-6 border border-gray-100 dark:border-neutral-700 hover:shadow-lg transition">
           <h2 class="text-xl font-semibold mb-2">FAQ</h2>
           <template x-if="lang==='es'">
             <p class="text-gray-700 dark:text-gray-300">Resuelve dudas frecuentes y configuración predeterminada.</p>

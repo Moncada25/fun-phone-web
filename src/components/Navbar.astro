@@ -1,19 +1,21 @@
 ---
 // Sticky navbar with scroll background change
+import { getImage } from 'astro:assets';
+import logo from '../../public/assets/logo.png';
 ---
 
 <nav id="navbar" class="fixed top-0 left-0 w-full z-30 transition-all backdrop-blur border-b border-transparent">
   <div class="max-w-4xl mx-auto flex items-center justify-between px-4 py-3">
-    <a href="/fun-phone-privacy-policy/" class="flex items-center gap-2 font-bold text-accent text-lg select-none">
-      <img src="/fun-phone-privacy-policy/assets/logo.png" alt="Fun Phone" class="w-8 h-8 min-w-8 min-h-8 max-w-8 max-h-8" style="image-rendering:auto;" draggable="false" />
+    <a href={import.meta.env.BASE_URL} class="flex items-center gap-2 font-bold text-accent text-lg select-none">
+      <img src={import.meta.env.BASE_URL + 'assets/logo.png'} alt="Fun Phone" class="w-8 h-8 min-w-8 min-h-8 max-w-8 max-h-8" style="image-rendering:auto;" draggable="false" />
       <span class="tracking-tight">Fun Phone</span>
     </a>
 
     <!-- Desktop navigation -->
     <div class="hidden md:flex items-center gap-4">
-      <a href="/fun-phone-privacy-policy/features/" class="hover:underline font-semibold" id="features-link">Funciones</a>
-      <a href="/fun-phone-privacy-policy/faq/" class="hover:underline font-semibold">FAQ</a>
-      <a href="/fun-phone-privacy-policy/privacy/" class="hover:underline font-semibold" id="privacy-link">Privacidad</a>
+      <a href={import.meta.env.BASE_URL + 'features/'} class="hover:underline font-semibold" id="features-link">Funciones</a>
+      <a href={import.meta.env.BASE_URL + 'faq/'} class="hover:underline font-semibold">FAQ</a>
+      <a href={import.meta.env.BASE_URL + 'privacy/'} class="hover:underline font-semibold" id="privacy-link">Privacidad</a>
       <a href="https://play.google.com/store/apps/details?id=com.bookverse.contacts" target="_blank" rel="noopener" class="bg-accent text-white px-3 py-1 rounded-lg font-semibold shadow hover:bg-blue-700 transition" id="download-link">Descargar</a>
       <!-- Switch idioma -->
       <button id="lang-toggle" class="ml-2 px-2 py-1 rounded focus:outline-accent border border-accent text-accent bg-white dark:bg-neutral-900 hover:bg-accent hover:text-white transition">
@@ -49,9 +51,9 @@
       </div>
       
       <nav class="flex-1 p-4 space-y-4">
-        <a href="/fun-phone-privacy-policy/features/" class="block px-4 py-2 rounded font-semibold text-accent hover:bg-accent hover:text-white transition menu-link" id="mobile-features-link">Funciones</a>
-        <a href="/fun-phone-privacy-policy/faq/" class="block px-4 py-2 rounded font-semibold text-accent hover:bg-accent hover:text-white transition menu-link">FAQ</a>
-        <a href="/fun-phone-privacy-policy/privacy/" class="block px-4 py-2 rounded font-semibold text-accent hover:bg-accent hover:text-white transition menu-link" id="mobile-privacy-link">Privacidad</a>
+        <a href={import.meta.env.BASE_URL + 'features/'} class="block px-4 py-2 rounded font-semibold text-accent hover:bg-accent hover:text-white transition menu-link" id="mobile-features-link">Funciones</a>
+        <a href={import.meta.env.BASE_URL + 'faq/'} class="block px-4 py-2 rounded font-semibold text-accent hover:bg-accent hover:text-white transition menu-link">FAQ</a>
+        <a href={import.meta.env.BASE_URL + 'privacy/'} class="block px-4 py-2 rounded font-semibold text-accent hover:bg-accent hover:text-white transition menu-link" id="mobile-privacy-link">Privacidad</a>
         
         <div class="border-t border-gray-100 dark:border-neutral-800 my-4"></div>
         
