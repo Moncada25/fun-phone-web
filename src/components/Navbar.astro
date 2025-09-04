@@ -71,6 +71,7 @@ import logo from '../../public/assets/logo.png';
 
 <script is:inline>
 // Configuración inicial
+(function() {
 let currentLang = localStorage.getItem('lang') || 'es';
 let isDark = localStorage.getItem('darkMode') === null ? true : localStorage.getItem('darkMode') === 'true';
 let menuOpen = false;
@@ -229,4 +230,5 @@ if (document.readyState === 'loading') {
 } else {
   init();
 }
+})(); // Cerrar función anónima
 </script>
