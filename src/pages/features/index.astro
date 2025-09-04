@@ -1,0 +1,82 @@
+---
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import FeatureBlock from '../../components/FeatureBlock.astro';
+---
+<!DOCTYPE html>
+<html lang="es" x-data="{lang:'es'}" x-on:lang.window="lang = $event.detail" class="">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Funciones – Fun Phone</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // Dark mode por defecto SIEMPRE (a menos que el usuario lo cambie manualmente)
+      if (localStorage.getItem('darkMode') === null) {
+        localStorage.setItem('darkMode', 'true');
+        document.documentElement.classList.add('dark');
+      } else if (localStorage.getItem('darkMode') === 'true') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    </script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  </head>
+  <body class="bg-gray-50 dark:bg-neutral-900 text-gray-900 dark:text-gray-100 min-h-screen">
+    <Navbar />
+    <main class="max-w-4xl mx-auto p-4 pt-24">
+      <h1 class="text-3xl md:text-4xl font-bold mb-8 text-accent text-center" x-show="lang==='es'">Funciones</h1>
+      <h1 class="text-3xl md:text-4xl font-bold mb-8 text-accent text-center" x-show="lang==='en'">Features</h1>
+      <!-- Español -->
+      <div class="grid md:grid-cols-2 gap-8" x-show="lang==='es'">
+  <FeatureBlock title="Marcador Avanzado y Llamadas" bullets={["Búsqueda inteligente T9 y marcado rápido.","Historial completo con filtros, favoritos y búsqueda.","Interfaz profesional: responder, retener, silenciar, altavoz y grabación.","Soporte dual-SIM y enrutamiento inteligente.","Compartir números por QR con un toque.","Marcado por voz y manos libres.","Sensor de proximidad para manejo fluido de llamadas."]}>
+    <svg slot="icon" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92V19a2 2 0 01-2.18 2A19.72 19.72 0 013 5.18 2 2 0 015 3h2a2 2 0 012 1.72c.13 1.23.37 2.44.7 3.62a2 2 0 01-.45 2.11l-1.27 1.27a16 16 0 007.07 7.07l1.27-1.27a2 2 0 012.11-.45c1.18.33 2.39.57 3.62.7A2 2 0 0122 16.92z"/></svg>
+  </FeatureBlock>
+  <FeatureBlock title="Gestión Poderosa de Contactos" bullets={["Agregar, editar, importar/exportar (JSON/vCard).","Escáner y generador de QR para compartir contactos.","Sincronización multi-cuenta (Google, local, otros).","Búsqueda y filtrado avanzados, organización flexible.","Gestión de fotos y respaldo de contactos."]}>
+    <svg slot="icon" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a4 4 0 00-3-3.87"/><path stroke-linecap="round" stroke-linejoin="round" d="M9 20H4v-2a4 4 0 013-3.87"/><circle cx="9" cy="7" r="4"/><circle cx="15" cy="7" r="4"/></svg>
+  </FeatureBlock>
+  <FeatureBlock title="Suite de Productividad" bullets={["Notas enriquecidas con formato y multimedia.","Listas de verificación interactivas.","Recordatorios inteligentes y notificaciones.","Grabación de voz y organización de audios.","Gestión de tareas con fechas y prioridades."]}>
+    <svg slot="icon" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h8M8 14h6"/></svg>
+  </FeatureBlock>
+  <FeatureBlock title="Centro de Entretenimiento" bullets={["Mini-juegos clásicos: Snake, Tic-Tac-Toe, Puzzle, Ahorcado, Memoria, Breakout.","Lienzo de pintura para creatividad y garabatos.","Juega y relájate en cualquier momento."]}>
+    <svg slot="icon" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
+  </FeatureBlock>
+  <FeatureBlock title="Personalización Total" bullets={["Temas dinámicos claro/oscuro con cambio automático.","Paleta de colores extensa y acentos personalizables.","Múltiples familias y tamaños de fuente.","Animaciones y transiciones configurables.","Interfaz completamente bilingüe."]}>
+    <svg slot="icon" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 3.487a2.25 2.25 0 113.182 3.182L7.5 19.213l-4.5 1.5 1.5-4.5 12.362-12.726z"/></svg>
+  </FeatureBlock>
+  <FeatureBlock title="Privacidad y Seguridad Primero" bullets={["Permisos granulares y explicaciones claras.","Datos almacenados localmente, nunca compartidos.","Control total sobre acceso y permisos.","Sin anuncios invasivos."]}>
+    <svg slot="icon" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect width="16" height="10" x="4" y="10" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M8 10V7a4 4 0 118 0v3"/></svg>
+  </FeatureBlock>
+  <FeatureBlock title="Extras y Accesibilidad" bullets={["Integración de calendario de festivos.","Reconocimiento de voz para accesibilidad.","Generación de QR para contactos y texto.","Personalización de retroalimentación háptica.","Gestión avanzada de notificaciones."]}>
+    <svg slot="icon" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+  </FeatureBlock>
+      </div>
+      <!-- English -->
+      <div class="grid md:grid-cols-2 gap-8" x-show="lang==='en'">
+        <FeatureBlock title="Advanced Dialer & Calls" bullets={["Smart T9 search and quick dial.","Full call history with advanced filters, favorites, and search.","Pro call interface: answer, hold, mute, speaker, record.","Dual-SIM support with smart routing.","Share numbers via QR with one tap.","Voice recognition for hands-free dialing.","Proximity sensor for smooth call handling."]}>
+          <svg slot="icon" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92V19a2 2 0 01-2.18 2A19.72 19.72 0 013 5.18 2 2 0 015 3h2a2 2 0 012 1.72c.13 1.23.37 2.44.7 3.62a2 2 0 01-.45 2.11l-1.27 1.27a16 16 0 007.07 7.07l1.27-1.27a2 2 0 012.11-.45c1.18.33 2.39.57 3.62.7A2 2 0 0122 16.92z"/></svg>
+        </FeatureBlock>
+        <FeatureBlock title="Powerful Contact Management" bullets={["Add, edit, import/export (JSON/vCard).","QR scanner and generator for instant sharing.","Multi-account sync (Google, local, others).","Advanced search, filtering, flexible organization.","Contact photos and backup management."]}>
+          <svg slot="icon" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a4 4 0 00-3-3.87"/><path stroke-linecap="round" stroke-linejoin="round" d="M9 20H4v-2a4 4 0 013-3.87"/><circle cx="9" cy="7" r="4"/><circle cx="15" cy="7" r="4"/></svg>
+        </FeatureBlock>
+        <FeatureBlock title="Integrated Productivity Suite" bullets={["Rich text notes with formatting and media.","Interactive checklists with progress tracking.","Smart reminders and notifications.","Voice recording with playback and organization.","Task management with due dates and priorities."]}>
+          <svg slot="icon" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h8M8 14h6"/></svg>
+        </FeatureBlock>
+        <FeatureBlock title="Entertainment Center" bullets={["Classic mini-games: Snake, Tic-Tac-Toe, Puzzle, Hangman, Memory, Breakout.","Drawing canvas for creativity and doodles.","Play and relax anytime."]}>
+          <svg slot="icon" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
+        </FeatureBlock>
+        <FeatureBlock title="Total Customization" bullets={["Dynamic light/dark themes with auto-switch.","Extensive color palette and accent customization.","Multiple font families and sizes.","Configurable animations and transitions.","Fully bilingual interface."]}>
+          <svg slot="icon" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 3.487a2.25 2.25 0 113.182 3.182L7.5 19.213l-4.5 1.5 1.5-4.5 12.362-12.726z"/></svg>
+        </FeatureBlock>
+        <FeatureBlock title="Privacy & Security First" bullets={["Granular permissions with clear explanations.","Local data storage, never shared.","Full control over access and permissions.","No invasive ads."]}>
+          <svg slot="icon" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect width="16" height="10" x="4" y="10" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M8 10V7a4 4 0 118 0v3"/></svg>
+        </FeatureBlock>
+        <FeatureBlock title="Extras & Accessibility" bullets={["Public holiday calendar integration.","Voice recognition for accessibility.","QR generation for contacts and text.","Customizable haptic feedback.","Advanced notification management."]}>
+          <svg slot="icon" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        </FeatureBlock>
+      </div>
+    </main>
+  <Footer />
+  </body>
+</html>

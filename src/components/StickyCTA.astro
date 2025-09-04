@@ -1,0 +1,36 @@
+---
+// Sticky CTA for mobile
+---
+<div class="fixed bottom-4 left-0 w-full flex justify-center z-40 md:hidden">
+  <a href="https://play.google.com/store/apps/details?id=com.bookverse.contacts" target="_blank" rel="noopener" class="bg-accent text-white px-8 py-3 rounded-2xl shadow-xl font-bold text-lg animate-bounce hover:bg-blue-700 transition" id="sticky-cta">
+    Instalar en Google Play
+  </a>
+</div>
+
+<script>
+// Configuración inicial
+let currentLang = localStorage.getItem('lang') || 'es';
+
+// Referencia DOM
+const stickyCTA = document.getElementById('sticky-cta');
+
+// Actualizar texto según idioma
+function updateCTAText() {
+  if (stickyCTA) {
+    stickyCTA.textContent = currentLang === 'es' ? 'Instalar desde Google Play' : 'Install from Google Play';
+  }
+}
+
+// Escuchar cambios de idioma
+window.addEventListener('lang', (e) => {
+  currentLang = e.detail;
+  updateCTAText();
+});
+
+// Inicializar texto
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', updateCTAText);
+} else {
+  updateCTAText();
+}
+</script>

@@ -1,0 +1,101 @@
+---
+// Carrusel de screenshots simple y funcional
+const screenshots = [
+  { src: '/fun-phone-privacy-policy/assets/screenshots/contacts.png', alt: 'Fun Phone - Contacts' },
+  { src: '/fun-phone-privacy-policy/assets/screenshots/details.png', alt: 'Fun Phone - Details' },
+  { src: '/fun-phone-privacy-policy/assets/screenshots/dialer.png', alt: 'Fun Phone - Dialer' },
+  { src: '/fun-phone-privacy-policy/assets/screenshots/extras.png', alt: 'Fun Phone - Extras' },
+  { src: '/fun-phone-privacy-policy/assets/screenshots/favorites.png', alt: 'Fun Phone - Favorites' },
+  { src: '/fun-phone-privacy-policy/assets/screenshots/history.png', alt: 'Fun Phone - History' },
+  { src: '/fun-phone-privacy-policy/assets/screenshots/qr.png', alt: 'Fun Phone - QR' },
+  { src: '/fun-phone-privacy-policy/assets/screenshots/settings.png', alt: 'Fun Phone - Settings' }
+];
+---
+<div class="relative w-full max-w-2xl mx-auto">
+  <div class="overflow-hidden rounded-2xl shadow-lg flex justify-center items-center">
+    <img id="carousel-image" src={screenshots[0]?.src} alt={screenshots[0]?.alt} class="w-auto max-h-64 cursor-zoom-in rounded-xl transition duration-500" loading="lazy" />
+  </div>
+  <div id="lightbox-modal" class="fixed inset-0 bg-black/80 flex items-center justify-center z-50 hidden">
+    <img id="lightbox-img" src="" alt="" class="max-h-[90vh] max-w-[90vw] rounded-xl shadow-2xl" />
+  </div>
+  <div class="flex justify-center gap-2 mt-3">
+    {screenshots.map((shot, idx) => (
+      <button type="button" class="w-3 h-3 rounded-full bg-gray-300 dark:bg-neutral-700" data-idx={idx} aria-label={`Go to screenshot ${idx+1}`}></button>
+    ))}
+  </div>
+  <button id="carousel-prev" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-neutral-800/80 rounded-full p-2 shadow hover:bg-accent hover:text-white transition" aria-label="Anterior" style="z-index:2">&#8592;</button>
+  <button id="carousel-next" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-neutral-800/80 rounded-full p-2 shadow hover:bg-accent hover:text-white transition" aria-label="Siguiente" style="z-index:2">&#8594;</button>
+  <script is:inline>
+    (function() {
+      const screenshots = [
+        { src: '/fun-phone-privacy-policy/assets/screenshots/contacts.png', alt: 'Fun Phone - Contacts' },
+        { src: '/fun-phone-privacy-policy/assets/screenshots/details.png', alt: 'Fun Phone - Details' },
+        { src: '/fun-phone-privacy-policy/assets/screenshots/dialer.png', alt: 'Fun Phone - Dialer' },
+        { src: '/fun-phone-privacy-policy/assets/screenshots/extras.png', alt: 'Fun Phone - Extras' },
+        { src: '/fun-phone-privacy-policy/assets/screenshots/favorites.png', alt: 'Fun Phone - Favorites' },
+        { src: '/fun-phone-privacy-policy/assets/screenshots/history.png', alt: 'Fun Phone - History' },
+        { src: '/fun-phone-privacy-policy/assets/screenshots/qr.png', alt: 'Fun Phone - QR' },
+        { src: '/fun-phone-privacy-policy/assets/screenshots/settings.png', alt: 'Fun Phone - Settings' }
+      ];
+      
+      let i = 0;
+      let auto;
+
+      function init() {
+        const img = document.getElementById('carousel-image');
+        const dots = Array.from(document.querySelectorAll('[data-idx]'));
+        const prev = document.getElementById('carousel-prev');
+        const next = document.getElementById('carousel-next');
+        const lightbox = document.getElementById('lightbox-modal');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        if (!img || !dots.length || !prev || !next) return;
+
+        function show(idx) {
+          i = idx;
+          img.src = screenshots[i].src;
+          img.alt = screenshots[i].alt;
+          dots.forEach((d, j) => {
+            if (j === i) {
+              d.classList.add('bg-accent');
+              d.classList.remove('bg-gray-300', 'dark:bg-neutral-700');
+            } else {
+              d.classList.remove('bg-accent');
+              d.classList.add('bg-gray-300');
+            }
+          });
+        }
+
+        dots.forEach((d, idx) => d.addEventListener('click', () => show(idx)));
+        prev.addEventListener('click', () => show((i-1+screenshots.length)%screenshots.length));
+        next.addEventListener('click', () => show((i+1)%screenshots.length));
+
+        // Auto advance
+        auto = setInterval(() => show((i+1)%screenshots.length), 4000);
+        img.addEventListener('mouseenter', () => clearInterval(auto));
+        img.addEventListener('mouseleave', () => auto = setInterval(() => show((i+1)%screenshots.length), 4000));
+
+        // Lightbox
+        img.addEventListener('click', () => {
+          lightboxImg.src = screenshots[i].src;
+          lightboxImg.alt = screenshots[i].alt;
+          lightbox.classList.remove('hidden');
+        });
+        
+        lightbox.addEventListener('click', () => {
+          lightbox.classList.add('hidden');
+          lightboxImg.src = '';
+        });
+
+        // Initialize
+        show(0);
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+  </script>
+</div>
