@@ -1,0 +1,17 @@
+{
+  "name": "fun-phone-privacy-policy",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+  "astro": "^4.0.0",
+  "@astrojs/tailwind": "^5.0.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.0"
+  }
+}
