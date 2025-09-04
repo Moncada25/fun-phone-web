@@ -4,12 +4,23 @@ import Footer from '../../components/Footer.astro';
 import FeatureBlock from '../../components/FeatureBlock.astro';
 ---
 <!DOCTYPE html>
-<html lang="es" x-data="{lang:'es'}" x-on:lang.window="lang = $event.detail">
+<html lang="es" x-data="{lang:'es'}" x-on:lang.window="lang = $event.detail" class="">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Funciones – Fun Phone</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // Dark mode por defecto SIEMPRE (a menos que el usuario lo cambie manualmente)
+      if (localStorage.getItem('darkMode') === null) {
+        localStorage.setItem('darkMode', 'true');
+        document.documentElement.classList.add('dark');
+      } else if (localStorage.getItem('darkMode') === 'true') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    </script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
   </head>
   <body class="bg-gray-50 dark:bg-neutral-900 text-gray-900 dark:text-gray-100 min-h-screen">
@@ -38,6 +49,6 @@ import FeatureBlock from '../../components/FeatureBlock.astro';
         <FeatureBlock icon="<svg fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24'><rect x='4' y='4' width='16' height='16' rx='2'/><path stroke-linecap='round' stroke-linejoin='round' d='M8 8h8v8H8z'/></svg>" title="Extras & Accessibility" bullets={["Public holiday calendar integration.","Voice recognition for accessibility.","QR generation for contacts and text.","Customizable haptic feedback.","Advanced notification management."]} />
       </div>
     </main>
-    <Footer />
+  <Footer />
   </body>
 </html>

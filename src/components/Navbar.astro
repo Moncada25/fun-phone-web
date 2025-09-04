@@ -5,7 +5,7 @@
 <nav x-data="{
   scrolled: false,
   lang: localStorage.getItem('lang') || 'es',
-  dark: (localStorage.getItem('darkMode') === 'true') || (window.matchMedia('(prefers-color-scheme: dark)').matches),
+  dark: (localStorage.getItem('darkMode') === null) ? true : (localStorage.getItem('darkMode') === 'true'),
   setLang(l) { this.lang = l; localStorage.setItem('lang', l); window.dispatchEvent(new CustomEvent('lang', { detail: l })); },
   toggleDark() { this.dark = !this.dark; localStorage.setItem('darkMode', this.dark); document.documentElement.classList.toggle('dark', this.dark); }
 }"
