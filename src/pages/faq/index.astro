@@ -2,32 +2,140 @@
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
 import FAQBlock from '../../components/FAQBlock.astro';
+
+const siteUrl = 'https://moncada25.github.io/fun-phone-web/faq/';
+const faqs = [
+  {
+    question: 'How do I set it as my default phone app?',
+    answer: 'Go to Settings → Default apps → Phone and select Fun Phone.'
+  },
+  {
+    question: 'What games and mini-tasks are included?',
+    answer: 'Fun Phone includes classic mini-games like Snake, Tic-Tac-Toe, Puzzle, Hangman, Memory, and Breakout.'
+  },
+  {
+    question: 'Can I take notes or reminders during calls?',
+    answer: 'Yes, you can create quick notes and reminders from the Productivity Suite while you are on a call.'
+  },
+  {
+    question: 'How can I customise the app’s appearance?',
+    answer: 'You can tweak colours, themes, wallpapers, and automatic light/dark mode from Settings → Customisation.'
+  },
+  {
+    question: 'Does the app have ads?',
+    answer: 'No. Fun Phone is ad-free to keep your experience focused and distraction-free.'
+  }
+];
+
+const faqSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.answer
+    }
+  }))
+});
 ---
 <!DOCTYPE html>
-<html lang="es" x-data="{lang:'es'}" x-on:lang.window="lang = $event.detail" class="">
+<html lang="es" x-data="pageState()" x-on:lang.window="updateLang($event.detail)" x-bind:lang="lang" class="scroll-smooth">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>FAQ – Fun Phone</title>
+    <title>FAQ Fun Phone | Configuración, privacidad y soporte</title>
+    <meta name="description" content="Preguntas frecuentes sobre Fun Phone: configuración predeterminada, privacidad, permisos, juegos y soporte técnico." />
+    <link rel="canonical" href={siteUrl} />
+    <link rel="alternate" href={siteUrl} hrefLang="es" />
+    <link rel="alternate" href={siteUrl} hrefLang="en" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Fun Phone" />
+    <meta property="og:title" content="FAQ Fun Phone" />
+    <meta property="og:description" content="Encuentra respuestas sobre configuración, privacidad y soporte de Fun Phone." />
+    <meta property="og:url" content={siteUrl} />
+    <meta property="og:image" content={import.meta.env.BASE_URL + 'assets/screenshots/dialer.png'} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="FAQ Fun Phone" />
+    <meta name="twitter:description" content="Resuelve dudas de Fun Phone sobre llamadas, contactos y privacidad." />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <script type="application/ld+json">{faqSchema}</script>
     <script>
-      // Dark mode por defecto SIEMPRE (a menos que el usuario lo cambie manualmente)
-      if (localStorage.getItem('darkMode') === null) {
-        localStorage.setItem('darkMode', 'true');
-      }
-      
-      if (localStorage.getItem('darkMode') === 'true') {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const savedTheme = localStorage.getItem('darkMode');
+      const isDark = savedTheme !== null ? savedTheme === 'true' : prefersDark;
+      document.documentElement.classList.toggle('dark', isDark);
+      document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';
     </script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
   </head>
-  <body class="bg-gray-50 dark:bg-neutral-900 text-gray-900 dark:text-gray-100 min-h-screen">
+  <body class="min-h-screen bg-gradient-to-br from-white via-sky-50/40 to-white text-neutral-900 dark:from-neutral-950 dark:via-neutral-950/50 dark:to-neutral-950">
     <Navbar />
-    <main class="max-w-3xl mx-auto p-4 pt-24">
+    <main id="main-content" role="main" class="mx-auto flex w-full max-w-5xl flex-col gap-12 px-4 pt-28 pb-20">
+      <header class="rounded-4xl border border-neutral-200 bg-white/80 p-10 text-center shadow-xl shadow-accent/10 backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/80">
+        <p class="text-xs font-semibold uppercase tracking-[0.3em] text-accent" x-show="lang==='es'">Ayuda al instante</p>
+        <p class="text-xs font-semibold uppercase tracking-[0.3em] text-accent" x-show="lang==='en'">Instant help</p>
+        <h1 class="mt-4 text-4xl font-black leading-tight tracking-tight text-neutral-900 dark:text-neutral-50">
+          <span x-show="lang==='es'">Preguntas frecuentes sobre Fun Phone</span>
+          <span x-show="lang==='en'">Fun Phone frequently asked questions</span>
+        </h1>
+        <p class="mx-auto mt-4 max-w-3xl text-lg text-neutral-600 dark:text-neutral-300" x-show="lang==='es'">
+          Configura Fun Phone como tu app predeterminada, gestiona permisos y descubre tips para sacarle todo el provecho.
+        </p>
+        <p class="mx-auto mt-4 max-w-3xl text-lg text-neutral-600 dark:text-neutral-300" x-show="lang==='en'">
+          Set Fun Phone as your default app, manage permissions, and learn quick tips to get the best out of it.
+        </p>
+      </header>
+
+      <section class="grid gap-6 rounded-4xl border border-neutral-200 bg-white/80 p-8 shadow-lg shadow-accent/5 backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/70 md:grid-cols-3">
+        <article class="flex flex-col gap-3 rounded-3xl border border-neutral-200 bg-white/80 p-5 text-sm text-neutral-600 shadow-sm dark:border-neutral-700 dark:bg-neutral-900/60 dark:text-neutral-300">
+          <h2 class="text-base font-semibold text-neutral-900 dark:text-neutral-50" x-show="lang==='es'">Primeros pasos</h2>
+          <h2 class="text-base font-semibold text-neutral-900 dark:text-neutral-50" x-show="lang==='en'">Getting started</h2>
+          <p x-show="lang==='es'">Configura Fun Phone en Ajustes → Apps predeterminadas. Asegúrate de otorgar permisos de Teléfono y Contactos.</p>
+          <p x-show="lang==='en'">Set Fun Phone from Settings → Default apps. Grant Phone and Contacts permissions to unlock every feature.</p>
+        </article>
+        <article class="flex flex-col gap-3 rounded-3xl border border-neutral-200 bg-white/80 p-5 text-sm text-neutral-600 shadow-sm dark:border-neutral-700 dark:bg-neutral-900/60 dark:text-neutral-300">
+          <h2 class="text-base font-semibold text-neutral-900 dark:text-neutral-50" x-show="lang==='es'">Soporte rápido</h2>
+          <h2 class="text-base font-semibold text-neutral-900 dark:text-neutral-50" x-show="lang==='en'">Quick support</h2>
+          <p x-show="lang==='es'">Escríbenos a <a href="mailto:santiago.moncada.dev@gmail.com" class="text-accent underline">santiago.moncada.dev@gmail.com</a> o desde la app → Contacto.</p>
+          <p x-show="lang==='en'">Reach us at <a href="mailto:santiago.moncada.dev@gmail.com" class="text-accent underline">santiago.moncada.dev@gmail.com</a> or through the in-app Contact section.</p>
+        </article>
+        <article class="flex flex-col gap-3 rounded-3xl border border-neutral-200 bg-white/80 p-5 text-sm text-neutral-600 shadow-sm dark:border-neutral-700 dark:bg-neutral-900/60 dark:text-neutral-300">
+          <h2 class="text-base font-semibold text-neutral-900 dark:text-neutral-50" x-show="lang==='es'">¿Cambiaste de idioma?</h2>
+          <h2 class="text-base font-semibold text-neutral-900 dark:text-neutral-50" x-show="lang==='en'">Switched language?</h2>
+          <p x-show="lang==='es'">Fun Phone detecta tu preferencia, pero puedes cambiarla en la barra superior o desde Ajustes → Idioma.</p>
+          <p x-show="lang==='en'">Fun Phone picks your preferred language, but you can switch anytime from the top bar or Settings → Language.</p>
+        </article>
+      </section>
+
       <FAQBlock />
+
+      <section class="rounded-4xl border border-neutral-200 bg-white/80 p-8 shadow-lg shadow-accent/5 backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/70">
+        <h2 class="text-2xl font-bold text-neutral-900 dark:text-neutral-50" x-show="lang==='es'">¿No encuentras tu respuesta?</h2>
+        <h2 class="text-2xl font-bold text-neutral-900 dark:text-neutral-50" x-show="lang==='en'">Need more help?</h2>
+        <p class="mt-2 text-neutral-600 dark:text-neutral-300" x-show="lang==='es'">Consulta la <a href={import.meta.env.BASE_URL + 'privacy/'} class="text-accent underline">política de privacidad</a> o envíanos un correo detallando tu dispositivo y versión de Android.</p>
+        <p class="mt-2 text-neutral-600 dark:text-neutral-300" x-show="lang==='en'">Check the <a href={import.meta.env.BASE_URL + 'privacy/'} class="text-accent underline">privacy policy</a> or email us with your device and Android version.</p>
+      </section>
     </main>
-  <Footer />
+    <Footer />
+
+    <script is:inline>
+      function pageState() {
+        return {
+          lang: localStorage.getItem('lang') || (navigator.language?.startsWith('es') ? 'es' : 'en'),
+          init() {
+            document.documentElement.setAttribute('data-lang', this.lang);
+          },
+          updateLang(value) {
+            if (!value) return;
+            this.lang = value;
+            document.documentElement.setAttribute('data-lang', this.lang);
+          }
+        };
+      }
+    </script>
   </body>
 </html>

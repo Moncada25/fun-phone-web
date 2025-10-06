@@ -1,12 +1,17 @@
 ---
-// Privacy/Data Safety badge
+// Privacy/Data Safety badge accesible
+const statements = {
+  es: 'Ni se comparten ni se recopilan datos',
+  en: 'No data shared · No data collected'
+};
 ---
-<span class="inline-flex items-center bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 px-3 py-1 rounded-full text-sm font-medium">
-  <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+<span class="inline-flex items-center gap-2 rounded-full border border-green-600/30 bg-green-50 px-4 py-1.5 text-sm font-semibold text-green-700 shadow-sm dark:border-green-400/20 dark:bg-green-900/30 dark:text-green-200" role="status">
+  <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+  <span class="text-xs uppercase tracking-wide text-green-600/80 dark:text-green-300">Data Safety</span>
   <template x-if="lang === 'es'">
-    <span>Ni se comparten ni se recopilan datos</span>
+    <span>{statements.es}</span>
   </template>
   <template x-if="lang === 'en'">
-    <span>No data shared / No data collected</span>
+    <span>{statements.en}</span>
   </template>
 </span>

@@ -1,23 +1,58 @@
 ---
-// Bloque de permisos transparentes bilingüe
+// Bloque de permisos presentado como acordeón accesible
 ---
-<section class="bg-white dark:bg-neutral-800 rounded-2xl shadow-md p-6 mb-8 border border-gray-100 dark:border-neutral-700">
-  <h3 class="text-xl font-semibold text-accent mb-2" x-show="lang==='es'">Permisos transparentes</h3>
-  <h3 class="text-xl font-semibold text-accent mb-2" x-show="lang==='en'">Transparent permissions</h3>
-  <ul class="list-disc pl-6 text-gray-700 dark:text-gray-200" x-show="lang==='es'">
-    <li><b>Teléfono:</b> para realizar y recibir llamadas.</li>
-    <li><b>Contactos:</b> para mostrar, crear y editar tu agenda.</li>
-    <li><b>Historial de llamadas:</b> para mostrar y gestionar tus llamadas recientes.</li>
-    <li><b>Micrófono:</b> solo si usas grabación de llamadas (según región y permisos).</li>
-    <li><b>Cámara:</b> solo si añades fotos a contactos.</li>
-    <li>Todos los permisos son opcionales y puedes revocarlos en ajustes.</li>
-  </ul>
-  <ul class="list-disc pl-6 text-gray-700 dark:text-gray-200" x-show="lang==='en'">
-    <li><b>Phone:</b> to place and receive calls.</li>
-    <li><b>Contacts:</b> to display, create and edit your address book.</li>
-    <li><b>Call log:</b> to show and manage your recent calls.</li>
-    <li><b>Microphone:</b> only if you use call recording (region and permission dependent).</li>
-    <li><b>Camera:</b> only if you add photos to contacts.</li>
-    <li>All permissions are optional and can be revoked in settings.</li>
-  </ul>
+<section class="rounded-3xl border border-neutral-200 bg-white/80 p-6 shadow-sm backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/70">
+  <header class="mb-4 flex items-center gap-3">
+    <span class="flex h-10 w-10 items-center justify-center rounded-2xl bg-accent/15 text-accent"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M13 16h-1v-4h-1m1-4h.01M12 3a9 9 0 100 18 9 9 0 000-18z"/></svg></span>
+    <div>
+      <h3 class="text-xl font-semibold text-neutral-900 dark:text-neutral-50" x-show="lang==='es'">Permisos transparentes</h3>
+      <h3 class="text-xl font-semibold text-neutral-900 dark:text-neutral-50" x-show="lang==='en'">Transparent permissions</h3>
+      <p class="text-sm text-neutral-500 dark:text-neutral-400" x-show="lang==='es'">Solo solicitamos lo necesario. Puedes revocar todo desde Ajustes.</p>
+      <p class="text-sm text-neutral-500 dark:text-neutral-400" x-show="lang==='en'">Only what’s essential. You can revoke everything in Settings.</p>
+    </div>
+  </header>
+
+  <div class="divide-y divide-neutral-200 border border-neutral-200/60 rounded-2xl dark:divide-neutral-800 dark:border-neutral-800" role="list">
+    <details class="group" open>
+      <summary class="flex cursor-pointer items-center justify-between gap-4 px-4 py-3 text-left text-sm font-semibold text-neutral-800 transition hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:text-neutral-100">
+        <span x-show="lang==='es'">Teléfono y llamadas</span>
+        <span x-show="lang==='en'">Phone & calls</span>
+        <svg class="h-4 w-4 transition group-open:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+      </summary>
+      <div class="space-y-2 px-4 pb-4 text-sm text-neutral-600 dark:text-neutral-300">
+        <p x-show="lang==='es'"><b>CALL_PHONE</b>, <b>ANSWER_PHONE_CALLS</b> — realizar y contestar llamadas desde la app.</p>
+        <p x-show="lang==='en'"><b>CALL_PHONE</b>, <b>ANSWER_PHONE_CALLS</b> — place and answer calls inside the app.</p>
+        <p x-show="lang==='es'"><b>READ/WRITE_CALL_LOG</b> — mostrar y gestionar historial cuando Fun Phone es predeterminada.</p>
+        <p x-show="lang==='en'"><b>READ/WRITE_CALL_LOG</b> — display and manage history when Fun Phone is default.</p>
+      </div>
+    </details>
+    <details class="group">
+      <summary class="flex cursor-pointer items-center justify-between gap-4 px-4 py-3 text-left text-sm font-semibold text-neutral-800 transition hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:text-neutral-100">
+        <span x-show="lang==='es'">Contactos y agenda</span>
+        <span x-show="lang==='en'">Contacts & address book</span>
+        <svg class="h-4 w-4 transition group-open:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+      </summary>
+      <div class="space-y-2 px-4 pb-4 text-sm text-neutral-600 dark:text-neutral-300">
+        <p x-show="lang==='es'"><b>READ/WRITE_CONTACTS</b> — mostrar, crear y editar tus contactos incluyendo notas y fotos.</p>
+        <p x-show="lang==='en'"><b>READ/WRITE_CONTACTS</b> — display, create, and edit contacts including notes and photos.</p>
+        <p x-show="lang==='es'">Escáner de QR y sincronización multi-cuenta para mantener tu agenda al día.</p>
+        <p x-show="lang==='en'">QR scanner and multi-account sync keep your address book updated.</p>
+      </div>
+    </details>
+    <details class="group">
+      <summary class="flex cursor-pointer items-center justify-between gap-4 px-4 py-3 text-left text-sm font-semibold text-neutral-800 transition hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:text-neutral-100">
+        <span x-show="lang==='es'">Extras opcionales</span>
+        <span x-show="lang==='en'">Optional extras</span>
+        <svg class="h-4 w-4 transition group-open:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+      </summary>
+      <div class="space-y-2 px-4 pb-4 text-sm text-neutral-600 dark:text-neutral-300">
+        <p x-show="lang==='es'"><b>Microphone</b> — solo si usas grabación de llamadas o notas de voz.</p>
+        <p x-show="lang==='en'"><b>Microphone</b> — only if you enable call recording or voice notes.</p>
+        <p x-show="lang==='es'"><b>Camera</b> — únicamente para añadir fotos o escanear QR.</p>
+        <p x-show="lang==='en'"><b>Camera</b> — only for adding photos or scanning QR codes.</p>
+        <p x-show="lang==='es'">Todo es opcional y reversible en Ajustes &rarr; Apps &rarr; Fun Phone.</p>
+        <p x-show="lang==='en'">Everything is optional and reversible in Settings → Apps → Fun Phone.</p>
+      </div>
+    </details>
+  </div>
 </section>

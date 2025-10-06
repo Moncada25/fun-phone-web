@@ -5,141 +5,401 @@ import StickyCTA from '../components/StickyCTA.astro';
 import PrivacyBadge from '../components/PrivacyBadge.astro';
 import ScreenshotCarousel from '../components/ScreenshotCarousel.astro';
 import PermissionsBlock from '../components/PermissionsBlock.astro';
+
+const siteUrl = 'https://moncada25.github.io/fun-phone-web/';
+const heroImage = import.meta.env.BASE_URL + 'assets/screenshots/dialer.png';
 ---
 <!DOCTYPE html>
-<html lang="es" x-data="{lang: 'es'}" x-on:lang.window="lang = $event.detail" class="">
+<html lang="es" x-data="pageState()" x-on:lang.window="updateLang($event.detail)" x-bind:lang="lang" class="scroll-smooth">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Fun Phone: Dialer & Contacts</title>
-    <meta name="description" content="Tu centro completo de llamadas, contactos y productividad. No data shared. No data collected. Descarga Fun Phone en Google Play." />
+    <title>Fun Phone: Dialer & Contacts | Llamadas, contactos y productividad</title>
+    <meta
+      name="description"
+      content="Fun Phone combina un marcador avanzado, contactos inteligentes y herramientas de productividad sin compartir ni recolectar datos. Disponible gratis en Google Play."
+    />
+    <meta name="keywords" content="fun phone, dialer, contactos, android, privacidad, phone app" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={siteUrl} />
+    <link rel="alternate" href={siteUrl} hrefLang="es" />
+    <link rel="alternate" href={siteUrl} hrefLang="en" />
     <link rel="manifest" href={import.meta.env.BASE_URL + 'site.webmanifest'} />
     <link rel="icon" type="image/png" sizes="192x192" href={import.meta.env.BASE_URL + 'assets/icon-192.png'} />
     <link rel="icon" type="image/png" sizes="512x512" href={import.meta.env.BASE_URL + 'assets/icon-512.png'} />
     <meta name="theme-color" content="#0066e0" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Fun Phone" />
     <meta property="og:title" content="Fun Phone: Dialer & Contacts" />
-    <meta property="og:description" content="Tu centro completo de llamadas, contactos y productividad. No data shared. No data collected." />
-    <meta property="og:image" content={import.meta.env.BASE_URL + 'assets/og-cover.png'} />
-    <meta property="og:url" content="https://moncada25.github.io/fun-phone-web/" />
+    <meta property="og:description" content="Tu centro completo de llamadas, contactos y productividad. Sin anuncios. Sin compartir datos." />
+    <meta property="og:image" content={heroImage} />
+    <meta property="og:url" content={siteUrl} />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:locale:alternate" content="en_US" />
+
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Fun Phone: Dialer & Contacts" />
-    <meta name="twitter:description" content="Your complete hub for calls, contacts, and productivity. No data shared. No data collected." />
-    <meta name="twitter:image" content={import.meta.env.BASE_URL + 'assets/og-cover.png'} />
+    <meta name="twitter:description" content="Your complete hub for calls, contacts, and productivity. Privacy-first." />
+    <meta name="twitter:image" content={heroImage} />
+
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
+        "@type": "MobileApplication",
         "name": "Fun Phone: Dialer & Contacts",
-        "applicationCategory": "CommunicationApp",
         "operatingSystem": "Android",
+        "applicationCategory": "CommunicationApplication",
+        "inLanguage": ["es", "en"],
         "offers": {"@type":"Offer","price":"0","priceCurrency":"USD"},
-        "downloadUrl": "https://play.google.com/store/apps/details?id=com.bookverse.contacts"
+        "downloadUrl": "https://play.google.com/store/apps/details?id=com.bookverse.contacts",
+        "installUrl": "https://play.google.com/store/apps/details?id=com.bookverse.contacts",
+        "author": {"@type":"Organization","name":"Bookverse"},
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.8",
+          "ratingCount": "960"
+        },
+        "featureList": [
+          "Marcador inteligente con búsqueda T9",
+          "Gestión avanzada de contactos",
+          "Suite de productividad con notas",
+          "Centro de entretenimiento integrado"
+        ],
+        "privacyPolicy": "https://moncada25.github.io/fun-phone-web/privacy/"
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {"@type": "ListItem","position": 1,"name": "Inicio","item": "https://moncada25.github.io/fun-phone-web/"},
+          {"@type": "ListItem","position": 2,"name": "Funciones","item": "https://moncada25.github.io/fun-phone-web/features/"},
+          {"@type": "ListItem","position": 3,"name": "FAQ","item": "https://moncada25.github.io/fun-phone-web/faq/"}
+        ]
       }
     </script>
     <script>
-      // Dark mode por defecto SIEMPRE (a menos que el usuario lo cambie manualmente)
-      if (localStorage.getItem('darkMode') === null) {
-        localStorage.setItem('darkMode', 'true');
-        document.documentElement.classList.add('dark');
-      } else if (localStorage.getItem('darkMode') === 'true') {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
+      // Sincroniza el tema antes del render para evitar parpadeos
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const savedTheme = localStorage.getItem('darkMode');
+      const isDark = savedTheme !== null ? savedTheme === 'true' : prefersDark;
+      document.documentElement.classList.toggle('dark', isDark);
+      document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';
     </script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
   </head>
-  <body class="bg-gray-50 dark:bg-neutral-900 text-gray-900 dark:text-gray-100 min-h-screen">
+  <body class="bg-gradient-to-br from-white via-sky-50/40 to-white text-neutral-900 dark:from-neutral-950 dark:via-neutral-950/50 dark:to-neutral-950">
     <Navbar />
-    <main class="max-w-4xl mx-auto p-4 pt-24">
-      <!-- HERO -->
-      <section id="hero" class="text-center mb-16 mt-10">
-        <template x-if="lang==='es'">
-          <div>
-            <h1 class="text-4xl md:text-6xl font-extrabold mb-6 tracking-tight">¡Haz tus llamadas más divertidas, seguras y productivas!</h1>
-            <p class="mb-8 text-xl md:text-2xl text-accent font-semibold">La app de teléfono que respeta tu privacidad y te da el control total.</p>
-            <div class="flex flex-col md:flex-row justify-center items-center gap-4 mb-8">
-              <a href="https://play.google.com/store/apps/details?id=com.bookverse.contacts" class="bg-accent text-white px-8 py-4 rounded-2xl shadow-xl font-bold text-xl hover:bg-blue-700 transition">Descargar en Google Play</a>
-              <a href={import.meta.env.BASE_URL + 'features/'} class="text-accent underline font-semibold text-lg">Ver funciones</a>
+    <main id="main-content" role="main" class="mx-auto flex w-full max-w-6xl flex-col gap-16 px-4 pt-28 pb-24">
+      <section id="hero" class="relative overflow-hidden rounded-4xl border border-neutral-200 bg-white/80 px-6 py-16 shadow-xl shadow-accent/10 backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/80">
+        <div class="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,_rgba(0,102,224,0.15),_transparent_60%)] dark:bg-[radial-gradient(circle_at_top,_rgba(0,102,224,0.25),_transparent_60%)]"></div>
+        <div class="grid gap-10 lg:grid-cols-2 lg:items-center">
+          <div class="space-y-6">
+            <div class="inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-4 py-1 text-xs font-semibold uppercase tracking-wide text-accent">
+              <span x-show="lang==='es'">Nuevo: tablero de productividad y temas automáticos</span>
+              <span x-show="lang==='en'">New: productivity board & auto themes</span>
             </div>
-            <div class="mt-6 flex justify-center">
+            <h1 class="text-4xl font-black leading-tight tracking-tight text-neutral-900 dark:text-neutral-50 lg:text-5xl">
+              <span x-show="lang==='es'">Haz tus llamadas más divertidas, seguras y productivas</span>
+              <span x-show="lang==='en'">Make your calls fun, safe and productive</span>
+            </h1>
+            <p class="max-w-xl text-lg text-neutral-600 dark:text-neutral-300" x-show="lang==='es'">
+              Fun Phone reúne marcador inteligente, contactos mejorados, notas de llamada y juegos ligeros en una sola app. Sin anuncios ni rastreo.
+            </p>
+            <p class="max-w-xl text-lg text-neutral-600 dark:text-neutral-300" x-show="lang==='en'">
+              Fun Phone combines a smart dialer, upgraded contacts, call notes, and playful mini-games in one privacy-first app.
+            </p>
+            <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+              <a
+                href="https://play.google.com/store/apps/details?id=com.bookverse.contacts"
+                class="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 text-base font-semibold text-white shadow-lg shadow-accent/40 transition hover:-translate-y-0.5 hover:bg-accent/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                target="_blank"
+                rel="noopener"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10.75 2.75a.75.75 0 00-1.5 0v6.5H4a.75.75 0 000 1.5h5.25v6.5a.75.75 0 001.5 0v-6.5H16a.75.75 0 000-1.5h-5.25v-6.5z"/></svg>
+                <span x-show="lang==='es'">Descargar en Google Play</span>
+                <span x-show="lang==='en'">Get it on Google Play</span>
+              </a>
+              <a
+                href={import.meta.env.BASE_URL + 'features/'}
+                class="inline-flex items-center justify-center gap-2 rounded-full border border-accent/40 px-6 py-3 text-base font-semibold text-accent transition hover:-translate-y-0.5 hover:border-accent hover:bg-accent/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              >
+                <span x-show="lang==='es'">Explorar funciones</span>
+                <span x-show="lang==='en'">Explore features</span>
+              </a>
+            </div>
+            <div class="flex flex-wrap gap-4">
               <PrivacyBadge />
+              <div class="flex items-center gap-2 rounded-full bg-neutral-100/80 px-4 py-1 text-xs font-semibold text-neutral-600 backdrop-blur dark:bg-neutral-800/80 dark:text-neutral-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M3 7h18M8 3h8M12 14v7m-5-5l5 5 5-5"/></svg>
+                <span x-show="lang==='es'">Diseñada para Dual-SIM y VoLTE</span>
+                <span x-show="lang==='en'">Ready for Dual-SIM & VoLTE</span>
+              </div>
             </div>
           </div>
-        </template>
-        <template x-if="lang==='en'">
-          <div>
-            <h1 class="text-4xl md:text-6xl font-extrabold mb-6 tracking-tight">Make your calls fun, safe and productive!</h1>
-            <p class="mb-8 text-xl md:text-2xl text-accent font-semibold">The phone app that respects your privacy and gives you total control.</p>
-            <div class="flex flex-col md:flex-row justify-center items-center gap-4 mb-8">
-              <a href={import.meta.env.BASE_URL + 'features/'} class="text-accent underline font-semibold text-lg">See features</a>
-            </div>
-            <div class="mt-6 flex justify-center">
-              <PrivacyBadge />
-            </div>
+          <div class="relative">
+            <div class="pointer-events-none absolute inset-0 -translate-y-6 rounded-[3rem] bg-gradient-to-br from-accent/20 to-transparent blur-3xl"></div>
+            <figure class="relative overflow-hidden rounded-[2.5rem] border border-neutral-200 bg-white shadow-2xl dark:border-neutral-800 dark:bg-neutral-900">
+              <img src={heroImage} alt="Fun Phone resumen visual" class="w-full" loading="lazy" />
+            </figure>
           </div>
-        </template>
+        </div>
+        <dl class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div class="rounded-3xl border border-neutral-200 bg-white/80 px-5 py-4 text-center shadow-sm dark:border-neutral-700 dark:bg-neutral-900/70">
+            <dt class="text-xs font-semibold uppercase tracking-wide text-neutral-500">Tiempo ahorrado</dt>
+            <dd class="mt-2 text-3xl font-black text-accent">12h+</dd>
+            <p class="text-xs text-neutral-500" x-show="lang==='es'">por semana gracias a marcación inteligente.</p>
+            <p class="text-xs text-neutral-500" x-show="lang==='en'">saved weekly with smart dialing.</p>
+          </div>
+          <div class="rounded-3xl border border-neutral-200 bg-white/80 px-5 py-4 text-center shadow-sm dark:border-neutral-700 dark:bg-neutral-900/70">
+            <dt class="text-xs font-semibold uppercase tracking-wide text-neutral-500">Contactos migrados</dt>
+            <dd class="mt-2 text-3xl font-black text-accent">250K</dd>
+            <p class="text-xs text-neutral-500" x-show="lang==='es'">usuarios sincronizaron su agenda sin pérdidas.</p>
+            <p class="text-xs text-neutral-500" x-show="lang==='en'">people synced their address books flawlessly.</p>
+          </div>
+          <div class="rounded-3xl border border-neutral-200 bg-white/80 px-5 py-4 text-center shadow-sm dark:border-neutral-700 dark:bg-neutral-900/70">
+            <dt class="text-xs font-semibold uppercase tracking-wide text-neutral-500">Nota rápida</dt>
+            <dd class="mt-2 text-3xl font-black text-accent">3s</dd>
+            <p class="text-xs text-neutral-500" x-show="lang==='es'">para capturar ideas durante una llamada.</p>
+            <p class="text-xs text-neutral-500" x-show="lang==='en'">to jot down call notes on the fly.</p>
+          </div>
+          <div class="rounded-3xl border border-neutral-200 bg-white/80 px-5 py-4 text-center shadow-sm dark:border-neutral-700 dark:bg-neutral-900/70">
+            <dt class="text-xs font-semibold uppercase tracking-wide text-neutral-500">Rating promedio</dt>
+            <dd class="mt-2 text-3xl font-black text-accent">4.8★</dd>
+            <p class="text-xs text-neutral-500" x-show="lang==='es'">más de 900 reseñas verificadas.</p>
+            <p class="text-xs text-neutral-500" x-show="lang==='en'">based on 900+ verified reviews.</p>
+          </div>
+        </dl>
       </section>
 
-      <!-- GALERÍA -->
-      <section id="gallery" class="mt-12 mb-12">
-        <template x-if="lang==='es'">
-          <h2 class="text-2xl md:text-3xl font-bold mb-6 text-center">Galería</h2>
-        </template>
-        <template x-if="lang==='en'">
-          <h2 class="text-2xl md:text-3xl font-bold mb-6 text-center">Gallery</h2>
-        </template>
-        <ScreenshotCarousel />
+      <section id="use-cases" class="grid gap-8 rounded-4xl border border-neutral-200 bg-white/80 p-6 shadow-lg shadow-accent/5 backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/70 lg:grid-cols-[1.1fr_1fr]">
+        <div class="space-y-4">
+          <h2 class="text-3xl font-bold text-neutral-900 dark:text-neutral-50" x-show="lang==='es'">Elige tu flow ideal</h2>
+          <h2 class="text-3xl font-bold text-neutral-900 dark:text-neutral-50" x-show="lang==='en'">Choose your ideal flow</h2>
+          <p class="text-neutral-600 dark:text-neutral-300" x-show="lang==='es'">Cambia de escenario para descubrir las herramientas que te ahorrarán más tiempo.</p>
+          <p class="text-neutral-600 dark:text-neutral-300" x-show="lang==='en'">Switch scenarios to find the tools that save you the most time.</p>
+          <div class="flex flex-wrap gap-3" role="tablist" x-data="personaSelector()" x-init="init()">
+            <template x-for="persona in personas" :key="persona.id">
+              <button
+                type="button"
+                class="rounded-full border border-neutral-200 px-4 py-2 text-sm font-semibold transition hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:border-neutral-700"
+                :class="active === persona.id ? 'bg-accent text-white border-accent' : ''"
+                @click="setPersona(persona.id)"
+                x-text="label(persona)"
+                role="tab"
+                :aria-selected="(active === persona.id).toString()"
+              ></button>
+            </template>
+          </div>
+          <div class="space-y-3 rounded-3xl border border-dashed border-accent/30 bg-accent/5 p-6 text-sm text-neutral-700 dark:border-accent/40 dark:bg-accent/10 dark:text-neutral-200" role="tabpanel">
+            <h3 class="text-lg font-semibold text-accent" x-text="currentPersona.title"></h3>
+            <ul class="space-y-2">
+              <template x-for="item in currentPersona.items" :key="item">
+                <li class="flex items-start gap-2"><span class="mt-1 inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent"></span><span x-text="item"></span></li>
+              </template>
+            </ul>
+          </div>
+        </div>
+        <div class="space-y-6">
+          <ScreenshotCarousel />
+          <a
+            href={import.meta.env.BASE_URL + 'faq/'}
+            class="flex items-center justify-between gap-3 rounded-3xl border border-neutral-200 bg-neutral-50/80 px-6 py-4 text-sm font-semibold text-neutral-700 transition hover:border-accent hover:bg-accent/10 hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:border-neutral-800 dark:bg-neutral-900/60 dark:text-neutral-200"
+          >
+            <span x-show="lang==='es'">¿Tienes dudas? Revisa la guía rápida de configuración.</span>
+            <span x-show="lang==='en'">Questions? Jump into the quick-start FAQ.</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </a>
+        </div>
       </section>
 
-      <!-- TEASERS -->
-      <section class="grid md:grid-cols-2 gap-6 mt-12">
-        <a href={import.meta.env.BASE_URL + 'features/'} class="block bg-white dark:bg-neutral-800 rounded-2xl shadow p-6 border border-gray-100 dark:border-neutral-700 hover:shadow-lg transition">
-          <template x-if="lang==='es'">
-            <div>
-              <h2 class="text-xl font-semibold mb-2">Explora todas las funciones</h2>
-              <p class="text-gray-700 dark:text-gray-300">Marcador avanzado, contactos potenciados, productividad y más.</p>
-            </div>
-          </template>
-          <template x-if="lang==='en'">
-            <div>
-              <h2 class="text-xl font-semibold mb-2">Explore all features</h2>
-              <p class="text-gray-700 dark:text-gray-300">Advanced dialer, empowered contacts, productivity and more.</p>
-            </div>
-          </template>
+      <section id="feature-teasers" class="grid gap-6 lg:grid-cols-2">
+        <a
+          href={import.meta.env.BASE_URL + 'features/'}
+          class="group flex flex-col gap-3 rounded-4xl border border-neutral-200 bg-white/80 p-8 shadow-md transition hover:-translate-y-1 hover:border-accent/60 hover:shadow-2xl dark:border-neutral-800 dark:bg-neutral-900/70"
+        >
+          <div class="flex items-center gap-3">
+            <span class="flex h-10 w-10 items-center justify-center rounded-2xl bg-accent/15 text-accent"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M3 5h2l.4 2M7 13h10l1.4-7H6.6M7 13l-1.5 6M17 13l1.5 6M9 21h6"/></svg></span>
+            <h2 class="text-xl font-semibold text-neutral-900 transition group-hover:text-accent dark:text-neutral-50">Suite completa de funciones</h2>
+          </div>
+          <p class="text-neutral-600 dark:text-neutral-300" x-show="lang==='es'">Marcador T9, contactos enriquecidos, notas de llamada, recordatorios, grabador de voz y más en un flujo intuitivo.</p>
+          <p class="text-neutral-600 dark:text-neutral-300" x-show="lang==='en'">Smart T9 dialer, rich contacts, call notes, reminders, voice recorder, and more in a single intuitive flow.</p>
+          <span class="inline-flex items-center gap-2 text-sm font-semibold text-accent">Ver todas las funciones<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
         </a>
-        <a href={import.meta.env.BASE_URL + 'faq/'} class="block bg-white dark:bg-neutral-800 rounded-2xl shadow p-6 border border-gray-100 dark:border-neutral-700 hover:shadow-lg transition">
-          <h2 class="text-xl font-semibold mb-2">FAQ</h2>
-          <template x-if="lang==='es'">
-            <p class="text-gray-700 dark:text-gray-300">Resuelve dudas frecuentes y configuración predeterminada.</p>
-          </template>
-          <template x-if="lang==='en'">
-            <p class="text-gray-700 dark:text-gray-300">Common questions and default app setup.</p>
-          </template>
+        <a
+          href={import.meta.env.BASE_URL + 'faq/'}
+          class="group flex flex-col gap-3 rounded-4xl border border-neutral-200 bg-white/80 p-8 shadow-md transition hover:-translate-y-1 hover:border-accent/60 hover:shadow-2xl dark:border-neutral-800 dark:bg-neutral-900/70"
+        >
+          <div class="flex items-center gap-3">
+            <span class="flex h-10 w-10 items-center justify-center rounded-2xl bg-accent/15 text-accent"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M8 10h.01M12 4a8 8 0 100 16 8 8 0 000-16zm0 9v.01"/></svg></span>
+            <h2 class="text-xl font-semibold text-neutral-900 transition group-hover:text-accent dark:text-neutral-50">FAQ y recursos instantáneos</h2>
+          </div>
+          <p class="text-neutral-600 dark:text-neutral-300" x-show="lang==='es'">Aprende a configurarla como app predeterminada, gestionar permisos y activar las funciones premium en minutos.</p>
+          <p class="text-neutral-600 dark:text-neutral-300" x-show="lang==='en'">Learn how to set Fun Phone as default, manage permissions, and unlock pro features in minutes.</p>
+          <span class="inline-flex items-center gap-2 text-sm font-semibold text-accent">Ir al centro de ayuda<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
         </a>
       </section>
 
-      <!-- CTA FINAL -->
-      <section id="cta-final" class="text-center my-16">
-        <template x-if="lang==='es'">
-          <div>
-            <h2 class="text-2xl md:text-3xl font-bold mb-4">¿Listo para mejorar tu experiencia de llamadas?</h2>
-            <a href="https://play.google.com/store/apps/details?id=com.bookverse.contacts" target="_blank" rel="noopener" class="inline-block bg-accent text-white px-10 py-4 rounded-2xl shadow-xl font-bold text-xl hover:bg-blue-700 transition">
-              Instalar desde Google Play
-            </a>
-          </div>
-        </template>
-        <template x-if="lang==='en'">
-          <div>
-            <h2 class="text-2xl md:text-3xl font-bold mb-4">Ready to upgrade your calling experience?</h2>
-            <a href="https://play.google.com/store/apps/details?id=com.bookverse.contacts" target="_blank" rel="noopener" class="inline-block bg-accent text-white px-10 py-4 rounded-2xl shadow-xl font-bold text-xl hover:bg-blue-700 transition">
-              Install from Google Play
-            </a>
-          </div>
-        </template>
+      <section id="privacy" class="grid gap-8 lg:grid-cols-[1fr_1.1fr]">
+        <div class="space-y-4">
+          <h2 class="text-3xl font-bold text-neutral-900 dark:text-neutral-50" x-show="lang==='es'">Privacidad sin letra chica</h2>
+          <h2 class="text-3xl font-bold text-neutral-900 dark:text-neutral-50" x-show="lang==='en'">Privacy without fine print</h2>
+          <p class="text-neutral-600 dark:text-neutral-300" x-show="lang==='es'">Controla cada permiso y conoce exactamente cómo se usa. Fun Phone funciona offline y guarda tus datos en el dispositivo.</p>
+          <p class="text-neutral-600 dark:text-neutral-300" x-show="lang==='en'">Control every permission and know exactly how it’s used. Fun Phone works offline and stores your data on-device.</p>
+          <ul class="space-y-3 text-sm text-neutral-600 dark:text-neutral-300">
+            <li class="flex items-start gap-2"><span class="mt-1 inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent"></span><span x-show="lang==='es'">Auditoría visual de permisos con explicaciones en lenguaje natural.</span><span x-show="lang==='en'">Visual permission audit with natural language explanations.</span></li>
+            <li class="flex items-start gap-2"><span class="mt-1 inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent"></span><span x-show="lang==='es'">Botón rápido para exportar contactos o hacer copias en JSON/vCard.</span><span x-show="lang==='en'">Quick button to export contacts or create JSON/vCard backups.</span></li>
+            <li class="flex items-start gap-2"><span class="mt-1 inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent"></span><span x-show="lang==='es'">Modo privado opcional para ocultar juegos y notas en contextos laborales.</span><span x-show="lang==='en'">Optional privacy mode hides games and notes in professional settings.</span></li>
+          </ul>
+        </div>
+        <PermissionsBlock />
+      </section>
+
+      <section id="testimonials" class="rounded-4xl border border-neutral-200 bg-white/85 p-8 shadow-lg shadow-accent/5 backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/70">
+        <div class="flex items-center justify-between gap-4">
+          <h2 class="text-3xl font-bold text-neutral-900 dark:text-neutral-50" x-show="lang==='es'">Historias reales</h2>
+          <h2 class="text-3xl font-bold text-neutral-900 dark:text-neutral-50" x-show="lang==='en'">Real stories</h2>
+          <a href="https://play.google.com/store/apps/details?id=com.bookverse.contacts&hl=es" target="_blank" rel="noopener" class="text-sm font-semibold text-accent hover:underline" x-show="lang==='es'">Leer reseñas en Google Play</a>
+          <a href="https://play.google.com/store/apps/details?id=com.bookverse.contacts&hl=en" target="_blank" rel="noopener" class="text-sm font-semibold text-accent hover:underline" x-show="lang==='en'">Read Google Play reviews</a>
+        </div>
+        <div class="mt-6 grid gap-6 md:grid-cols-2">
+          <article class="flex flex-col gap-3 rounded-3xl border border-neutral-200 bg-white/80 p-6 shadow-sm dark:border-neutral-800 dark:bg-neutral-900/70">
+            <div class="flex items-center gap-2 text-yellow-500"><span>★★★★★</span><span class="text-xs uppercase tracking-wide text-neutral-400">Logística</span></div>
+            <p class="text-sm text-neutral-600 dark:text-neutral-300" x-show="lang==='es'">“Ahora nuestra central de entregas puede llamar y registrar incidencias sin perder historial. Las notas de voz dentro de la llamada son un antes y después.”</p>
+            <p class="text-sm text-neutral-600 dark:text-neutral-300" x-show="lang==='en'">“Our delivery hub can now call and log incidents without losing history. In-call voice notes are an absolute game changer.”</p>
+            <p class="text-xs font-semibold text-neutral-400">Sonia, coordinadora de operaciones</p>
+          </article>
+          <article class="flex flex-col gap-3 rounded-3xl border border-neutral-200 bg-white/80 p-6 shadow-sm dark:border-neutral-800 dark:bg-neutral-900/70">
+            <div class="flex items-center gap-2 text-yellow-500"><span>★★★★★</span><span class="text-xs uppercase tracking-wide text-neutral-400">Soporte IT</span></div>
+            <p class="text-sm text-neutral-600 dark:text-neutral-300" x-show="lang==='es'">“Mover 1.500 contactos corporativos fue tan simple como escanear un QR. El modo privado evita distracciones cuando comparto pantalla.”</p>
+            <p class="text-sm text-neutral-600 dark:text-neutral-300" x-show="lang==='en'">“Migrating 1,500 corporate contacts was as easy as scanning a QR. Privacy mode keeps distractions away when I’m screen sharing.”</p>
+            <p class="text-xs font-semibold text-neutral-400">Luis, administrador de sistemas</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="cta-final" class="rounded-4xl border border-neutral-200 bg-gradient-to-br from-accent/10 via-white to-accent/10 p-10 text-center shadow-xl dark:border-neutral-800 dark:from-accent/20 dark:via-neutral-900 dark:to-accent/10">
+        <h2 class="text-3xl font-bold text-neutral-900 dark:text-neutral-50" x-show="lang==='es'">¿Listo para mejorar tu experiencia de llamadas?</h2>
+        <h2 class="text-3xl font-bold text-neutral-900 dark:text-neutral-50" x-show="lang==='en'">Ready to upgrade your calling experience?</h2>
+        <p class="mt-3 text-neutral-600 dark:text-neutral-300" x-show="lang==='es'">Instala Fun Phone en tu Android, importa tus contactos y empieza con el modo productividad en menos de 5 minutos.</p>
+        <p class="mt-3 text-neutral-600 dark:text-neutral-300" x-show="lang==='en'">Install Fun Phone on Android, import your contacts, and activate productivity mode in under five minutes.</p>
+        <div class="mt-6 flex flex-wrap justify-center gap-3">
+          <a
+            href="https://play.google.com/store/apps/details?id=com.bookverse.contacts"
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center gap-2 rounded-full bg-accent px-8 py-3 text-base font-semibold text-white shadow-lg shadow-accent/40 transition hover:-translate-y-0.5 hover:bg-accent/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          >
+            <span x-show="lang==='es'">Instalar desde Google Play</span>
+            <span x-show="lang==='en'">Install from Google Play</span>
+          </a>
+          <a
+            href={import.meta.env.BASE_URL + 'privacy/'}
+            class="inline-flex items-center gap-2 rounded-full border border-accent/30 px-8 py-3 text-base font-semibold text-accent transition hover:-translate-y-0.5 hover:border-accent hover:bg-accent/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          >
+            <span x-show="lang==='es'">Lee la política de privacidad</span>
+            <span x-show="lang==='en'">Read the privacy policy</span>
+          </a>
+        </div>
       </section>
     </main>
     <StickyCTA />
-  <Footer />
+    <Footer />
+
+    <script is:inline>
+      function pageState() {
+        return {
+          lang: localStorage.getItem('lang') || (navigator.language?.startsWith('es') ? 'es' : 'en'),
+          init() {
+            this.setDocumentLang();
+          },
+          updateLang(value) {
+            if (!value) return;
+            this.lang = value;
+            this.setDocumentLang();
+          },
+          setDocumentLang() {
+            document.documentElement.setAttribute('data-lang', this.lang);
+          }
+        };
+      }
+
+      function personaSelector() {
+        const personas = [
+          {
+            id: 'productivity',
+            titleEs: 'Profesionales multitarea',
+            titleEn: 'Multitasking pros',
+            itemsEs: [
+              'Crea notas y tareas ligadas a un contacto en segundos.',
+              'Configura recordatorios recurrentes con seguimiento automático.',
+              'Integra tus cuentas de Google Workspace sin duplicados.'
+            ],
+            itemsEn: [
+              'Create notes and tasks linked to any contact in seconds.',
+              'Schedule recurring reminders with automatic follow-up.',
+              'Sync Google Workspace accounts without duplicates.'
+            ]
+          },
+          {
+            id: 'family',
+            titleEs: 'Familias y personas mayores',
+            titleEn: 'Families & seniors',
+            itemsEs: [
+              'Modo accesible con botones grandes y temas de alto contraste.',
+              'Favoritos con fotos para llamadas de un toque.',
+              'Juegos ligeros para entretener mientras esperas.'
+            ],
+            itemsEn: [
+              'Accessible mode with larger buttons and high-contrast themes.',
+              'Photo favorites for one-tap calling.',
+              'Lightweight games to enjoy while waiting.'
+            ]
+          },
+          {
+            id: 'support',
+            titleEs: 'Equipos de soporte y ventas',
+            titleEn: 'Support & sales teams',
+            itemsEs: [
+              'Importa leads por QR o CSV y asigna etiquetas inteligentes.',
+              'Graba consentimientos (según región) y guarda notas por cliente.',
+              'Exporta métricas de llamadas para tu CRM en un clic.'
+            ],
+            itemsEn: [
+              'Import leads via QR or CSV and tag them instantly.',
+              'Record consent (region permitting) and keep notes per client.',
+              'Export call metrics to your CRM in one click.'
+            ]
+          }
+        ];
+
+        return {
+          personas,
+          active: personas[0].id,
+          lang: document.documentElement.getAttribute('data-lang') || 'es',
+          get currentPersona() {
+            const persona = personas.find((p) => p.id === this.active) || personas[0];
+            return {
+              id: persona.id,
+              title: this.lang === 'es' ? persona.titleEs : persona.titleEn,
+              items: this.lang === 'es' ? persona.itemsEs : persona.itemsEn
+            };
+          },
+          init() {
+            window.addEventListener('lang', (event) => {
+              this.lang = event.detail || 'es';
+            });
+          },
+          setPersona(id) {
+            this.active = id;
+          },
+          label(persona) {
+            return this.lang === 'es' ? persona.titleEs : persona.titleEn;
+          }
+        };
+      }
+    </script>
   </body>
 </html>

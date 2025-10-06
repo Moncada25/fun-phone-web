@@ -12,7 +12,7 @@ Sitio web moderno, estático y de alto rendimiento para la app Fun Phone: Dialer
 ## 📁 Estructura
 
 - `src/pages/index.astro` – Landing principal (bilingüe ES/EN)
-- `src/pages/privacy/index.html` – Política de privacidad bilingüe
+- `src/pages/privacy/index.astro` – Política de privacidad bilingüe
 - `public/assets/` – Iconos, screenshots, imágenes optimizadas
 - `public/site.webmanifest`, `public/service-worker.js`, `public/robots.txt`, `public/sitemap.xml`, `public/404.html`
 - `.github/workflows/deploy.yml` – Deploy automático a GitHub Pages
@@ -20,8 +20,8 @@ Sitio web moderno, estático y de alto rendimiento para la app Fun Phone: Dialer
 ## 🛠️ Cómo correr local
 
 ```bash
-git clone https://github.com/Moncada25/fun-phone-privacy-policy.git
-cd fun-phone-privacy-policy
+git clone https://github.com/Moncada25/fun-phone-web.git
+cd fun-phone-web
 npm install
 npm run build
 npm run preview
@@ -40,7 +40,7 @@ npm run build
 
 ## 📝 Política de Privacidad
 
-La política de privacidad bilingüe está en [`/privacy/index.html`](src/pages/privacy/index.html).
+La política de privacidad bilingüe está en [`/privacy/`](src/pages/privacy/index.astro).
 
 ## 🧪 Comprobantes Lighthouse
 
