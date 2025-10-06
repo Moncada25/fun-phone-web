@@ -1,19 +1,20 @@
 {
   "name": "Fun Phone: Dialer & Contacts",
   "short_name": "Fun Phone",
-  "start_url": "/fun-phone-privacy-policy/",
+  "start_url": "/fun-phone-web/",
+  "scope": "/fun-phone-web/",
   "display": "standalone",
   "background_color": "#fafafa",
   "theme_color": "#0066e0",
   "description": "Tu centro completo de llamadas, contactos y productividad.",
   "icons": [
     {
-      "src": "/fun-phone-privacy-policy/assets/icon-192.png",
+      "src": "/fun-phone-web/assets/logo.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/fun-phone-privacy-policy/assets/icon-512.png",
+      "src": "/fun-phone-web/assets/logo.png",
       "sizes": "512x512",
       "type": "image/png"
     }

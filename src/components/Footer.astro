@@ -1,12 +1,109 @@
 ---
-// Footer with links
+const baseUrl = import.meta.env.BASE_URL;
+const currentYear = new Date().getFullYear();
 ---
-<footer class="mt-16 py-8 text-center text-sm text-gray-500 dark:text-gray-400">
-  <div class="flex flex-col md:flex-row gap-2 md:gap-6 justify-center items-center">
-    <a href="https://play.google.com/store/apps/details?id=com.bookverse.contacts" target="_blank" rel="noopener" class="hover:underline">Google Play</a>
-    <a href={import.meta.env.BASE_URL + 'privacy/'} class="hover:underline">Política de Privacidad</a>
-    <a href="mailto:santiago.moncada.dev@gmail.com" class="hover:underline">Soporte</a>
-    <a href="https://bookverse.me" target="_blank" rel="noopener" class="hover:underline">Bookverse</a>
+<footer class="mt-20 border-t border-neutral-200 bg-gradient-to-b from-white/60 via-white to-white dark:from-neutral-900/60 dark:via-neutral-900 dark:to-neutral-950">
+  <div class="mx-auto flex w-full max-w-6xl flex-col gap-10 px-6 py-12 md:flex-row md:justify-between">
+    <div class="max-w-md space-y-4">
+      <p class="text-sm font-semibold uppercase tracking-wide text-accent">Fun Phone</p>
+      <p class="text-lg font-semibold text-neutral-900 dark:text-neutral-50">Tu central inteligente para llamadas, contactos y productividad.</p>
+      <p class="text-sm text-neutral-500 dark:text-neutral-400">
+        <span>Aplicación Android sin anuncios, diseñada para respetar tu privacidad y ayudarte a mantenerte organizado.</span>
+      </p>
+      <div class="flex flex-wrap gap-2" aria-label="Descarga">
+        <a
+          href="https://play.google.com/store/apps/details?id=com.bookverse.contacts"
+          target="_blank"
+          rel="noopener"
+          class="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-accent/30 transition hover:-translate-y-0.5 hover:bg-accent/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10.75 2.75a.75.75 0 00-1.5 0v6.5H4a.75.75 0 000 1.5h5.25v6.5a.75.75 0 001.5 0v-6.5H16a.75.75 0 000-1.5h-5.25v-6.5z"/></svg>
+          Google Play
+        </a>
+        <a
+          href="https://bookverse.me/fun-phone-roadmap"
+          target="_blank"
+          rel="noopener"
+          class="inline-flex items-center gap-2 rounded-full border border-accent/30 px-4 py-2 text-sm font-semibold text-accent transition hover:-translate-y-0.5 hover:border-accent hover:bg-accent/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7l6 6-6 6M9 7h12"/></svg>
+          Roadmap
+        </a>
+      </div>
+    </div>
+
+    <div class="grid flex-1 grid-cols-1 gap-8 text-sm text-neutral-600 dark:text-neutral-300 sm:grid-cols-2 md:grid-cols-3">
+      <div>
+        <h2 class="mb-3 text-xs font-semibold uppercase tracking-widest text-neutral-400 dark:text-neutral-500">Sitio</h2>
+        <ul class="space-y-2" aria-label="Navegación secundaria">
+          <li><a href={baseUrl + 'features/'} class="hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">Funciones</a></li>
+          <li><a href={baseUrl + 'faq/'} class="hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">FAQ</a></li>
+          <li><a href={baseUrl + 'privacy/'} class="hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">Privacidad</a></li>
+          <li><a href="https://bookverse.me" target="_blank" rel="noopener" class="hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">Bookverse</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="mb-3 text-xs font-semibold uppercase tracking-widest text-neutral-400 dark:text-neutral-500">Soporte</h2>
+        <ul class="space-y-2">
+          <li><a href="mailto:santiago.moncada.dev@gmail.com" class="hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">Contacto directo</a></li>
+          <li><a href="https://play.google.com/store/apps/details?id=com.bookverse.contacts&hl=es&gl=US" target="_blank" rel="noopener" class="hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">Calificar en Play Store</a></li>
+          <li><a href="https://support.google.com/googleplay/answer/113410" target="_blank" rel="noopener" class="hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">Reembolsos y ayuda</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="mb-3 text-xs font-semibold uppercase tracking-widest text-neutral-400 dark:text-neutral-500">Actualizaciones</h2>
+        <p class="mb-3 text-xs text-neutral-500 dark:text-neutral-400">Recibe noticias sobre lanzamientos, nuevas funciones y tips de productividad.</p>
+        <form class="flex flex-col gap-2" x-data="newsletterForm()" @submit.prevent="submit">
+          <label for="newsletter-email" class="sr-only">Correo electrónico</label>
+          <input
+            id="newsletter-email"
+            type="email"
+            required
+            x-model="email"
+            placeholder="tu@email.com"
+            class="w-full rounded-full border border-neutral-200 bg-white px-4 py-2 text-sm text-neutral-800 shadow-sm focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/40 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-50"
+            autocomplete="email"
+          />
+          <button
+            type="submit"
+            class="inline-flex items-center justify-center gap-2 rounded-full border border-accent/40 px-4 py-2 text-sm font-semibold text-accent transition hover:-translate-y-0.5 hover:border-accent hover:bg-accent/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            :aria-live="status ? 'polite' : 'off'"
+          >
+            <span x-show="!loading">Quiero novedades</span>
+            <span x-show="loading" class="flex items-center gap-2">
+              <svg class="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle class="opacity-25" cx="12" cy="12" r="10" stroke-width="4"></circle><path class="opacity-75" d="M4 12a8 8 0 018-8" stroke-width="4" stroke-linecap="round"></path></svg>
+              Enviando...
+            </span>
+          </button>
+          <p x-show="status" x-text="status" class="text-xs text-neutral-500 dark:text-neutral-400" role="status"></p>
+        </form>
+      </div>
+    </div>
   </div>
-  <div class="mt-2">&copy; 2025 Fun Phone / Bookverse</div>
+  <div class="border-t border-neutral-200 bg-white/70 py-6 text-center text-xs text-neutral-500 backdrop-blur dark:border-neutral-800 dark:bg-neutral-950/60 dark:text-neutral-400">
+    &copy; {currentYear} Fun Phone · Bookverse. Todos los derechos reservados.
+  </div>
 </footer>
+
+<script is:inline>
+function newsletterForm() {
+  return {
+    email: localStorage.getItem('funphone-newsletter-email') || '',
+    loading: false,
+    status: '',
+    submit() {
+      if (!this.email) {
+        this.status = 'Ingresa un correo válido para recibir novedades.';
+        return;
+      }
+      this.loading = true;
+      this.status = '';
+      setTimeout(() => {
+        localStorage.setItem('funphone-newsletter-email', this.email);
+        this.loading = false;
+        this.status = '¡Listo! Te avisaremos cuando haya novedades.';
+      }, 900);
+    }
+  };
+}
+</script>

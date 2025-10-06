@@ -1,16 +1,16 @@
 // Simple static precache service worker for Fun Phone
-const CACHE_NAME = 'funphone-static-v2';
+const CACHE_NAME = 'funphone-static-v3';
+// Base path for GitHub Pages
+const BASE = '/fun-phone-web/';
 const ASSETS = [
-  '/',
-  '/index.html',
-  '/privacy/index.html',
-  '/features/index.html',
-  '/faq/index.html',
-  '/site.webmanifest',
-  '/assets/icon-192.png',
-  '/assets/icon-512.png',
-  '/assets/logo.svg',
-  // Agrega aquí más assets si es necesario
+  BASE,
+  BASE + 'index.html',
+  BASE + 'privacy/index.html',
+  BASE + 'features/index.html',
+  BASE + 'faq/index.html',
+  BASE + 'site.webmanifest',
+  BASE + 'assets/logo.png'
+  // Add more assets here if needed
 ];
 self.addEventListener('install', e => {
   e.waitUntil(

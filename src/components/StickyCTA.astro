@@ -1,36 +1,35 @@
 ---
-// Sticky CTA for mobile
+// Sticky CTA adaptado a idioma en mobile
 ---
-<div class="fixed bottom-4 left-0 w-full flex justify-center z-40 md:hidden">
-  <a href="https://play.google.com/store/apps/details?id=com.bookverse.contacts" target="_blank" rel="noopener" class="bg-accent text-white px-8 py-3 rounded-2xl shadow-xl font-bold text-lg animate-bounce hover:bg-blue-700 transition" id="sticky-cta">
-    Instalar en Google Play
+<div class="fixed bottom-4 left-0 z-40 flex w-full justify-center px-4 md:hidden" aria-hidden="true">
+  <a
+    href="https://play.google.com/store/apps/details?id=com.bookverse.contacts"
+    target="_blank"
+    rel="noopener"
+    class="inline-flex w-full max-w-sm items-center justify-center gap-2 rounded-3xl bg-accent px-6 py-4 text-base font-semibold text-white shadow-xl shadow-accent/40 transition hover:translate-y-[-2px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+    id="sticky-cta"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10.75 2.75a.75.75 0 00-1.5 0v6.5H4a.75.75 0 000 1.5h5.25v6.5a.75.75 0 001.5 0v-6.5H16a.75.75 0 000-1.5h-5.25v-6.5z"/></svg>
+    <span>Instalar desde Google Play</span>
   </a>
 </div>
 
-<script>
-// Configuración inicial
-let currentLang = localStorage.getItem('lang') || 'es';
+<script is:inline>
+(() => {
+  const cta = document.getElementById('sticky-cta');
+  if (!cta) return;
 
-// Referencia DOM
-const stickyCTA = document.getElementById('sticky-cta');
-
-// Actualizar texto según idioma
-function updateCTAText() {
-  if (stickyCTA) {
-    stickyCTA.textContent = currentLang === 'es' ? 'Instalar desde Google Play' : 'Install from Google Play';
+  function updateText(lang) {
+    const label = lang === 'es' ? 'Instalar Fun Phone desde Google Play' : 'Install Fun Phone from Google Play';
+    cta.querySelector('span').textContent = lang === 'es' ? 'Instalar desde Google Play' : 'Install on Google Play';
+    cta.setAttribute('aria-label', label);
   }
-}
 
-// Escuchar cambios de idioma
-window.addEventListener('lang', (e) => {
-  currentLang = e.detail;
-  updateCTAText();
-});
+  const stored = localStorage.getItem('lang');
+  updateText(stored && stored !== 'undefined' ? stored : 'es');
 
-// Inicializar texto
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', updateCTAText);
-} else {
-  updateCTAText();
-}
+  window.addEventListener('lang', (event) => {
+    updateText(event.detail || 'es');
+  });
+})();
 </script>

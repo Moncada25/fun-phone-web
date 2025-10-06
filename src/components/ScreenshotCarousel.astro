@@ -1,101 +1,133 @@
 ---
-// Carrusel de screenshots simple y funcional
 const screenshots = [
-  { src: import.meta.env.BASE_URL + 'assets/screenshots/contacts.png', alt: 'Fun Phone - Contacts' },
-  { src: import.meta.env.BASE_URL + 'assets/screenshots/details.png', alt: 'Fun Phone - Details' },
-  { src: import.meta.env.BASE_URL + 'assets/screenshots/dialer.png', alt: 'Fun Phone - Dialer' },
-  { src: import.meta.env.BASE_URL + 'assets/screenshots/extras.png', alt: 'Fun Phone - Extras' },
-  { src: import.meta.env.BASE_URL + 'assets/screenshots/favorites.png', alt: 'Fun Phone - Favorites' },
-  { src: import.meta.env.BASE_URL + 'assets/screenshots/history.png', alt: 'Fun Phone - History' },
-  { src: import.meta.env.BASE_URL + 'assets/screenshots/qr.png', alt: 'Fun Phone - QR' },
-  { src: import.meta.env.BASE_URL + 'assets/screenshots/settings.png', alt: 'Fun Phone - Settings' }
+  { src: import.meta.env.BASE_URL + 'assets/screenshots/contacts.png', alt: 'Fun Phone – Contacts view' },
+  { src: import.meta.env.BASE_URL + 'assets/screenshots/details.png', alt: 'Fun Phone – Contact details' },
+  { src: import.meta.env.BASE_URL + 'assets/screenshots/dialer.png', alt: 'Fun Phone – Smart dialer' },
+  { src: import.meta.env.BASE_URL + 'assets/screenshots/extras.png', alt: 'Fun Phone – Extras hub' },
+  { src: import.meta.env.BASE_URL + 'assets/screenshots/favorites.png', alt: 'Fun Phone – Favorites tab' },
+  { src: import.meta.env.BASE_URL + 'assets/screenshots/history.png', alt: 'Fun Phone – Call history' },
+  { src: import.meta.env.BASE_URL + 'assets/screenshots/qr.png', alt: 'Fun Phone – QR sharing' },
+  { src: import.meta.env.BASE_URL + 'assets/screenshots/settings.png', alt: 'Fun Phone – Settings screen' }
 ];
+const carouselData = JSON.stringify(screenshots);
 ---
-<div class="relative w-full max-w-2xl mx-auto">
-  <div class="overflow-hidden rounded-2xl shadow-lg flex justify-center items-center">
-    <img id="carousel-image" src={screenshots[0]?.src} alt={screenshots[0]?.alt} class="w-auto max-h-64 cursor-zoom-in rounded-xl transition duration-500" loading="lazy" />
+<div
+  class="relative mx-auto w-full max-w-3xl"
+  x-data={`screenshotCarousel({ screenshots: ${carouselData} })`}
+  x-init="init()"
+  role="region"
+  aria-roledescription="carousel"
+  x-bind:aria-label="label"
+>
+  <div class="mb-4 flex items-center justify-between">
+    <p class="text-sm font-semibold uppercase tracking-wide text-accent" x-show="lang==='es'">Vista previa de la app</p>
+    <p class="text-sm font-semibold uppercase tracking-wide text-accent" x-show="lang==='en'">In-app preview</p>
+    <div class="hidden items-center gap-2 text-xs text-neutral-500 dark:text-neutral-400 md:flex">
+      <span x-text="currentSlide"></span>
+      <span>/</span>
+      <span x-text="screens.length"></span>
+    </div>
   </div>
-  <div id="lightbox-modal" class="fixed inset-0 bg-black/80 flex items-center justify-center z-50 hidden">
-    <img id="lightbox-img" src="" alt="" class="max-h-[90vh] max-w-[90vw] rounded-xl shadow-2xl" />
+  <div
+    class="relative overflow-hidden rounded-3xl border border-neutral-200 bg-gradient-to-br from-neutral-50 via-white to-neutral-100 shadow-xl dark:border-neutral-800 dark:from-neutral-900 dark:via-neutral-900 dark:to-neutral-950"
+    @mouseenter="stopAutoPlay()"
+    @mouseleave="startAutoPlay()"
+  >
+    <img
+      x-ref="image"
+      x-bind:src="screens[currentIndex].src"
+      x-bind:alt="screens[currentIndex].alt"
+      class="mx-auto w-auto max-h-[420px] rounded-2xl object-contain transition duration-500 ease-out"
+      loading="lazy"
+    />
+    <button
+      type="button"
+      class="absolute left-4 top-1/2 -translate-y-1/2 rounded-full border border-neutral-200 bg-white/80 p-3 text-neutral-800 shadow-lg backdrop-blur transition hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:border-neutral-700 dark:bg-neutral-900/80 dark:text-neutral-200"
+      @click="previous()"
+      aria-label="Anterior"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+    </button>
+    <button
+      type="button"
+      class="absolute right-4 top-1/2 -translate-y-1/2 rounded-full border border-neutral-200 bg-white/80 p-3 text-neutral-800 shadow-lg backdrop-blur transition hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:border-neutral-700 dark:bg-neutral-900/80 dark:text-neutral-200"
+      @click="next()"
+      aria-label="Siguiente"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+    </button>
   </div>
-  <div class="flex justify-center gap-2 mt-3">
+  <div class="mt-4 flex flex-wrap items-center justify-center gap-2" role="tablist" aria-label="Miniaturas de la galería">
     {screenshots.map((shot, idx) => (
-      <button type="button" class="w-3 h-3 rounded-full bg-gray-300 dark:bg-neutral-700" data-idx={idx} aria-label={`Go to screenshot ${idx+1}`}></button>
+      <button
+        type="button"
+        class="h-12 w-20 overflow-hidden rounded-xl border border-transparent bg-neutral-100 transition hover:border-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:bg-neutral-800"
+        role="tab"
+        data-index={idx}
+        x-bind:data-active="currentIndex === Number($el.dataset.index)"
+        x-bind:aria-selected="(currentIndex === Number($el.dataset.index)).toString()"
+        x-bind:aria-label="thumbLabel(Number($el.dataset.index))"
+        @click="goTo(Number($el.dataset.index))"
+      >
+        <img src={shot.src} alt={shot.alt} class="h-full w-full object-cover" loading="lazy" />
+      </button>
     ))}
   </div>
-  <button id="carousel-prev" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-neutral-800/80 rounded-full p-2 shadow hover:bg-accent hover:text-white transition" aria-label="Anterior" style="z-index:2">&#8592;</button>
-  <button id="carousel-next" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-neutral-800/80 rounded-full p-2 shadow hover:bg-accent hover:text-white transition" aria-label="Siguiente" style="z-index:2">&#8594;</button>
-  <script is:inline>
-    (function() {
-      const screenshots = [
-        { src: '/fun-phone-web/assets/screenshots/contacts.png', alt: 'Fun Phone - Contacts' },
-        { src: '/fun-phone-web/assets/screenshots/details.png', alt: 'Fun Phone - Details' },
-        { src: '/fun-phone-web/assets/screenshots/dialer.png', alt: 'Fun Phone - Dialer' },
-        { src: '/fun-phone-web/assets/screenshots/extras.png', alt: 'Fun Phone - Extras' },
-        { src: '/fun-phone-web/assets/screenshots/favorites.png', alt: 'Fun Phone - Favorites' },
-        { src: '/fun-phone-web/assets/screenshots/history.png', alt: 'Fun Phone - History' },
-        { src: '/fun-phone-web/assets/screenshots/qr.png', alt: 'Fun Phone - QR' },
-        { src: '/fun-phone-web/assets/screenshots/settings.png', alt: 'Fun Phone - Settings' }
-      ];
-      
-      let i = 0;
-      let auto;
-
-      function init() {
-        const img = document.getElementById('carousel-image');
-        const dots = Array.from(document.querySelectorAll('[data-idx]'));
-        const prev = document.getElementById('carousel-prev');
-        const next = document.getElementById('carousel-next');
-        const lightbox = document.getElementById('lightbox-modal');
-        const lightboxImg = document.getElementById('lightbox-img');
-
-        if (!img || !dots.length || !prev || !next) return;
-
-        function show(idx) {
-          i = idx;
-          img.src = screenshots[i].src;
-          img.alt = screenshots[i].alt;
-          dots.forEach((d, j) => {
-            if (j === i) {
-              d.classList.add('bg-accent');
-              d.classList.remove('bg-gray-300', 'dark:bg-neutral-700');
-            } else {
-              d.classList.remove('bg-accent');
-              d.classList.add('bg-gray-300');
-            }
-          });
-        }
-
-        dots.forEach((d, idx) => d.addEventListener('click', () => show(idx)));
-        prev.addEventListener('click', () => show((i-1+screenshots.length)%screenshots.length));
-        next.addEventListener('click', () => show((i+1)%screenshots.length));
-
-        // Auto advance
-        auto = setInterval(() => show((i+1)%screenshots.length), 4000);
-        img.addEventListener('mouseenter', () => clearInterval(auto));
-        img.addEventListener('mouseleave', () => auto = setInterval(() => show((i+1)%screenshots.length), 4000));
-
-        // Lightbox
-        img.addEventListener('click', () => {
-          lightboxImg.src = screenshots[i].src;
-          lightboxImg.alt = screenshots[i].alt;
-          lightbox.classList.remove('hidden');
-        });
-        
-        lightbox.addEventListener('click', () => {
-          lightbox.classList.add('hidden');
-          lightboxImg.src = '';
-        });
-
-        // Initialize
-        show(0);
-      }
-
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
-      } else {
-        init();
-      }
-    })();
-  </script>
 </div>
+
+<script is:inline>
+function screenshotCarousel({ screenshots }) {
+  return {
+    screens: screenshots,
+    currentIndex: 0,
+    get currentSlide() {
+      return this.currentIndex + 1;
+    },
+    label: 'Fun Phone screenshots carousel',
+    autoPlayTimer: null,
+    prefersReducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+    init() {
+      this.startAutoPlay();
+      this.bindKeyboard();
+    },
+    startAutoPlay() {
+      if (this.prefersReducedMotion || this.autoPlayTimer) return;
+      this.autoPlayTimer = setInterval(() => this.next(), 5000);
+    },
+    stopAutoPlay() {
+      if (!this.autoPlayTimer) return;
+      clearInterval(this.autoPlayTimer);
+      this.autoPlayTimer = null;
+    },
+    next() {
+      this.stopAutoPlay();
+      this.currentIndex = (this.currentIndex + 1) % this.screens.length;
+      this.startAutoPlay();
+    },
+    previous() {
+      this.stopAutoPlay();
+      this.currentIndex = (this.currentIndex - 1 + this.screens.length) % this.screens.length;
+      this.startAutoPlay();
+    },
+    goTo(index) {
+      this.stopAutoPlay();
+      this.currentIndex = index;
+      this.startAutoPlay();
+    },
+    thumbLabel(index) {
+      return `${index + 1} / ${this.screens.length}`;
+    },
+    bindKeyboard() {
+      window.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowRight') {
+          event.preventDefault();
+          this.next();
+        } else if (event.key === 'ArrowLeft') {
+          event.preventDefault();
+          this.previous();
+        }
+      });
+    }
+  };
+}
+</script>

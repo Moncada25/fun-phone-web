@@ -1,234 +1,337 @@
 ---
-// Sticky navbar with scroll background change
-import { getImage } from 'astro:assets';
 import logo from '../../public/assets/logo.png';
+const baseUrl = import.meta.env.BASE_URL;
 ---
-
-<nav id="navbar" class="fixed top-0 left-0 w-full z-30 transition-all backdrop-blur border-b border-transparent">
-  <div class="max-w-4xl mx-auto flex items-center justify-between px-4 py-3">
-    <a href={import.meta.env.BASE_URL} class="flex items-center gap-2 font-bold text-accent text-lg select-none">
-      <img src={import.meta.env.BASE_URL + 'assets/logo.png'} alt="Fun Phone" class="w-8 h-8 min-w-8 min-h-8 max-w-8 max-h-8" style="image-rendering:auto;" draggable="false" />
-      <span class="tracking-tight">Fun Phone</span>
-    </a>
-
-    <!-- Desktop navigation -->
-    <div class="hidden md:flex items-center gap-4">
-      <a href={import.meta.env.BASE_URL + 'features/'} class="hover:underline font-semibold" id="features-link">Funciones</a>
-      <a href={import.meta.env.BASE_URL + 'faq/'} class="hover:underline font-semibold">FAQ</a>
-      <a href={import.meta.env.BASE_URL + 'privacy/'} class="hover:underline font-semibold" id="privacy-link">Privacidad</a>
-      <a href="https://play.google.com/store/apps/details?id=com.bookverse.contacts" target="_blank" rel="noopener" class="bg-accent text-white px-3 py-1 rounded-lg font-semibold shadow hover:bg-blue-700 transition" id="download-link">Descargar</a>
-      <!-- Switch idioma -->
-      <button id="lang-toggle" class="ml-2 px-2 py-1 rounded focus:outline-accent border border-accent text-accent bg-white dark:bg-neutral-900 hover:bg-accent hover:text-white transition">
-        <span id="lang-text">EN</span>
-      </button>
-      <!-- Switch modo oscuro -->
-      <button id="dark-toggle" class="ml-2 px-2 py-1 rounded focus:outline-accent border border-accent text-accent bg-white dark:bg-neutral-900 hover:bg-accent hover:text-white transition">
-        <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="5" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 1v2m0 18v2m11-11h-2M3 12H1m16.95 6.95l-1.414-1.414M6.464 6.464L5.05 5.05m12.02 0l-1.414 1.414M6.464 17.536l-1.414 1.414"/></svg>
-        <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"/></svg>
-      </button>
+<header class="fixed top-0 left-0 right-0 z-40">
+  <a
+    href="#main-content"
+    class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[999] focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:shadow-lg dark:focus:bg-neutral-900"
+    data-testid="skip-nav"
+  >
+    Saltar al contenido principal
+  </a>
+  <nav
+    id="navbar"
+    class="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 rounded-3xl border border-transparent bg-white/70 px-5 py-3 backdrop-blur-xl transition-all duration-300 dark:bg-neutral-950/70"
+    role="navigation"
+    aria-label="Navegación principal"
+    data-base={baseUrl}
+    x-data="navbarComponent()"
+    x-init="init()"
+    :class="{'shadow-lg ring-1 ring-accent/10 border-accent/20': scrolled}"
+  >
+    <div class="flex flex-1 items-center gap-3">
+      <a
+        href={baseUrl}
+        class="group flex items-center gap-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        aria-label="Fun Phone inicio"
+      >
+        <img
+          src={logo.src}
+          width={36}
+          height={36}
+          alt="Logotipo de Fun Phone"
+          class="rounded-lg border border-accent/20 bg-white shadow-sm transition-transform duration-300 group-hover:scale-105"
+          loading="eager"
+        />
+        <span class="text-lg font-extrabold tracking-tight text-neutral-900 dark:text-neutral-50">Fun Phone</span>
+      </a>
+      <span class="hidden items-center gap-2 rounded-full bg-accent/10 px-3 py-1 text-xs font-semibold text-accent dark:bg-accent/20 md:inline-flex">
+        <span>Dialer &amp; Contacts</span>
+      </span>
     </div>
 
-    <!-- Mobile navigation -->
-    <div class="flex md:hidden items-center gap-2">
-      <a href="https://play.google.com/store/apps/details?id=com.bookverse.contacts" target="_blank" rel="noopener" class="bg-accent text-white px-3 py-1 rounded-lg font-semibold shadow hover:bg-blue-700 transition" id="download-link-mobile">Descargar</a>
-      <button id="menu-toggle" aria-label="Abrir menú" class="ml-2 p-2 rounded focus:outline-accent border border-accent text-accent bg-white dark:bg-neutral-900 hover:bg-accent hover:text-white transition">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-      </button>
+    <div class="hidden items-center gap-6 text-sm font-semibold md:flex">
+      <a
+        id="features-link"
+        href={baseUrl + 'features/'}
+        x-bind:href="baseHref('features/')"
+        :aria-current="isActive('features/') ? 'page' : undefined"
+        class="transition hover:text-accent aria-[current=page]:text-accent aria-[current=page]:underline aria-[current=page]:decoration-accent/50 aria-[current=page]:underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+      >
+        <span x-show="currentLang === 'es'">Funciones</span>
+        <span x-show="currentLang === 'en'">Features</span>
+      </a>
+      <a
+        id="faq-link"
+        href={baseUrl + 'faq/'}
+        x-bind:href="baseHref('faq/')"
+        :aria-current="isActive('faq/') ? 'page' : undefined"
+        class="transition hover:text-accent aria-[current=page]:text-accent aria-[current=page]:underline aria-[current=page]:decoration-accent/50 aria-[current=page]:underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+      >
+        FAQ
+      </a>
+      <a
+        id="privacy-link"
+        href={baseUrl + 'privacy/'}
+        x-bind:href="baseHref('privacy/')"
+        :aria-current="isActive('privacy/') ? 'page' : undefined"
+        class="transition hover:text-accent aria-[current=page]:text-accent aria-[current=page]:underline aria-[current=page]:decoration-accent/50 aria-[current=page]:underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+      >
+        <span x-show="currentLang === 'es'">Privacidad</span>
+        <span x-show="currentLang === 'en'">Privacy</span>
+      </a>
+      <a
+        id="roadmap-link"
+        href="https://bookverse.me/fun-phone-roadmap"
+        target="_blank"
+        rel="noopener"
+        class="transition hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+      >
+        <span x-show="currentLang === 'es'">Hoja de ruta</span>
+        <span x-show="currentLang === 'en'">Roadmap</span>
+      </a>
     </div>
-  </div>
-</nav>
 
-<!-- Mobile menu overlay -->
-<div id="mobile-menu" class="fixed inset-0 z-50 md:hidden hidden">
-  <div class="fixed inset-0 bg-black bg-opacity-50" id="menu-overlay"></div>
-  <div id="menu-panel" class="fixed top-0 right-0 h-full w-64 bg-white dark:bg-neutral-900 shadow-xl transform translate-x-full transition-transform duration-300 ease-in-out">
-    <div class="flex flex-col h-full">
-      <div class="flex items-center justify-between p-4 border-b border-gray-100 dark:border-neutral-800">
-        <span class="font-bold text-accent text-lg">Menú</span>
-        <button id="menu-close" class="p-2 rounded border border-accent text-accent bg-white dark:bg-neutral-900 hover:bg-accent hover:text-white transition">
+    <div class="hidden items-center gap-3 md:flex">
+      <button
+        id="lang-toggle"
+        type="button"
+        class="rounded-full border border-accent/30 px-4 py-2 text-sm font-semibold text-accent transition hover:-translate-y-0.5 hover:border-accent hover:bg-accent/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        @click="toggleLanguage()"
+        :aria-label="currentLang === 'es' ? 'Cambiar idioma a inglés' : 'Switch language to Spanish'"
+      >
+        <span x-show="currentLang === 'es'">ES · EN</span>
+        <span x-show="currentLang === 'en'">EN · ES</span>
+      </button>
+      <button
+        id="dark-toggle"
+        type="button"
+        class="flex items-center gap-2 rounded-full border border-neutral-200 px-4 py-2 text-sm font-semibold text-neutral-700 transition hover:-translate-y-0.5 hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:border-neutral-700 dark:text-neutral-200"
+        @click="toggleTheme()"
+        :aria-pressed="isDark.toString()"
+        :aria-label="isDark ? (currentLang === 'es' ? 'Cambiar a modo claro' : 'Switch to light mode') : (currentLang === 'es' ? 'Cambiar a modo oscuro' : 'Switch to dark mode')"
+      >
+        <svg x-show="!isDark" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.364 6.364l-1.414-1.414M7.05 7.05L5.636 5.636m12.728 0L16.95 7.05M7.05 16.95l-1.414 1.414"/><circle cx="12" cy="12" r="4" stroke-width="2"/></svg>
+        <svg x-show="isDark" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"/></svg>
+        <span x-show="currentLang === 'es'">Tema</span>
+        <span x-show="currentLang === 'en'">Theme</span>
+      </button>
+      <a
+        id="download-link"
+        href="https://play.google.com/store/apps/details?id=com.bookverse.contacts"
+        target="_blank"
+        rel="noopener"
+        class="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2 text-sm font-bold text-white shadow-lg shadow-accent/30 transition hover:-translate-y-0.5 hover:bg-accent/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10.75 2.75a.75.75 0 00-1.5 0v6.5H4a.75.75 0 000 1.5h5.25v6.5a.75.75 0 001.5 0v-6.5H16a.75.75 0 000-1.5h-5.25v-6.5z"/></svg>
+        <span x-show="currentLang === 'es'">Descargar</span>
+        <span x-show="currentLang === 'en'">Download</span>
+      </a>
+    </div>
+
+    <button
+      id="menu-toggle"
+      type="button"
+      class="inline-flex items-center justify-center rounded-2xl border border-accent/30 p-3 text-accent transition hover:-translate-y-0.5 hover:border-accent hover:bg-accent/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent md:hidden"
+      @click="toggleMenu()"
+      :aria-expanded="menuOpen.toString()"
+      aria-controls="mobile-menu-panel"
+    >
+      <span class="sr-only" x-text="currentLang === 'es' ? (menuOpen ? 'Cerrar menú de navegación' : 'Abrir menú de navegación') : (menuOpen ? 'Close navigation menu' : 'Open navigation menu')"></span>
+      <svg x-show="!menuOpen" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <svg x-show="menuOpen" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+  </nav>
+
+  <div
+    id="mobile-menu"
+    class="fixed inset-0 z-30 bg-black/40 backdrop-blur-sm transition-opacity duration-300"
+    x-show="menuOpen"
+    x-transition.opacity
+    @click.self="closeMenu()"
+    @keydown.escape.window="menuOpen && closeMenu()"
+    role="dialog"
+    :aria-label="currentLang === 'es' ? 'Menú móvil' : 'Mobile menu'"
+  >
+    <div
+      id="mobile-menu-panel"
+      class="ml-auto flex h-full w-80 max-w-[85vw] flex-col gap-6 overflow-y-auto rounded-l-3xl border-l border-neutral-200 bg-white px-6 py-8 shadow-2xl transition-all duration-300 dark:border-neutral-800 dark:bg-neutral-950"
+      x-transition:enter="transform transition ease-out duration-300"
+      x-transition:enter-start="translate-x-full"
+      x-transition:enter-end="translate-x-0"
+      x-transition:leave="transform transition ease-in duration-200"
+      x-transition:leave-start="translate-x-0"
+      x-transition:leave-end="translate-x-full"
+    >
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <img src={logo.src} alt="Logotipo Fun Phone" width={32} height={32} class="rounded-lg border border-accent/30 bg-white" />
+          <p class="text-base font-semibold text-neutral-900 dark:text-neutral-100">Fun Phone</p>
+        </div>
+        <button
+          type="button"
+          class="rounded-full border border-neutral-200 p-2 text-neutral-600 transition hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:border-neutral-700 dark:text-neutral-200"
+          @click="closeMenu()"
+        >
+          <span class="sr-only" x-text="currentLang === 'es' ? 'Cerrar menú' : 'Close menu'"></span>
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
       </div>
-      
-      <nav class="flex-1 p-4 space-y-4">
-        <a href={import.meta.env.BASE_URL + 'features/'} class="block px-4 py-2 rounded font-semibold text-accent hover:bg-accent hover:text-white transition menu-link" id="mobile-features-link">Funciones</a>
-        <a href={import.meta.env.BASE_URL + 'faq/'} class="block px-4 py-2 rounded font-semibold text-accent hover:bg-accent hover:text-white transition menu-link">FAQ</a>
-        <a href={import.meta.env.BASE_URL + 'privacy/'} class="block px-4 py-2 rounded font-semibold text-accent hover:bg-accent hover:text-white transition menu-link" id="mobile-privacy-link">Privacidad</a>
-        
-        <div class="border-t border-gray-100 dark:border-neutral-800 my-4"></div>
-        
-        <button id="mobile-lang-toggle" class="block w-full text-left px-4 py-2 rounded font-semibold text-accent hover:bg-accent hover:text-white transition">
-          <span id="mobile-lang-text">Idioma: Cambiar a EN</span>
+
+      <div class="flex flex-col gap-4 text-base font-semibold text-neutral-700 dark:text-neutral-200">
+        <a
+          class="rounded-2xl border border-transparent px-4 py-3 transition hover:border-accent hover:bg-accent/10 hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          href={baseUrl + 'features/'}
+          x-bind:href="baseHref('features/')"
+          @click="closeMenu()"
+        >
+          <span x-show="currentLang === 'es'">Funciones</span>
+          <span x-show="currentLang === 'en'">Features</span>
+        </a>
+        <a
+          class="rounded-2xl border border-transparent px-4 py-3 transition hover:border-accent hover:bg-accent/10 hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          href={baseUrl + 'faq/'}
+          x-bind:href="baseHref('faq/')"
+          @click="closeMenu()"
+        >
+          FAQ
+        </a>
+        <a
+          class="rounded-2xl border border-transparent px-4 py-3 transition hover:border-accent hover:bg-accent/10 hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          href={baseUrl + 'privacy/'}
+          x-bind:href="baseHref('privacy/')"
+          @click="closeMenu()"
+        >
+          <span x-show="currentLang === 'es'">Privacidad</span>
+          <span x-show="currentLang === 'en'">Privacy</span>
+        </a>
+        <a
+          class="rounded-2xl border border-transparent px-4 py-3 transition hover:border-accent hover:bg-accent/10 hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          href="https://bookverse.me/fun-phone-roadmap"
+          target="_blank"
+          rel="noopener"
+          @click="closeMenu()"
+        >
+          <span x-show="currentLang === 'es'">Hoja de ruta</span>
+          <span x-show="currentLang === 'en'">Roadmap</span>
+        </a>
+      </div>
+
+      <div class="flex flex-col gap-3 rounded-3xl bg-neutral-50 p-5 dark:bg-neutral-900">
+        <button
+          type="button"
+          class="flex items-center justify-between gap-4 rounded-2xl border border-neutral-200 px-4 py-3 text-sm font-semibold text-neutral-800 transition hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:border-neutral-700 dark:text-neutral-100"
+          @click="toggleLanguage()"
+        >
+          <span x-show="currentLang === 'es'">Idioma</span>
+          <span x-show="currentLang === 'en'">Language</span>
+          <span class="rounded-full bg-accent/10 px-3 py-1 text-xs font-bold text-accent" x-text="currentLang.toUpperCase()"></span>
         </button>
-        
-        <button id="mobile-dark-toggle" class="block w-full text-left px-4 py-2 rounded font-semibold text-accent hover:bg-accent hover:text-white transition">
-          <span id="mobile-dark-text">Modo claro</span>
+        <button
+          type="button"
+          class="flex items-center justify-between gap-4 rounded-2xl border border-neutral-200 px-4 py-3 text-sm font-semibold text-neutral-800 transition hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:border-neutral-700 dark:text-neutral-100"
+          @click="toggleTheme()"
+        >
+          <span x-show="currentLang === 'es'">Tema</span>
+          <span x-show="currentLang === 'en'">Theme</span>
+          <span
+            class="rounded-full bg-neutral-200 px-3 py-1 text-xs font-bold text-neutral-800 dark:bg-neutral-800 dark:text-neutral-100"
+            x-text="isDark ? (currentLang === 'es' ? 'Oscuro' : 'Dark') : (currentLang === 'es' ? 'Claro' : 'Light')"
+          ></span>
         </button>
-      </nav>
+        <a
+          href="https://play.google.com/store/apps/details?id=com.bookverse.contacts"
+          target="_blank"
+          rel="noopener"
+          class="flex items-center justify-center gap-2 rounded-2xl bg-accent px-4 py-3 text-sm font-bold text-white shadow-lg shadow-accent/30 transition hover:bg-accent/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          @click="closeMenu()"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10.75 2.75a.75.75 0 00-1.5 0v6.5H4a.75.75 0 000 1.5h5.25v6.5a.75.75 0 001.5 0v-6.5H16a.75.75 0 000-1.5h-5.25v-6.5z"/></svg>
+          <span x-show="currentLang === 'es'">Descargar</span>
+          <span x-show="currentLang === 'en'">Download</span>
+        </a>
+      </div>
+
+      <div class="space-y-3 rounded-3xl border border-dashed border-accent/30 p-4 text-xs leading-relaxed text-neutral-500 dark:border-accent/20 dark:text-neutral-400">
+        <p x-show="currentLang === 'es'">Modo accesible mejorado: navega con teclado, lenguaje y tema se guardan automáticamente.</p>
+        <p x-show="currentLang === 'en'">Enhanced accessibility: keyboard friendly navigation, language and theme persist automatically.</p>
+      </div>
     </div>
   </div>
-</div>
+</header>
 
 <script is:inline>
-// Configuración inicial
-(function() {
-let currentLang = localStorage.getItem('lang') || 'es';
-let isDark = localStorage.getItem('darkMode') === null ? true : localStorage.getItem('darkMode') === 'true';
-let menuOpen = false;
-
-// Referencias DOM
-const navbar = document.getElementById('navbar');
-const mobileMenu = document.getElementById('mobile-menu');
-const menuPanel = document.getElementById('menu-panel');
-const menuToggle = document.getElementById('menu-toggle');
-const menuClose = document.getElementById('menu-close');
-const menuOverlay = document.getElementById('menu-overlay');
-const menuLinks = document.querySelectorAll('.menu-link');
-
-// Elementos de idioma
-const featuresLink = document.getElementById('features-link');
-const privacyLink = document.getElementById('privacy-link');
-const downloadLink = document.getElementById('download-link');
-const downloadLinkMobile = document.getElementById('download-link-mobile');
-const langToggle = document.getElementById('lang-toggle');
-const langText = document.getElementById('lang-text');
-const mobileFeaturesLink = document.getElementById('mobile-features-link');
-const mobilePrivacyLink = document.getElementById('mobile-privacy-link');
-const mobileLangToggle = document.getElementById('mobile-lang-toggle');
-const mobileLangText = document.getElementById('mobile-lang-text');
-
-// Elementos de tema oscuro
-const darkToggle = document.getElementById('dark-toggle');
-const mobileDarkToggle = document.getElementById('mobile-dark-toggle');
-const sunIcon = document.getElementById('sun-icon');
-const moonIcon = document.getElementById('moon-icon');
-const mobileDarkText = document.getElementById('mobile-dark-text');
-
-// Inicialización
-function init() {
-  updateLanguage();
-  updateTheme();
-  setupScrollListener();
-  setupMenuListeners();
-}
-
-// Actualizar idioma
-function updateLanguage() {
-  if (currentLang === 'es') {
-    featuresLink.textContent = 'Funciones';
-    privacyLink.textContent = 'Privacidad';
-    downloadLink.textContent = 'Descargar';
-    downloadLinkMobile.textContent = 'Descargar';
-    langText.textContent = 'EN';
-    mobileFeaturesLink.textContent = 'Funciones';
-    mobilePrivacyLink.textContent = 'Privacidad';
-    mobileLangText.textContent = 'Idioma: Cambiar a EN';
-    mobileDarkText.textContent = isDark ? 'Modo claro' : 'Modo oscuro';
-  } else {
-    featuresLink.textContent = 'Features';
-    privacyLink.textContent = 'Privacy';
-    downloadLink.textContent = 'Download';
-    downloadLinkMobile.textContent = 'Download';
-    langText.textContent = 'ES';
-    mobileFeaturesLink.textContent = 'Features';
-    mobilePrivacyLink.textContent = 'Privacy';
-    mobileLangText.textContent = 'Language: Switch to ES';
-    mobileDarkText.textContent = isDark ? 'Light mode' : 'Dark mode';
-  }
-  
-  // Disparar evento personalizado para otros componentes
-  window.dispatchEvent(new CustomEvent('lang', { detail: currentLang }));
-}
-
-// Actualizar tema
-function updateTheme() {
-  document.documentElement.classList.toggle('dark', isDark);
-  
-  if (isDark) {
-    sunIcon.classList.add('hidden');
-    moonIcon.classList.remove('hidden');
-  } else {
-    sunIcon.classList.remove('hidden');
-    moonIcon.classList.add('hidden');
-  }
-  
-  updateLanguage(); // Actualizar textos del tema
-}
-
-// Configurar listener de scroll
-function setupScrollListener() {
-  window.addEventListener('scroll', () => {
-    const scrolled = window.scrollY > 20;
-    if (scrolled) {
-      navbar.classList.add('bg-white/90', 'dark:bg-neutral-900/90', 'shadow');
-      navbar.classList.remove('bg-transparent');
-    } else {
-      navbar.classList.remove('bg-white/90', 'dark:bg-neutral-900/90', 'shadow');
-      navbar.classList.add('bg-transparent');
+function navbarComponent() {
+  return {
+    menuOpen: false,
+    currentLang: localStorage.getItem('lang') || (navigator.language?.startsWith('es') ? 'es' : 'en'),
+    isDark: (() => {
+      const stored = localStorage.getItem('darkMode');
+      if (stored !== null) return stored === 'true';
+      return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    })(),
+    scrolled: false,
+    init() {
+      this.applyTheme();
+      this.syncLang();
+      this.handleScroll();
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      if (mediaQuery.addEventListener) {
+        mediaQuery.addEventListener('change', (event) => {
+          if (localStorage.getItem('darkMode') === null) {
+            this.isDark = event.matches;
+            this.applyTheme();
+          }
+        });
+      }
+      window.addEventListener('lang', (event) => {
+        if (event.detail && event.detail !== this.currentLang) {
+          this.currentLang = event.detail;
+          localStorage.setItem('lang', this.currentLang);
+        }
+        this.updateDocumentLang();
+      });
+    },
+    baseHref(path) {
+      const base = document.getElementById('navbar')?.dataset.base || '/';
+      return `${base}${path}`;
+    },
+    isActive(path) {
+      try {
+        const base = document.getElementById('navbar')?.dataset.base || '/';
+        const current = window.location.pathname;
+        const target = `${base}${path}`;
+        return current.endsWith(path) || current === target;
+      } catch (_) { return false; }
+    },
+    handleScroll() {
+      const onScroll = () => {
+        this.scrolled = window.scrollY > 12;
+      };
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+    },
+    toggleMenu() {
+      this.menuOpen = !this.menuOpen;
+      document.body.classList.toggle('overflow-hidden', this.menuOpen);
+    },
+    closeMenu() {
+      this.menuOpen = false;
+      document.body.classList.remove('overflow-hidden');
+    },
+    toggleLanguage() {
+      this.currentLang = this.currentLang === 'es' ? 'en' : 'es';
+      this.syncLang();
+    },
+    syncLang() {
+      localStorage.setItem('lang', this.currentLang);
+      this.updateDocumentLang();
+      window.dispatchEvent(new CustomEvent('lang', { detail: this.currentLang }));
+    },
+    updateDocumentLang() {
+      document.documentElement.lang = this.currentLang;
+      document.documentElement.setAttribute('data-lang', this.currentLang);
+    },
+    toggleTheme() {
+      this.isDark = !this.isDark;
+      localStorage.setItem('darkMode', this.isDark);
+      this.applyTheme();
+    },
+    applyTheme() {
+      document.documentElement.classList.toggle('dark', this.isDark);
+      document.documentElement.style.colorScheme = this.isDark ? 'dark' : 'light';
     }
-  });
+  };
 }
-
-// Configurar listeners del menú
-function setupMenuListeners() {
-  // Abrir menú
-  menuToggle.addEventListener('click', openMenu);
-  
-  // Cerrar menú
-  menuClose.addEventListener('click', closeMenu);
-  menuOverlay.addEventListener('click', closeMenu);
-  
-  // Cerrar menú al hacer clic en links
-  menuLinks.forEach(link => {
-    link.addEventListener('click', closeMenu);
-  });
-  
-  // Toggle de idioma
-  langToggle.addEventListener('click', toggleLanguage);
-  mobileLangToggle.addEventListener('click', toggleLanguage);
-  
-  // Toggle de tema oscuro
-  darkToggle.addEventListener('click', toggleTheme);
-  mobileDarkToggle.addEventListener('click', toggleTheme);
-}
-
-// Abrir menú
-function openMenu() {
-  menuOpen = true;
-  mobileMenu.classList.remove('hidden');
-  setTimeout(() => {
-    menuPanel.classList.remove('translate-x-full');
-  }, 10);
-}
-
-// Cerrar menú
-function closeMenu() {
-  menuOpen = false;
-  menuPanel.classList.add('translate-x-full');
-  setTimeout(() => {
-    mobileMenu.classList.add('hidden');
-  }, 300);
-}
-
-// Toggle de idioma
-function toggleLanguage() {
-  currentLang = currentLang === 'es' ? 'en' : 'es';
-  localStorage.setItem('lang', currentLang);
-  updateLanguage();
-}
-
-// Toggle de tema
-function toggleTheme() {
-  isDark = !isDark;
-  localStorage.setItem('darkMode', isDark);
-  updateTheme();
-}
-
-// Inicializar cuando el DOM esté listo
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', init);
-} else {
-  init();
-}
-})(); // Cerrar función anónima
 </script>
