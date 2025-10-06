@@ -21,9 +21,7 @@ const currentYear = new Date().getFullYear();
           Google Play
         </a>
         <a
-          href="https://bookverse.me/fun-phone-roadmap"
-          target="_blank"
-          rel="noopener"
+          href={baseUrl + 'roadmap/'}
           class="inline-flex items-center gap-2 rounded-full border border-accent/30 px-4 py-2 text-sm font-semibold text-accent transition hover:-translate-y-0.5 hover:border-accent hover:bg-accent/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
         >
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7l6 6-6 6M9 7h12"/></svg>
@@ -32,7 +30,7 @@ const currentYear = new Date().getFullYear();
       </div>
     </div>
 
-    <div class="grid flex-1 grid-cols-1 gap-8 text-sm text-neutral-600 dark:text-neutral-300 sm:grid-cols-2 md:grid-cols-3">
+    <div class="grid flex-1 grid-cols-1 gap-8 text-sm text-neutral-600 dark:text-neutral-300 sm:grid-cols-2 md:grid-cols-2">
       <div>
         <h2 class="mb-3 text-xs font-semibold uppercase tracking-widest text-neutral-400 dark:text-neutral-500">Sitio</h2>
         <ul class="space-y-2" aria-label="Navegación secundaria">
@@ -50,60 +48,10 @@ const currentYear = new Date().getFullYear();
           <li><a href="https://support.google.com/googleplay/answer/113410" target="_blank" rel="noopener" class="hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">Reembolsos y ayuda</a></li>
         </ul>
       </div>
-      <div>
-        <h2 class="mb-3 text-xs font-semibold uppercase tracking-widest text-neutral-400 dark:text-neutral-500">Actualizaciones</h2>
-        <p class="mb-3 text-xs text-neutral-500 dark:text-neutral-400">Recibe noticias sobre lanzamientos, nuevas funciones y tips de productividad.</p>
-        <form class="flex flex-col gap-2" x-data="newsletterForm()" @submit.prevent="submit">
-          <label for="newsletter-email" class="sr-only">Correo electrónico</label>
-          <input
-            id="newsletter-email"
-            type="email"
-            required
-            x-model="email"
-            placeholder="tu@email.com"
-            class="w-full rounded-full border border-neutral-200 bg-white px-4 py-2 text-sm text-neutral-800 shadow-sm focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/40 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-50"
-            autocomplete="email"
-          />
-          <button
-            type="submit"
-            class="inline-flex items-center justify-center gap-2 rounded-full border border-accent/40 px-4 py-2 text-sm font-semibold text-accent transition hover:-translate-y-0.5 hover:border-accent hover:bg-accent/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-            :aria-live="status ? 'polite' : 'off'"
-          >
-            <span x-show="!loading">Quiero novedades</span>
-            <span x-show="loading" class="flex items-center gap-2">
-              <svg class="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle class="opacity-25" cx="12" cy="12" r="10" stroke-width="4"></circle><path class="opacity-75" d="M4 12a8 8 0 018-8" stroke-width="4" stroke-linecap="round"></path></svg>
-              Enviando...
-            </span>
-          </button>
-          <p x-show="status" x-text="status" class="text-xs text-neutral-500 dark:text-neutral-400" role="status"></p>
-        </form>
-      </div>
+      
     </div>
   </div>
   <div class="border-t border-neutral-200 bg-white/70 py-6 text-center text-xs text-neutral-500 backdrop-blur dark:border-neutral-800 dark:bg-neutral-950/60 dark:text-neutral-400">
     &copy; {currentYear} Fun Phone · Bookverse. Todos los derechos reservados.
   </div>
 </footer>
-
-<script is:inline>
-function newsletterForm() {
-  return {
-    email: localStorage.getItem('funphone-newsletter-email') || '',
-    loading: false,
-    status: '',
-    submit() {
-      if (!this.email) {
-        this.status = 'Ingresa un correo válido para recibir novedades.';
-        return;
-      }
-      this.loading = true;
-      this.status = '';
-      setTimeout(() => {
-        localStorage.setItem('funphone-newsletter-email', this.email);
-        this.loading = false;
-        this.status = '¡Listo! Te avisaremos cuando haya novedades.';
-      }, 900);
-    }
-  };
-}
-</script>

@@ -62,6 +62,8 @@ const faqSchema = JSON.stringify({
     <meta name="twitter:description" content="Resuelve dudas de Fun Phone sobre llamadas, contactos y privacidad." />
     <meta property="og:locale" content="es_ES" />
     <meta property="og:locale:alternate" content="en_US" />
+    <link rel="icon" type="image/png" href={import.meta.env.BASE_URL + 'assets/logo.png'} />
+    <link rel="apple-touch-icon" href={import.meta.env.BASE_URL + 'assets/logo.png'} />
     <script type="application/ld+json">{faqSchema}</script>
     <script>
       const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -78,7 +80,7 @@ const faqSchema = JSON.stringify({
       <header class="rounded-4xl border border-neutral-200 bg-white/80 p-10 text-center shadow-xl shadow-accent/10 backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/80">
         <p class="text-xs font-semibold uppercase tracking-[0.3em] text-accent" x-show="lang==='es'">Ayuda al instante</p>
         <p class="text-xs font-semibold uppercase tracking-[0.3em] text-accent" x-show="lang==='en'">Instant help</p>
-        <h1 class="mt-4 text-4xl font-black leading-tight tracking-tight text-neutral-900 dark:text-neutral-50">
+        <h1 class="mt-4 text-4xl font-black leading-tight tracking-tight text-neutral-900 dark:text-accent">
           <span x-show="lang==='es'">Preguntas frecuentes sobre Fun Phone</span>
           <span x-show="lang==='en'">Fun Phone frequently asked questions</span>
         </h1>
@@ -92,20 +94,20 @@ const faqSchema = JSON.stringify({
 
       <section class="grid gap-6 rounded-4xl border border-neutral-200 bg-white/80 p-8 shadow-lg shadow-accent/5 backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/70 md:grid-cols-3">
         <article class="flex flex-col gap-3 rounded-3xl border border-neutral-200 bg-white/80 p-5 text-sm text-neutral-600 shadow-sm dark:border-neutral-700 dark:bg-neutral-900/60 dark:text-neutral-300">
-          <h2 class="text-base font-semibold text-neutral-900 dark:text-neutral-50" x-show="lang==='es'">Primeros pasos</h2>
-          <h2 class="text-base font-semibold text-neutral-900 dark:text-neutral-50" x-show="lang==='en'">Getting started</h2>
+          <h2 class="text-base font-semibold text-neutral-900 dark:text-accent" x-show="lang==='es'">Primeros pasos</h2>
+          <h2 class="text-base font-semibold text-neutral-900 dark:text-accent" x-show="lang==='en'">Getting started</h2>
           <p x-show="lang==='es'">Configura Fun Phone en Ajustes → Apps predeterminadas. Asegúrate de otorgar permisos de Teléfono y Contactos.</p>
           <p x-show="lang==='en'">Set Fun Phone from Settings → Default apps. Grant Phone and Contacts permissions to unlock every feature.</p>
         </article>
         <article class="flex flex-col gap-3 rounded-3xl border border-neutral-200 bg-white/80 p-5 text-sm text-neutral-600 shadow-sm dark:border-neutral-700 dark:bg-neutral-900/60 dark:text-neutral-300">
-          <h2 class="text-base font-semibold text-neutral-900 dark:text-neutral-50" x-show="lang==='es'">Soporte rápido</h2>
-          <h2 class="text-base font-semibold text-neutral-900 dark:text-neutral-50" x-show="lang==='en'">Quick support</h2>
+          <h2 class="text-base font-semibold text-neutral-900 dark:text-accent" x-show="lang==='es'">Soporte rápido</h2>
+          <h2 class="text-base font-semibold text-neutral-900 dark:text-accent" x-show="lang==='en'">Quick support</h2>
           <p x-show="lang==='es'">Escríbenos a <a href="mailto:santiago.moncada.dev@gmail.com" class="text-accent underline">santiago.moncada.dev@gmail.com</a> o desde la app → Contacto.</p>
           <p x-show="lang==='en'">Reach us at <a href="mailto:santiago.moncada.dev@gmail.com" class="text-accent underline">santiago.moncada.dev@gmail.com</a> or through the in-app Contact section.</p>
         </article>
         <article class="flex flex-col gap-3 rounded-3xl border border-neutral-200 bg-white/80 p-5 text-sm text-neutral-600 shadow-sm dark:border-neutral-700 dark:bg-neutral-900/60 dark:text-neutral-300">
-          <h2 class="text-base font-semibold text-neutral-900 dark:text-neutral-50" x-show="lang==='es'">¿Cambiaste de idioma?</h2>
-          <h2 class="text-base font-semibold text-neutral-900 dark:text-neutral-50" x-show="lang==='en'">Switched language?</h2>
+          <h2 class="text-base font-semibold text-neutral-900 dark:text-accent" x-show="lang==='es'">¿Cambiaste de idioma?</h2>
+          <h2 class="text-base font-semibold text-neutral-900 dark:text-accent" x-show="lang==='en'">Switched language?</h2>
           <p x-show="lang==='es'">Fun Phone detecta tu preferencia, pero puedes cambiarla en la barra superior o desde Ajustes → Idioma.</p>
           <p x-show="lang==='en'">Fun Phone picks your preferred language, but you can switch anytime from the top bar or Settings → Language.</p>
         </article>
@@ -114,8 +116,8 @@ const faqSchema = JSON.stringify({
       <FAQBlock />
 
       <section class="rounded-4xl border border-neutral-200 bg-white/80 p-8 shadow-lg shadow-accent/5 backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/70">
-        <h2 class="text-2xl font-bold text-neutral-900 dark:text-neutral-50" x-show="lang==='es'">¿No encuentras tu respuesta?</h2>
-        <h2 class="text-2xl font-bold text-neutral-900 dark:text-neutral-50" x-show="lang==='en'">Need more help?</h2>
+        <h2 class="text-2xl font-bold text-neutral-900 dark:text-accent" x-show="lang==='es'">¿No encuentras tu respuesta?</h2>
+        <h2 class="text-2xl font-bold text-neutral-900 dark:text-accent" x-show="lang==='en'">Need more help?</h2>
         <p class="mt-2 text-neutral-600 dark:text-neutral-300" x-show="lang==='es'">Consulta la <a href={import.meta.env.BASE_URL + 'privacy/'} class="text-accent underline">política de privacidad</a> o envíanos un correo detallando tu dispositivo y versión de Android.</p>
         <p class="mt-2 text-neutral-600 dark:text-neutral-300" x-show="lang==='en'">Check the <a href={import.meta.env.BASE_URL + 'privacy/'} class="text-accent underline">privacy policy</a> or email us with your device and Android version.</p>
       </section>
