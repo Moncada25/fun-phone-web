@@ -25,8 +25,8 @@ const heroImage = import.meta.env.BASE_URL + 'assets/screenshots/dialer.png';
     <link rel="alternate" href={siteUrl} hrefLang="es" />
     <link rel="alternate" href={siteUrl} hrefLang="en" />
     <link rel="manifest" href={import.meta.env.BASE_URL + 'site.webmanifest'} />
-    <link rel="icon" type="image/png" sizes="192x192" href={import.meta.env.BASE_URL + 'assets/icon-192.png'} />
-    <link rel="icon" type="image/png" sizes="512x512" href={import.meta.env.BASE_URL + 'assets/icon-512.png'} />
+    <link rel="icon" type="image/png" href={import.meta.env.BASE_URL + 'assets/logo.png'} />
+    <link rel="apple-touch-icon" href={import.meta.env.BASE_URL + 'assets/logo.png'} />
     <meta name="theme-color" content="#0066e0" />
 
     <meta property="og:type" content="website" />
@@ -55,11 +55,6 @@ const heroImage = import.meta.env.BASE_URL + 'assets/screenshots/dialer.png';
         "downloadUrl": "https://play.google.com/store/apps/details?id=com.bookverse.contacts",
         "installUrl": "https://play.google.com/store/apps/details?id=com.bookverse.contacts",
         "author": {"@type":"Organization","name":"Bookverse"},
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "4.8",
-          "ratingCount": "960"
-        },
         "featureList": [
           "Marcador inteligente con búsqueda T9",
           "Gestión avanzada de contactos",
@@ -95,23 +90,37 @@ const heroImage = import.meta.env.BASE_URL + 'assets/screenshots/dialer.png';
     <main id="main-content" role="main" class="mx-auto flex w-full max-w-6xl flex-col gap-16 px-4 pt-28 pb-24">
       <section id="hero" class="relative overflow-hidden rounded-4xl border border-neutral-200 bg-white/80 px-6 py-16 shadow-xl shadow-accent/10 backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/80">
         <div class="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,_rgba(0,102,224,0.15),_transparent_60%)] dark:bg-[radial-gradient(circle_at_top,_rgba(0,102,224,0.25),_transparent_60%)]"></div>
-        <div class="grid gap-10 lg:grid-cols-2 lg:items-center">
-          <div class="space-y-6">
-            <div class="inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-4 py-1 text-xs font-semibold uppercase tracking-wide text-accent">
-              <span x-show="lang==='es'">Nuevo: tablero de productividad y temas automáticos</span>
-              <span x-show="lang==='en'">New: productivity board & auto themes</span>
-            </div>
-            <h1 class="text-4xl font-black leading-tight tracking-tight text-neutral-900 dark:text-neutral-50 lg:text-5xl">
-              <span x-show="lang==='es'">Haz tus llamadas más divertidas, seguras y productivas</span>
-              <span x-show="lang==='en'">Make your calls fun, safe and productive</span>
+        <div class="mx-auto max-w-3xl space-y-6 text-center">
+            
+            <h1 class="text-4xl font-black leading-tight tracking-tight text-neutral-900 dark:text-accent lg:text-5xl">
+              <span x-show="lang==='es'">Tu centro completo de comunicación y productividad</span>
+              <span x-show="lang==='en'">Your complete hub for communication and productivity</span>
             </h1>
-            <p class="max-w-xl text-lg text-neutral-600 dark:text-neutral-300" x-show="lang==='es'">
-              Fun Phone reúne marcador inteligente, contactos mejorados, notas de llamada y juegos ligeros en una sola app. Sin anuncios ni rastreo.
+            <p class="mx-auto max-w-2xl text-lg text-neutral-600 dark:text-neutral-300" x-show="lang==='es'">
+              Transforma tu experiencia Android con un marcador todo‑en‑uno: llamadas avanzadas, contactos potentes, suite de productividad, juegos y más. Sin anuncios. Sin compartir datos.
             </p>
-            <p class="max-w-xl text-lg text-neutral-600 dark:text-neutral-300" x-show="lang==='en'">
-              Fun Phone combines a smart dialer, upgraded contacts, call notes, and playful mini-games in one privacy-first app.
+            <p class="mx-auto max-w-2xl text-lg text-neutral-600 dark:text-neutral-300" x-show="lang==='en'">
+              Transform your Android with an all‑in‑one dialer: advanced calling, powerful contacts, a productivity suite, mini‑games and more. Ad‑free. No data sharing.
             </p>
-            <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <div class="mx-auto mt-2 flex max-w-2xl flex-wrap justify-center gap-2">
+              <template x-if="lang==='es'">
+                <div class="contents">
+                  <span class="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">Marcador T9</span>
+                  <span class="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">Contactos avanzados</span>
+                  <span class="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">Notas y recordatorios</span>
+                  <span class="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">Juegos clásicos</span>
+                </div>
+              </template>
+              <template x-if="lang==='en'">
+                <div class="contents">
+                  <span class="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">T9 dialer</span>
+                  <span class="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">Advanced contacts</span>
+                  <span class="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">Notes & reminders</span>
+                  <span class="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">Classic games</span>
+                </div>
+              </template>
+            </div>
+            <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
               <a
                 href="https://play.google.com/store/apps/details?id=com.bookverse.contacts"
                 class="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 text-base font-semibold text-white shadow-lg shadow-accent/40 transition hover:-translate-y-0.5 hover:bg-accent/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
@@ -130,7 +139,7 @@ const heroImage = import.meta.env.BASE_URL + 'assets/screenshots/dialer.png';
                 <span x-show="lang==='en'">Explore features</span>
               </a>
             </div>
-            <div class="flex flex-wrap gap-4">
+            <div class="flex flex-wrap justify-center gap-4">
               <PrivacyBadge />
               <div class="flex items-center gap-2 rounded-full bg-neutral-100/80 px-4 py-1 text-xs font-semibold text-neutral-600 backdrop-blur dark:bg-neutral-800/80 dark:text-neutral-300">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M3 7h18M8 3h8M12 14v7m-5-5l5 5 5-5"/></svg>
@@ -138,80 +147,60 @@ const heroImage = import.meta.env.BASE_URL + 'assets/screenshots/dialer.png';
                 <span x-show="lang==='en'">Ready for Dual-SIM & VoLTE</span>
               </div>
             </div>
-          </div>
-          <div class="relative">
-            <div class="pointer-events-none absolute inset-0 -translate-y-6 rounded-[3rem] bg-gradient-to-br from-accent/20 to-transparent blur-3xl"></div>
-            <figure class="relative overflow-hidden rounded-[2.5rem] border border-neutral-200 bg-white shadow-2xl dark:border-neutral-800 dark:bg-neutral-900">
-              <img src={heroImage} alt="Fun Phone resumen visual" class="w-full" loading="lazy" />
-            </figure>
-          </div>
+          
         </div>
-        <dl class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          <div class="rounded-3xl border border-neutral-200 bg-white/80 px-5 py-4 text-center shadow-sm dark:border-neutral-700 dark:bg-neutral-900/70">
-            <dt class="text-xs font-semibold uppercase tracking-wide text-neutral-500">Tiempo ahorrado</dt>
-            <dd class="mt-2 text-3xl font-black text-accent">12h+</dd>
-            <p class="text-xs text-neutral-500" x-show="lang==='es'">por semana gracias a marcación inteligente.</p>
-            <p class="text-xs text-neutral-500" x-show="lang==='en'">saved weekly with smart dialing.</p>
-          </div>
-          <div class="rounded-3xl border border-neutral-200 bg-white/80 px-5 py-4 text-center shadow-sm dark:border-neutral-700 dark:bg-neutral-900/70">
-            <dt class="text-xs font-semibold uppercase tracking-wide text-neutral-500">Contactos migrados</dt>
-            <dd class="mt-2 text-3xl font-black text-accent">250K</dd>
-            <p class="text-xs text-neutral-500" x-show="lang==='es'">usuarios sincronizaron su agenda sin pérdidas.</p>
-            <p class="text-xs text-neutral-500" x-show="lang==='en'">people synced their address books flawlessly.</p>
-          </div>
-          <div class="rounded-3xl border border-neutral-200 bg-white/80 px-5 py-4 text-center shadow-sm dark:border-neutral-700 dark:bg-neutral-900/70">
-            <dt class="text-xs font-semibold uppercase tracking-wide text-neutral-500">Nota rápida</dt>
-            <dd class="mt-2 text-3xl font-black text-accent">3s</dd>
-            <p class="text-xs text-neutral-500" x-show="lang==='es'">para capturar ideas durante una llamada.</p>
-            <p class="text-xs text-neutral-500" x-show="lang==='en'">to jot down call notes on the fly.</p>
-          </div>
-          <div class="rounded-3xl border border-neutral-200 bg-white/80 px-5 py-4 text-center shadow-sm dark:border-neutral-700 dark:bg-neutral-900/70">
-            <dt class="text-xs font-semibold uppercase tracking-wide text-neutral-500">Rating promedio</dt>
-            <dd class="mt-2 text-3xl font-black text-accent">4.8★</dd>
-            <p class="text-xs text-neutral-500" x-show="lang==='es'">más de 900 reseñas verificadas.</p>
-            <p class="text-xs text-neutral-500" x-show="lang==='en'">based on 900+ verified reviews.</p>
-          </div>
-        </dl>
       </section>
 
-      <section id="use-cases" class="grid gap-8 rounded-4xl border border-neutral-200 bg-white/80 p-6 shadow-lg shadow-accent/5 backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/70 lg:grid-cols-[1.1fr_1fr]">
-        <div class="space-y-4">
-          <h2 class="text-3xl font-bold text-neutral-900 dark:text-neutral-50" x-show="lang==='es'">Elige tu flow ideal</h2>
-          <h2 class="text-3xl font-bold text-neutral-900 dark:text-neutral-50" x-show="lang==='en'">Choose your ideal flow</h2>
-          <p class="text-neutral-600 dark:text-neutral-300" x-show="lang==='es'">Cambia de escenario para descubrir las herramientas que te ahorrarán más tiempo.</p>
-          <p class="text-neutral-600 dark:text-neutral-300" x-show="lang==='en'">Switch scenarios to find the tools that save you the most time.</p>
-          <div class="flex flex-wrap gap-3" role="tablist" x-data="personaSelector()" x-init="init()">
-            <template x-for="persona in personas" :key="persona.id">
-              <button
-                type="button"
-                class="rounded-full border border-neutral-200 px-4 py-2 text-sm font-semibold transition hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:border-neutral-700"
-                :class="active === persona.id ? 'bg-accent text-white border-accent' : ''"
-                @click="setPersona(persona.id)"
-                x-text="label(persona)"
-                role="tab"
-                :aria-selected="(active === persona.id).toString()"
-              ></button>
-            </template>
+      <section id="whats-new" class="rounded-4xl border border-neutral-200 bg-white/80 p-6 shadow-lg shadow-accent/5 backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/70">
+        <div class="flex items-center gap-3">
+          <span class="flex h-10 w-10 items-center justify-center rounded-2xl bg-accent/15 text-accent">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M12 8v8m-4-4h8M5 4h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5a1 1 0 011-1z"/></svg>
+          </span>
+          <h2 class="text-xl font-semibold text-neutral-900 dark:text-accent">
+            <span x-show="lang==='es'">Lo nuevo</span>
+            <span x-show="lang==='en'">What’s new</span>
+          </h2>
+        </div>
+        <div class="mt-4 grid gap-4 md:grid-cols-2">
+          <div class="space-y-2 rounded-3xl border border-neutral-200 bg-white/70 p-4 text-sm text-neutral-700 dark:border-neutral-800 dark:bg-neutral-900/60 dark:text-neutral-300">
+            <h3 class="text-base font-semibold text-neutral-900 dark:text-accent">
+              <span x-show="lang==='es'">Suite de Notas</span>
+              <span x-show="lang==='en'">Notes Suite</span>
+            </h3>
+            <ul class="space-y-1">
+              <li><span class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span><span x-show="lang==='es'">Notas de texto enriquecido y listas de verificación.</span><span x-show="lang==='en'">Rich‑text notes and checklists.</span></li>
+              <li><span class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span><span x-show="lang==='es'">Recordatorios inteligentes con notificaciones.</span><span x-show="lang==='en'">Smart reminders with notifications.</span></li>
+              <li><span class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span><span x-show="lang==='es'">Grabación de voz con organización.</span><span x-show="lang==='en'">Voice recording with organisation.</span></li>
+              <li><span class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span><span x-show="lang==='es'">Protección con biometría y copias de seguridad.</span><span x-show="lang==='en'">Biometric protection and backups.</span></li>
+            </ul>
           </div>
-          <div class="space-y-3 rounded-3xl border border-dashed border-accent/30 bg-accent/5 p-6 text-sm text-neutral-700 dark:border-accent/40 dark:bg-accent/10 dark:text-neutral-200" role="tabpanel">
-            <h3 class="text-lg font-semibold text-accent" x-text="currentPersona.title"></h3>
-            <ul class="space-y-2">
-              <template x-for="item in currentPersona.items" :key="item">
-                <li class="flex items-start gap-2"><span class="mt-1 inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent"></span><span x-text="item"></span></li>
-              </template>
+          <div class="space-y-2 rounded-3xl border border-neutral-200 bg-white/70 p-4 text-sm text-neutral-700 dark:border-neutral-800 dark:bg-neutral-900/60 dark:text-neutral-300">
+            <h3 class="text-base font-semibold text-neutral-900 dark:text-accent">
+              <span x-show="lang==='es'">Gestor y Generador de Contraseñas</span>
+              <span x-show="lang==='en'">Password Manager & Generator</span>
+            </h3>
+            <ul class="space-y-1">
+              <li><span class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span><span x-show="lang==='es'">Guarda credenciales localmente. Sin sincronización remota.</span><span x-show="lang==='en'">Store credentials locally. No remote sync.</span></li>
+              <li><span class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span><span x-show="lang==='es'">Genera contraseñas fuertes aleatorias.</span><span x-show="lang==='en'">Generate strong random passwords.</span></li>
+              <li><span class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span><span x-show="lang==='es'">Protección con biometría o PIN.</span><span x-show="lang==='en'">Protected with biometrics or PIN.</span></li>
             </ul>
           </div>
         </div>
-        <div class="space-y-6">
+      </section>
+
+      <section id="use-cases" class="rounded-4xl border border-neutral-200 bg-white/80 p-6 text-center shadow-lg shadow-accent/5 backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/70">
+        <div class="mx-auto max-w-4xl">
           <ScreenshotCarousel />
-          <a
-            href={import.meta.env.BASE_URL + 'faq/'}
-            class="flex items-center justify-between gap-3 rounded-3xl border border-neutral-200 bg-neutral-50/80 px-6 py-4 text-sm font-semibold text-neutral-700 transition hover:border-accent hover:bg-accent/10 hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:border-neutral-800 dark:bg-neutral-900/60 dark:text-neutral-200"
-          >
-            <span x-show="lang==='es'">¿Tienes dudas? Revisa la guía rápida de configuración.</span>
-            <span x-show="lang==='en'">Questions? Jump into the quick-start FAQ.</span>
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-          </a>
+          <div class="mt-6 flex justify-center">
+            <a
+              href={import.meta.env.BASE_URL + 'faq/'}
+              class="inline-flex items-center justify-center gap-3 rounded-3xl border border-neutral-200 bg-neutral-50/80 px-6 py-4 text-sm font-semibold text-neutral-700 transition hover:border-accent hover:bg-accent/10 hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:border-neutral-800 dark:bg-neutral-900/60 dark:text-neutral-200"
+            >
+              <span x-show="lang==='es'">¿Tienes dudas? Revisa la guía rápida de configuración.</span>
+              <span x-show="lang==='en'">Questions? Jump into the quick-start FAQ.</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </a>
+          </div>
         </div>
       </section>
 
@@ -222,7 +211,7 @@ const heroImage = import.meta.env.BASE_URL + 'assets/screenshots/dialer.png';
         >
           <div class="flex items-center gap-3">
             <span class="flex h-10 w-10 items-center justify-center rounded-2xl bg-accent/15 text-accent"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M3 5h2l.4 2M7 13h10l1.4-7H6.6M7 13l-1.5 6M17 13l1.5 6M9 21h6"/></svg></span>
-            <h2 class="text-xl font-semibold text-neutral-900 transition group-hover:text-accent dark:text-neutral-50">Suite completa de funciones</h2>
+            <h2 class="text-xl font-semibold text-neutral-900 transition group-hover:text-accent dark:text-accent">Suite completa de funciones</h2>
           </div>
           <p class="text-neutral-600 dark:text-neutral-300" x-show="lang==='es'">Marcador T9, contactos enriquecidos, notas de llamada, recordatorios, grabador de voz y más en un flujo intuitivo.</p>
           <p class="text-neutral-600 dark:text-neutral-300" x-show="lang==='en'">Smart T9 dialer, rich contacts, call notes, reminders, voice recorder, and more in a single intuitive flow.</p>
@@ -234,7 +223,7 @@ const heroImage = import.meta.env.BASE_URL + 'assets/screenshots/dialer.png';
         >
           <div class="flex items-center gap-3">
             <span class="flex h-10 w-10 items-center justify-center rounded-2xl bg-accent/15 text-accent"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M8 10h.01M12 4a8 8 0 100 16 8 8 0 000-16zm0 9v.01"/></svg></span>
-            <h2 class="text-xl font-semibold text-neutral-900 transition group-hover:text-accent dark:text-neutral-50">FAQ y recursos instantáneos</h2>
+            <h2 class="text-xl font-semibold text-neutral-900 transition group-hover:text-accent dark:text-accent">FAQ y recursos instantáneos</h2>
           </div>
           <p class="text-neutral-600 dark:text-neutral-300" x-show="lang==='es'">Aprende a configurarla como app predeterminada, gestionar permisos y activar las funciones premium en minutos.</p>
           <p class="text-neutral-600 dark:text-neutral-300" x-show="lang==='en'">Learn how to set Fun Phone as default, manage permissions, and unlock pro features in minutes.</p>
@@ -242,47 +231,13 @@ const heroImage = import.meta.env.BASE_URL + 'assets/screenshots/dialer.png';
         </a>
       </section>
 
-      <section id="privacy" class="grid gap-8 lg:grid-cols-[1fr_1.1fr]">
-        <div class="space-y-4">
-          <h2 class="text-3xl font-bold text-neutral-900 dark:text-neutral-50" x-show="lang==='es'">Privacidad sin letra chica</h2>
-          <h2 class="text-3xl font-bold text-neutral-900 dark:text-neutral-50" x-show="lang==='en'">Privacy without fine print</h2>
-          <p class="text-neutral-600 dark:text-neutral-300" x-show="lang==='es'">Controla cada permiso y conoce exactamente cómo se usa. Fun Phone funciona offline y guarda tus datos en el dispositivo.</p>
-          <p class="text-neutral-600 dark:text-neutral-300" x-show="lang==='en'">Control every permission and know exactly how it’s used. Fun Phone works offline and stores your data on-device.</p>
-          <ul class="space-y-3 text-sm text-neutral-600 dark:text-neutral-300">
-            <li class="flex items-start gap-2"><span class="mt-1 inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent"></span><span x-show="lang==='es'">Auditoría visual de permisos con explicaciones en lenguaje natural.</span><span x-show="lang==='en'">Visual permission audit with natural language explanations.</span></li>
-            <li class="flex items-start gap-2"><span class="mt-1 inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent"></span><span x-show="lang==='es'">Botón rápido para exportar contactos o hacer copias en JSON/vCard.</span><span x-show="lang==='en'">Quick button to export contacts or create JSON/vCard backups.</span></li>
-            <li class="flex items-start gap-2"><span class="mt-1 inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent"></span><span x-show="lang==='es'">Modo privado opcional para ocultar juegos y notas en contextos laborales.</span><span x-show="lang==='en'">Optional privacy mode hides games and notes in professional settings.</span></li>
-          </ul>
-        </div>
-        <PermissionsBlock />
-      </section>
+      
 
-      <section id="testimonials" class="rounded-4xl border border-neutral-200 bg-white/85 p-8 shadow-lg shadow-accent/5 backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/70">
-        <div class="flex items-center justify-between gap-4">
-          <h2 class="text-3xl font-bold text-neutral-900 dark:text-neutral-50" x-show="lang==='es'">Historias reales</h2>
-          <h2 class="text-3xl font-bold text-neutral-900 dark:text-neutral-50" x-show="lang==='en'">Real stories</h2>
-          <a href="https://play.google.com/store/apps/details?id=com.bookverse.contacts&hl=es" target="_blank" rel="noopener" class="text-sm font-semibold text-accent hover:underline" x-show="lang==='es'">Leer reseñas en Google Play</a>
-          <a href="https://play.google.com/store/apps/details?id=com.bookverse.contacts&hl=en" target="_blank" rel="noopener" class="text-sm font-semibold text-accent hover:underline" x-show="lang==='en'">Read Google Play reviews</a>
-        </div>
-        <div class="mt-6 grid gap-6 md:grid-cols-2">
-          <article class="flex flex-col gap-3 rounded-3xl border border-neutral-200 bg-white/80 p-6 shadow-sm dark:border-neutral-800 dark:bg-neutral-900/70">
-            <div class="flex items-center gap-2 text-yellow-500"><span>★★★★★</span><span class="text-xs uppercase tracking-wide text-neutral-400">Logística</span></div>
-            <p class="text-sm text-neutral-600 dark:text-neutral-300" x-show="lang==='es'">“Ahora nuestra central de entregas puede llamar y registrar incidencias sin perder historial. Las notas de voz dentro de la llamada son un antes y después.”</p>
-            <p class="text-sm text-neutral-600 dark:text-neutral-300" x-show="lang==='en'">“Our delivery hub can now call and log incidents without losing history. In-call voice notes are an absolute game changer.”</p>
-            <p class="text-xs font-semibold text-neutral-400">Sonia, coordinadora de operaciones</p>
-          </article>
-          <article class="flex flex-col gap-3 rounded-3xl border border-neutral-200 bg-white/80 p-6 shadow-sm dark:border-neutral-800 dark:bg-neutral-900/70">
-            <div class="flex items-center gap-2 text-yellow-500"><span>★★★★★</span><span class="text-xs uppercase tracking-wide text-neutral-400">Soporte IT</span></div>
-            <p class="text-sm text-neutral-600 dark:text-neutral-300" x-show="lang==='es'">“Mover 1.500 contactos corporativos fue tan simple como escanear un QR. El modo privado evita distracciones cuando comparto pantalla.”</p>
-            <p class="text-sm text-neutral-600 dark:text-neutral-300" x-show="lang==='en'">“Migrating 1,500 corporate contacts was as easy as scanning a QR. Privacy mode keeps distractions away when I’m screen sharing.”</p>
-            <p class="text-xs font-semibold text-neutral-400">Luis, administrador de sistemas</p>
-          </article>
-        </div>
-      </section>
+      
 
       <section id="cta-final" class="rounded-4xl border border-neutral-200 bg-gradient-to-br from-accent/10 via-white to-accent/10 p-10 text-center shadow-xl dark:border-neutral-800 dark:from-accent/20 dark:via-neutral-900 dark:to-accent/10">
-        <h2 class="text-3xl font-bold text-neutral-900 dark:text-neutral-50" x-show="lang==='es'">¿Listo para mejorar tu experiencia de llamadas?</h2>
-        <h2 class="text-3xl font-bold text-neutral-900 dark:text-neutral-50" x-show="lang==='en'">Ready to upgrade your calling experience?</h2>
+        <h2 class="text-3xl font-bold text-neutral-900 dark:text-accent" x-show="lang==='es'">¿Listo para mejorar tu experiencia de llamadas?</h2>
+        <h2 class="text-3xl font-bold text-neutral-900 dark:text-accent" x-show="lang==='en'">Ready to upgrade your calling experience?</h2>
         <p class="mt-3 text-neutral-600 dark:text-neutral-300" x-show="lang==='es'">Instala Fun Phone en tu Android, importa tus contactos y empieza con el modo productividad en menos de 5 minutos.</p>
         <p class="mt-3 text-neutral-600 dark:text-neutral-300" x-show="lang==='en'">Install Fun Phone on Android, import your contacts, and activate productivity mode in under five minutes.</p>
         <div class="mt-6 flex flex-wrap justify-center gap-3">
@@ -326,80 +281,7 @@ const heroImage = import.meta.env.BASE_URL + 'assets/screenshots/dialer.png';
         };
       }
 
-      function personaSelector() {
-        const personas = [
-          {
-            id: 'productivity',
-            titleEs: 'Profesionales multitarea',
-            titleEn: 'Multitasking pros',
-            itemsEs: [
-              'Crea notas y tareas ligadas a un contacto en segundos.',
-              'Configura recordatorios recurrentes con seguimiento automático.',
-              'Integra tus cuentas de Google Workspace sin duplicados.'
-            ],
-            itemsEn: [
-              'Create notes and tasks linked to any contact in seconds.',
-              'Schedule recurring reminders with automatic follow-up.',
-              'Sync Google Workspace accounts without duplicates.'
-            ]
-          },
-          {
-            id: 'family',
-            titleEs: 'Familias y personas mayores',
-            titleEn: 'Families & seniors',
-            itemsEs: [
-              'Modo accesible con botones grandes y temas de alto contraste.',
-              'Favoritos con fotos para llamadas de un toque.',
-              'Juegos ligeros para entretener mientras esperas.'
-            ],
-            itemsEn: [
-              'Accessible mode with larger buttons and high-contrast themes.',
-              'Photo favorites for one-tap calling.',
-              'Lightweight games to enjoy while waiting.'
-            ]
-          },
-          {
-            id: 'support',
-            titleEs: 'Equipos de soporte y ventas',
-            titleEn: 'Support & sales teams',
-            itemsEs: [
-              'Importa leads por QR o CSV y asigna etiquetas inteligentes.',
-              'Graba consentimientos (según región) y guarda notas por cliente.',
-              'Exporta métricas de llamadas para tu CRM en un clic.'
-            ],
-            itemsEn: [
-              'Import leads via QR or CSV and tag them instantly.',
-              'Record consent (region permitting) and keep notes per client.',
-              'Export call metrics to your CRM in one click.'
-            ]
-          }
-        ];
-
-        return {
-          personas,
-          active: personas[0].id,
-          lang: document.documentElement.getAttribute('data-lang') || 'es',
-          get currentPersona() {
-            const persona = personas.find((p) => p.id === this.active) || personas[0];
-            return {
-              id: persona.id,
-              title: this.lang === 'es' ? persona.titleEs : persona.titleEn,
-              items: this.lang === 'es' ? persona.itemsEs : persona.itemsEn
-            };
-          },
-          init() {
-            window.addEventListener('lang', (event) => {
-              this.lang = event.detail || 'es';
-            });
-          },
-          setPersona(id) {
-            this.active = id;
-          },
-          label(persona) {
-            return this.lang === 'es' ? persona.titleEs : persona.titleEn;
-          }
-        };
-      }
+      // Removed personaSelector UI per request
     </script>
   </body>
 </html>

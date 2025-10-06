@@ -29,6 +29,8 @@ const lastUpdatedEn = 'Sep 3, 2025';
     <meta name="twitter:description" content="Datos locales, permisos transparentes y controles para el usuario." />
     <meta property="og:locale" content="es_ES" />
     <meta property="og:locale:alternate" content="en_US" />
+    <link rel="icon" type="image/png" href={import.meta.env.BASE_URL + 'assets/logo.png'} />
+    <link rel="apple-touch-icon" href={import.meta.env.BASE_URL + 'assets/logo.png'} />
     <script>
       const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
       const savedTheme = localStorage.getItem('darkMode');
@@ -44,7 +46,7 @@ const lastUpdatedEn = 'Sep 3, 2025';
       <header class="rounded-4xl border border-neutral-200 bg-white/80 p-10 text-center shadow-xl shadow-accent/10 backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/80">
         <p class="text-xs font-semibold uppercase tracking-[0.3em] text-accent" x-show="lang==='es'">Privacidad real</p>
         <p class="text-xs font-semibold uppercase tracking-[0.3em] text-accent" x-show="lang==='en'">Real privacy</p>
-        <h1 class="mt-4 text-4xl font-black leading-tight tracking-tight text-neutral-900 dark:text-neutral-50">
+        <h1 class="mt-4 text-4xl font-black leading-tight tracking-tight text-neutral-900 dark:text-accent">
           <span x-show="lang==='es'">Política de privacidad de Fun Phone</span>
           <span x-show="lang==='en'">Fun Phone privacy policy</span>
         </h1>
@@ -70,130 +72,125 @@ const lastUpdatedEn = 'Sep 3, 2025';
 
           <section id="data" class="rounded-3xl border border-neutral-200 bg-white/80 p-6 shadow-sm dark:border-neutral-800 dark:bg-neutral-900/70">
             <div class="flex items-center justify-between gap-3">
-              <h2 class="text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+              <h2 class="text-xl font-semibold text-neutral-900 dark:text-accent">
                 <span x-show="lang==='es'">1. Datos que tratamos</span>
                 <span x-show="lang==='en'">1. Data we process</span>
               </h2>
               <a href="#data" class="text-sm font-semibold text-accent hover:underline">#</a>
             </div>
             <ul class="mt-4 space-y-3 text-sm text-neutral-600 dark:text-neutral-300">
-              <li>
-                <strong>Contacts</strong>
-                <span x-show="lang==='es'"> — leer, crear, editar y eliminar para mostrarlos y gestionarlos.</span>
-                <span x-show="lang==='en'"> — read, create, edit, and delete to display and manage them.</span>
+              <li class="flex items-start gap-2">
+                <span class="mt-1 inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent"></span>
+                <span>
+                  <strong>Contacts</strong>
+                  <span x-show="lang==='es'"> — leer, crear, editar y eliminar para mostrarlos y gestionarlos.</span>
+                  <span x-show="lang==='en'"> — read, create, edit, and delete to display and manage them.</span>
+                </span>
               </li>
-              <li>
-                <strong>Call log</strong>
-                <span x-show="lang==='es'"> — leer y escribir el historial cuando Fun Phone es el Teléfono predeterminado.</span>
-                <span x-show="lang==='en'"> — read/write history when Fun Phone is set as default.</span>
+              <li class="flex items-start gap-2">
+                <span class="mt-1 inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent"></span>
+                <span>
+                  <strong>Call log</strong>
+                  <span x-show="lang==='es'"> — leer y escribir el historial cuando Fun Phone es el Teléfono predeterminado.</span>
+                  <span x-show="lang==='en'"> — read/write history when Fun Phone is set as default.</span>
+                </span>
               </li>
-              <li>
-                <strong>Phone state & numbers</strong>
-                <span x-show="lang==='es'"> — identificar la línea activa y el estado de la llamada.</span>
-                <span x-show="lang==='en'"> — identify the active line and call state.</span>
-              </li>
-              <li>
-                <strong>Diagnostics (optional)</strong>
-                <span x-show="lang==='es'"> — informes de fallos anónimos (Firebase Crashlytics).</span>
-                <span x-show="lang==='en'"> — anonymous crash reports (Firebase Crashlytics).</span>
+              <li class="flex items-start gap-2">
+                <span class="mt-1 inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent"></span>
+                <span>
+                  <strong>Phone state & numbers</strong>
+                  <span x-show="lang==='es'"> — identificar la línea activa y el estado de la llamada.</span>
+                  <span x-show="lang==='en'"> — identify the active line and call state.</span>
+                </span>
               </li>
             </ul>
           </section>
 
           <section id="purpose" class="rounded-3xl border border-neutral-200 bg-white/80 p-6 shadow-sm dark:border-neutral-800 dark:bg-neutral-900/70">
             <div class="flex items-center justify-between gap-3">
-              <h2 class="text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+              <h2 class="text-xl font-semibold text-neutral-900 dark:text-accent">
                 <span x-show="lang==='es'">2. Finalidad</span>
                 <span x-show="lang==='en'">2. Purpose</span>
               </h2>
               <a href="#purpose" class="text-sm font-semibold text-accent hover:underline">#</a>
             </div>
-            <ul class="mt-4 list-disc space-y-2 pl-5 text-sm text-neutral-600 dark:text-neutral-300">
-              <li x-show="lang==='es'">Mostrar y gestionar tus llamadas recientes.</li>
-              <li x-show="lang==='en'">Display and manage recent calls.</li>
-              <li x-show="lang==='es'">Realizar o contestar llamadas desde la interfaz de Fun Phone.</li>
-              <li x-show="lang==='en'">Place or answer calls from Fun Phone’s UI.</li>
-              <li x-show="lang==='es'">Sincronizar nombres de contacto con el historial.</li>
-              <li x-show="lang==='en'">Sync contact names with call history.</li>
-              <li x-show="lang==='es'">Mejorar la estabilidad mediante métricas anónimas.</li>
-              <li x-show="lang==='en'">Improve stability via anonymous metrics.</li>
+            <ul class="mt-4 space-y-2 text-sm text-neutral-600 dark:text-neutral-300">
+              <li class="flex items-start gap-2" x-show="lang==='es'"><span class="mt-1 inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent"></span><span>Mostrar y gestionar tus llamadas recientes.</span></li>
+              <li class="flex items-start gap-2" x-show="lang==='en'"><span class="mt-1 inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent"></span><span>Display and manage recent calls.</span></li>
+              <li class="flex items-start gap-2" x-show="lang==='es'"><span class="mt-1 inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent"></span><span>Realizar o contestar llamadas desde la interfaz de Fun Phone.</span></li>
+              <li class="flex items-start gap-2" x-show="lang==='en'"><span class="mt-1 inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent"></span><span>Place or answer calls from Fun Phone’s UI.</span></li>
+              <li class="flex items-start gap-2" x-show="lang==='es'"><span class="mt-1 inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent"></span><span>Sincronizar nombres de contacto con el historial.</span></li>
+              <li class="flex items-start gap-2" x-show="lang==='en'"><span class="mt-1 inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent"></span><span>Sync contact names with call history.</span></li>
             </ul>
           </section>
 
           <section id="storage" class="rounded-3xl border border-neutral-200 bg-white/80 p-6 shadow-sm dark:border-neutral-800 dark:bg-neutral-900/70">
             <div class="flex items-center justify-between gap-3">
-              <h2 class="text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+              <h2 class="text-xl font-semibold text-neutral-900 dark:text-accent">
                 <span x-show="lang==='es'">3. Almacenamiento y retención</span>
                 <span x-show="lang==='en'">3. Storage & retention</span>
               </h2>
               <a href="#storage" class="text-sm font-semibold text-accent hover:underline">#</a>
             </div>
-            <p class="mt-4 text-sm text-neutral-600 dark:text-neutral-300" x-show="lang==='es'">Los contactos y registros permanecen en tu dispositivo Android. No se transfieren a servidores propios. Los informes de fallos se mantienen hasta 90 días.</p>
-            <p class="mt-4 text-sm text-neutral-600 dark:text-neutral-300" x-show="lang==='en'">Contacts and call logs stay on your device. We do not transfer this info to our servers. Crash logs are kept for up to 90 days.</p>
+            <p class="mt-4 text-sm text-neutral-600 dark:text-neutral-300" x-show="lang==='es'">Los contactos y registros permanecen en tu dispositivo Android. No se transfieren a servidores propios.</p>
+            <p class="mt-4 text-sm text-neutral-600 dark:text-neutral-300" x-show="lang==='en'">Contacts and call logs stay on your device. We do not transfer this info to our servers.</p>
           </section>
 
           <section id="sharing" class="rounded-3xl border border-neutral-200 bg-white/80 p-6 shadow-sm dark:border-neutral-800 dark:bg-neutral-900/70">
             <div class="flex items-center justify-between gap-3">
-              <h2 class="text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+              <h2 class="text-xl font-semibold text-neutral-900 dark:text-accent">
                 <span x-show="lang==='es'">4. Compartición</span>
                 <span x-show="lang==='en'">4. Sharing</span>
               </h2>
               <a href="#sharing" class="text-sm font-semibold text-accent hover:underline">#</a>
             </div>
-            <p class="mt-4 text-sm text-neutral-600 dark:text-neutral-300" x-show="lang==='es'">No vendemos datos. Solo se comparten con:</p>
-            <p class="mt-4 text-sm text-neutral-600 dark:text-neutral-300" x-show="lang==='en'">We don’t sell data. Shared only with:</p>
-            <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-neutral-600 dark:text-neutral-300">
-              <li><b>Google Firebase Crashlytics</b> — <span x-show="lang==='es'">informes de fallos anónimos (puedes desactivar en Ajustes → Privacidad).</span><span x-show="lang==='en'">anonymous crash reporting (opt out in Settings → Privacy).</span></li>
-            </ul>
+            <p class="mt-4 text-sm text-neutral-600 dark:text-neutral-300" x-show="lang==='es'">No vendemos ni compartimos datos con terceros.</p>
+            <p class="mt-4 text-sm text-neutral-600 dark:text-neutral-300" x-show="lang==='en'">We do not sell or share data with third parties.</p>
           </section>
 
           <section id="permissions" class="rounded-3xl border border-neutral-200 bg-white/80 p-6 shadow-sm dark:border-neutral-800 dark:bg-neutral-900/70">
             <div class="flex items-center justify-between gap-3">
-              <h2 class="text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+              <h2 class="text-xl font-semibold text-neutral-900 dark:text-accent">
                 <span x-show="lang==='es'">5. Permisos solicitados</span>
                 <span x-show="lang==='en'">5. Permissions requested</span>
               </h2>
               <a href="#permissions" class="text-sm font-semibold text-accent hover:underline">#</a>
             </div>
-            <ul class="mt-4 grid gap-y-2 pl-5 text-sm text-neutral-600 dark:text-neutral-300 sm:grid-cols-2">
-              <li>CALL_PHONE, ANSWER_PHONE_CALLS</li>
-              <li>READ/WRITE_CALL_LOG <span class="text-xs opacity-70">(default only / solo predeterminado)</span></li>
-              <li>READ_PHONE_STATE, READ_PHONE_NUMBERS</li>
-              <li>READ/WRITE_CONTACTS</li>
+            <ul class="mt-4 grid gap-y-2 text-sm text-neutral-600 dark:text-neutral-300 sm:grid-cols-2">
+              <li class="flex items-start gap-2"><span class="mt-1 inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent"></span><span>CALL_PHONE, ANSWER_PHONE_CALLS</span></li>
+              <li class="flex items-start gap-2"><span class="mt-1 inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent"></span><span>READ/WRITE_CALL_LOG <span class="text-xs opacity-70">(default only / solo predeterminado)</span></span></li>
+              <li class="flex items-start gap-2"><span class="mt-1 inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent"></span><span>READ_PHONE_STATE, READ_PHONE_NUMBERS</span></li>
+              <li class="flex items-start gap-2"><span class="mt-1 inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent"></span><span>READ/WRITE_CONTACTS</span></li>
             </ul>
+            <div class="mt-5 rounded-2xl border border-dashed border-accent/30 bg-accent/5 p-4 text-sm text-neutral-700 dark:border-accent/40 dark:bg-accent/10 dark:text-neutral-300">
+              <p x-show="lang==='es'">
+                <b>Por qué Fun Phone solicita permisos:</b> Fun Phone solo solicita permisos sensibles después de que la estableces como tu aplicación de Teléfono predeterminada. Los permisos de teléfono, contactos e historial de llamadas habilitan funciones centrales como realizar llamadas, gestionar contactos y mostrar el historial. Todos los permisos son opcionales y puedes revocarlos en cualquier momento desde Ajustes.
+              </p>
+              <p x-show="lang==='en'">
+                <b>Why Fun Phone requests permissions:</b> Fun Phone only requests sensitive permissions after you set it as your default Phone app. Phone, contacts, and call log permissions enable core functionality like placing calls, managing contacts, and showing call history. All permissions are optional and can be revoked at any time in Settings.
+              </p>
+            </div>
           </section>
 
           <section id="controls" class="rounded-3xl border border-neutral-200 bg-white/80 p-6 shadow-sm dark:border-neutral-800 dark:bg-neutral-900/70">
             <div class="flex items-center justify-between gap-3">
-              <h2 class="text-xl font-semibold text-neutral-900 dark:text-neutral-50">
+              <h2 class="text-xl font-semibold text-neutral-900 dark:text-accent">
                 <span x-show="lang==='es'">6. Tus controles</span>
                 <span x-show="lang==='en'">6. Your controls</span>
               </h2>
               <a href="#controls" class="text-sm font-semibold text-accent hover:underline">#</a>
             </div>
-            <ul class="mt-4 list-disc space-y-2 pl-5 text-sm text-neutral-600 dark:text-neutral-300">
-              <li x-show="lang==='es'">Revocar permisos: Ajustes → Apps → Fun Phone → Permisos.</li>
-              <li x-show="lang==='en'">Revoke permissions: Settings → Apps → Fun Phone → Permissions.</li>
-              <li x-show="lang==='es'">Quitar como Teléfono predeterminado: Ajustes → Apps predeterminadas.</li>
-              <li x-show="lang==='en'">Remove as default Phone: Settings → Default apps.</li>
-              <li x-show="lang==='es'">Eliminar datos: gestionar historial o desinstalar.</li>
-              <li x-show="lang==='en'">Delete data: manage call log or uninstall.</li>
-              <li x-show="lang==='es'">Opt-out Crashlytics: Fun Phone → Privacidad.</li>
-              <li x-show="lang==='en'">Opt-out Crashlytics: Fun Phone → Privacy.</li>
+            <ul class="mt-4 space-y-2 text-sm text-neutral-600 dark:text-neutral-300">
+              <li class="flex items-start gap-2" x-show="lang==='es'"><span class="mt-1 inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent"></span><span>Revocar permisos: Ajustes → Apps → Fun Phone → Permisos.</span></li>
+              <li class="flex items-start gap-2" x-show="lang==='en'"><span class="mt-1 inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent"></span><span>Revoke permissions: Settings → Apps → Fun Phone → Permissions.</span></li>
+              <li class="flex items-start gap-2" x-show="lang==='es'"><span class="mt-1 inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent"></span><span>Quitar como Teléfono predeterminado: Ajustes → Apps predeterminadas.</span></li>
+              <li class="flex items-start gap-2" x-show="lang==='en'"><span class="mt-1 inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent"></span><span>Remove as default Phone: Settings → Default apps.</span></li>
+              <li class="flex items-start gap-2" x-show="lang==='es'"><span class="mt-1 inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent"></span><span>Eliminar datos: gestionar historial o desinstalar.</span></li>
+              <li class="flex items-start gap-2" x-show="lang==='en'"><span class="mt-1 inline-block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent"></span><span>Delete data: manage call log or uninstall.</span></li>
             </ul>
           </section>
 
-          <section id="children" class="rounded-3xl border border-neutral-200 bg-white/80 p-6 shadow-sm dark:border-neutral-800 dark:bg-neutral-900/70">
-            <div class="flex items-center justify-between gap-3">
-              <h2 class="text-xl font-semibold text-neutral-900 dark:text-neutral-50">
-                <span x-show="lang==='es'">7. Menores</span>
-                <span x-show="lang==='en'">7. Children</span>
-              </h2>
-              <a href="#children" class="text-sm font-semibold text-accent hover:underline">#</a>
-            </div>
-            <p class="mt-4 text-sm text-neutral-600 dark:text-neutral-300" x-show="lang==='es'">No dirigida a menores de 13 años.</p>
-            <p class="mt-4 text-sm text-neutral-600 dark:text-neutral-300" x-show="lang==='en'">Not directed to children under 13.</p>
-          </section>
+          
 
           <div class="text-center">
             <a href="#main-content" class="inline-flex items-center gap-2 text-sm font-semibold text-accent hover:underline">
@@ -219,12 +216,7 @@ const lastUpdatedEn = 'Sep 3, 2025';
               <dd class="font-semibold text-accent" x-show="lang==='es'">100% local</dd>
               <dd class="font-semibold text-accent" x-show="lang==='en'">100% local</dd>
             </div>
-            <div class="flex items-center justify-between gap-2">
-              <dt x-show="lang==='es'">Crashlytics</dt>
-              <dt x-show="lang==='en'">Crashlytics</dt>
-              <dd class="font-semibold text-accent" x-show="lang==='es'">Opcional</dd>
-              <dd class="font-semibold text-accent" x-show="lang==='en'">Optional</dd>
-            </div>
+            
           </dl>
           <nav class="space-y-2 text-sm text-neutral-600 dark:text-neutral-300">
             <template x-for="item in toc" :key="item.id">
@@ -254,8 +246,7 @@ const lastUpdatedEn = 'Sep 3, 2025';
             { id: 'storage', href: '#storage', labelEs: 'Almacenamiento', labelEn: 'Storage' },
             { id: 'sharing', href: '#sharing', labelEs: 'Compartición', labelEn: 'Sharing' },
             { id: 'permissions', href: '#permissions', labelEs: 'Permisos', labelEn: 'Permissions' },
-            { id: 'controls', href: '#controls', labelEs: 'Tus controles', labelEn: 'Your controls' },
-            { id: 'children', href: '#children', labelEs: 'Menores', labelEn: 'Children' }
+            { id: 'controls', href: '#controls', labelEs: 'Tus controles', labelEn: 'Your controls' }
           ],
           init() {
             document.documentElement.setAttribute('data-lang', this.lang);

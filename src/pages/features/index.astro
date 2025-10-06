@@ -13,7 +13,10 @@ const icons = {
   customization: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M16.862 3.487a2.25 2.25 0 113.182 3.182L7.5 19.213l-4.5 1.5 1.5-4.5 12.362-12.726z"/></svg>`,
   privacy: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M12 11c1.657 0 3-1.343 3-3S13.657 5 12 5 9 6.343 9 8s1.343 3 3 3z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M19 21a7 7 0 10-14 0h14z"/></svg>`,
   automation: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M4 4v5h.582a8 8 0 111.051 7.637L4 20"/></svg>`,
-  analytics: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M11 3.055A9.001 9.001 0 1020.945 13H11z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M15 3h6v6"/></svg>`
+  analytics: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M11 3.055A9.001 9.001 0 1020.945 13H11z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M15 3h6v6"/></svg>`,
+  lock: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="4" y="10" width="16" height="10" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M8 10V8a4 4 0 118 0v2"/></svg>`,
+  calendar: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M8 2v4M16 2v4M3 10h18"/></svg>`,
+  qr: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M3 3h6v6H3zM15 3h6v6h-6zM3 15h6v6H3zM15 15h2v2h-2zM19 15h2v2h-2zM17 19h2v2h-2z"/></svg>`
 };
 
 const sections = [
@@ -31,7 +34,7 @@ const sections = [
         bulletsEs: [
           'Búsqueda inteligente T9 y marcado rápido.',
           'Historial completo con filtros, favoritos y búsqueda.',
-          'Interfaz profesional: responder, retener, silenciar, altavoz y grabación.',
+          'Interfaz profesional: responder, retener, silenciar y altavoz.',
           'Soporte dual-SIM y enrutamiento inteligente.',
           'Compartir números por QR con un toque.',
           'Marcado por voz y manos libres.',
@@ -40,7 +43,7 @@ const sections = [
         bulletsEn: [
           'T9 smart search with lightning-fast dialing.',
           'Complete call history with filters, favourites, and search.',
-          'Pro controls: answer, hold, mute, speaker, and recording.',
+          'Pro controls: answer, hold, mute, and speaker.',
           'Dual-SIM support with smart routing.',
           'Share numbers via QR in a single tap.',
           'Hands-free voice dialing.',
@@ -82,14 +85,18 @@ const sections = [
           'Escáner y generador de QR para compartir contactos.',
           'Sincronización multi-cuenta (Google, local, otros).',
           'Búsqueda y filtrado avanzados, organización flexible.',
-          'Gestión de fotos y respaldo de contactos.'
+          'Gestión de fotos y respaldo de contactos.',
+          'Bloqueo de números spam.',
+          'Fusión y deduplicación de contactos.'
         ],
         bulletsEn: [
           'Add, edit, import/export contacts (JSON/vCard).',
           'QR scanner and generator to share contacts.',
           'Multi-account sync (Google, local, others).',
           'Advanced search, filtering, and flexible organisation.',
-          'Photo management and contact backups.'
+          'Photo management and contact backups.',
+          'Spam number blocking.',
+          'Contact merge and deduplication.'
         ]
       },
       {
@@ -127,14 +134,18 @@ const sections = [
           'Listas de verificación interactivas.',
           'Recordatorios inteligentes y notificaciones.',
           'Grabación de voz y organización de audios.',
-          'Gestión de tareas con fechas y prioridades.'
+          'Gestión de tareas con fechas y prioridades.',
+          'Protección de notas con biometría.',
+          'Copia de seguridad y restauración.'
         ],
         bulletsEn: [
           'Rich notes with formatting and multimedia.',
           'Interactive checklists for follow-ups.',
           'Smart reminders and notifications.',
           'Voice recording and audio organisation.',
-          'Task management with dates and priorities.'
+          'Task management with dates and priorities.',
+          'Biometric protection for notes.',
+          'Backup and restore.'
         ]
       },
       {
@@ -152,6 +163,62 @@ const sections = [
           'Home widgets for favourites and quick notes.',
           'Export metrics to CSV or Google Sheets.',
           'Live indicators during calls for contextual follow-up.'
+        ]
+      }
+    ]
+  },
+  {
+    id: 'utilities',
+    titleEs: 'Seguridad y utilidades',
+    titleEn: 'Security & utilities',
+    bodyEs: 'Herramientas prácticas para tu día a día: contraseñas seguras, festivos y QR.',
+    bodyEn: 'Practical tools for everyday use: secure passwords, holidays, and QR.',
+    features: [
+      {
+        icon: 'lock',
+        titleEs: 'Gestor y Generador de Contraseñas',
+        titleEn: 'Password Manager & Generator',
+        bulletsEs: [
+          'Guarda credenciales de forma segura en el dispositivo.',
+          'Genera contraseñas fuertes aleatorias.',
+          'Protección con biometría o PIN.',
+          'Sin sincronización remota.'
+        ],
+        bulletsEn: [
+          'Securely store credentials on-device.',
+          'Generate strong random passwords.',
+          'Protected with biometrics or PIN.',
+          'No remote sync.'
+        ]
+      },
+      {
+        icon: 'calendar',
+        titleEs: 'Calendario de Festivos',
+        titleEn: 'Holiday Calendar',
+        bulletsEs: [
+          'Consulta festivos por país y año.',
+          'Planifica llamadas y recordatorios con contexto.',
+          'Acceso rápido desde la app.'
+        ],
+        bulletsEn: [
+          'Browse holidays by country and year.',
+          'Plan calls and reminders with context.',
+          'Quick access inside the app.'
+        ]
+      },
+      {
+        icon: 'qr',
+        titleEs: 'Utilidades QR',
+        titleEn: 'QR Utilities',
+        bulletsEs: [
+          'Escanea QR desde la cámara o imágenes.',
+          'Genera QR desde texto o URL.',
+          'Comparte contactos y números por QR.'
+        ],
+        bulletsEn: [
+          'Scan QR from camera or images.',
+          'Generate QR from text or URL.',
+          'Share contacts and numbers via QR.'
         ]
       }
     ]
@@ -223,6 +290,8 @@ const sections = [
     <meta name="twitter:description" content="Marcador avanzado, contactos inteligentes y privacidad real." />
     <meta property="og:locale" content="es_ES" />
     <meta property="og:locale:alternate" content="en_US" />
+    <link rel="icon" type="image/png" href={import.meta.env.BASE_URL + 'assets/logo.png'} />
+    <link rel="apple-touch-icon" href={import.meta.env.BASE_URL + 'assets/logo.png'} />
 
     <script type="application/ld+json">
       {
@@ -252,7 +321,7 @@ const sections = [
       <header class="rounded-4xl border border-neutral-200 bg-white/80 p-10 text-center shadow-xl shadow-accent/10 backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/80">
         <p class="text-xs font-semibold uppercase tracking-[0.3em] text-accent" x-show="lang==='es'">Todo lo que incluye Fun Phone</p>
         <p class="text-xs font-semibold uppercase tracking-[0.3em] text-accent" x-show="lang==='en'">Everything inside Fun Phone</p>
-        <h1 class="mt-4 text-4xl font-black leading-tight tracking-tight text-neutral-900 dark:text-neutral-50 lg:text-5xl">
+        <h1 class="mt-4 text-4xl font-black leading-tight tracking-tight text-neutral-900 dark:text-accent lg:text-5xl">
           <span x-show="lang==='es'">Funciones pensadas para equipos, familias y power users</span>
           <span x-show="lang==='en'">Features built for teams, families, and power users</span>
         </h1>
@@ -275,7 +344,7 @@ const sections = [
           {sections.map((section) => (
             <section id={section.id} class="scroll-mt-28">
               <div class="mb-6 space-y-3">
-                <h2 class="text-3xl font-bold text-neutral-900 dark:text-neutral-50">
+                <h2 class="text-3xl font-bold text-neutral-900 dark:text-accent">
                   <span x-show="lang==='es'">{section.titleEs}</span>
                   <span x-show="lang==='en'">{section.titleEn}</span>
                 </h2>
@@ -313,8 +382,8 @@ const sections = [
       </div>
 
       <section id="comparison" class="rounded-4xl border border-neutral-200 bg-white/80 p-8 shadow-lg shadow-accent/5 backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/70">
-        <h2 class="text-2xl font-bold text-neutral-900 dark:text-neutral-50" x-show="lang==='es'">¿Por qué Fun Phone supera al marcador estándar?</h2>
-        <h2 class="text-2xl font-bold text-neutral-900 dark:text-neutral-50" x-show="lang==='en'">Why Fun Phone beats the stock dialer</h2>
+        <h2 class="text-2xl font-bold text-neutral-900 dark:text-accent" x-show="lang==='es'">¿Por qué Fun Phone supera al marcador estándar?</h2>
+        <h2 class="text-2xl font-bold text-neutral-900 dark:text-accent" x-show="lang==='en'">Why Fun Phone beats the stock dialer</h2>
         <div class="mt-6 overflow-hidden rounded-3xl border border-neutral-200 dark:border-neutral-800">
           <table class="w-full divide-y divide-neutral-200 text-sm dark:divide-neutral-800">
             <thead class="bg-neutral-50 text-neutral-500 dark:bg-neutral-900/80 dark:text-neutral-400">
@@ -327,37 +396,79 @@ const sections = [
             </thead>
             <tbody class="bg-white/70 dark:bg-neutral-900/60">
               <tr>
-                <th scope="row" class="px-4 py-3 font-medium text-neutral-600 dark:text-neutral-300" x-show="lang==='es'">Notas y recordatorios integrados</th>
-                <th scope="row" class="px-4 py-3 font-medium text-neutral-600 dark:text-neutral-300" x-show="lang==='en'">Integrated notes & reminders</th>
-                <td class="px-4 py-3 text-sm text-neutral-700 dark:text-neutral-200">✔</td>
-                <td class="px-4 py-3 text-sm text-neutral-400">—</td>
+                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='es'">Gestor de contraseñas local <span class="ml-2 rounded-full bg-accent/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-accent">Nuevo</span></th>
+                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='en'">On‑device password manager <span class="ml-2 rounded-full bg-accent/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-accent">New</span></th>
+                <td class="px-4 py-3 font-semibold text-accent">✔</td>
+                <td class="px-4 py-3 text-neutral-400">✕</td>
               </tr>
               <tr class="bg-neutral-50/60 dark:bg-neutral-800/40">
-                <th scope="row" class="px-4 py-3 font-medium text-neutral-600 dark:text-neutral-300" x-show="lang==='es'">Compartir por QR y plantillas</th>
-                <th scope="row" class="px-4 py-3 font-medium text-neutral-600 dark:text-neutral-300" x-show="lang==='en'">QR sharing & templates</th>
-                <td class="px-4 py-3 text-sm text-neutral-700 dark:text-neutral-200">✔</td>
-                <td class="px-4 py-3 text-sm text-neutral-400">Limitado</td>
+                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='es'">Suite de notas, checklists y recordatorios</th>
+                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='en'">Notes suite with checklists & reminders</th>
+                <td class="px-4 py-3 font-semibold text-accent">✔</td>
+                <td class="px-4 py-3 text-neutral-400">✕</td>
               </tr>
               <tr>
-                <th scope="row" class="px-4 py-3 font-medium text-neutral-600 dark:text-neutral-300" x-show="lang==='es'">Widgets personalizables</th>
-                <th scope="row" class="px-4 py-3 font-medium text-neutral-600 dark:text-neutral-300" x-show="lang==='en'">Custom widgets</th>
-                <td class="px-4 py-3 text-sm text-neutral-700 dark:text-neutral-200">✔</td>
-                <td class="px-4 py-3 text-sm text-neutral-400">✕</td>
+                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='es'">Historial segmentado con filtros avanzados</th>
+                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='en'">Segmented history with advanced filters</th>
+                <td class="px-4 py-3 font-semibold text-accent">✔</td>
+                <td class="px-4 py-3 text-neutral-400" x-show="lang==='es'">Básico</td>
+                <td class="px-4 py-3 text-neutral-400" x-show="lang==='en'">Basic</td>
               </tr>
               <tr class="bg-neutral-50/60 dark:bg-neutral-800/40">
-                <th scope="row" class="px-4 py-3 font-medium text-neutral-600 dark:text-neutral-300" x-show="lang==='es'">Modo privado para presentaciones</th>
-                <th scope="row" class="px-4 py-3 font-medium text-neutral-600 dark:text-neutral-300" x-show="lang==='en'">Privacy mode for screen sharing</th>
-                <td class="px-4 py-3 text-sm text-neutral-700 dark:text-neutral-200">✔</td>
-                <td class="px-4 py-3 text-sm text-neutral-400">✕</td>
+                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='es'">Utilidades QR (escanear, generar, compartir)</th>
+                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='en'">QR utilities (scan, generate, share)</th>
+                <td class="px-4 py-3 font-semibold text-accent">✔</td>
+                <td class="px-4 py-3 text-neutral-400">Limitado</td>
               </tr>
+              <tr>
+                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='es'">Enrutamiento inteligente Dual‑SIM</th>
+                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='en'">Smart Dual‑SIM routing</th>
+                <td class="px-4 py-3 font-semibold text-accent">✔</td>
+                <td class="px-4 py-3 text-neutral-400" x-show="lang==='es'">Parcial</td>
+                <td class="px-4 py-3 text-neutral-400" x-show="lang==='en'">Partial</td>
+              </tr>
+              <tr class="bg-neutral-50/60 dark:bg-neutral-800/40">
+                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='es'">Calendario de festivos integrado</th>
+                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='en'">Integrated holiday calendar</th>
+                <td class="px-4 py-3 font-semibold text-accent">✔</td>
+                <td class="px-4 py-3 text-neutral-400">✕</td>
+              </tr>
+              <tr>
+                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='es'">Centro de entretenimiento (mini‑juegos)</th>
+                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='en'">Entertainment hub (mini‑games)</th>
+                <td class="px-4 py-3 font-semibold text-accent">✔</td>
+                <td class="px-4 py-3 text-neutral-400">✕</td>
+              </tr>
+              <tr class="bg-neutral-50/60 dark:bg-neutral-800/40">
+                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='es'">Personalización avanzada (temas, fuentes, animaciones)</th>
+                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='en'">Advanced theming (themes, fonts, motion)</th>
+                <td class="px-4 py-3 font-semibold text-accent">✔</td>
+                <td class="px-4 py-3 text-neutral-400" x-show="lang==='es'">Básico</td>
+                <td class="px-4 py-3 text-neutral-400" x-show="lang==='en'">Basic</td>
+              </tr>
+              <tr>
+                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='es'">Interfaz bilingüe (ES/EN)</th>
+                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='en'">Bilingual interface (ES/EN)</th>
+                <td class="px-4 py-3 font-semibold text-accent">✔</td>
+                <td class="px-4 py-3 text-neutral-400" x-show="lang==='es'">Variable</td>
+                <td class="px-4 py-3 text-neutral-400" x-show="lang==='en'">Varies</td>
+              </tr>
+              <tr class="bg-neutral-50/60 dark:bg-neutral-800/40">
+                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='es'">Privacidad primero, datos 100% locales</th>
+                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='en'">Privacy‑first, 100% on‑device data</th>
+                <td class="px-4 py-3 font-semibold text-accent">✔</td>
+                <td class="px-4 py-3 text-neutral-400" x-show="lang==='es'">Variable</td>
+                <td class="px-4 py-3 text-neutral-400" x-show="lang==='en'">Varies</td>
+              </tr>
+              
             </tbody>
           </table>
         </div>
       </section>
 
       <section id="cta" class="rounded-4xl border border-neutral-200 bg-gradient-to-br from-accent/10 via-white to-accent/10 p-10 text-center shadow-xl dark:border-neutral-800 dark:from-accent/20 dark:via-neutral-900 dark:to-accent/10">
-        <h2 class="text-3xl font-bold text-neutral-900 dark:text-neutral-50" x-show="lang==='es'">¿Listo para probar todas las funciones?</h2>
-        <h2 class="text-3xl font-bold text-neutral-900 dark:text-neutral-50" x-show="lang==='en'">Ready to try every feature?</h2>
+        <h2 class="text-3xl font-bold text-neutral-900 dark:text-accent" x-show="lang==='es'">¿Listo para probar todas las funciones?</h2>
+        <h2 class="text-3xl font-bold text-neutral-900 dark:text-accent" x-show="lang==='en'">Ready to try every feature?</h2>
         <p class="mt-3 text-neutral-600 dark:text-neutral-300" x-show="lang==='es'">Descarga Fun Phone, actívala como app predeterminada y activa los flujos inteligentes desde Ajustes → Laboral.</p>
         <p class="mt-3 text-neutral-600 dark:text-neutral-300" x-show="lang==='en'">Install Fun Phone, set it as default, and enable smart flows from Settings → Workspace.</p>
         <div class="mt-6 flex flex-wrap justify-center gap-3">

@@ -1,13 +1,13 @@
 ---
 const screenshots = [
-  { src: import.meta.env.BASE_URL + 'assets/screenshots/contacts.png', alt: 'Fun Phone – Contacts view' },
-  { src: import.meta.env.BASE_URL + 'assets/screenshots/details.png', alt: 'Fun Phone – Contact details' },
-  { src: import.meta.env.BASE_URL + 'assets/screenshots/dialer.png', alt: 'Fun Phone – Smart dialer' },
-  { src: import.meta.env.BASE_URL + 'assets/screenshots/extras.png', alt: 'Fun Phone – Extras hub' },
-  { src: import.meta.env.BASE_URL + 'assets/screenshots/favorites.png', alt: 'Fun Phone – Favorites tab' },
-  { src: import.meta.env.BASE_URL + 'assets/screenshots/history.png', alt: 'Fun Phone – Call history' },
-  { src: import.meta.env.BASE_URL + 'assets/screenshots/qr.png', alt: 'Fun Phone – QR sharing' },
-  { src: import.meta.env.BASE_URL + 'assets/screenshots/settings.png', alt: 'Fun Phone – Settings screen' }
+  { src: import.meta.env.BASE_URL + 'assets/screenshots/dialer.png', alt: 'Fun Phone – Smart dialer', labelEs: 'Marcador inteligente', labelEn: 'Smart dialer' },
+  { src: import.meta.env.BASE_URL + 'assets/screenshots/contacts.png', alt: 'Fun Phone – Contacts view', labelEs: 'Contactos', labelEn: 'Contacts' },
+  { src: import.meta.env.BASE_URL + 'assets/screenshots/details.png', alt: 'Fun Phone – Contact details', labelEs: 'Detalle de contacto', labelEn: 'Contact details' },
+  { src: import.meta.env.BASE_URL + 'assets/screenshots/history.png', alt: 'Fun Phone – Call history', labelEs: 'Historial de llamadas', labelEn: 'Call history' },
+  { src: import.meta.env.BASE_URL + 'assets/screenshots/favorites.png', alt: 'Fun Phone – Favorites tab', labelEs: 'Favoritos', labelEn: 'Favorites' },
+  { src: import.meta.env.BASE_URL + 'assets/screenshots/qr.png', alt: 'Fun Phone – QR sharing', labelEs: 'Compartir por QR', labelEn: 'QR sharing' },
+  { src: import.meta.env.BASE_URL + 'assets/screenshots/extras.png', alt: 'Fun Phone – Extras hub', labelEs: 'Centro de extras', labelEn: 'Extras hub' },
+  { src: import.meta.env.BASE_URL + 'assets/screenshots/settings.png', alt: 'Fun Phone – Settings screen', labelEs: 'Ajustes', labelEn: 'Settings' }
 ];
 const carouselData = JSON.stringify(screenshots);
 ---
@@ -32,14 +32,18 @@ const carouselData = JSON.stringify(screenshots);
     class="relative overflow-hidden rounded-3xl border border-neutral-200 bg-gradient-to-br from-neutral-50 via-white to-neutral-100 shadow-xl dark:border-neutral-800 dark:from-neutral-900 dark:via-neutral-900 dark:to-neutral-950"
     @mouseenter="stopAutoPlay()"
     @mouseleave="startAutoPlay()"
+    @touchstart.passive="onTouchStart($event)"
+    @touchend.passive="onTouchEnd($event)"
   >
-    <img
-      x-ref="image"
-      x-bind:src="screens[currentIndex].src"
-      x-bind:alt="screens[currentIndex].alt"
-      class="mx-auto w-auto max-h-[420px] rounded-2xl object-contain transition duration-500 ease-out"
-      loading="lazy"
-    />
+    <button type="button" class="block w-full" @click="openLightbox()" aria-label="Expandir vista / Expand view">
+      <img
+        x-ref="image"
+        x-bind:src="screens[currentIndex].src"
+        x-bind:alt="screens[currentIndex].alt"
+        class="mx-auto w-auto max-h-[420px] rounded-2xl object-contain transition duration-500 ease-out"
+        loading="lazy"
+      />
+    </button>
     <button
       type="button"
       class="absolute left-4 top-1/2 -translate-y-1/2 rounded-full border border-neutral-200 bg-white/80 p-3 text-neutral-800 shadow-lg backdrop-blur transition hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:border-neutral-700 dark:bg-neutral-900/80 dark:text-neutral-200"
@@ -56,6 +60,10 @@ const carouselData = JSON.stringify(screenshots);
     >
       <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
     </button>
+    <figcaption class="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-white/80 to-transparent p-3 text-center text-xs font-semibold text-neutral-700 backdrop-blur dark:from-neutral-900/80 dark:text-neutral-200">
+      <span x-show="lang==='es'" x-text="screens[currentIndex].labelEs"></span>
+      <span x-show="lang==='en'" x-text="screens[currentIndex].labelEn"></span>
+    </figcaption>
   </div>
   <div class="mt-4 flex flex-wrap items-center justify-center gap-2" role="tablist" aria-label="Miniaturas de la galería">
     {screenshots.map((shot, idx) => (
@@ -65,6 +73,7 @@ const carouselData = JSON.stringify(screenshots);
         role="tab"
         data-index={idx}
         x-bind:data-active="currentIndex === Number($el.dataset.index)"
+        x-bind:class="currentIndex === Number($el.dataset.index) ? 'border-accent ring-2 ring-accent/40' : ''"
         x-bind:aria-selected="(currentIndex === Number($el.dataset.index)).toString()"
         x-bind:aria-label="thumbLabel(Number($el.dataset.index))"
         @click="goTo(Number($el.dataset.index))"
@@ -73,6 +82,46 @@ const carouselData = JSON.stringify(screenshots);
       </button>
     ))}
   </div>
+
+  <!-- Lightbox fullscreen overlay -->
+  <div
+    x-show="lightboxOpen"
+    x-transition.opacity
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
+    role="dialog"
+    aria-modal="true"
+    x-cloak
+  >
+    <button
+      type="button"
+      class="absolute right-4 top-4 rounded-full border border-white/20 bg-white/10 p-2 text-white/90 backdrop-blur transition hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+      @click="closeLightbox()"
+      aria-label="Cerrar / Close"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+    <button
+      type="button"
+      class="absolute left-4 top-1/2 -translate-y-1/2 rounded-full border border-white/20 bg-white/10 p-3 text-white/90 backdrop-blur transition hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+      @click="previous()"
+      aria-label="Anterior"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+    </button>
+    <img
+      x-bind:src="screens[currentIndex].src"
+      x-bind:alt="screens[currentIndex].alt"
+      class="max-h-[92vh] w-auto max-w-[92vw] object-contain"
+    />
+    <button
+      type="button"
+      class="absolute right-4 top-1/2 -translate-y-1/2 rounded-full border border-white/20 bg-white/10 p-3 text-white/90 backdrop-blur transition hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+      @click="next()"
+      aria-label="Siguiente"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+    </button>
+  </div>
 </div>
 
 <script is:inline>
@@ -80,6 +129,7 @@ function screenshotCarousel({ screenshots }) {
   return {
     screens: screenshots,
     currentIndex: 0,
+    lightboxOpen: false,
     get currentSlide() {
       return this.currentIndex + 1;
     },
@@ -89,6 +139,16 @@ function screenshotCarousel({ screenshots }) {
     init() {
       this.startAutoPlay();
       this.bindKeyboard();
+    },
+    openLightbox() {
+      this.lightboxOpen = true;
+      this.stopAutoPlay();
+      document.documentElement.style.overflow = 'hidden';
+    },
+    closeLightbox() {
+      this.lightboxOpen = false;
+      this.startAutoPlay();
+      document.documentElement.style.overflow = '';
     },
     startAutoPlay() {
       if (this.prefersReducedMotion || this.autoPlayTimer) return;
@@ -100,26 +160,29 @@ function screenshotCarousel({ screenshots }) {
       this.autoPlayTimer = null;
     },
     next() {
-      this.stopAutoPlay();
+      if (!this.lightboxOpen) this.stopAutoPlay();
       this.currentIndex = (this.currentIndex + 1) % this.screens.length;
-      this.startAutoPlay();
+      if (!this.lightboxOpen) this.startAutoPlay();
     },
     previous() {
-      this.stopAutoPlay();
+      if (!this.lightboxOpen) this.stopAutoPlay();
       this.currentIndex = (this.currentIndex - 1 + this.screens.length) % this.screens.length;
-      this.startAutoPlay();
+      if (!this.lightboxOpen) this.startAutoPlay();
     },
     goTo(index) {
-      this.stopAutoPlay();
+      if (!this.lightboxOpen) this.stopAutoPlay();
       this.currentIndex = index;
-      this.startAutoPlay();
+      if (!this.lightboxOpen) this.startAutoPlay();
     },
     thumbLabel(index) {
       return `${index + 1} / ${this.screens.length}`;
     },
     bindKeyboard() {
       window.addEventListener('keydown', (event) => {
-        if (event.key === 'ArrowRight') {
+        if (event.key === 'Escape' && this.lightboxOpen) {
+          event.preventDefault();
+          this.closeLightbox();
+        } else if (event.key === 'ArrowRight') {
           event.preventDefault();
           this.next();
         } else if (event.key === 'ArrowLeft') {
@@ -127,6 +190,18 @@ function screenshotCarousel({ screenshots }) {
           this.previous();
         }
       });
+    },
+    touchStartX: null,
+    onTouchStart(e) {
+      this.touchStartX = e.changedTouches[0].clientX;
+    },
+    onTouchEnd(e) {
+      if (this.touchStartX === null) return;
+      const dx = e.changedTouches[0].clientX - this.touchStartX;
+      if (Math.abs(dx) > 40) {
+        dx < 0 ? this.next() : this.previous();
+      }
+      this.touchStartX = null;
     }
   };
 }

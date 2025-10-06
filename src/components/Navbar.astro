@@ -2,7 +2,7 @@
 import logo from '../../public/assets/logo.png';
 const baseUrl = import.meta.env.BASE_URL;
 ---
-<header class="fixed top-0 left-0 right-0 z-40">
+<header class="fixed top-0 left-0 right-0 z-40" x-data="navbarComponent()" x-init="init()">
   <a
     href="#main-content"
     class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[999] focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:shadow-lg dark:focus:bg-neutral-900"
@@ -16,8 +16,6 @@ const baseUrl = import.meta.env.BASE_URL;
     role="navigation"
     aria-label="Navegación principal"
     data-base={baseUrl}
-    x-data="navbarComponent()"
-    x-init="init()"
     :class="{'shadow-lg ring-1 ring-accent/10 border-accent/20': scrolled}"
   >
     <div class="flex flex-1 items-center gap-3">
@@ -41,13 +39,13 @@ const baseUrl = import.meta.env.BASE_URL;
       </span>
     </div>
 
-    <div class="hidden items-center gap-6 text-sm font-semibold md:flex">
+    <div class="hidden items-center gap-6 text-sm font-semibold md:flex dark:text-accent">
       <a
         id="features-link"
         href={baseUrl + 'features/'}
         x-bind:href="baseHref('features/')"
         :aria-current="isActive('features/') ? 'page' : undefined"
-        class="transition hover:text-accent aria-[current=page]:text-accent aria-[current=page]:underline aria-[current=page]:decoration-accent/50 aria-[current=page]:underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        class="transition hover:text-accent aria-[current=page]:text-accent aria-[current=page]:underline aria-[current=page]:decoration-accent/50 aria-[current=page]:underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:text-accent"
       >
         <span x-show="currentLang === 'es'">Funciones</span>
         <span x-show="currentLang === 'en'">Features</span>
@@ -57,7 +55,7 @@ const baseUrl = import.meta.env.BASE_URL;
         href={baseUrl + 'faq/'}
         x-bind:href="baseHref('faq/')"
         :aria-current="isActive('faq/') ? 'page' : undefined"
-        class="transition hover:text-accent aria-[current=page]:text-accent aria-[current=page]:underline aria-[current=page]:decoration-accent/50 aria-[current=page]:underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        class="transition hover:text-accent aria-[current=page]:text-accent aria-[current=page]:underline aria-[current=page]:decoration-accent/50 aria-[current=page]:underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:text-accent"
       >
         FAQ
       </a>
@@ -66,17 +64,17 @@ const baseUrl = import.meta.env.BASE_URL;
         href={baseUrl + 'privacy/'}
         x-bind:href="baseHref('privacy/')"
         :aria-current="isActive('privacy/') ? 'page' : undefined"
-        class="transition hover:text-accent aria-[current=page]:text-accent aria-[current=page]:underline aria-[current=page]:decoration-accent/50 aria-[current=page]:underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        class="transition hover:text-accent aria-[current=page]:text-accent aria-[current=page]:underline aria-[current=page]:decoration-accent/50 aria-[current=page]:underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:text-accent"
       >
         <span x-show="currentLang === 'es'">Privacidad</span>
         <span x-show="currentLang === 'en'">Privacy</span>
       </a>
       <a
         id="roadmap-link"
-        href="https://bookverse.me/fun-phone-roadmap"
-        target="_blank"
-        rel="noopener"
-        class="transition hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        href={baseUrl + 'roadmap/'}
+        x-bind:href="baseHref('roadmap/')"
+        :aria-current="isActive('roadmap/') ? 'page' : undefined"
+        class="transition hover:text-accent aria-[current=page]:text-accent aria-[current=page]:underline aria-[current=page]:decoration-accent/50 aria-[current=page]:underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:text-accent"
       >
         <span x-show="currentLang === 'es'">Hoja de ruta</span>
         <span x-show="currentLang === 'en'">Roadmap</span>
@@ -97,7 +95,7 @@ const baseUrl = import.meta.env.BASE_URL;
       <button
         id="dark-toggle"
         type="button"
-        class="flex items-center gap-2 rounded-full border border-neutral-200 px-4 py-2 text-sm font-semibold text-neutral-700 transition hover:-translate-y-0.5 hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:border-neutral-700 dark:text-neutral-200"
+        class="flex items-center gap-2 rounded-full border border-neutral-200 px-4 py-2 text-sm font-semibold text-neutral-700 transition hover:-translate-y-0.5 hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:border-neutral-700 dark:text-accent"
         @click="toggleTheme()"
         :aria-pressed="isDark.toString()"
         :aria-label="isDark ? (currentLang === 'es' ? 'Cambiar a modo claro' : 'Switch to light mode') : (currentLang === 'es' ? 'Cambiar a modo oscuro' : 'Switch to dark mode')"
@@ -161,7 +159,7 @@ const baseUrl = import.meta.env.BASE_URL;
         </div>
         <button
           type="button"
-          class="rounded-full border border-neutral-200 p-2 text-neutral-600 transition hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:border-neutral-700 dark:text-neutral-200"
+          class="rounded-full border border-neutral-200 p-2 text-neutral-600 transition hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:border-neutral-700 dark:text-accent"
           @click="closeMenu()"
         >
           <span class="sr-only" x-text="currentLang === 'es' ? 'Cerrar menú' : 'Close menu'"></span>
@@ -198,9 +196,8 @@ const baseUrl = import.meta.env.BASE_URL;
         </a>
         <a
           class="rounded-2xl border border-transparent px-4 py-3 transition hover:border-accent hover:bg-accent/10 hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-          href="https://bookverse.me/fun-phone-roadmap"
-          target="_blank"
-          rel="noopener"
+          href={baseUrl + 'roadmap/'}
+          x-bind:href="baseHref('roadmap/')"
           @click="closeMenu()"
         >
           <span x-show="currentLang === 'es'">Hoja de ruta</span>
