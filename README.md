@@ -29,11 +29,11 @@ Consulta la tabla comparativa en `src/pages/features/index.astro` para ver por q
 
 | Marcador | Contactos | Historial |
 |---|---|---|
-| ![Dialer](public/assets/screenshots/dialer.png) | ![Contacts](public/assets/screenshots/contacts.png) | ![History](public/assets/screenshots/history.png) |
+| ![Dialer](public/assets/screenshots/dialer.png) | ![Contacts](public/assets/screenshots/contact_list.png) | ![History](public/assets/screenshots/history.png) |
 
 | QR | Extras | Ajustes |
 |---|---|---|
-| ![QR](public/assets/screenshots/qr.png) | ![Extras](public/assets/screenshots/extras.png) | ![Settings](public/assets/screenshots/settings.png) |
+| ![QR](public/assets/screenshots/qr_generator.png) | ![Extras](public/assets/screenshots/extras.png) | ![Settings](public/assets/screenshots/settings.png) |
 
 ## 📁 Páginas clave
 
