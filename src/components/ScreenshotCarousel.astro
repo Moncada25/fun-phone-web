@@ -1,14 +1,36 @@
 ---
-const screenshots = [
-  { src: import.meta.env.BASE_URL + 'assets/screenshots/dialer.png', alt: 'Fun Phone – Smart dialer', labelEs: 'Marcador inteligente', labelEn: 'Smart dialer' },
-  { src: import.meta.env.BASE_URL + 'assets/screenshots/contact_list.png', alt: 'Fun Phone – Contact list', labelEs: 'Lista de contactos', labelEn: 'Contact list' },
-  { src: import.meta.env.BASE_URL + 'assets/screenshots/contact_details.png', alt: 'Fun Phone – Contact details', labelEs: 'Detalle de contacto', labelEn: 'Contact details' },
-  { src: import.meta.env.BASE_URL + 'assets/screenshots/history.png', alt: 'Fun Phone – Call history', labelEs: 'Historial de llamadas', labelEn: 'Call history' },
-  { src: import.meta.env.BASE_URL + 'assets/screenshots/favorites.png', alt: 'Fun Phone – Favorites tab', labelEs: 'Favoritos', labelEn: 'Favorites' },
-  { src: import.meta.env.BASE_URL + 'assets/screenshots/qr_generator.png', alt: 'Fun Phone – QR generator', labelEs: 'Generador de QR', labelEn: 'QR generator' },
-  { src: import.meta.env.BASE_URL + 'assets/screenshots/extras.png', alt: 'Fun Phone – Extras hub', labelEs: 'Centro de extras', labelEn: 'Extras hub' },
-  { src: import.meta.env.BASE_URL + 'assets/screenshots/settings.png', alt: 'Fun Phone – Settings screen', labelEs: 'Ajustes', labelEn: 'Settings' }
+const basePath = import.meta.env.BASE_URL + 'assets/screenshots/';
+const orientations = [
+  { suffix: 'left', labelEsSuffix: ' (modo apaisado)', labelEnSuffix: ' (landscape)', altSuffix: ' – landscape view' },
+  { suffix: 'portrait', labelEsSuffix: ' (modo vertical)', labelEnSuffix: ' (portrait)', altSuffix: ' – portrait view' }
 ];
+const baseScreens = [
+  { key: 'about', alt: 'Fun Phone – About screen', labelEs: 'Pantalla sobre la app', labelEn: 'About screen' },
+  { key: 'audio', alt: 'Fun Phone – Audio player', labelEs: 'Reproductor de audio', labelEn: 'Audio player' },
+  { key: 'contact_details', alt: 'Fun Phone – Contact details', labelEs: 'Detalle de contacto', labelEn: 'Contact details' },
+  { key: 'contact_edit', alt: 'Fun Phone – Contact editor', labelEs: 'Editor de contactos', labelEn: 'Contact editor' },
+  { key: 'contact_list', alt: 'Fun Phone – Contact list', labelEs: 'Lista de contactos', labelEn: 'Contact list' },
+  { key: 'dialer', alt: 'Fun Phone – Smart dialer', labelEs: 'Marcador inteligente', labelEn: 'Smart dialer' },
+  { key: 'extras', alt: 'Fun Phone – Extras hub', labelEs: 'Centro de extras', labelEn: 'Extras hub' },
+  { key: 'favorites', alt: 'Fun Phone – Favorites tab', labelEs: 'Favoritos', labelEn: 'Favorites tab' },
+  { key: 'favorites_options', alt: 'Fun Phone – Favorites options', labelEs: 'Opciones de favoritos', labelEn: 'Favorites options' },
+  { key: 'game_list', alt: 'Fun Phone – Game catalog', labelEs: 'Catálogo de juegos', labelEn: 'Game catalog' },
+  { key: 'history', alt: 'Fun Phone – Call history', labelEs: 'Historial de llamadas', labelEn: 'Call history' },
+  { key: 'holidays', alt: 'Fun Phone – Holidays calendar', labelEs: 'Calendario de feriados', labelEn: 'Holidays calendar' },
+  { key: 'note_list', alt: 'Fun Phone – Notes list', labelEs: 'Lista de notas', labelEn: 'Notes list' },
+  { key: 'paint', alt: 'Fun Phone – Paint mini-game', labelEs: 'Mini juego de pintura', labelEn: 'Paint mini-game' },
+  { key: 'password_list', alt: 'Fun Phone – Password manager', labelEs: 'Gestor de contraseñas', labelEn: 'Password manager' },
+  { key: 'qr_generator', alt: 'Fun Phone – QR generator', labelEs: 'Generador de QR', labelEn: 'QR generator' },
+  { key: 'settings', alt: 'Fun Phone – Settings screen', labelEs: 'Ajustes', labelEn: 'Settings' }
+];
+const screenshots = baseScreens.flatMap((screen) =>
+  orientations.map((orientation) => ({
+    src: `${basePath}${screen.key}-${orientation.suffix}.webp`,
+    alt: `${screen.alt}${orientation.altSuffix}`,
+    labelEs: `${screen.labelEs}${orientation.labelEsSuffix}`,
+    labelEn: `${screen.labelEn}${orientation.labelEnSuffix}`
+  }))
+);
 const carouselData = JSON.stringify(screenshots);
 ---
 <div
@@ -60,16 +82,16 @@ const carouselData = JSON.stringify(screenshots);
     >
       <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
     </button>
-    <figcaption class="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-white/80 to-transparent p-3 text-center text-xs font-semibold text-neutral-700 backdrop-blur dark:from-neutral-900/80 dark:text-neutral-200">
-      <span x-show="lang==='es'" x-text="screens[currentIndex].labelEs"></span>
-      <span x-show="lang==='en'" x-text="screens[currentIndex].labelEn"></span>
-    </figcaption>
   </div>
+  <figcaption class="mx-auto mt-3 max-w-3xl text-center text-xs font-semibold text-neutral-700 dark:text-neutral-200">
+    <span x-show="lang==='es'" x-text="screens[currentIndex].labelEs"></span>
+    <span x-show="lang==='en'" x-text="screens[currentIndex].labelEn"></span>
+  </figcaption>
   <div class="mt-4 flex flex-wrap items-center justify-center gap-2" role="tablist" aria-label="Miniaturas de la galería">
     {screenshots.map((shot, idx) => (
       <button
         type="button"
-        class="h-12 w-20 overflow-hidden rounded-xl border border-transparent bg-neutral-100 transition hover:border-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:bg-neutral-800"
+        class="h-20 w-20 overflow-hidden rounded-xl border border-transparent bg-neutral-100 p-1 transition hover:border-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:bg-neutral-800"
         role="tab"
         data-index={idx}
         x-bind:data-active="currentIndex === Number($el.dataset.index)"
@@ -78,7 +100,7 @@ const carouselData = JSON.stringify(screenshots);
         x-bind:aria-label="thumbLabel(Number($el.dataset.index))"
         @click="goTo(Number($el.dataset.index))"
       >
-        <img src={shot.src} alt={shot.alt} class="h-full w-full object-cover" loading="lazy" />
+        <img src={shot.src} alt={shot.alt} class="h-full w-full object-contain" loading="lazy" />
       </button>
     ))}
   </div>
@@ -87,40 +109,48 @@ const carouselData = JSON.stringify(screenshots);
   <div
     x-show="lightboxOpen"
     x-transition.opacity
-    class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
+    class="fixed inset-0 z-50 overflow-y-auto bg-black/90 p-6"
     role="dialog"
     aria-modal="true"
     x-cloak
   >
     <button
       type="button"
-      class="absolute right-4 top-4 rounded-full border border-white/20 bg-white/10 p-2 text-white/90 backdrop-blur transition hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+      class="fixed right-6 top-6 z-10 rounded-full border border-white/20 bg-white/10 p-2 text-white/90 backdrop-blur transition hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
       @click="closeLightbox()"
       aria-label="Cerrar / Close"
     >
       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
     </button>
-    <button
-      type="button"
-      class="absolute left-4 top-1/2 -translate-y-1/2 rounded-full border border-white/20 bg-white/10 p-3 text-white/90 backdrop-blur transition hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-      @click="previous()"
-      aria-label="Anterior"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-    </button>
-    <img
-      x-bind:src="screens[currentIndex].src"
-      x-bind:alt="screens[currentIndex].alt"
-      class="max-h-[92vh] w-auto max-w-[92vw] object-contain"
-    />
-    <button
-      type="button"
-      class="absolute right-4 top-1/2 -translate-y-1/2 rounded-full border border-white/20 bg-white/10 p-3 text-white/90 backdrop-blur transition hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-      @click="next()"
-      aria-label="Siguiente"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-    </button>
+    <div class="mx-auto flex min-h-[calc(100vh-3rem)] max-w-5xl flex-col items-center justify-center gap-6">
+      <div class="relative">
+        <button
+          type="button"
+          class="absolute left-4 top-1/2 -translate-y-1/2 rounded-full border border-white/20 bg-white/10 p-3 text-white/90 backdrop-blur transition hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          @click="previous()"
+          aria-label="Anterior"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <img
+          x-bind:src="screens[currentIndex].src"
+          x-bind:alt="screens[currentIndex].alt"
+          class="block h-auto w-auto max-w-[92vw] object-contain md:max-w-4xl"
+        />
+        <button
+          type="button"
+          class="absolute right-4 top-1/2 -translate-y-1/2 rounded-full border border-white/20 bg-white/10 p-3 text-white/90 backdrop-blur transition hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          @click="next()"
+          aria-label="Siguiente"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+      <p class="text-center text-sm font-semibold text-white">
+        <span x-show="lang==='es'" x-text="screens[currentIndex].labelEs"></span>
+        <span x-show="lang==='en'" x-text="screens[currentIndex].labelEn"></span>
+      </p>
+    </div>
   </div>
 </div>
 
