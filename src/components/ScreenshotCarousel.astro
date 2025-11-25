@@ -1,31 +1,29 @@
 ---
 const basePath = import.meta.env.BASE_URL + 'assets/screenshots/';
+const cacheVersion = '?v=3.9.5'; // Cache busting version
 const orientations = [
   { suffix: 'left', labelEsSuffix: ' (modo apaisado)', labelEnSuffix: ' (landscape)', altSuffix: ' – landscape view' },
   { suffix: 'portrait', labelEsSuffix: ' (modo vertical)', labelEnSuffix: ' (portrait)', altSuffix: ' – portrait view' }
 ];
+// Prioritized screenshots matching Play Store highlights
 const baseScreens = [
-  { key: 'about', alt: 'Fun Phone – About screen', labelEs: 'Pantalla sobre la app', labelEn: 'About screen' },
-  { key: 'audio', alt: 'Fun Phone – Audio player', labelEs: 'Reproductor de audio', labelEn: 'Audio player' },
-  { key: 'contact_details', alt: 'Fun Phone – Contact details', labelEs: 'Detalle de contacto', labelEn: 'Contact details' },
-  { key: 'contact_edit', alt: 'Fun Phone – Contact editor', labelEs: 'Editor de contactos', labelEn: 'Contact editor' },
-  { key: 'contact_list', alt: 'Fun Phone – Contact list', labelEs: 'Lista de contactos', labelEn: 'Contact list' },
-  { key: 'dialer', alt: 'Fun Phone – Smart dialer', labelEs: 'Marcador inteligente', labelEn: 'Smart dialer' },
-  { key: 'extras', alt: 'Fun Phone – Extras hub', labelEs: 'Centro de extras', labelEn: 'Extras hub' },
-  { key: 'favorites', alt: 'Fun Phone – Favorites tab', labelEs: 'Favoritos', labelEn: 'Favorites tab' },
-  { key: 'favorites_options', alt: 'Fun Phone – Favorites options', labelEs: 'Opciones de favoritos', labelEn: 'Favorites options' },
-  { key: 'game_list', alt: 'Fun Phone – Game catalog', labelEs: 'Catálogo de juegos', labelEn: 'Game catalog' },
-  { key: 'history', alt: 'Fun Phone – Call history', labelEs: 'Historial de llamadas', labelEn: 'Call history' },
-  { key: 'holidays', alt: 'Fun Phone – Holidays calendar', labelEs: 'Calendario de feriados', labelEn: 'Holidays calendar' },
-  { key: 'note_list', alt: 'Fun Phone – Notes list', labelEs: 'Lista de notas', labelEn: 'Notes list' },
-  { key: 'paint', alt: 'Fun Phone – Paint mini-game', labelEs: 'Mini juego de pintura', labelEn: 'Paint mini-game' },
-  { key: 'password_list', alt: 'Fun Phone – Password manager', labelEs: 'Gestor de contraseñas', labelEn: 'Password manager' },
-  { key: 'qr_generator', alt: 'Fun Phone – QR generator', labelEs: 'Generador de QR', labelEn: 'QR generator' },
-  { key: 'settings', alt: 'Fun Phone – Settings screen', labelEs: 'Ajustes', labelEn: 'Settings' }
+  { key: 'settings', alt: 'Fun Phone – Personalization settings', labelEs: 'Personalización: tema, colores, fuentes y animaciones', labelEn: 'Personalization: theme, colors, fonts & animations' },
+  { key: 'contact_details', alt: 'Fun Phone – Complete contact details', labelEs: 'Detalles completos del contacto en un solo lugar', labelEn: 'All contact details in one place' },
+  { key: 'favorites', alt: 'Fun Phone – Favorites grid', labelEs: 'Favoritos: conecta con quien más importa', labelEn: 'Favorites: connect with who matters most' },
+  { key: 'game_list', alt: 'Fun Phone – Classic game collection', labelEs: 'Colección de juegos clásicos para cada estado de ánimo', labelEn: 'Classic game collection for every mood' },
+  { key: 'note_list', alt: 'Fun Phone – Notes and reminders', labelEs: 'Captura ideas, listas y recordatorios al instante', labelEn: 'Capture ideas, lists, and reminders instantly' },
+  { key: 'extras', alt: 'Fun Phone – All-in-one tools hub', labelEs: 'Centro todo-en-uno para tus herramientas favoritas', labelEn: 'All-in-one hub for your favorite tools' },
+  { key: 'paint', alt: 'Fun Phone – Digital paint studio', labelEs: 'Estudio de pintura para crear arte digital', labelEn: 'Paint studio to create digital art' },
+  { key: 'qr_generator', alt: 'Fun Phone – QR utilities', labelEs: 'Genera y protege tus claves localmente', labelEn: 'Generate and protect your keys locally' },
+  { key: 'password_list', alt: 'Fun Phone – Password manager', labelEs: 'Gestor de contraseñas con cifrado local', labelEn: 'Password manager with local encryption' },
+  { key: 'dialer', alt: 'Fun Phone – Smart T9 dialer', labelEs: 'Marcador inteligente T9', labelEn: 'Smart T9 dialer' },
+  { key: 'contact_list', alt: 'Fun Phone – Contact management', labelEs: 'Gestión avanzada de contactos', labelEn: 'Advanced contact management' },
+  { key: 'history', alt: 'Fun Phone – Call history', labelEs: 'Historial de llamadas con filtros', labelEn: 'Call history with filters' },
+  { key: 'holidays', alt: 'Fun Phone – Holiday calendar', labelEs: 'Calendario de festivos integrado', labelEn: 'Integrated holiday calendar' }
 ];
 const screenshots = baseScreens.flatMap((screen) =>
   orientations.map((orientation) => ({
-    src: `${basePath}${screen.key}-${orientation.suffix}.webp`,
+    src: `${basePath}${screen.key}-${orientation.suffix}.webp${cacheVersion}`,
     alt: `${screen.alt}${orientation.altSuffix}`,
     labelEs: `${screen.labelEs}${orientation.labelEsSuffix}`,
     labelEn: `${screen.labelEn}${orientation.labelEnSuffix}`
