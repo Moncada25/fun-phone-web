@@ -22,8 +22,8 @@ const heroImage = import.meta.env.BASE_URL + 'assets/screenshots/dialer.png';
     <meta name="keywords" content="fun phone, dialer, contactos, android, privacidad, phone app" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href={siteUrl} />
-    <link rel="alternate" href={siteUrl} hrefLang="es" />
-    <link rel="alternate" href={siteUrl} hrefLang="en" />
+    <link rel="alternate" href={siteUrl} hreflang="es" />
+    <link rel="alternate" href={siteUrl} hreflang="en" />
     <link rel="manifest" href={import.meta.env.BASE_URL + 'site.webmanifest'} />
     <link rel="icon" type="image/png" href={import.meta.env.BASE_URL + 'assets/logo.png'} />
     <link rel="apple-touch-icon" href={import.meta.env.BASE_URL + 'assets/logo.png'} />
@@ -58,7 +58,12 @@ const heroImage = import.meta.env.BASE_URL + 'assets/screenshots/dialer.png';
         "featureList": [
           "Marcador inteligente con búsqueda T9",
           "Gestión avanzada de contactos",
-          "Suite de productividad con notas",
+          "Suite de productividad con notas y recordatorios",
+          "Gestor de contraseñas con cifrado Tink",
+          "Gestor de gastos con presupuestos",
+          "Calendario menstrual con predicciones",
+          "Herramientas de voz: dictado y TTS",
+          "10 juegos clásicos y estudio de pintura",
           "Centro de entretenimiento integrado"
         ],
         "privacyPolicy": "https://moncada25.github.io/fun-phone-web/privacy/"
@@ -108,7 +113,9 @@ const heroImage = import.meta.env.BASE_URL + 'assets/screenshots/dialer.png';
                   <span class="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">Marcador T9</span>
                   <span class="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">Contactos avanzados</span>
                   <span class="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">Notas y recordatorios</span>
-                  <span class="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">Juegos clásicos</span>
+                  <span class="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">Gestor de gastos</span>
+                  <span class="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">Contraseñas seguras</span>
+                  <span class="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">10 juegos clásicos</span>
                 </div>
               </template>
               <template x-if="lang==='en'">
@@ -116,7 +123,9 @@ const heroImage = import.meta.env.BASE_URL + 'assets/screenshots/dialer.png';
                   <span class="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">T9 dialer</span>
                   <span class="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">Advanced contacts</span>
                   <span class="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">Notes & reminders</span>
-                  <span class="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">Classic games</span>
+                  <span class="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">Expense manager</span>
+                  <span class="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">Secure passwords</span>
+                  <span class="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">10 classic games</span>
                 </div>
               </template>
             </div>
@@ -164,25 +173,46 @@ const heroImage = import.meta.env.BASE_URL + 'assets/screenshots/dialer.png';
         <div class="mt-4 grid gap-4 md:grid-cols-2">
           <div class="space-y-2 rounded-3xl border border-neutral-200 bg-white/70 p-4 text-sm text-neutral-700 dark:border-neutral-800 dark:bg-neutral-900/60 dark:text-neutral-300">
             <h3 class="text-base font-semibold text-neutral-900 dark:text-accent">
-              <span x-show="lang==='es'">Suite de Notas</span>
-              <span x-show="lang==='en'">Notes Suite</span>
+              <span x-show="lang==='es'">Gestor de Gastos 💰</span>
+              <span x-show="lang==='en'">Expense Manager 💰</span>
             </h3>
             <ul class="space-y-1">
-              <li><span class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span><span x-show="lang==='es'">Notas de texto enriquecido y listas de verificación.</span><span x-show="lang==='en'">Rich‑text notes and checklists.</span></li>
-              <li><span class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span><span x-show="lang==='es'">Recordatorios inteligentes con notificaciones.</span><span x-show="lang==='en'">Smart reminders with notifications.</span></li>
-              <li><span class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span><span x-show="lang==='es'">Grabación de voz con organización.</span><span x-show="lang==='en'">Voice recording with organisation.</span></li>
-              <li><span class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span><span x-show="lang==='es'">Protección con biometría y copias de seguridad.</span><span x-show="lang==='en'">Biometric protection and backups.</span></li>
+              <li><span class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span><span x-show="lang==='es'">Rastrea ingresos y gastos por categoría.</span><span x-show="lang==='en'">Track income and expenses by category.</span></li>
+              <li><span class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span><span x-show="lang==='es'">Configura presupuestos mensuales.</span><span x-show="lang==='en'">Set monthly budgets.</span></li>
+              <li><span class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span><span x-show="lang==='es'">Visualiza estadísticas y balance en tiempo real.</span><span x-show="lang==='en'">View real-time stats and balance.</span></li>
             </ul>
           </div>
           <div class="space-y-2 rounded-3xl border border-neutral-200 bg-white/70 p-4 text-sm text-neutral-700 dark:border-neutral-800 dark:bg-neutral-900/60 dark:text-neutral-300">
             <h3 class="text-base font-semibold text-neutral-900 dark:text-accent">
-              <span x-show="lang==='es'">Gestor y Generador de Contraseñas</span>
-              <span x-show="lang==='en'">Password Manager & Generator</span>
+              <span x-show="lang==='es'">Calendario Menstrual 🌸</span>
+              <span x-show="lang==='en'">Menstrual Calendar 🌸</span>
             </h3>
             <ul class="space-y-1">
-              <li><span class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span><span x-show="lang==='es'">Guarda credenciales localmente. Sin sincronización remota.</span><span x-show="lang==='en'">Store credentials locally. No remote sync.</span></li>
-              <li><span class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span><span x-show="lang==='es'">Genera contraseñas fuertes aleatorias.</span><span x-show="lang==='en'">Generate strong random passwords.</span></li>
-              <li><span class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span><span x-show="lang==='es'">Protección con biometría o PIN.</span><span x-show="lang==='en'">Protected with biometrics or PIN.</span></li>
+              <li><span class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span><span x-show="lang==='es'">Seguimiento de ciclos con predicciones.</span><span x-show="lang==='en'">Cycle tracking with predictions.</span></li>
+              <li><span class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span><span x-show="lang==='es'">Identifica fases: menstrual, folicular, ovulación, lútea.</span><span x-show="lang==='en'">Identify phases: menstrual, follicular, ovulation, luteal.</span></li>
+              <li><span class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span><span x-show="lang==='es'">Datos 100% privados en dispositivo.</span><span x-show="lang==='en'">100% private on-device data.</span></li>
+            </ul>
+          </div>
+          <div class="space-y-2 rounded-3xl border border-neutral-200 bg-white/70 p-4 text-sm text-neutral-700 dark:border-neutral-800 dark:bg-neutral-900/60 dark:text-neutral-300">
+            <h3 class="text-base font-semibold text-neutral-900 dark:text-accent">
+              <span x-show="lang==='es'">Herramientas de Voz 🎙️</span>
+              <span x-show="lang==='en'">Voice Tools 🎙️</span>
+            </h3>
+            <ul class="space-y-1">
+              <li><span class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span><span x-show="lang==='es'">Transcribe voz a texto instantáneamente.</span><span x-show="lang==='en'">Transcribe speech to text instantly.</span></li>
+              <li><span class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span><span x-show="lang==='es'">Selecciona voces TTS multi-idioma.</span><span x-show="lang==='en'">Pick multi-language TTS voices.</span></li>
+              <li><span class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span><span x-show="lang==='es'">Comparte la salida como texto o audio.</span><span x-show="lang==='en'">Share output as text or audio.</span></li>
+            </ul>
+          </div>
+          <div class="space-y-2 rounded-3xl border border-neutral-200 bg-white/70 p-4 text-sm text-neutral-700 dark:border-neutral-800 dark:bg-neutral-900/60 dark:text-neutral-300">
+            <h3 class="text-base font-semibold text-neutral-900 dark:text-accent">
+              <span x-show="lang==='es'">Estudio de Pintura 🎨</span>
+              <span x-show="lang==='en'">Paint Studio 🎨</span>
+            </h3>
+            <ul class="space-y-1">
+              <li><span class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span><span x-show="lang==='es'">Crea arte digital con pinceles expresivos.</span><span x-show="lang==='en'">Create digital art with expressive brushes.</span></li>
+              <li><span class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span><span x-show="lang==='es'">Importa y exporta tus creaciones.</span><span x-show="lang==='en'">Import and export your creations.</span></li>
+              <li><span class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span><span x-show="lang==='es'">Comparte con galería y redes sociales.</span><span x-show="lang==='en'">Share to gallery and social media.</span></li>
             </ul>
           </div>
         </div>

@@ -7,19 +7,27 @@ const siteUrl = 'https://moncada25.github.io/fun-phone-web/faq/';
 const faqs = [
   {
     question: 'How do I set it as my default phone app?',
-    answer: 'Go to Settings → Default apps → Phone and select Fun Phone.'
+    answer: 'Go to Settings → Default apps → Phone and select Fun Phone. You can also use the Phone Status tool in the app to quickly check and request default status.'
   },
   {
-    question: 'What games and mini-tasks are included?',
-    answer: 'Fun Phone includes classic mini-games like Snake, Tic-Tac-Toe, Puzzle, Hangman, Memory, and Breakout.'
+    question: 'What games and entertainment features are included?',
+    answer: 'Fun Phone includes 10 classic mini-games: Fun Bird, Snake, Minesweeper, 2048, Puzzle, Tic-Tac-Toe, Hangman, Breakout, Sudoku, and Memory. Plus a Paint studio for digital art creation.'
+  },
+  {
+    question: 'Can I manage my expenses and wellness in the app?',
+    answer: 'Yes! Fun Phone includes an Expense Manager with budgets and categories, plus a Menstrual Calendar with cycle predictions and wellness tips—all stored locally and privately on your device.'
   },
   {
     question: 'Can I take notes or reminders during calls?',
-    answer: 'Yes, you can create quick notes and reminders from the Productivity Suite while you are on a call.'
+    answer: 'Absolutely! Use the Productivity Suite to create notes, checklists, voice recordings, and reminders. You can also lock sensitive notes with biometrics.'
   },
   {
-    question: 'How can I customise the app’s appearance?',
-    answer: 'You can tweak colours, themes, wallpapers, and automatic light/dark mode from Settings → Customisation.'
+    question: 'Is my password manager secure?',
+    answer: 'Yes. The password manager uses Tink encryption and stores everything locally on your device. Data never leaves your phone. You can protect it with biometrics or PIN.'
+  },
+  {
+    question: 'How can I customise the app appearance?',
+    answer: 'Go to Settings → Personalization to adjust themes (light/dark), accent colors, fonts, animation speeds, transition styles, vibration patterns, and more. The app is fully bilingual (Spanish/English).'
   },
   {
     question: 'Does the app have ads?',
@@ -48,8 +56,8 @@ const faqSchema = JSON.stringify({
     <title>FAQ Fun Phone | Configuración, privacidad y soporte</title>
     <meta name="description" content="Preguntas frecuentes sobre Fun Phone: configuración predeterminada, privacidad, permisos, juegos y soporte técnico." />
     <link rel="canonical" href={siteUrl} />
-    <link rel="alternate" href={siteUrl} hrefLang="es" />
-    <link rel="alternate" href={siteUrl} hrefLang="en" />
+    <link rel="alternate" href={siteUrl} hreflang="es" />
+    <link rel="alternate" href={siteUrl} hreflang="en" />
     <meta name="robots" content="index, follow" />
     <meta property="og:type" content="article" />
     <meta property="og:site_name" content="Fun Phone" />
