@@ -1,34 +1,59 @@
 ---
 const basePath = import.meta.env.BASE_URL + 'assets/screenshots/';
-const cacheVersion = '?v=3.9.5'; // Cache busting version
-const orientations = [
-  { suffix: 'left', labelEsSuffix: ' (modo apaisado)', labelEnSuffix: ' (landscape)', altSuffix: ' – landscape view' },
-  { suffix: 'portrait', labelEsSuffix: ' (modo vertical)', labelEnSuffix: ' (portrait)', altSuffix: ' – portrait view' }
+const cacheVersion = '?v=3.9.6'; // Cache busting version - updated for new PNG images
+
+// Real screenshots from Play Store
+const screenshots = [
+  { 
+    src: `${basePath}favorites.png${cacheVersion}`, 
+    alt: 'Fun Phone – Connect with who matters most', 
+    labelEs: 'Conecta con las personas que más importan', 
+    labelEn: 'Connect with the people who matter most' 
+  },
+  { 
+    src: `${basePath}tools1.png${cacheVersion}`, 
+    alt: 'Fun Phone – All-in-one tools hub', 
+    labelEs: 'Un centro todo-en-uno para tus herramientas favoritas', 
+    labelEn: 'An all-in-one hub for your favorite tools' 
+  },
+  { 
+    src: `${basePath}tools2.png${cacheVersion}`, 
+    alt: 'Fun Phone – Generate and protect keys locally', 
+    labelEs: 'Genera y protege tus claves de forma segura localmente', 
+    labelEn: 'Securely generate and protect your keys locally' 
+  },
+  { 
+    src: `${basePath}tools3.png${cacheVersion}`, 
+    alt: 'Fun Phone – Track cycle predictions and wellness', 
+    labelEs: 'Rastrea predicciones de ciclo, ventanas fértiles y consejos rápidos', 
+    labelEn: 'Track cycle predictions, fertile windows, and quick tips' 
+  },
+  { 
+    src: `${basePath}dark_mode.png${cacheVersion}`, 
+    alt: 'Fun Phone – Personalization settings', 
+    labelEs: 'Personalización: haz que Fun Phone se vea y se sienta como tú', 
+    labelEn: 'Personalization: make Fun Phone look and feel like you' 
+  },
+  { 
+    src: `${basePath}games.png${cacheVersion}`, 
+    alt: 'Fun Phone – Classic game collection', 
+    labelEs: 'Una colección de juegos clásicos para cada estado de ánimo', 
+    labelEn: 'A classic game collection for every mood' 
+  },
+  { 
+    src: `${basePath}notes.png${cacheVersion}`, 
+    alt: 'Fun Phone – Capture ideas instantly', 
+    labelEs: 'Captura ideas, listas y recordatorios al instante', 
+    labelEn: 'Capture ideas, lists, and reminders instantly' 
+  },
+  { 
+    src: `${basePath}details.png${cacheVersion}`, 
+    alt: 'Fun Phone – All contact details in one place', 
+    labelEs: 'Todos los detalles de contacto en un solo lugar', 
+    labelEn: 'All your contact details in one place' 
+  }
 ];
-// Prioritized screenshots matching Play Store highlights
-const baseScreens = [
-  { key: 'settings', alt: 'Fun Phone – Personalization settings', labelEs: 'Personalización: tema, colores, fuentes y animaciones', labelEn: 'Personalization: theme, colors, fonts & animations' },
-  { key: 'contact_details', alt: 'Fun Phone – Complete contact details', labelEs: 'Detalles completos del contacto en un solo lugar', labelEn: 'All contact details in one place' },
-  { key: 'favorites', alt: 'Fun Phone – Favorites grid', labelEs: 'Favoritos: conecta con quien más importa', labelEn: 'Favorites: connect with who matters most' },
-  { key: 'game_list', alt: 'Fun Phone – Classic game collection', labelEs: 'Colección de juegos clásicos para cada estado de ánimo', labelEn: 'Classic game collection for every mood' },
-  { key: 'note_list', alt: 'Fun Phone – Notes and reminders', labelEs: 'Captura ideas, listas y recordatorios al instante', labelEn: 'Capture ideas, lists, and reminders instantly' },
-  { key: 'extras', alt: 'Fun Phone – All-in-one tools hub', labelEs: 'Centro todo-en-uno para tus herramientas favoritas', labelEn: 'All-in-one hub for your favorite tools' },
-  { key: 'paint', alt: 'Fun Phone – Digital paint studio', labelEs: 'Estudio de pintura para crear arte digital', labelEn: 'Paint studio to create digital art' },
-  { key: 'qr_generator', alt: 'Fun Phone – QR utilities', labelEs: 'Genera y protege tus claves localmente', labelEn: 'Generate and protect your keys locally' },
-  { key: 'password_list', alt: 'Fun Phone – Password manager', labelEs: 'Gestor de contraseñas con cifrado local', labelEn: 'Password manager with local encryption' },
-  { key: 'dialer', alt: 'Fun Phone – Smart T9 dialer', labelEs: 'Marcador inteligente T9', labelEn: 'Smart T9 dialer' },
-  { key: 'contact_list', alt: 'Fun Phone – Contact management', labelEs: 'Gestión avanzada de contactos', labelEn: 'Advanced contact management' },
-  { key: 'history', alt: 'Fun Phone – Call history', labelEs: 'Historial de llamadas con filtros', labelEn: 'Call history with filters' },
-  { key: 'holidays', alt: 'Fun Phone – Holiday calendar', labelEs: 'Calendario de festivos integrado', labelEn: 'Integrated holiday calendar' }
-];
-const screenshots = baseScreens.flatMap((screen) =>
-  orientations.map((orientation) => ({
-    src: `${basePath}${screen.key}-${orientation.suffix}.webp${cacheVersion}`,
-    alt: `${screen.alt}${orientation.altSuffix}`,
-    labelEs: `${screen.labelEs}${orientation.labelEsSuffix}`,
-    labelEn: `${screen.labelEn}${orientation.labelEnSuffix}`
-  }))
-);
+
 const carouselData = JSON.stringify(screenshots);
 ---
 <div
