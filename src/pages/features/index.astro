@@ -2,605 +2,252 @@
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
 import FeatureBlock from '../../components/FeatureBlock.astro';
+import ComparisonTable from '../../components/ComparisonTable.astro';
 
+const base = import.meta.env.BASE_URL;
 const siteUrl = 'https://moncada25.github.io/fun-phone-web/features/';
-
-const icons = {
-  phone: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M22 16.92V19a2 2 0 01-2.18 2A19.72 19.72 0 013 5.18 2 2 0 015 3h2a2 2 0 012 1.72c.13 1.23.37 2.44.7 3.62a2 2 0 01-.45 2.11l-1.27 1.27a16 16 0 007.07 7.07l1.27-1.27a2 2 0 012.11-.45c1.18.33 2.39.57 3.62.7A2 2 0 0122 16.92z"/></svg>`,
-  contacts: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M17 20h5v-2a4 4 0 00-3-3.87"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M9 20H4v-2a4 4 0 013-3.87"/><circle cx="9" cy="7" r="4"/><circle cx="15" cy="7" r="4"/></svg>`,
-  productivity: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="4" y="4" width="16" height="16" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M8 10h8M8 14h6"/></svg>`,
-  entertainment: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>`,
-  customization: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M16.862 3.487a2.25 2.25 0 113.182 3.182L7.5 19.213l-4.5 1.5 1.5-4.5 12.362-12.726z"/></svg>`,
-  privacy: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M12 11c1.657 0 3-1.343 3-3S13.657 5 12 5 9 6.343 9 8s1.343 3 3 3z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M19 21a7 7 0 10-14 0h14z"/></svg>`,
-  automation: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M4 4v5h.582a8 8 0 111.051 7.637L4 20"/></svg>`,
-  analytics: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M11 3.055A9.001 9.001 0 1020.945 13H11z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M15 3h6v6"/></svg>`,
-  lock: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="4" y="10" width="16" height="10" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M8 10V8a4 4 0 118 0v2"/></svg>`,
-  calendar: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M8 2v4M16 2v4M3 10h18"/></svg>`,
-  paint: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>`,
-  qr: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M3 3h6v6H3zM15 3h6v6h-6zM3 15h6v6H3zM15 15h2v2h-2zM19 15h2v2h-2zM17 19h2v2h-2z"/></svg>`,
-  mic: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg>`,
-  finance: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`,
-  wellness: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>`
-};
-
-const sections = [
-  {
-    id: 'communication',
-    titleEs: 'Comunicación sin fricción',
-    titleEn: 'Effortless communication',
-    bodyEs: 'Controla cada llamada con herramientas profesionales y flujos que se adaptan a tu ritmo.',
-    bodyEn: 'Take control of every call with pro tools and flows tailored to your pace.',
-    features: [
-      {
-        icon: 'phone',
-        titleEs: 'Marcador Avanzado y Llamadas',
-        titleEn: 'Advanced Dialer & Calls',
-        bulletsEs: [
-          'Búsqueda inteligente T9 y marcado rápido.',
-          'Historial completo con filtros, favoritos y búsqueda.',
-          'Interfaz profesional: responder, retener, silenciar y altavoz.',
-          'Soporte dual-SIM y enrutamiento inteligente.',
-          'Compartir números por QR con un toque.',
-          'Marcado por voz y manos libres.',
-          'Sensor de proximidad para manejo fluido de llamadas.'
-        ],
-        bulletsEn: [
-          'T9 smart search with lightning-fast dialing.',
-          'Complete call history with filters, favourites, and search.',
-          'Pro controls: answer, hold, mute, and speaker.',
-          'Dual-SIM support with smart routing.',
-          'Share numbers via QR in a single tap.',
-          'Hands-free voice dialing.',
-          'Proximity sensor keeps calls smooth.'
-        ]
-      },
-      {
-        icon: 'privacy',
-        titleEs: 'Privacidad y Seguridad Primero',
-        titleEn: 'Privacy & Security First',
-        bulletsEs: [
-          'Permisos granulares y explicaciones claras.',
-          'Datos almacenados localmente, nunca compartidos.',
-          'Control total sobre acceso y permisos.',
-          'Sin anuncios invasivos.'
-        ],
-        bulletsEn: [
-          'Granular permissions with clear explanations.',
-          'Data stored locally, never shared.',
-          'Full control over access and permissions.',
-          'No invasive ads.'
-        ]
-      }
-    ]
-  },
-  {
-    id: 'contacts',
-    titleEs: 'Contactos siempre actualizados',
-    titleEn: 'Contacts always up-to-date',
-    bodyEs: 'Gestiona, sincroniza y comparte tu agenda sin perder contexto.',
-    bodyEn: 'Manage, sync, and share your address book without losing context.',
-    features: [
-      {
-        icon: 'contacts',
-        titleEs: 'Gestión Poderosa de Contactos',
-        titleEn: 'Powerful Contact Management',
-        bulletsEs: [
-          'Agregar, editar, importar/exportar (JSON/vCard).',
-          'Escáner y generador de QR para compartir contactos.',
-          'Sincronización multi-cuenta (Google, local, otros).',
-          'Búsqueda y filtrado avanzados, organización flexible.',
-          'Gestión de fotos y respaldo de contactos.',
-          'Bloqueo de números spam.',
-          'Fusión y deduplicación de contactos.'
-        ],
-        bulletsEn: [
-          'Add, edit, import/export contacts (JSON/vCard).',
-          'QR scanner and generator to share contacts.',
-          'Multi-account sync (Google, local, others).',
-          'Advanced search, filtering, and flexible organisation.',
-          'Photo management and contact backups.',
-          'Spam number blocking.',
-          'Contact merge and deduplication.'
-        ]
-      },
-      {
-        icon: 'automation',
-        titleEs: 'Automatizaciones y flujos inteligentes',
-        titleEn: 'Automations & smart flows',
-        bulletsEs: [
-          'Acciones rápidas tras cada llamada: crea recordatorios o envía resúmenes.',
-          'Plantillas de mensajes y correos vinculadas a etiquetas de contacto.',
-          'Sincroniza notas y tareas con tu calendario vía archivos ICS.',
-          'Reparte contactos por prioridad con reglas visuales.'
-        ],
-        bulletsEn: [
-          'Post-call quick actions: create reminders or send summaries.',
-          'Message and email templates linked to contact labels.',
-          'Sync notes and tasks with your calendar through ICS exports.',
-          'Distribute contacts by priority using visual rules.'
-        ]
-      }
-    ]
-  },
-  {
-    id: 'productivity',
-    titleEs: 'Productividad que acompaña tus llamadas',
-    titleEn: 'Productivity that keeps up with your calls',
-    bodyEs: 'Convierte cada interacción en tareas claras, notas y métricas útiles.',
-    bodyEn: 'Turn every interaction into actionable tasks, notes, and insights.',
-    features: [
-      {
-        icon: 'productivity',
-        titleEs: 'Suite de Productividad',
-        titleEn: 'Productivity Suite',
-        bulletsEs: [
-          'Notas enriquecidas con formato y multimedia.',
-          'Listas de verificación interactivas.',
-          'Recordatorios inteligentes y notificaciones.',
-          'Grabación de voz y organización de audios.',
-          'Gestión de tareas con fechas y prioridades.',
-          'Protección de notas con biometría.',
-          'Copia de seguridad y restauración.'
-        ],
-        bulletsEn: [
-          'Rich notes with formatting and multimedia.',
-          'Interactive checklists for follow-ups.',
-          'Smart reminders and notifications.',
-          'Voice recording and audio organisation.',
-          'Task management with dates and priorities.',
-          'Biometric protection for notes.',
-          'Backup and restore.'
-        ]
-      },
-      {
-        icon: 'analytics',
-        titleEs: 'Panel de métricas y widgets',
-        titleEn: 'Metrics dashboard & widgets',
-        bulletsEs: [
-          'Dashboard con duración promedio, ratio de respuesta y tendencias.',
-          'Widgets de pantalla de inicio para favoritos y notas rápidas.',
-          'Exportación de métricas a CSV o Google Sheets.',
-          'Indicadores en vivo durante la llamada para seguimiento contextual.'
-        ],
-        bulletsEn: [
-          'Dashboard with average duration, answer rate, and trends.',
-          'Home widgets for favourites and quick notes.',
-          'Export metrics to CSV or Google Sheets.',
-          'Live indicators during calls for contextual follow-up.'
-        ]
-      }
-    ]
-  },
-  {
-    id: 'utilities',
-    titleEs: 'Seguridad y utilidades',
-    titleEn: 'Security & utilities',
-    bodyEs: 'Herramientas prácticas para tu día a día: contraseñas seguras, voz, festivos y QR.',
-    bodyEn: 'Practical tools for everyday use: secure passwords, voice, holidays, and QR.',
-    features: [
-      {
-        icon: 'lock',
-        titleEs: 'Gestor y Generador de Contraseñas',
-        titleEn: 'Password Manager & Generator',
-        bulletsEs: [
-          'Guarda credenciales de forma segura con cifrado Tink.',
-          'Genera contraseñas fuertes aleatorias.',
-          'Protección con biometría o PIN.',
-          'Exportación JSON y compartir contraseñas.',
-          'Sin sincronización remota.'
-        ],
-        bulletsEn: [
-          'Securely store credentials with Tink encryption.',
-          'Generate strong random passwords.',
-          'Protected with biometrics or PIN.',
-          'JSON export and password sharing.',
-          'No remote sync.'
-        ]
-      },
-      {
-        icon: 'mic',
-        titleEs: 'Herramientas de Voz',
-        titleEn: 'Voice Tools',
-        bulletsEs: [
-          'Transcribe voz a texto instantáneamente.',
-          'Selecciona voces TTS multi-idioma.',
-          'Comparte la salida de voz como texto o audio.',
-          'Acceso rápido desde el hub de extras.'
-        ],
-        bulletsEn: [
-          'Transcribe speech to text instantly.',
-          'Pick multi-language TTS voices.',
-          'Share voice output as text or audio.',
-          'Quick access from extras hub.'
-        ]
-      },
-      {
-        icon: 'calendar',
-        titleEs: 'Calendario de Festivos',
-        titleEn: 'Holiday Calendar',
-        bulletsEs: [
-          'Consulta festivos por país y año con API Nager.Date.',
-          'Planifica llamadas y recordatorios con contexto.',
-          'Integración opcional con Google Calendar.',
-          'Acceso rápido desde la app.'
-        ],
-        bulletsEn: [
-          'Browse holidays by country and year via Nager.Date API.',
-          'Plan calls and reminders with context.',
-          'Optional Google Calendar integration.',
-          'Quick access inside the app.'
-        ]
-      },
-      {
-        icon: 'qr',
-        titleEs: 'Utilidades QR',
-        titleEn: 'QR Utilities',
-        bulletsEs: [
-          'Escanea QR desde cámara o galería con ZXing.',
-          'Genera QR desde texto, URL o contactos.',
-          'Comparte contactos y números por QR.',
-          'Historial de escaneos.'
-        ],
-        bulletsEn: [
-          'Scan QR from camera or gallery with ZXing.',
-          'Generate QR from text, URL, or contacts.',
-          'Share contacts and numbers via QR.',
-          'Scan history.'
-        ]
-      }
-    ]
-  },
-  {
-    id: 'lifestyle',
-    titleEs: 'Vida y finanzas',
-    titleEn: 'Lifestyle & finances',
-    bodyEs: 'Administra tu bienestar y gastos desde un solo lugar.',
-    bodyEn: 'Manage your wellness and expenses from one place.',
-    features: [
-      {
-        icon: 'finance',
-        titleEs: 'Gestor de Gastos',
-        titleEn: 'Expense Manager',
-        bulletsEs: [
-          'Registra ingresos y gastos por categoría.',
-          'Configura presupuestos mensuales.',
-          'Visualiza distribución con gráficas.',
-          'Estadísticas y balance en tiempo real.',
-          'Todo almacenado localmente en Room.'
-        ],
-        bulletsEn: [
-          'Log income and expenses by category.',
-          'Set monthly budgets.',
-          'Visualize spending with charts.',
-          'Real-time stats and balance.',
-          'All stored locally in Room.'
-        ]
-      },
-      {
-        icon: 'wellness',
-        titleEs: 'Calendario Menstrual',
-        titleEn: 'Menstrual Calendar',
-        bulletsEs: [
-          'Seguimiento de ciclos con predicciones.',
-          'Identifica fases: menstrual, folicular, ovulación, lútea.',
-          'Consejos de bienestar por fase.',
-          'Datos 100% privados en dispositivo.',
-          'Vista de calendario visual.'
-        ],
-        bulletsEn: [
-          'Cycle tracking with predictions.',
-          'Identify phases: menstrual, follicular, ovulation, luteal.',
-          'Wellness tips per phase.',
-          '100% private on-device data.',
-          'Visual calendar view.'
-        ]
-      }
-    ]
-  },
-  {
-    id: 'experience',
-    titleEs: 'Experiencia personalizada y divertida',
-    titleEn: 'Personalised and playful experience',
-    bodyEs: 'Adapta la app a tu estilo con temas, animaciones y momentos de pausa.',
-    bodyEn: 'Tailor the app to your style with themes, motion, and mindful breaks.',
-    features: [
-      {
-        icon: 'customization',
-        titleEs: 'Personalización Total',
-        titleEn: 'Total Personalisation',
-        bulletsEs: [
-          'Temas dinámicos claro/oscuro con cambio automático.',
-          'Paleta de colores extensa y acentos personalizables.',
-          'Múltiples familias y tamaños de fuente.',
-          'Velocidad de animaciones y estilos de transición.',
-          'Patrones y duración de vibración personalizables.',
-          'Orden de herramientas configurable.',
-          'Interfaz completamente bilingüe (ES/EN).'
-        ],
-        bulletsEn: [
-          'Dynamic light/dark themes with auto switching.',
-          'Extensive colour palette with custom accents.',
-          'Multiple font families and sizes.',
-          'Animation speed and transition styles.',
-          'Custom vibration patterns and duration.',
-          'Configurable tool order.',
-          'Fully bilingual interface (ES/EN).'
-        ]
-      },
-      {
-        icon: 'entertainment',
-        titleEs: 'Centro de Entretenimiento',
-        titleEn: 'Entertainment Hub',
-        bulletsEs: [
-          '10 mini-juegos: Fun Bird, Snake, Minesweeper, 2048, Puzzle, Tic-Tac-Toe, Hangman, Breakout, Sudoku, Memory.',
-          'Seguimiento de estadísticas y mejores puntuaciones.',
-          'Lienzo de pintura con pinceles expresivos e importación/exportación.',
-          'Juega y relájate en cualquier momento.'
-        ],
-        bulletsEn: [
-          '10 mini-games: Fun Bird, Snake, Minesweeper, 2048, Puzzle, Tic-Tac-Toe, Hangman, Breakout, Sudoku, Memory.',
-          'Track stats and high scores.',
-          'Paint canvas with expressive brushes and import/export.',
-          'Play and relax at any moment.'
-        ]
-      }
-    ]
-  }
-];
+const ssBase = base + 'assets/screenshots/';
+const v = '?v=4.0.0';
 ---
 <!DOCTYPE html>
 <html lang="es" x-data="pageState()" x-on:lang.window="updateLang($event.detail)" x-bind:lang="lang" class="scroll-smooth">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Funciones de Fun Phone | Marcador inteligente, contactos y productividad</title>
-    <meta name="description" content="Descubre todas las funciones de Fun Phone: marcador avanzado, gestión de contactos, automatizaciones, productividad y privacidad sin anuncios." />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Features | Fun Phone: Dialer & Contacts</title>
+    <meta name="description" content="Explore all Fun Phone features: advanced dialer, smart contacts, productivity suite, password manager, expense tracker, games and more." />
     <link rel="canonical" href={siteUrl} />
     <link rel="alternate" href={siteUrl} hreflang="es" />
     <link rel="alternate" href={siteUrl} hreflang="en" />
     <meta name="robots" content="index, follow" />
     <meta property="og:type" content="article" />
     <meta property="og:site_name" content="Fun Phone" />
-    <meta property="og:title" content="Funciones de Fun Phone" />
-    <meta property="og:description" content="Marcador avanzado, contactos inteligentes y herramientas de productividad en una sola app." />
+    <meta property="og:title" content="Fun Phone Features" />
     <meta property="og:url" content={siteUrl} />
-    <meta property="og:image" content={import.meta.env.BASE_URL + 'assets/screenshots/dialer.png'} />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Funciones de Fun Phone" />
-    <meta name="twitter:description" content="Marcador avanzado, contactos inteligentes y privacidad real." />
     <meta property="og:locale" content="es_ES" />
     <meta property="og:locale:alternate" content="en_US" />
-    <link rel="icon" type="image/png" href={import.meta.env.BASE_URL + 'assets/logo.png'} />
-    <link rel="apple-touch-icon" href={import.meta.env.BASE_URL + 'assets/logo.png'} />
-
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "ItemList",
-        "name": "Fun Phone feature overview",
-        "itemListElement": [
-          {"@type": "ListItem","position": 1,"name": "Advanced Dialer"},
-          {"@type": "ListItem","position": 2,"name": "Contact Management"},
-          {"@type": "ListItem","position": 3,"name": "Productivity Suite"},
-          {"@type": "ListItem","position": 4,"name": "Entertainment Hub"}
-        ]
-      }
-    </script>
+    <link rel="icon" type="image/png" href={base + 'assets/logo.png'} />
+    <link rel="apple-touch-icon" href={base + 'assets/logo.png'} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <script>
-      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const savedTheme = localStorage.getItem('darkMode');
-      const isDark = savedTheme !== null ? savedTheme === 'true' : prefersDark;
+      const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
+      const saved = localStorage.getItem('darkMode');
+      const isDark = saved !== null ? saved === 'true' : prefersDark;
       document.documentElement.classList.toggle('dark', isDark);
       document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';
     </script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+      [x-cloak] { display: none !important; }
+      .scrollbar-hide::-webkit-scrollbar { display: none; }
+    </style>
   </head>
-  <body class="min-h-screen bg-gradient-to-br from-white via-sky-50/40 to-white text-neutral-900 dark:from-neutral-950 dark:via-neutral-950/50 dark:to-neutral-950">
+  <body class="font-body bg-white text-neutral-900 antialiased dark:bg-midnight dark:text-neutral-100">
     <Navbar />
-    <main id="main-content" role="main" class="mx-auto flex w-full max-w-6xl flex-col gap-16 px-4 pt-28 pb-20">
-      <header class="rounded-4xl border border-neutral-200 bg-white/80 p-10 text-center shadow-xl shadow-accent/10 backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/80">
-        <p class="text-xs font-semibold uppercase tracking-[0.3em] text-accent" x-show="lang==='es'">Todo lo que incluye Fun Phone</p>
-        <p class="text-xs font-semibold uppercase tracking-[0.3em] text-accent" x-show="lang==='en'">Everything inside Fun Phone</p>
-        <h1 class="mt-4 text-4xl font-black leading-tight tracking-tight text-neutral-900 dark:text-accent lg:text-5xl">
-          <span x-show="lang==='es'">Funciones pensadas para equipos, familias y power users</span>
-          <span x-show="lang==='en'">Features built for teams, families, and power users</span>
+
+    <main id="main-content" class="mx-auto max-w-7xl px-6 pt-28 pb-20">
+      <!-- HERO -->
+      <header class="relative mx-auto max-w-3xl py-16 text-center">
+        <p class="text-xs font-bold uppercase tracking-[0.2em] text-accent">
+          <span x-show="lang==='es'">Todo lo que incluye</span>
+          <span x-show="lang==='en'">Everything included</span>
+        </p>
+        <h1 class="mt-4 font-display text-4xl font-black tracking-tight sm:text-5xl">
+          <span x-show="lang==='es'" class="text-neutral-900 dark:text-white">Funciones que <span class="bg-gradient-to-r from-accent to-electric bg-clip-text text-transparent">transforman</span></span>
+          <span x-show="lang==='en'" class="text-neutral-900 dark:text-white">Features that <span class="bg-gradient-to-r from-accent to-electric bg-clip-text text-transparent">transform</span></span>
         </h1>
-        <p class="mx-auto mt-4 max-w-3xl text-lg text-neutral-600 dark:text-neutral-300" x-show="lang==='es'">
-          Conoce en detalle cómo Fun Phone combina comunicación, organización y privacidad real para convertir tu teléfono en un centro de productividad.
+        <p class="mx-auto mt-5 max-w-xl text-lg text-neutral-500 dark:text-neutral-400" x-show="lang==='es'">
+          Explora las herramientas integradas que convierten a Fun Phone en mucho m&aacute;s que un marcador.
         </p>
-        <p class="mx-auto mt-4 max-w-3xl text-lg text-neutral-600 dark:text-neutral-300" x-show="lang==='en'">
-          Explore how Fun Phone blends communication, organisation, and true privacy to turn your phone into a productivity hub.
+        <p class="mx-auto mt-5 max-w-xl text-lg text-neutral-500 dark:text-neutral-400" x-show="lang==='en'">
+          Explore the built-in tools that make Fun Phone much more than a dialer.
         </p>
-        <div class="mt-8 flex flex-wrap justify-center gap-3 text-sm text-neutral-500 dark:text-neutral-400">
-          <span class="rounded-full border border-neutral-200 px-4 py-1 dark:border-neutral-700">Android 9+</span>
-          <span class="rounded-full border border-neutral-200 px-4 py-1 dark:border-neutral-700">Dual-SIM</span>
-          <span class="rounded-full border border-neutral-200 px-4 py-1 dark:border-neutral-700">Offline ready</span>
-          <span class="rounded-full border border-neutral-200 px-4 py-1 dark:border-neutral-700">Sin anuncios</span>
-        </div>
       </header>
 
-      <div class="grid gap-10 lg:grid-cols-[1fr_320px]">
-        <div class="space-y-14">
-          {sections.map((section) => (
-            <section id={section.id} class="scroll-mt-28">
-              <div class="mb-6 space-y-3">
-                <h2 class="text-3xl font-bold text-neutral-900 dark:text-accent">
-                  <span x-show="lang==='es'">{section.titleEs}</span>
-                  <span x-show="lang==='en'">{section.titleEn}</span>
-                </h2>
-                <p class="text-neutral-600 dark:text-neutral-300" x-show="lang==='es'">{section.bodyEs}</p>
-                <p class="text-neutral-600 dark:text-neutral-300" x-show="lang==='en'">{section.bodyEn}</p>
-              </div>
-              <div class="grid gap-6 md:grid-cols-2">
-                {section.features.map((feature) => (
-                  <FeatureBlock title={feature.titleEs} titleEn={feature.titleEn} bullets={feature.bulletsEs} bulletsEn={feature.bulletsEn}>
-                    <div slot="icon" class="flex h-full w-full items-center justify-center text-inherit" set:html={icons[feature.icon]}></div>
-                  </FeatureBlock>
-                ))}
-              </div>
-            </section>
-          ))}
-        </div>
-        <aside class="sticky top-28 h-fit space-y-6 rounded-4xl border border-neutral-200 bg-white/80 p-6 shadow-lg shadow-accent/5 backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/70">
-          <h3 class="text-sm font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400" x-show="lang==='es'">Índice rápido</h3>
-          <h3 class="text-sm font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400" x-show="lang==='en'">Quick index</h3>
-          <nav class="flex flex-col gap-3 text-sm text-neutral-600 dark:text-neutral-300">
-            {sections.map((section) => (
-              <a href={`#${section.id}`} class="inline-flex items-center gap-2 rounded-full border border-transparent px-4 py-2 transition hover:border-accent hover:bg-accent/10 hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">
-                <span class="h-1.5 w-1.5 rounded-full bg-accent"></span>
-                <span x-show="lang==='es'">{section.titleEs}</span>
-                <span x-show="lang==='en'">{section.titleEn}</span>
-              </a>
-            ))}
-          </nav>
-
-          <div class="rounded-3xl border border-dashed border-accent/30 bg-accent/5 p-4 text-xs text-neutral-600 dark:border-accent/40 dark:bg-accent/10 dark:text-neutral-300">
-            <p x-show="lang==='es'">Consejo: desde Ajustes → Laboral puedes activar flujos automáticos para tu equipo y compartir plantillas.</p>
-            <p x-show="lang==='en'">Tip: Settings → Workspace lets you enable automatic flows for your team and share templates.</p>
+      <!-- COMMUNICATION -->
+      <section class="py-12">
+        <div class="mb-8 flex items-center gap-3">
+          <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92V19a2 2 0 01-2.18 2A19.72 19.72 0 013 5.18 2 2 0 015 3h2a2 2 0 012 1.72c.13 1.23.37 2.44.7 3.62a2 2 0 01-.45 2.11l-1.27 1.27a16 16 0 007.07 7.07l1.27-1.27a2 2 0 012.11-.45c1.18.33 2.39.57 3.62.7A2 2 0 0122 16.92z"/></svg>
           </div>
-        </aside>
-      </div>
-
-      <section id="comparison" class="rounded-4xl border border-neutral-200 bg-white/80 p-8 shadow-lg shadow-accent/5 backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/70">
-        <h2 class="text-2xl font-bold text-neutral-900 dark:text-accent" x-show="lang==='es'">¿Por qué Fun Phone supera al marcador estándar?</h2>
-        <h2 class="text-2xl font-bold text-neutral-900 dark:text-accent" x-show="lang==='en'">Why Fun Phone beats the stock dialer</h2>
-        <div class="mt-6 overflow-hidden rounded-3xl border border-neutral-200 dark:border-neutral-800">
-          <table class="w-full divide-y divide-neutral-200 text-sm dark:divide-neutral-800">
-            <thead class="bg-neutral-50 text-neutral-500 dark:bg-neutral-900/80 dark:text-neutral-400">
-              <tr>
-                <th class="px-4 py-3 text-left" scope="col"></th>
-                <th class="px-4 py-3 text-left font-semibold text-accent">Fun Phone</th>
-                <th class="px-4 py-3 text-left" x-show="lang==='es'">Marcador estándar</th>
-                <th class="px-4 py-3 text-left" x-show="lang==='en'">Stock dialer</th>
-              </tr>
-            </thead>
-            <tbody class="bg-white/70 dark:bg-neutral-900/60">
-              <tr>
-                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='es'">Gestor de contraseñas con cifrado Tink <span class="ml-2 rounded-full bg-accent/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-accent">Nuevo</span></th>
-                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='en'">On‑device password manager with Tink <span class="ml-2 rounded-full bg-accent/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-accent">New</span></th>
-                <td class="px-4 py-3 font-semibold text-accent">✔</td>
-                <td class="px-4 py-3 text-neutral-400">✕</td>
-              </tr>
-              <tr class="bg-neutral-50/60 dark:bg-neutral-800/40">
-                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='es'">Gestor de gastos con presupuestos y categorías <span class="ml-2 rounded-full bg-accent/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-accent">Nuevo</span></th>
-                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='en'">Expense manager with budgets & categories <span class="ml-2 rounded-full bg-accent/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-accent">New</span></th>
-                <td class="px-4 py-3 font-semibold text-accent">✔</td>
-                <td class="px-4 py-3 text-neutral-400">✕</td>
-              </tr>
-              <tr>
-                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='es'">Calendario menstrual con predicciones <span class="ml-2 rounded-full bg-accent/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-accent">Nuevo</span></th>
-                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='en'">Menstrual calendar with predictions <span class="ml-2 rounded-full bg-accent/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-accent">New</span></th>
-                <td class="px-4 py-3 font-semibold text-accent">✔</td>
-                <td class="px-4 py-3 text-neutral-400">✕</td>
-              </tr>
-              <tr class="bg-neutral-50/60 dark:bg-neutral-800/40">
-                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='es'">Herramientas de voz (dictado + TTS multi-idioma)</th>
-                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='en'">Voice tools (dictation + multi-language TTS)</th>
-                <td class="px-4 py-3 font-semibold text-accent">✔</td>
-                <td class="px-4 py-3 text-neutral-400">✕</td>
-              </tr>
-              <tr>
-                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='es'">Suite de notas, checklists y recordatorios</th>
-                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='en'">Notes suite with checklists & reminders</th>
-                <td class="px-4 py-3 font-semibold text-accent">✔</td>
-                <td class="px-4 py-3 text-neutral-400">✕</td>
-              </tr>
-              <tr class="bg-neutral-50/60 dark:bg-neutral-800/40">
-                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='es'">10 mini-juegos clásicos con estadísticas</th>
-                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='en'">10 classic mini-games with stats</th>
-                <td class="px-4 py-3 font-semibold text-accent">✔</td>
-                <td class="px-4 py-3 text-neutral-400">✕</td>
-              </tr>
-              <tr>
-                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='es'">Historial segmentado con filtros avanzados</th>
-                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='en'">Segmented history with advanced filters</th>
-                <td class="px-4 py-3 font-semibold text-accent">✔</td>
-                <td class="px-4 py-3 text-neutral-400" x-show="lang==='es'">Básico</td>
-                <td class="px-4 py-3 text-neutral-400" x-show="lang==='en'">Basic</td>
-              </tr>
-              <tr class="bg-neutral-50/60 dark:bg-neutral-800/40">
-                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='es'">Utilidades QR (escanear, generar, compartir)</th>
-                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='en'">QR utilities (scan, generate, share)</th>
-                <td class="px-4 py-3 font-semibold text-accent">✔</td>
-                <td class="px-4 py-3 text-neutral-400">Limitado</td>
-              </tr>
-              <tr>
-                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='es'">Enrutamiento inteligente Dual‑SIM</th>
-                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='en'">Smart Dual‑SIM routing</th>
-                <td class="px-4 py-3 font-semibold text-accent">✔</td>
-                <td class="px-4 py-3 text-neutral-400" x-show="lang==='es'">Parcial</td>
-                <td class="px-4 py-3 text-neutral-400" x-show="lang==='en'">Partial</td>
-              </tr>
-              <tr class="bg-neutral-50/60 dark:bg-neutral-800/40">
-                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='es'">Calendario de festivos integrado</th>
-                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='en'">Integrated holiday calendar</th>
-                <td class="px-4 py-3 font-semibold text-accent">✔</td>
-                <td class="px-4 py-3 text-neutral-400">✕</td>
-              </tr>
-              <tr>
-                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='es'">Centro de entretenimiento (mini‑juegos)</th>
-                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='en'">Entertainment hub (mini‑games)</th>
-                <td class="px-4 py-3 font-semibold text-accent">✔</td>
-                <td class="px-4 py-3 text-neutral-400">✕</td>
-              </tr>
-              <tr class="bg-neutral-50/60 dark:bg-neutral-800/40">
-                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='es'">Personalización avanzada (temas, fuentes, animaciones)</th>
-                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='en'">Advanced theming (themes, fonts, motion)</th>
-                <td class="px-4 py-3 font-semibold text-accent">✔</td>
-                <td class="px-4 py-3 text-neutral-400" x-show="lang==='es'">Básico</td>
-                <td class="px-4 py-3 text-neutral-400" x-show="lang==='en'">Basic</td>
-              </tr>
-              <tr>
-                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='es'">Interfaz bilingüe (ES/EN)</th>
-                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='en'">Bilingual interface (ES/EN)</th>
-                <td class="px-4 py-3 font-semibold text-accent">✔</td>
-                <td class="px-4 py-3 text-neutral-400" x-show="lang==='es'">Variable</td>
-                <td class="px-4 py-3 text-neutral-400" x-show="lang==='en'">Varies</td>
-              </tr>
-              <tr class="bg-neutral-50/60 dark:bg-neutral-800/40">
-                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='es'">Privacidad primero, datos 100% locales</th>
-                <th scope="row" class="px-4 py-3 font-medium text-neutral-700 dark:text-neutral-200" x-show="lang==='en'">Privacy‑first, 100% on‑device data</th>
-                <td class="px-4 py-3 font-semibold text-accent">✔</td>
-                <td class="px-4 py-3 text-neutral-400" x-show="lang==='es'">Variable</td>
-                <td class="px-4 py-3 text-neutral-400" x-show="lang==='en'">Varies</td>
-              </tr>
-              
-            </tbody>
-          </table>
+          <h2 class="font-display text-2xl font-bold text-neutral-900 dark:text-white">
+            <span x-show="lang==='es'">Comunicaci&oacute;n</span>
+            <span x-show="lang==='en'">Communication</span>
+          </h2>
+        </div>
+        <div class="grid gap-4 md:grid-cols-2">
+          <FeatureBlock title="Marcador Avanzado" titleEn="Advanced Dialer" bullets={['B\u00fasqueda T9 inteligente y marcado r\u00e1pido.','Historial con filtros, favoritos y b\u00fasqueda.','Interfaz pro: retener, silenciar, altavoz.','Dual-SIM y enrutamiento inteligente.','Marcado por voz y sensor de proximidad.']} bulletsEn={['Smart T9 search with fast dialing.','Call history with filters, favorites & search.','Pro controls: hold, mute, speaker.','Dual-SIM with smart routing.','Voice dialing & proximity sensor.']}>
+            <svg slot="icon" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92V19a2 2 0 01-2.18 2A19.72 19.72 0 013 5.18 2 2 0 015 3h2a2 2 0 012 1.72c.13 1.23.37 2.44.7 3.62a2 2 0 01-.45 2.11l-1.27 1.27a16 16 0 007.07 7.07l1.27-1.27a2 2 0 012.11-.45c1.18.33 2.39.57 3.62.7A2 2 0 0122 16.92z"/></svg>
+          </FeatureBlock>
+          <FeatureBlock title="Privacidad Primero" titleEn="Privacy First" bullets={['Permisos granulares con explicaciones claras.','Datos locales, nunca compartidos.','Sin anuncios invasivos.','Control total sobre acceso y permisos.']} bulletsEn={['Granular permissions with clear explanations.','Local data, never shared.','No invasive ads.','Full control over access & permissions.']}>
+            <svg slot="icon" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </FeatureBlock>
         </div>
       </section>
 
-      <section id="cta" class="rounded-4xl border border-neutral-200 bg-gradient-to-br from-accent/10 via-white to-accent/10 p-10 text-center shadow-xl dark:border-neutral-800 dark:from-accent/20 dark:via-neutral-900 dark:to-accent/10">
-        <h2 class="text-3xl font-bold text-neutral-900 dark:text-accent" x-show="lang==='es'">¿Listo para probar todas las funciones?</h2>
-        <h2 class="text-3xl font-bold text-neutral-900 dark:text-accent" x-show="lang==='en'">Ready to try every feature?</h2>
-        <p class="mt-3 text-neutral-600 dark:text-neutral-300" x-show="lang==='es'">Descarga Fun Phone desde Google Play, configúrala como app predeterminada y descubre todos los extras desde el centro de herramientas.</p>
-        <p class="mt-3 text-neutral-600 dark:text-neutral-300" x-show="lang==='en'">Download Fun Phone from Google Play, set it as default, and explore all extras from the tools hub.</p>
-        <div class="mt-6 flex flex-wrap justify-center gap-3">
-          <a href="https://play.google.com/store/apps/details?id=com.bookverse.contacts" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full bg-accent px-8 py-3 text-base font-semibold text-white shadow-lg shadow-accent/40 transition hover:-translate-y-0.5 hover:bg-accent/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
-            <span x-show="lang==='es'">Descargar Fun Phone</span>
-            <span x-show="lang==='en'">Download Fun Phone</span>
-          </a>
-          <a href={import.meta.env.BASE_URL + 'privacy/'} class="inline-flex items-center gap-2 rounded-full border border-accent/30 px-8 py-3 text-base font-semibold text-accent transition hover:-translate-y-0.5 hover:border-accent hover:bg-accent/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">
-            <span x-show="lang==='es'">Revisa la política de privacidad</span>
-            <span x-show="lang==='en'">Review the privacy policy</span>
+      <!-- SCREENSHOT BREAK -->
+      <div class="flex justify-center py-8">
+        <div class="overflow-hidden rounded-2xl border border-neutral-200/60 shadow-xl dark:border-white/10">
+          <img src={ssBase + 'favorites.png' + v} alt="Fun Phone contacts" class="h-[360px] w-auto object-contain" loading="lazy" />
+        </div>
+      </div>
+
+      <!-- CONTACTS -->
+      <section class="py-12">
+        <div class="mb-8 flex items-center gap-3">
+          <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87"/><circle cx="9" cy="7" r="4"/><circle cx="15" cy="7" r="4"/></svg>
+          </div>
+          <h2 class="font-display text-2xl font-bold text-neutral-900 dark:text-white">
+            <span x-show="lang==='es'">Contactos</span>
+            <span x-show="lang==='en'">Contacts</span>
+          </h2>
+        </div>
+        <div class="grid gap-4 md:grid-cols-2">
+          <FeatureBlock title="Gesti\u00f3n de Contactos" titleEn="Contact Management" bullets={['Importar/exportar JSON y vCard.','Esc\u00e1ner y generador QR.','Sync multi-cuenta (Google, local).','B\u00fasqueda avanzada y filtrado.','Fusi\u00f3n y deduplicaci\u00f3n.']} bulletsEn={['Import/export JSON & vCard.','QR scanner & generator.','Multi-account sync (Google, local).','Advanced search & filtering.','Merge & deduplication.']}>
+            <svg slot="icon" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87"/><circle cx="9" cy="7" r="4"/><circle cx="15" cy="7" r="4"/></svg>
+          </FeatureBlock>
+          <FeatureBlock title="Automatizaci\u00f3n" titleEn="Automation" bullets={['Sincronizaci\u00f3n autom\u00e1tica multi-cuenta.','Respaldos peri\u00f3dicos de contactos.','Grupos inteligentes y etiquetas.','Compartir lotes por QR.']} bulletsEn={['Automatic multi-account sync.','Periodic contact backups.','Smart groups & labels.','Batch share via QR.']}>
+            <svg slot="icon" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582a8 8 0 111.051 7.637L4 20"/></svg>
+          </FeatureBlock>
+        </div>
+      </section>
+
+      <!-- PRODUCTIVITY -->
+      <section class="py-12">
+        <div class="mb-8 flex items-center gap-3">
+          <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h8M8 14h6"/></svg>
+          </div>
+          <h2 class="font-display text-2xl font-bold text-neutral-900 dark:text-white">
+            <span x-show="lang==='es'">Productividad</span>
+            <span x-show="lang==='en'">Productivity</span>
+          </h2>
+        </div>
+        <div class="grid gap-4 md:grid-cols-2">
+          <FeatureBlock title="Suite Completa" titleEn="Full Suite" bullets={['Notas, checklists y voz.','Recordatorios con alarmas.','Grabador de voz integrado.','Bloqueo biom\u00e9trico de notas.']} bulletsEn={['Notes, checklists & voice.','Reminders with alarms.','Built-in voice recorder.','Biometric note locking.']}>
+            <svg slot="icon" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h8M8 14h6"/></svg>
+          </FeatureBlock>
+          <FeatureBlock title="Dashboard de M\u00e9tricas" titleEn="Metrics Dashboard" bullets={['Estad\u00edsticas de llamadas.','Duraci\u00f3n, tendencias y ratios.','Contactos m\u00e1s frecuentes.','Todo procesado localmente.']} bulletsEn={['Call statistics.','Duration, trends & ratios.','Most frequent contacts.','All processed locally.']}>
+            <svg slot="icon" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M11 3.055A9.001 9.001 0 1020.945 13H11z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 3h6v6"/></svg>
+          </FeatureBlock>
+        </div>
+      </section>
+
+      <!-- SCREENSHOT BREAK -->
+      <div class="flex justify-center py-8">
+        <div class="overflow-hidden rounded-2xl border border-neutral-200/60 shadow-xl dark:border-white/10">
+          <img src={ssBase + 'tools1.png' + v} alt="Fun Phone tools" class="h-[360px] w-auto object-contain" loading="lazy" />
+        </div>
+      </div>
+
+      <!-- SECURITY & UTILITIES -->
+      <section class="py-12">
+        <div class="mb-8 flex items-center gap-3">
+          <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><rect x="4" y="10" width="16" height="10" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M8 10V8a4 4 0 118 0v2"/></svg>
+          </div>
+          <h2 class="font-display text-2xl font-bold text-neutral-900 dark:text-white">
+            <span x-show="lang==='es'">Seguridad y utilidades</span>
+            <span x-show="lang==='en'">Security & utilities</span>
+          </h2>
+        </div>
+        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <FeatureBlock title="Gestor de Contrase\u00f1as" titleEn="Password Manager" bullets={['Cifrado Tink en dispositivo.','Generador de contrase\u00f1as fuertes.','Protecci\u00f3n biom\u00e9trica/PIN.']} bulletsEn={['On-device Tink encryption.','Strong password generator.','Biometric/PIN protection.']}>
+            <svg slot="icon" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><rect x="4" y="10" width="16" height="10" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M8 10V8a4 4 0 118 0v2"/></svg>
+          </FeatureBlock>
+          <FeatureBlock title="Herramientas de Voz" titleEn="Voice Tools" bullets={['Dictado voz a texto.','TTS multi-idioma.','Compartir como texto o audio.']} bulletsEn={['Speech to text dictation.','Multi-language TTS.','Share as text or audio.']}>
+            <svg slot="icon" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg>
+          </FeatureBlock>
+          <FeatureBlock title="Utilidades QR" titleEn="QR Utilities" bullets={['Esc\u00e1ner y generador QR.','Historial de escaneos.','Compartir contactos por QR.']} bulletsEn={['QR scanner & generator.','Scan history.','Share contacts via QR.']}>
+            <svg slot="icon" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h6v6H3zM15 3h6v6h-6zM3 15h6v6H3zM15 15h2v2h-2zM19 15h2v2h-2zM17 19h2v2h-2z"/></svg>
+          </FeatureBlock>
+        </div>
+      </section>
+
+      <!-- LIFESTYLE -->
+      <section class="py-12">
+        <div class="mb-8 flex items-center gap-3">
+          <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+          </div>
+          <h2 class="font-display text-2xl font-bold text-neutral-900 dark:text-white">
+            <span x-show="lang==='es'">Estilo de vida y finanzas</span>
+            <span x-show="lang==='en'">Lifestyle & finances</span>
+          </h2>
+        </div>
+        <div class="grid gap-4 md:grid-cols-2">
+          <FeatureBlock title="Gestor de Gastos" titleEn="Expense Manager" bullets={['Ingresos y gastos por categor\u00eda.','Presupuestos mensuales.','Balance y estad\u00edsticas en tiempo real.']} bulletsEn={['Income & expenses by category.','Monthly budgets.','Real-time balance & stats.']}>
+            <svg slot="icon" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </FeatureBlock>
+          <FeatureBlock title="Calendario Menstrual" titleEn="Menstrual Calendar" bullets={['Seguimiento con predicciones.','Fases: menstrual, folicular, ovulaci\u00f3n, l\u00fatea.','Datos 100% privados en dispositivo.']} bulletsEn={['Cycle tracking with predictions.','Phases: menstrual, follicular, ovulation, luteal.','100% private on-device data.']}>
+            <svg slot="icon" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="18" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M8 2v4M16 2v4M3 10h18"/></svg>
+          </FeatureBlock>
+        </div>
+      </section>
+
+      <!-- ENTERTAINMENT -->
+      <section class="py-12">
+        <div class="mb-8 flex items-center gap-3">
+          <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
+          </div>
+          <h2 class="font-display text-2xl font-bold text-neutral-900 dark:text-white">
+            <span x-show="lang==='es'">Entretenimiento</span>
+            <span x-show="lang==='en'">Entertainment</span>
+          </h2>
+        </div>
+        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <FeatureBlock title="10 Minijuegos" titleEn="10 Mini-Games" bullets={['Fun Bird, Snake, Buscaminas, 2048.','Puzzle, Tres en raya, Ahorcado.','Breakout, Sudoku, Memory.']} bulletsEn={['Fun Bird, Snake, Minesweeper, 2048.','Puzzle, Tic-Tac-Toe, Hangman.','Breakout, Sudoku, Memory.']}>
+            <svg slot="icon" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>
+          </FeatureBlock>
+          <FeatureBlock title="Estudio de Pintura" titleEn="Paint Studio" bullets={['Pinceles expresivos.','Importar y exportar obras.','Compartir en galer\u00eda y redes.']} bulletsEn={['Expressive brushes.','Import & export artwork.','Share to gallery & social.']}>
+            <svg slot="icon" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
+          </FeatureBlock>
+          <FeatureBlock title="Personalizaci\u00f3n Total" titleEn="Full Customization" bullets={['Temas, colores y fuentes.','Animaciones y transiciones.','Modo claro/oscuro autom\u00e1tico.']} bulletsEn={['Themes, colors & fonts.','Animations & transitions.','Auto light/dark mode.']}>
+            <svg slot="icon" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 3.487a2.25 2.25 0 113.182 3.182L7.5 19.213l-4.5 1.5 1.5-4.5 12.362-12.726z"/></svg>
+          </FeatureBlock>
+        </div>
+      </section>
+
+      <!-- COMPARISON TABLE -->
+      <section class="py-16">
+        <div class="mx-auto mb-12 max-w-2xl text-center">
+          <h2 class="font-display text-3xl font-black tracking-tight">
+            <span x-show="lang==='es'" class="text-neutral-900 dark:text-white">Fun Phone <span class="text-accent">vs</span> Stock Dialer</span>
+            <span x-show="lang==='en'" class="text-neutral-900 dark:text-white">Fun Phone <span class="text-accent">vs</span> Stock Dialer</span>
+          </h2>
+        </div>
+        <div class="mx-auto max-w-4xl">
+          <ComparisonTable />
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="rounded-3xl bg-gradient-to-br from-accent/5 via-transparent to-electric/5 p-12 text-center dark:from-accent/10 dark:to-electric/10">
+        <h2 class="font-display text-3xl font-black text-neutral-900 dark:text-white">
+          <span x-show="lang==='es'">&iquest;Listo para probarlo?</span>
+          <span x-show="lang==='en'">Ready to try it?</span>
+        </h2>
+        <div class="mt-8">
+          <a href="https://play.google.com/store/apps/details?id=com.bookverse.contacts" target="_blank" rel="noopener" class="inline-flex items-center gap-3 rounded-2xl bg-accent px-8 py-4 font-display text-base font-bold text-white shadow-xl shadow-accent/25 transition-all hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-accent/30">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M3 20.5v-17c0-.8.9-1.3 1.6-.8l14.4 8.5c.7.4.7 1.2 0 1.6L4.6 21.3c-.7.5-1.6 0-1.6-.8z"/></svg>
+            <span x-show="lang==='es'">Descargar gratis en Google Play</span>
+            <span x-show="lang==='en'">Download free on Google Play</span>
           </a>
         </div>
       </section>
     </main>
-    <Footer />
 
+    <Footer />
     <script is:inline>
       function pageState() {
         return {
           lang: localStorage.getItem('lang') || (navigator.language?.startsWith('es') ? 'es' : 'en'),
-          init() {
-            document.documentElement.setAttribute('data-lang', this.lang);
-          },
-          updateLang(value) {
-            if (!value) return;
-            this.lang = value;
-            document.documentElement.setAttribute('data-lang', this.lang);
-          }
+          init() { document.documentElement.setAttribute('data-lang', this.lang); },
+          updateLang(v) { if (!v) return; this.lang = v; document.documentElement.setAttribute('data-lang', this.lang); }
         };
       }
     </script>

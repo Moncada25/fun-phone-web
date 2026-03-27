@@ -1,58 +1,46 @@
 ---
-// Bloque de permisos presentado como acordeón accesible
 ---
-<section class="rounded-3xl border border-neutral-200 bg-white/80 p-6 shadow-sm backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/70">
-  <header class="mb-4 flex items-center gap-3">
-    <span class="flex h-10 w-10 items-center justify-center rounded-2xl bg-accent/15 text-accent"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M13 16h-1v-4h-1m1-4h.01M12 3a9 9 0 100 18 9 9 0 000-18z"/></svg></span>
-    <div>
-      <h3 class="text-xl font-semibold text-neutral-900 dark:text-accent" x-show="lang==='es'">Permisos transparentes</h3>
-      <h3 class="text-xl font-semibold text-neutral-900 dark:text-accent" x-show="lang==='en'">Transparent permissions</h3>
-      <p class="text-sm text-neutral-500 dark:text-neutral-400" x-show="lang==='es'">Solo solicitamos lo necesario. Puedes revocar todo desde Ajustes.</p>
-      <p class="text-sm text-neutral-500 dark:text-neutral-400" x-show="lang==='en'">Only what’s essential. You can revoke everything in Settings.</p>
-    </div>
-  </header>
-
-  <div class="divide-y divide-neutral-200 border border-neutral-200/60 rounded-2xl dark:divide-neutral-800 dark:border-neutral-800" role="list">
-    <details class="group" open>
-      <summary class="flex cursor-pointer items-center justify-between gap-4 px-4 py-3 text-left text-sm font-semibold text-neutral-800 transition hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:text-neutral-100">
-        <span x-show="lang==='es'">Teléfono y llamadas</span>
+<div class="space-y-3">
+  <details class="group rounded-xl border border-neutral-200/60 bg-white/60 backdrop-blur dark:border-white/[0.06] dark:bg-white/[0.02]" open>
+    <summary class="flex cursor-pointer items-center justify-between gap-4 px-5 py-4 text-sm font-semibold text-neutral-800 transition hover:text-accent dark:text-neutral-100">
+      <div class="flex items-center gap-3">
+        <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/10 text-accent"><svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92V19a2 2 0 01-2.18 2A19.72 19.72 0 013 5.18 2 2 0 015 3h2a2 2 0 012 1.72c.13 1.23.37 2.44.7 3.62a2 2 0 01-.45 2.11l-1.27 1.27a16 16 0 007.07 7.07l1.27-1.27a2 2 0 012.11-.45c1.18.33 2.39.57 3.62.7A2 2 0 0122 16.92z"/></svg></span>
+        <span x-show="lang==='es'">Tel\u00e9fono y llamadas</span>
         <span x-show="lang==='en'">Phone & calls</span>
-        <svg class="h-4 w-4 transition group-open:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-      </summary>
-      <div class="space-y-2 px-4 pb-4 text-sm text-neutral-600 dark:text-neutral-300">
-        <p x-show="lang==='es'"><b>CALL_PHONE</b>, <b>ANSWER_PHONE_CALLS</b> — realizar y contestar llamadas desde la app.</p>
-        <p x-show="lang==='en'"><b>CALL_PHONE</b>, <b>ANSWER_PHONE_CALLS</b> — place and answer calls inside the app.</p>
-        <p x-show="lang==='es'"><b>READ/WRITE_CALL_LOG</b> — mostrar y gestionar historial cuando Fun Phone es predeterminada.</p>
-        <p x-show="lang==='en'"><b>READ/WRITE_CALL_LOG</b> — display and manage history when Fun Phone is default.</p>
       </div>
-    </details>
-    <details class="group">
-      <summary class="flex cursor-pointer items-center justify-between gap-4 px-4 py-3 text-left text-sm font-semibold text-neutral-800 transition hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:text-neutral-100">
+      <svg class="h-4 w-4 transition group-open:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+    </summary>
+    <div class="border-t border-neutral-100 px-5 py-4 text-sm text-neutral-600 dark:border-white/5 dark:text-neutral-400">
+      <p x-show="lang==='es'"><b>CALL_PHONE</b>, <b>ANSWER_PHONE_CALLS</b> &mdash; realizar y contestar llamadas. <b>READ/WRITE_CALL_LOG</b> &mdash; gestionar historial cuando es app predeterminada.</p>
+      <p x-show="lang==='en'"><b>CALL_PHONE</b>, <b>ANSWER_PHONE_CALLS</b> &mdash; place and answer calls. <b>READ/WRITE_CALL_LOG</b> &mdash; manage history as default app.</p>
+    </div>
+  </details>
+  <details class="group rounded-xl border border-neutral-200/60 bg-white/60 backdrop-blur dark:border-white/[0.06] dark:bg-white/[0.02]">
+    <summary class="flex cursor-pointer items-center justify-between gap-4 px-5 py-4 text-sm font-semibold text-neutral-800 transition hover:text-accent dark:text-neutral-100">
+      <div class="flex items-center gap-3">
+        <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/10 text-accent"><svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87"/><circle cx="9" cy="7" r="4"/><circle cx="15" cy="7" r="4"/></svg></span>
         <span x-show="lang==='es'">Contactos y agenda</span>
         <span x-show="lang==='en'">Contacts & address book</span>
-        <svg class="h-4 w-4 transition group-open:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-      </summary>
-      <div class="space-y-2 px-4 pb-4 text-sm text-neutral-600 dark:text-neutral-300">
-        <p x-show="lang==='es'"><b>READ/WRITE_CONTACTS</b> — mostrar, crear y editar tus contactos incluyendo notas y fotos.</p>
-        <p x-show="lang==='en'"><b>READ/WRITE_CONTACTS</b> — display, create, and edit contacts including notes and photos.</p>
-        <p x-show="lang==='es'">Escáner de QR y sincronización multi-cuenta para mantener tu agenda al día.</p>
-        <p x-show="lang==='en'">QR scanner and multi-account sync keep your address book updated.</p>
       </div>
-    </details>
-    <details class="group">
-      <summary class="flex cursor-pointer items-center justify-between gap-4 px-4 py-3 text-left text-sm font-semibold text-neutral-800 transition hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:text-neutral-100">
+      <svg class="h-4 w-4 transition group-open:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+    </summary>
+    <div class="border-t border-neutral-100 px-5 py-4 text-sm text-neutral-600 dark:border-white/5 dark:text-neutral-400">
+      <p x-show="lang==='es'"><b>READ/WRITE_CONTACTS</b> &mdash; mostrar, crear y editar contactos. Esc\u00e1ner QR y sincronizaci\u00f3n multi-cuenta.</p>
+      <p x-show="lang==='en'"><b>READ/WRITE_CONTACTS</b> &mdash; display, create, and edit contacts. QR scanner and multi-account sync.</p>
+    </div>
+  </details>
+  <details class="group rounded-xl border border-neutral-200/60 bg-white/60 backdrop-blur dark:border-white/[0.06] dark:bg-white/[0.02]">
+    <summary class="flex cursor-pointer items-center justify-between gap-4 px-5 py-4 text-sm font-semibold text-neutral-800 transition hover:text-accent dark:text-neutral-100">
+      <div class="flex items-center gap-3">
+        <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/10 text-accent"><svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg></span>
         <span x-show="lang==='es'">Extras opcionales</span>
         <span x-show="lang==='en'">Optional extras</span>
-        <svg class="h-4 w-4 transition group-open:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-      </summary>
-      <div class="space-y-2 px-4 pb-4 text-sm text-neutral-600 dark:text-neutral-300">
-        <p x-show="lang==='es'"><b>Microphone</b> — solo si usas grabación de llamadas o notas de voz.</p>
-        <p x-show="lang==='en'"><b>Microphone</b> — only if you enable call recording or voice notes.</p>
-        <p x-show="lang==='es'"><b>Camera</b> — únicamente para añadir fotos o escanear QR.</p>
-        <p x-show="lang==='en'"><b>Camera</b> — only for adding photos or scanning QR codes.</p>
-        <p x-show="lang==='es'">Todo es opcional y reversible en Ajustes &rarr; Apps &rarr; Fun Phone.</p>
-        <p x-show="lang==='en'">Everything is optional and reversible in Settings → Apps → Fun Phone.</p>
       </div>
-    </details>
-  </div>
-</section>
+      <svg class="h-4 w-4 transition group-open:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+    </summary>
+    <div class="border-t border-neutral-100 px-5 py-4 text-sm text-neutral-600 dark:border-white/5 dark:text-neutral-400">
+      <p x-show="lang==='es'"><b>Micr\u00f3fono</b> si usas grabaci\u00f3n o notas de voz. <b>C\u00e1mara</b> solo para fotos y QR. Todo opcional y revocable.</p>
+      <p x-show="lang==='en'"><b>Microphone</b> if using recording or voice notes. <b>Camera</b> only for photos and QR. All optional and revocable.</p>
+    </div>
+  </details>
+</div>
