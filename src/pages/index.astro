@@ -4,292 +4,312 @@ import Footer from '../components/Footer.astro';
 import StickyCTA from '../components/StickyCTA.astro';
 import PrivacyBadge from '../components/PrivacyBadge.astro';
 import ScreenshotCarousel from '../components/ScreenshotCarousel.astro';
-import PermissionsBlock from '../components/PermissionsBlock.astro';
+import ComparisonTable from '../components/ComparisonTable.astro';
 
 const siteUrl = 'https://moncada25.github.io/fun-phone-web/';
-const heroImage = import.meta.env.BASE_URL + 'assets/screenshots/dialer.png';
+const base = import.meta.env.BASE_URL;
+const heroImg = base + 'assets/screenshots/favorites.png?v=4.0.0';
+const toolsImg = base + 'assets/screenshots/tools1.png?v=4.0.0';
 ---
 <!DOCTYPE html>
 <html lang="es" x-data="pageState()" x-on:lang.window="updateLang($event.detail)" x-bind:lang="lang" class="scroll-smooth">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Fun Phone: Dialer & Contacts | Llamadas, contactos y productividad</title>
-    <meta
-      name="description"
-      content="Fun Phone combina un marcador avanzado, contactos inteligentes y herramientas de productividad sin compartir ni recolectar datos. Disponible gratis en Google Play."
-    />
-    <meta name="keywords" content="fun phone, dialer, contactos, android, privacidad, phone app" />
+    <title>Fun Phone: Dialer & Contacts | The All-in-One Android Phone App</title>
+    <meta name="description" content="Fun Phone combines an advanced dialer, smart contacts, productivity tools, games and more. Free on Google Play. No ads. No data sharing." />
+    <meta name="keywords" content="fun phone, dialer, contacts, android, privacy, phone app, productivity" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href={siteUrl} />
     <link rel="alternate" href={siteUrl} hreflang="es" />
     <link rel="alternate" href={siteUrl} hreflang="en" />
-    <link rel="manifest" href={import.meta.env.BASE_URL + 'site.webmanifest'} />
-    <link rel="icon" type="image/png" href={import.meta.env.BASE_URL + 'assets/logo.png'} />
-    <link rel="apple-touch-icon" href={import.meta.env.BASE_URL + 'assets/logo.png'} />
+    <link rel="manifest" href={base + 'site.webmanifest'} />
+    <link rel="icon" type="image/png" href={base + 'assets/logo.png'} />
+    <link rel="apple-touch-icon" href={base + 'assets/logo.png'} />
     <meta name="theme-color" content="#0066e0" />
-
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Fun Phone" />
     <meta property="og:title" content="Fun Phone: Dialer & Contacts" />
-    <meta property="og:description" content="Tu centro completo de llamadas, contactos y productividad. Sin anuncios. Sin compartir datos." />
-    <meta property="og:image" content={heroImage} />
+    <meta property="og:description" content="Your complete Android hub for calls, contacts, and productivity. Ad-free. No data sharing." />
+    <meta property="og:image" content={heroImg} />
     <meta property="og:url" content={siteUrl} />
     <meta property="og:locale" content="es_ES" />
     <meta property="og:locale:alternate" content="en_US" />
-
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Fun Phone: Dialer & Contacts" />
-    <meta name="twitter:description" content="Your complete hub for calls, contacts, and productivity. Privacy-first." />
-    <meta name="twitter:image" content={heroImage} />
-
+    <meta name="twitter:image" content={heroImg} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "MobileApplication",
-        "name": "Fun Phone: Dialer & Contacts",
-        "operatingSystem": "Android",
-        "applicationCategory": "CommunicationApplication",
-        "inLanguage": ["es", "en"],
-        "offers": {"@type":"Offer","price":"0","priceCurrency":"USD"},
-        "downloadUrl": "https://play.google.com/store/apps/details?id=com.bookverse.contacts",
-        "installUrl": "https://play.google.com/store/apps/details?id=com.bookverse.contacts",
-        "author": {"@type":"Organization","name":"Bookverse"},
-        "featureList": [
-          "Marcador inteligente con búsqueda T9",
-          "Gestión avanzada de contactos",
-          "Suite de productividad con notas y recordatorios",
-          "Gestor de contraseñas con cifrado Tink",
-          "Gestor de gastos con presupuestos",
-          "Calendario menstrual con predicciones",
-          "Herramientas de voz: dictado y TTS",
-          "10 juegos clásicos y estudio de pintura",
-          "Centro de entretenimiento integrado"
-        ],
-        "privacyPolicy": "https://moncada25.github.io/fun-phone-web/privacy/"
-      }
-    </script>
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {"@type": "ListItem","position": 1,"name": "Inicio","item": "https://moncada25.github.io/fun-phone-web/"},
-          {"@type": "ListItem","position": 2,"name": "Funciones","item": "https://moncada25.github.io/fun-phone-web/features/"},
-          {"@type": "ListItem","position": 3,"name": "FAQ","item": "https://moncada25.github.io/fun-phone-web/faq/"}
-        ]
-      }
+    {
+      "@context":"https://schema.org","@type":"MobileApplication","name":"Fun Phone: Dialer & Contacts","operatingSystem":"Android","applicationCategory":"CommunicationApplication","inLanguage":["es","en"],"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"downloadUrl":"https://play.google.com/store/apps/details?id=com.bookverse.contacts","author":{"@type":"Organization","name":"Bookverse"},"privacyPolicy":"https://moncada25.github.io/fun-phone-web/privacy/"
+    }
     </script>
     <script>
-      // Sincroniza el tema antes del render para evitar parpadeos
-      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const savedTheme = localStorage.getItem('darkMode');
-      const isDark = savedTheme !== null ? savedTheme === 'true' : prefersDark;
+      const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
+      const saved = localStorage.getItem('darkMode');
+      const isDark = saved !== null ? saved === 'true' : prefersDark;
       document.documentElement.classList.toggle('dark', isDark);
       document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';
     </script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+      .scrollbar-hide::-webkit-scrollbar { display: none; }
+      [x-cloak] { display: none !important; }
+      @keyframes heroGlow {
+        0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.4; }
+        50% { transform: scale(1.1) rotate(3deg); opacity: 0.7; }
+      }
+      .hero-glow { animation: heroGlow 8s ease-in-out infinite; }
+      .hero-glow-2 { animation: heroGlow 8s ease-in-out 3s infinite; }
+      @keyframes grain { 0%,100%{transform:translate(0,0)}10%{transform:translate(-5%,-10%)}30%{transform:translate(3%,2%)}50%{transform:translate(-3%,5%)}70%{transform:translate(5%,-2%)}90%{transform:translate(-2%,8%)} }
+      .grain::after { content:''; position:absolute; inset:-50%; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"); animation:grain 4s steps(6) infinite; pointer-events:none; }
+    </style>
   </head>
-  <body class="bg-gradient-to-br from-white via-sky-50/40 to-white text-neutral-900 dark:from-neutral-950 dark:via-neutral-950/50 dark:to-neutral-950">
+  <body class="font-body bg-white text-neutral-900 antialiased dark:bg-midnight dark:text-neutral-100">
     <Navbar />
-    <main id="main-content" role="main" class="mx-auto flex w-full max-w-6xl flex-col gap-16 px-4 pt-28 pb-24">
-      <section id="hero" class="relative overflow-hidden rounded-4xl border border-neutral-200 bg-white/80 px-6 py-16 shadow-xl shadow-accent/10 backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/80">
-        <div class="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,_rgba(0,102,224,0.15),_transparent_60%)] dark:bg-[radial-gradient(circle_at_top,_rgba(0,102,224,0.25),_transparent_60%)]"></div>
-        <div class="mx-auto max-w-3xl space-y-6 text-center">
-            
-            <h1 class="text-4xl font-black leading-tight tracking-tight text-neutral-900 dark:text-accent lg:text-5xl">
-              <span x-show="lang==='es'">Tu centro completo de comunicación y productividad</span>
-              <span x-show="lang==='en'">Your complete hub for communication and productivity</span>
+
+    <!-- HERO -->
+    <section class="grain relative min-h-screen overflow-hidden pt-24 pb-12 lg:pt-32">
+      <div class="absolute inset-0 bg-mesh-gradient dark:bg-mesh-gradient-dark"></div>
+      <div class="absolute left-1/2 top-1/4 -translate-x-1/2 -translate-y-1/2">
+        <div class="hero-glow h-[500px] w-[500px] rounded-full bg-accent/20 blur-[120px] dark:bg-accent/30 lg:h-[700px] lg:w-[700px]"></div>
+      </div>
+      <div class="absolute right-0 top-0">
+        <div class="hero-glow-2 h-[300px] w-[300px] rounded-full bg-electric/10 blur-[100px] dark:bg-electric/20"></div>
+      </div>
+
+      <div class="relative mx-auto max-w-7xl px-6">
+        <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+          <div class="max-w-2xl pt-8 lg:pt-0">
+            <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/5 px-4 py-1.5 text-xs font-semibold text-accent backdrop-blur dark:border-accent/30 dark:bg-accent/10">
+              <span class="h-1.5 w-1.5 rounded-full bg-accent animate-pulse"></span>
+              <span x-show="lang==='es'">Gratis en Google Play</span>
+              <span x-show="lang==='en'">Free on Google Play</span>
+            </div>
+
+            <h1 class="font-display text-4xl font-black leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
+              <span x-show="lang==='es'">
+                <span class="text-neutral-900 dark:text-white">Tu central de </span>
+                <span class="bg-gradient-to-r from-accent via-accent to-electric bg-clip-text text-transparent">comunicaci&oacute;n</span>
+                <span class="text-neutral-900 dark:text-white"> y </span>
+                <span class="bg-gradient-to-r from-electric to-accent bg-clip-text text-transparent">productividad</span>
+              </span>
+              <span x-show="lang==='en'">
+                <span class="text-neutral-900 dark:text-white">Your </span>
+                <span class="bg-gradient-to-r from-accent via-accent to-electric bg-clip-text text-transparent">communication</span>
+                <span class="text-neutral-900 dark:text-white"> & </span>
+                <span class="bg-gradient-to-r from-electric to-accent bg-clip-text text-transparent">productivity</span>
+                <span class="text-neutral-900 dark:text-white"> hub</span>
+              </span>
             </h1>
-            <p class="mx-auto max-w-2xl text-lg text-neutral-600 dark:text-neutral-300" x-show="lang==='es'">
-              Transforma tu experiencia Android con un marcador todo‑en‑uno: llamadas avanzadas, contactos potentes, suite de productividad, juegos y más. Sin anuncios. Sin compartir datos.
+
+            <p class="mt-6 max-w-lg text-lg leading-relaxed text-neutral-600 dark:text-neutral-300" x-show="lang==='es'">
+              Marcador avanzado, contactos inteligentes, notas, gestor de gastos, contrase&ntilde;as seguras, juegos y m&aacute;s. Todo en una app. Sin anuncios. Sin datos compartidos.
             </p>
-            <p class="mx-auto max-w-2xl text-lg text-neutral-600 dark:text-neutral-300" x-show="lang==='en'">
-              Transform your Android with an all‑in‑one dialer: advanced calling, powerful contacts, a productivity suite, mini‑games and more. Ad‑free. No data sharing.
+            <p class="mt-6 max-w-lg text-lg leading-relaxed text-neutral-600 dark:text-neutral-300" x-show="lang==='en'">
+              Advanced dialer, smart contacts, notes, expense manager, secure passwords, games and more. All in one app. No ads. No data sharing.
             </p>
-            <div class="mx-auto mt-2 flex max-w-2xl flex-wrap justify-center gap-2">
-              <template x-if="lang==='es'">
-                <div class="contents">
-                  <span class="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">Marcador T9</span>
-                  <span class="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">Contactos avanzados</span>
-                  <span class="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">Notas y recordatorios</span>
-                  <span class="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">Gestor de gastos</span>
-                  <span class="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">Contraseñas seguras</span>
-                  <span class="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">10 juegos clásicos</span>
-                </div>
-              </template>
-              <template x-if="lang==='en'">
-                <div class="contents">
-                  <span class="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">T9 dialer</span>
-                  <span class="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">Advanced contacts</span>
-                  <span class="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">Notes & reminders</span>
-                  <span class="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">Expense manager</span>
-                  <span class="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">Secure passwords</span>
-                  <span class="rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">10 classic games</span>
-                </div>
-              </template>
-            </div>
-            <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
-              <a
-                href="https://play.google.com/store/apps/details?id=com.bookverse.contacts"
-                class="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 text-base font-semibold text-white shadow-lg shadow-accent/40 transition hover:-translate-y-0.5 hover:bg-accent/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-                target="_blank"
-                rel="noopener"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10.75 2.75a.75.75 0 00-1.5 0v6.5H4a.75.75 0 000 1.5h5.25v6.5a.75.75 0 001.5 0v-6.5H16a.75.75 0 000-1.5h-5.25v-6.5z"/></svg>
-                <span x-show="lang==='es'">Descargar en Google Play</span>
-                <span x-show="lang==='en'">Get it on Google Play</span>
+
+            <div class="mt-8 flex flex-wrap items-center gap-4">
+              <a href="https://play.google.com/store/apps/details?id=com.bookverse.contacts" target="_blank" rel="noopener" class="group relative inline-flex items-center gap-3 overflow-hidden rounded-2xl bg-accent px-7 py-4 font-display text-base font-bold text-white shadow-xl shadow-accent/25 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-accent/30 active:translate-y-0">
+                <span class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full transition-transform duration-700 group-hover:translate-x-full"></span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="relative h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M3 20.5v-17c0-.8.9-1.3 1.6-.8l14.4 8.5c.7.4.7 1.2 0 1.6L4.6 21.3c-.7.5-1.6 0-1.6-.8z"/></svg>
+                <span class="relative" x-show="lang==='es'">Descargar gratis</span>
+                <span class="relative" x-show="lang==='en'">Download free</span>
               </a>
-              <a
-                href={import.meta.env.BASE_URL + 'features/'}
-                class="inline-flex items-center justify-center gap-2 rounded-full border border-accent/40 px-6 py-3 text-base font-semibold text-accent transition hover:-translate-y-0.5 hover:border-accent hover:bg-accent/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-              >
-                <span x-show="lang==='es'">Explorar funciones</span>
-                <span x-show="lang==='en'">Explore features</span>
+              <a href={base + 'features/'} class="inline-flex items-center gap-2 rounded-2xl border border-neutral-300/60 bg-white/60 px-7 py-4 font-display text-base font-bold text-neutral-700 backdrop-blur transition-all hover:-translate-y-0.5 hover:border-accent/30 hover:text-accent dark:border-white/10 dark:bg-white/5 dark:text-neutral-200 dark:hover:border-accent/30 dark:hover:text-accent">
+                <span x-show="lang==='es'">Ver funciones</span>
+                <span x-show="lang==='en'">See features</span>
+                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
               </a>
             </div>
-            <div class="flex flex-wrap justify-center gap-4">
+
+            <div class="mt-8 flex flex-wrap items-center gap-4">
               <PrivacyBadge />
-              <div class="flex items-center gap-2 rounded-full bg-neutral-100/80 px-4 py-1 text-xs font-semibold text-neutral-600 backdrop-blur dark:bg-neutral-800/80 dark:text-neutral-300">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M3 7h18M8 3h8M12 14v7m-5-5l5 5 5-5"/></svg>
-                <span x-show="lang==='es'">Diseñada para Dual-SIM y VoLTE</span>
-                <span x-show="lang==='en'">Ready for Dual-SIM & VoLTE</span>
+              <span class="inline-flex items-center gap-2 rounded-full border border-neutral-200/60 bg-white/60 px-4 py-2 text-xs font-semibold text-neutral-500 backdrop-blur dark:border-white/10 dark:bg-white/5 dark:text-neutral-400">
+                <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                Android 9+
+              </span>
+            </div>
+          </div>
+
+          <div class="relative flex justify-center lg:justify-end">
+            <div class="absolute -inset-4 rounded-[2.5rem] bg-gradient-to-br from-accent/20 via-transparent to-electric/20 blur-2xl dark:from-accent/30 dark:to-electric/30"></div>
+            <div class="relative animate-float">
+              <div class="overflow-hidden rounded-[2rem] border border-white/20 bg-gradient-to-b from-white/10 to-white/5 p-2 shadow-2xl shadow-accent/10 backdrop-blur dark:border-white/10">
+                <img src={heroImg} alt="Fun Phone app screenshot" class="h-[480px] w-auto rounded-[1.5rem] object-contain sm:h-[540px]" loading="eager" />
               </div>
             </div>
-          
+          </div>
         </div>
-      </section>
 
-      <section id="whats-new" class="rounded-4xl border border-neutral-200 bg-white/80 p-6 shadow-lg shadow-accent/5 backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/70">
-        <div class="flex items-center gap-3">
-          <span class="flex h-10 w-10 items-center justify-center rounded-2xl bg-accent/15 text-accent">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M12 8v8m-4-4h8M5 4h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5a1 1 0 011-1z"/></svg>
-          </span>
-          <h2 class="text-xl font-semibold text-neutral-900 dark:text-accent">
-            <span x-show="lang==='es'">Lo nuevo</span>
-            <span x-show="lang==='en'">What’s new</span>
+        <!-- STATS -->
+        <div class="mt-20 grid grid-cols-2 gap-4 sm:grid-cols-4 lg:mt-28">
+          {[
+            { numEs: '15+', numEn: '15+', labelEs: 'Herramientas integradas', labelEn: 'Built-in tools' },
+            { numEs: '10', numEn: '10', labelEs: 'Minijuegos cl\u00e1sicos', labelEn: 'Classic mini-games' },
+            { numEs: '0', numEn: '0', labelEs: 'Datos compartidos', labelEn: 'Data shared' },
+            { numEs: '100%', numEn: '100%', labelEs: 'Almacenamiento local', labelEn: 'Local storage' },
+          ].map((stat) => (
+            <div class="rounded-2xl border border-neutral-200/60 bg-white/60 p-5 text-center backdrop-blur transition-all hover:border-accent/20 hover:shadow-lg hover:shadow-accent/5 dark:border-white/[0.06] dark:bg-white/[0.02] dark:hover:border-accent/20">
+              <p class="font-display text-3xl font-black text-accent">
+                <span x-show="lang==='es'">{stat.numEs}</span>
+                <span x-show="lang==='en'">{stat.numEn}</span>
+              </p>
+              <p class="mt-1 text-xs font-semibold text-neutral-500 dark:text-neutral-400">
+                <span x-show="lang==='es'">{stat.labelEs}</span>
+                <span x-show="lang==='en'">{stat.labelEn}</span>
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- TOOLS EMPHASIS -->
+    <section class="relative py-24 lg:py-32">
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="mx-auto max-w-2xl text-center">
+          <p class="text-xs font-bold uppercase tracking-[0.2em] text-accent">
+            <span x-show="lang==='es'">M&aacute;s que un marcador</span>
+            <span x-show="lang==='en'">More than a dialer</span>
+          </p>
+          <h2 class="mt-4 font-display text-3xl font-black tracking-tight sm:text-4xl lg:text-5xl">
+            <span x-show="lang==='es'" class="text-neutral-900 dark:text-white">Un centro completo de <span class="bg-gradient-to-r from-accent to-electric bg-clip-text text-transparent">herramientas</span></span>
+            <span x-show="lang==='en'" class="text-neutral-900 dark:text-white">A complete <span class="bg-gradient-to-r from-accent to-electric bg-clip-text text-transparent">tools hub</span></span>
+          </h2>
+          <p class="mt-4 text-neutral-500 dark:text-neutral-400" x-show="lang==='es'">Cada herramienta que necesitas, integrada en tu app de tel&eacute;fono. Sin instalar nada m&aacute;s.</p>
+          <p class="mt-4 text-neutral-500 dark:text-neutral-400" x-show="lang==='en'">Every tool you need, built into your phone app. No extra installs.</p>
+        </div>
+
+        <div class="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {[
+            { icon: '<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92V19a2 2 0 01-2.18 2A19.72 19.72 0 013 5.18 2 2 0 015 3h2a2 2 0 012 1.72c.13 1.23.37 2.44.7 3.62a2 2 0 01-.45 2.11l-1.27 1.27a16 16 0 007.07 7.07l1.27-1.27a2 2 0 012.11-.45c1.18.33 2.39.57 3.62.7A2 2 0 0122 16.92z"/></svg>', tEs: 'Marcador T9', tEn: 'T9 Dialer', dEs: 'B\u00fasqueda instant\u00e1nea, favoritos y Dual-SIM.', dEn: 'Instant search, favorites, and Dual-SIM.' },
+            { icon: '<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87"/><circle cx="9" cy="7" r="4"/><circle cx="15" cy="7" r="4"/></svg>', tEs: 'Contactos Pro', tEn: 'Pro Contacts', dEs: 'Import/export, QR, deduplicaci\u00f3n y sync.', dEn: 'Import/export, QR, deduplication & sync.' },
+            { icon: '<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="16" height="16" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h8M8 14h6"/></svg>', tEs: 'Productividad', tEn: 'Productivity', dEs: 'Notas, checklists, recordatorios y grabador.', dEn: 'Notes, checklists, reminders & recorder.' },
+            { icon: '<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><rect x="4" y="10" width="16" height="10" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M8 10V8a4 4 0 118 0v2"/></svg>', tEs: 'Contrase\u00f1as', tEn: 'Passwords', dEs: 'Cifrado Tink, biometr\u00eda y generador.', dEn: 'Tink encryption, biometrics & generator.' },
+            { icon: '<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>', tEs: 'Gestor de gastos', tEn: 'Expense Manager', dEs: 'Categor\u00edas, presupuestos y estad\u00edsticas.', dEn: 'Categories, budgets & real-time stats.' },
+            { icon: '<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>', tEs: 'Calendario menstrual', tEn: 'Cycle Tracker', dEs: 'Predicciones, fases y consejos privados.', dEn: 'Predictions, phases & private wellness tips.' },
+            { icon: '<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg>', tEs: 'Herramientas de voz', tEn: 'Voice Tools', dEs: 'Dictado, TTS multi-idioma y compartir.', dEn: 'Dictation, multi-language TTS & share.' },
+            { icon: '<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>', tEs: '10 juegos cl\u00e1sicos', tEn: '10 Classic Games', dEs: 'Snake, 2048, Sudoku, Memory y m\u00e1s.', dEn: 'Snake, 2048, Sudoku, Memory & more.' },
+            { icon: '<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>', tEs: 'Estudio de pintura', tEn: 'Paint Studio', dEs: 'Pinceles expresivos, exportar y compartir.', dEn: 'Expressive brushes, export & share.' },
+          ].map((tool) => (
+            <div class="group rounded-2xl border border-neutral-200/60 bg-white/60 p-6 backdrop-blur transition-all duration-500 hover:-translate-y-1 hover:border-accent/20 hover:shadow-xl hover:shadow-accent/5 dark:border-white/[0.06] dark:bg-white/[0.02] dark:hover:border-accent/20">
+              <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-accent/10 text-accent transition-colors group-hover:bg-accent group-hover:text-white dark:bg-accent/20" set:html={tool.icon}></div>
+              <h3 class="font-display text-base font-bold text-neutral-900 dark:text-white">
+                <span x-show="lang==='es'">{tool.tEs}</span>
+                <span x-show="lang==='en'">{tool.tEn}</span>
+              </h3>
+              <p class="mt-2 text-sm text-neutral-500 dark:text-neutral-400">
+                <span x-show="lang==='es'">{tool.dEs}</span>
+                <span x-show="lang==='en'">{tool.dEn}</span>
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREENSHOTS GALLERY -->
+    <section class="relative py-24 lg:py-32">
+      <div class="absolute inset-0 bg-gradient-to-b from-transparent via-accent/[0.02] to-transparent dark:via-accent/[0.04]"></div>
+      <div class="relative mx-auto max-w-7xl px-6">
+        <div class="mx-auto mb-14 max-w-2xl text-center">
+          <p class="text-xs font-bold uppercase tracking-[0.2em] text-accent">
+            <span x-show="lang==='es'">Mira la app en acci&oacute;n</span>
+            <span x-show="lang==='en'">See the app in action</span>
+          </p>
+          <h2 class="mt-4 font-display text-3xl font-black tracking-tight sm:text-4xl">
+            <span x-show="lang==='es'" class="text-neutral-900 dark:text-white">Capturas de <span class="text-accent">pantalla</span></span>
+            <span x-show="lang==='en'" class="text-neutral-900 dark:text-white">App <span class="text-accent">screenshots</span></span>
           </h2>
         </div>
-        <div class="mt-4 grid gap-4 md:grid-cols-2">
-          <div class="space-y-2 rounded-3xl border border-neutral-200 bg-white/70 p-4 text-sm text-neutral-700 dark:border-neutral-800 dark:bg-neutral-900/60 dark:text-neutral-300">
-            <h3 class="text-base font-semibold text-neutral-900 dark:text-accent">
-              <span x-show="lang==='es'">Gestor de Gastos 💰</span>
-              <span x-show="lang==='en'">Expense Manager 💰</span>
-            </h3>
-            <ul class="space-y-1">
-              <li><span class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span><span x-show="lang==='es'">Rastrea ingresos y gastos por categoría.</span><span x-show="lang==='en'">Track income and expenses by category.</span></li>
-              <li><span class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span><span x-show="lang==='es'">Configura presupuestos mensuales.</span><span x-show="lang==='en'">Set monthly budgets.</span></li>
-              <li><span class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span><span x-show="lang==='es'">Visualiza estadísticas y balance en tiempo real.</span><span x-show="lang==='en'">View real-time stats and balance.</span></li>
-            </ul>
-          </div>
-          <div class="space-y-2 rounded-3xl border border-neutral-200 bg-white/70 p-4 text-sm text-neutral-700 dark:border-neutral-800 dark:bg-neutral-900/60 dark:text-neutral-300">
-            <h3 class="text-base font-semibold text-neutral-900 dark:text-accent">
-              <span x-show="lang==='es'">Calendario Menstrual 🌸</span>
-              <span x-show="lang==='en'">Menstrual Calendar 🌸</span>
-            </h3>
-            <ul class="space-y-1">
-              <li><span class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span><span x-show="lang==='es'">Seguimiento de ciclos con predicciones.</span><span x-show="lang==='en'">Cycle tracking with predictions.</span></li>
-              <li><span class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span><span x-show="lang==='es'">Identifica fases: menstrual, folicular, ovulación, lútea.</span><span x-show="lang==='en'">Identify phases: menstrual, follicular, ovulation, luteal.</span></li>
-              <li><span class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span><span x-show="lang==='es'">Datos 100% privados en dispositivo.</span><span x-show="lang==='en'">100% private on-device data.</span></li>
-            </ul>
-          </div>
-          <div class="space-y-2 rounded-3xl border border-neutral-200 bg-white/70 p-4 text-sm text-neutral-700 dark:border-neutral-800 dark:bg-neutral-900/60 dark:text-neutral-300">
-            <h3 class="text-base font-semibold text-neutral-900 dark:text-accent">
-              <span x-show="lang==='es'">Herramientas de Voz 🎙️</span>
-              <span x-show="lang==='en'">Voice Tools 🎙️</span>
-            </h3>
-            <ul class="space-y-1">
-              <li><span class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span><span x-show="lang==='es'">Transcribe voz a texto instantáneamente.</span><span x-show="lang==='en'">Transcribe speech to text instantly.</span></li>
-              <li><span class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span><span x-show="lang==='es'">Selecciona voces TTS multi-idioma.</span><span x-show="lang==='en'">Pick multi-language TTS voices.</span></li>
-              <li><span class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span><span x-show="lang==='es'">Comparte la salida como texto o audio.</span><span x-show="lang==='en'">Share output as text or audio.</span></li>
-            </ul>
-          </div>
-          <div class="space-y-2 rounded-3xl border border-neutral-200 bg-white/70 p-4 text-sm text-neutral-700 dark:border-neutral-800 dark:bg-neutral-900/60 dark:text-neutral-300">
-            <h3 class="text-base font-semibold text-neutral-900 dark:text-accent">
-              <span x-show="lang==='es'">Estudio de Pintura 🎨</span>
-              <span x-show="lang==='en'">Paint Studio 🎨</span>
-            </h3>
-            <ul class="space-y-1">
-              <li><span class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span><span x-show="lang==='es'">Crea arte digital con pinceles expresivos.</span><span x-show="lang==='en'">Create digital art with expressive brushes.</span></li>
-              <li><span class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span><span x-show="lang==='es'">Importa y exporta tus creaciones.</span><span x-show="lang==='en'">Import and export your creations.</span></li>
-              <li><span class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span><span x-show="lang==='es'">Comparte con galería y redes sociales.</span><span x-show="lang==='en'">Share to gallery and social media.</span></li>
-            </ul>
-          </div>
-        </div>
-      </section>
+        <ScreenshotCarousel />
+      </div>
+    </section>
 
-      <section id="use-cases" class="rounded-4xl border border-neutral-200 bg-white/80 p-6 text-center shadow-lg shadow-accent/5 backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/70">
+    <!-- VS COMPARISON -->
+    <section class="relative py-24 lg:py-32">
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="mx-auto mb-14 max-w-2xl text-center">
+          <p class="text-xs font-bold uppercase tracking-[0.2em] text-accent">
+            <span x-show="lang==='es'">La diferencia es clara</span>
+            <span x-show="lang==='en'">The difference is clear</span>
+          </p>
+          <h2 class="mt-4 font-display text-3xl font-black tracking-tight sm:text-4xl">
+            <span x-show="lang==='es'" class="text-neutral-900 dark:text-white">Fun Phone <span class="text-accent">vs</span> Stock Dialer</span>
+            <span x-show="lang==='en'" class="text-neutral-900 dark:text-white">Fun Phone <span class="text-accent">vs</span> Stock Dialer</span>
+          </h2>
+          <p class="mt-4 text-neutral-500 dark:text-neutral-400" x-show="lang==='es'">Tu marcador de f&aacute;brica solo marca y llama. Fun Phone hace mucho m&aacute;s.</p>
+          <p class="mt-4 text-neutral-500 dark:text-neutral-400" x-show="lang==='en'">Your stock dialer just dials and calls. Fun Phone does so much more.</p>
+        </div>
         <div class="mx-auto max-w-4xl">
-          <ScreenshotCarousel />
-          <div class="mt-6 flex justify-center">
-            <a
-              href={import.meta.env.BASE_URL + 'faq/'}
-              class="inline-flex items-center justify-center gap-3 rounded-3xl border border-neutral-200 bg-neutral-50/80 px-6 py-4 text-sm font-semibold text-neutral-700 transition hover:border-accent hover:bg-accent/10 hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:border-neutral-800 dark:bg-neutral-900/60 dark:text-neutral-200"
-            >
-              <span x-show="lang==='es'">¿Tienes dudas? Revisa la guía rápida de configuración.</span>
-              <span x-show="lang==='en'">Questions? Jump into the quick-start FAQ.</span>
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            </a>
-          </div>
+          <ComparisonTable />
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section id="feature-teasers" class="grid gap-6 lg:grid-cols-2">
-        <a
-          href={import.meta.env.BASE_URL + 'features/'}
-          class="group flex flex-col gap-3 rounded-4xl border border-neutral-200 bg-white/80 p-8 shadow-md transition hover:-translate-y-1 hover:border-accent/60 hover:shadow-2xl dark:border-neutral-800 dark:bg-neutral-900/70"
-        >
-          <div class="flex items-center gap-3">
-            <span class="flex h-10 w-10 items-center justify-center rounded-2xl bg-accent/15 text-accent"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M3 5h2l.4 2M7 13h10l1.4-7H6.6M7 13l-1.5 6M17 13l1.5 6M9 21h6"/></svg></span>
-            <h2 class="text-xl font-semibold text-neutral-900 transition group-hover:text-accent dark:text-accent">Suite completa de funciones</h2>
-          </div>
-          <p class="text-neutral-600 dark:text-neutral-300" x-show="lang==='es'">Marcador T9, contactos enriquecidos, notas de llamada, recordatorios, grabador de voz y más en un flujo intuitivo.</p>
-          <p class="text-neutral-600 dark:text-neutral-300" x-show="lang==='en'">Smart T9 dialer, rich contacts, call notes, reminders, voice recorder, and more in a single intuitive flow.</p>
-          <span class="inline-flex items-center gap-2 text-sm font-semibold text-accent">Ver todas las funciones<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
-        </a>
-        <a
-          href={import.meta.env.BASE_URL + 'faq/'}
-          class="group flex flex-col gap-3 rounded-4xl border border-neutral-200 bg-white/80 p-8 shadow-md transition hover:-translate-y-1 hover:border-accent/60 hover:shadow-2xl dark:border-neutral-800 dark:bg-neutral-900/70"
-        >
-          <div class="flex items-center gap-3">
-            <span class="flex h-10 w-10 items-center justify-center rounded-2xl bg-accent/15 text-accent"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M8 10h.01M12 4a8 8 0 100 16 8 8 0 000-16zm0 9v.01"/></svg></span>
-            <h2 class="text-xl font-semibold text-neutral-900 transition group-hover:text-accent dark:text-accent">FAQ y recursos instantáneos</h2>
-          </div>
-          <p class="text-neutral-600 dark:text-neutral-300" x-show="lang==='es'">Aprende a configurarla como app predeterminada, gestionar permisos y activar las funciones premium en minutos.</p>
-          <p class="text-neutral-600 dark:text-neutral-300" x-show="lang==='en'">Learn how to set Fun Phone as default, manage permissions, and unlock pro features in minutes.</p>
-          <span class="inline-flex items-center gap-2 text-sm font-semibold text-accent">Ir al centro de ayuda<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></span>
-        </a>
-      </section>
+    <!-- BENEFITS / WHY FUN PHONE -->
+    <section class="relative py-24 lg:py-32">
+      <div class="absolute inset-0 bg-gradient-to-b from-transparent via-accent/[0.02] to-transparent dark:via-accent/[0.04]"></div>
+      <div class="relative mx-auto max-w-7xl px-6">
+        <div class="grid gap-8 lg:grid-cols-3">
+          {[
+            { emoji: '\uD83D\uDD12', tEs: 'Privacidad real', tEn: 'Real privacy', dEs: 'Todos tus datos permanecen en tu dispositivo. Sin servidores externos, sin rastreo, sin anuncios. Punto.', dEn: 'All your data stays on your device. No external servers, no tracking, no ads. Period.' },
+            { emoji: '\u26A1', tEs: 'Todo-en-uno', tEn: 'All-in-one', dEs: 'Reemplaza 5+ apps: marcador, notas, contrase\u00f1as, gastos, calendario y entretenimiento en un solo lugar.', dEn: 'Replace 5+ apps: dialer, notes, passwords, expenses, calendar & entertainment in one place.' },
+            { emoji: '\uD83C\uDFA8', tEs: 'Hecho a tu medida', tEn: 'Made for you', dEs: 'Personaliza temas, colores, fuentes y animaciones. Modo claro y oscuro. Biling\u00fce ES/EN.', dEn: 'Customize themes, colors, fonts & animations. Light and dark mode. Bilingual ES/EN.' },
+          ].map((benefit) => (
+            <div class="relative overflow-hidden rounded-2xl border border-neutral-200/60 bg-white/60 p-8 backdrop-blur transition-all hover:border-accent/20 hover:shadow-lg dark:border-white/[0.06] dark:bg-white/[0.02] dark:hover:border-accent/20">
+              <div class="absolute -right-4 -top-4 text-6xl opacity-10">{benefit.emoji}</div>
+              <span class="text-3xl">{benefit.emoji}</span>
+              <h3 class="mt-4 font-display text-xl font-bold text-neutral-900 dark:text-white">
+                <span x-show="lang==='es'">{benefit.tEs}</span>
+                <span x-show="lang==='en'">{benefit.tEn}</span>
+              </h3>
+              <p class="mt-3 text-sm leading-relaxed text-neutral-500 dark:text-neutral-400">
+                <span x-show="lang==='es'">{benefit.dEs}</span>
+                <span x-show="lang==='en'">{benefit.dEn}</span>
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
 
-      
-
-      
-
-      <section id="cta-final" class="rounded-4xl border border-neutral-200 bg-gradient-to-br from-accent/10 via-white to-accent/10 p-10 text-center shadow-xl dark:border-neutral-800 dark:from-accent/20 dark:via-neutral-900 dark:to-accent/10">
-        <h2 class="text-3xl font-bold text-neutral-900 dark:text-accent" x-show="lang==='es'">¿Listo para mejorar tu experiencia de llamadas?</h2>
-        <h2 class="text-3xl font-bold text-neutral-900 dark:text-accent" x-show="lang==='en'">Ready to upgrade your calling experience?</h2>
-        <p class="mt-3 text-neutral-600 dark:text-neutral-300" x-show="lang==='es'">Instala Fun Phone en tu Android, importa tus contactos y empieza con el modo productividad en menos de 5 minutos.</p>
-        <p class="mt-3 text-neutral-600 dark:text-neutral-300" x-show="lang==='en'">Install Fun Phone on Android, import your contacts, and activate productivity mode in under five minutes.</p>
-        <div class="mt-6 flex flex-wrap justify-center gap-3">
-          <a
-            href="https://play.google.com/store/apps/details?id=com.bookverse.contacts"
-            target="_blank"
-            rel="noopener"
-            class="inline-flex items-center gap-2 rounded-full bg-accent px-8 py-3 text-base font-semibold text-white shadow-lg shadow-accent/40 transition hover:-translate-y-0.5 hover:bg-accent/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-          >
-            <span x-show="lang==='es'">Instalar desde Google Play</span>
-            <span x-show="lang==='en'">Install from Google Play</span>
+    <!-- FINAL CTA -->
+    <section class="relative overflow-hidden py-24 lg:py-32">
+      <div class="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-electric/5 dark:from-accent/10 dark:to-electric/10"></div>
+      <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+        <div class="h-[400px] w-[400px] rounded-full bg-accent/10 blur-[100px] dark:bg-accent/20"></div>
+      </div>
+      <div class="relative mx-auto max-w-3xl px-6 text-center">
+        <h2 class="font-display text-3xl font-black tracking-tight sm:text-4xl lg:text-5xl">
+          <span x-show="lang==='es'" class="text-neutral-900 dark:text-white">&iquest;Listo para transformar tu <span class="text-accent">Android</span>?</span>
+          <span x-show="lang==='en'" class="text-neutral-900 dark:text-white">Ready to transform your <span class="text-accent">Android</span>?</span>
+        </h2>
+        <p class="mt-5 text-lg text-neutral-500 dark:text-neutral-400" x-show="lang==='es'">
+          Instala Fun Phone, importa tus contactos y activa el modo productividad en menos de 5 minutos.
+        </p>
+        <p class="mt-5 text-lg text-neutral-500 dark:text-neutral-400" x-show="lang==='en'">
+          Install Fun Phone, import your contacts, and activate productivity mode in under 5 minutes.
+        </p>
+        <div class="mt-10 flex flex-wrap justify-center gap-4">
+          <a href="https://play.google.com/store/apps/details?id=com.bookverse.contacts" target="_blank" rel="noopener" class="group relative inline-flex items-center gap-3 overflow-hidden rounded-2xl bg-accent px-8 py-4 font-display text-base font-bold text-white shadow-xl shadow-accent/25 transition-all hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-accent/30">
+            <span class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full transition-transform duration-700 group-hover:translate-x-full"></span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="relative h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M3 20.5v-17c0-.8.9-1.3 1.6-.8l14.4 8.5c.7.4.7 1.2 0 1.6L4.6 21.3c-.7.5-1.6 0-1.6-.8z"/></svg>
+            <span class="relative" x-show="lang==='es'">Instalar desde Google Play</span>
+            <span class="relative" x-show="lang==='en'">Install from Google Play</span>
           </a>
-          <a
-            href={import.meta.env.BASE_URL + 'privacy/'}
-            class="inline-flex items-center gap-2 rounded-full border border-accent/30 px-8 py-3 text-base font-semibold text-accent transition hover:-translate-y-0.5 hover:border-accent hover:bg-accent/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-          >
-            <span x-show="lang==='es'">Lee la política de privacidad</span>
-            <span x-show="lang==='en'">Read the privacy policy</span>
+          <a href={base + 'privacy/'} class="inline-flex items-center gap-2 rounded-2xl border border-neutral-300/60 bg-white/60 px-8 py-4 font-display text-base font-bold text-neutral-700 backdrop-blur transition-all hover:-translate-y-0.5 hover:border-accent/30 hover:text-accent dark:border-white/10 dark:bg-white/5 dark:text-neutral-200">
+            <span x-show="lang==='es'">Pol&iacute;tica de privacidad</span>
+            <span x-show="lang==='en'">Privacy policy</span>
           </a>
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
+
     <StickyCTA />
     <Footer />
 
@@ -297,21 +317,11 @@ const heroImage = import.meta.env.BASE_URL + 'assets/screenshots/dialer.png';
       function pageState() {
         return {
           lang: localStorage.getItem('lang') || (navigator.language?.startsWith('es') ? 'es' : 'en'),
-          init() {
-            this.setDocumentLang();
-          },
-          updateLang(value) {
-            if (!value) return;
-            this.lang = value;
-            this.setDocumentLang();
-          },
-          setDocumentLang() {
-            document.documentElement.setAttribute('data-lang', this.lang);
-          }
+          init() { this.setDocumentLang(); },
+          updateLang(v) { if (!v) return; this.lang = v; this.setDocumentLang(); },
+          setDocumentLang() { document.documentElement.setAttribute('data-lang', this.lang); }
         };
       }
-
-      // Removed personaSelector UI per request
     </script>
   </body>
 </html>

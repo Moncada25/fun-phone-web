@@ -1,261 +1,121 @@
 ---
 const basePath = import.meta.env.BASE_URL + 'assets/screenshots/';
-const cacheVersion = '?v=3.9.6'; // Cache busting version - updated for new PNG images
+const v = '?v=4.0.0';
 
-// Real screenshots from Play Store
 const screenshots = [
-  { 
-    src: `${basePath}favorites.png${cacheVersion}`, 
-    alt: 'Fun Phone – Connect with who matters most', 
-    labelEs: 'Conecta con las personas que más importan', 
-    labelEn: 'Connect with the people who matter most' 
-  },
-  { 
-    src: `${basePath}tools1.png${cacheVersion}`, 
-    alt: 'Fun Phone – All-in-one tools hub', 
-    labelEs: 'Un centro todo-en-uno para tus herramientas favoritas', 
-    labelEn: 'An all-in-one hub for your favorite tools' 
-  },
-  { 
-    src: `${basePath}tools2.png${cacheVersion}`, 
-    alt: 'Fun Phone – Generate and protect keys locally', 
-    labelEs: 'Genera y protege tus claves de forma segura localmente', 
-    labelEn: 'Securely generate and protect your keys locally' 
-  },
-  { 
-    src: `${basePath}tools3.png${cacheVersion}`, 
-    alt: 'Fun Phone – Track cycle predictions and wellness', 
-    labelEs: 'Rastrea predicciones de ciclo, ventanas fértiles y consejos rápidos', 
-    labelEn: 'Track cycle predictions, fertile windows, and quick tips' 
-  },
-  { 
-    src: `${basePath}dark_mode.png${cacheVersion}`, 
-    alt: 'Fun Phone – Personalization settings', 
-    labelEs: 'Personalización: haz que Fun Phone se vea y se sienta como tú', 
-    labelEn: 'Personalization: make Fun Phone look and feel like you' 
-  },
-  { 
-    src: `${basePath}games.png${cacheVersion}`, 
-    alt: 'Fun Phone – Classic game collection', 
-    labelEs: 'Una colección de juegos clásicos para cada estado de ánimo', 
-    labelEn: 'A classic game collection for every mood' 
-  },
-  { 
-    src: `${basePath}notes.png${cacheVersion}`, 
-    alt: 'Fun Phone – Capture ideas instantly', 
-    labelEs: 'Captura ideas, listas y recordatorios al instante', 
-    labelEn: 'Capture ideas, lists, and reminders instantly' 
-  },
-  { 
-    src: `${basePath}details.png${cacheVersion}`, 
-    alt: 'Fun Phone – All contact details in one place', 
-    labelEs: 'Todos los detalles de contacto en un solo lugar', 
-    labelEn: 'All your contact details in one place' 
-  }
+  { src: `${basePath}favorites.png${v}`, alt: 'Fun Phone Favorites', labelEs: 'Conecta con las personas que m\u00e1s importan', labelEn: 'Connect with the people who matter most' },
+  { src: `${basePath}tools1.png${v}`, alt: 'Fun Phone Tools Hub', labelEs: 'Centro todo-en-uno de herramientas', labelEn: 'All-in-one tools hub' },
+  { src: `${basePath}tools2.png${v}`, alt: 'Fun Phone Password Manager', labelEs: 'Genera y protege claves localmente', labelEn: 'Generate and protect keys locally' },
+  { src: `${basePath}tools3.png${v}`, alt: 'Fun Phone Cycle Tracker', labelEs: 'Predicciones de ciclo y bienestar', labelEn: 'Cycle predictions and wellness' },
+  { src: `${basePath}dark_mode.png${v}`, alt: 'Fun Phone Dark Mode', labelEs: 'Personaliza cada detalle visual', labelEn: 'Personalize every visual detail' },
+  { src: `${basePath}games.png${v}`, alt: 'Fun Phone Games', labelEs: 'Juegos cl\u00e1sicos para cada momento', labelEn: 'Classic games for every moment' },
+  { src: `${basePath}notes.png${v}`, alt: 'Fun Phone Notes', labelEs: 'Captura ideas y recordatorios', labelEn: 'Capture ideas and reminders' },
+  { src: `${basePath}details.png${v}`, alt: 'Fun Phone Contact Details', labelEs: 'Detalles de contacto completos', labelEn: 'Complete contact details' },
 ];
 
 const carouselData = JSON.stringify(screenshots);
 ---
 <div
-  class="relative mx-auto w-full max-w-3xl"
-  x-data={`screenshotCarousel({ screenshots: ${carouselData} })`}
+  class="relative"
+  x-data={`carousel(${carouselData})`}
   x-init="init()"
   role="region"
   aria-roledescription="carousel"
-  x-bind:aria-label="label"
+  aria-label="App screenshots"
 >
-  <div class="mb-4 flex items-center justify-between">
-    <p class="text-sm font-semibold uppercase tracking-wide text-accent" x-show="lang==='es'">Vista previa de la app</p>
-    <p class="text-sm font-semibold uppercase tracking-wide text-accent" x-show="lang==='en'">In-app preview</p>
-    <div class="hidden items-center gap-2 text-xs text-neutral-500 dark:text-neutral-400 md:flex">
-      <span x-text="currentSlide"></span>
-      <span>/</span>
-      <span x-text="screens.length"></span>
+  <div class="relative overflow-hidden">
+    <div
+      class="flex gap-4 overflow-x-auto scroll-smooth pb-4 snap-x snap-mandatory scrollbar-hide"
+      x-ref="track"
+      @mouseenter="stopAuto()"
+      @mouseleave="startAuto()"
+      @touchstart.passive="tx=$event.changedTouches[0].clientX"
+      @touchend.passive="handleSwipe($event)"
+      style="scrollbar-width: none; -ms-overflow-style: none;"
+    >
+      {screenshots.map((shot, i) => (
+        <button
+          type="button"
+          class="group relative flex-shrink-0 snap-center cursor-pointer"
+          data-idx={i}
+          @click="openLightbox(Number($el.dataset.idx))"
+        >
+          <div class="relative overflow-hidden rounded-2xl border border-neutral-200/60 bg-gradient-to-b from-neutral-50 to-neutral-100 shadow-lg transition-all duration-500 hover:shadow-2xl hover:shadow-accent/10 dark:border-white/10 dark:from-neutral-800 dark:to-neutral-900">
+            <img
+              src={shot.src}
+              alt={shot.alt}
+              class="h-[380px] w-auto object-contain transition-transform duration-700 group-hover:scale-[1.02] sm:h-[440px]"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+            <div class="absolute bottom-0 left-0 right-0 translate-y-4 p-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+              <p class="text-center text-xs font-semibold text-white drop-shadow-lg" x-show="lang==='es'">{shot.labelEs}</p>
+              <p class="text-center text-xs font-semibold text-white drop-shadow-lg" x-show="lang==='en'">{shot.labelEn}</p>
+            </div>
+          </div>
+        </button>
+      ))}
     </div>
   </div>
-  <div
-    class="relative overflow-hidden rounded-3xl border border-neutral-200 bg-gradient-to-br from-neutral-50 via-white to-neutral-100 shadow-xl dark:border-neutral-800 dark:from-neutral-900 dark:via-neutral-900 dark:to-neutral-950"
-    @mouseenter="stopAutoPlay()"
-    @mouseleave="startAutoPlay()"
-    @touchstart.passive="onTouchStart($event)"
-    @touchend.passive="onTouchEnd($event)"
-  >
-    <button type="button" class="block w-full" @click="openLightbox()" aria-label="Expandir vista / Expand view">
-      <img
-        x-ref="image"
-        x-bind:src="screens[currentIndex].src"
-        x-bind:alt="screens[currentIndex].alt"
-        class="mx-auto w-auto max-h-[420px] rounded-2xl object-contain transition duration-500 ease-out"
-        loading="lazy"
-      />
+
+  <div class="mt-6 flex items-center justify-center gap-3">
+    <button type="button" @click="prev()" class="flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200/60 bg-white/80 text-neutral-600 shadow-sm backdrop-blur transition hover:border-accent/30 hover:text-accent dark:border-white/10 dark:bg-neutral-800/80 dark:text-neutral-300" aria-label="Previous">
+      <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
     </button>
-    <button
-      type="button"
-      class="absolute left-4 top-1/2 -translate-y-1/2 rounded-full border border-neutral-200 bg-white/80 p-3 text-neutral-800 shadow-lg backdrop-blur transition hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:border-neutral-700 dark:bg-neutral-900/80 dark:text-neutral-200"
-      @click="previous()"
-      aria-label="Anterior"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+    <div class="flex gap-1.5">
+      {screenshots.map((_, i) => (
+        <button
+          type="button"
+          class="h-2 rounded-full transition-all duration-300"
+          data-dot={i}
+          :class={`currentIndex===${i} ? 'w-6 bg-accent' : 'w-2 bg-neutral-300 dark:bg-neutral-600 hover:bg-accent/50'`}
+          @click={`scrollTo(${i})`}
+          aria-label={`Screenshot ${i + 1}`}
+        ></button>
+      ))}
+    </div>
+    <button type="button" @click="nxt()" class="flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200/60 bg-white/80 text-neutral-600 shadow-sm backdrop-blur transition hover:border-accent/30 hover:text-accent dark:border-white/10 dark:bg-neutral-800/80 dark:text-neutral-300" aria-label="Next">
+      <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
     </button>
-    <button
-      type="button"
-      class="absolute right-4 top-1/2 -translate-y-1/2 rounded-full border border-neutral-200 bg-white/80 p-3 text-neutral-800 shadow-lg backdrop-blur transition hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:border-neutral-700 dark:bg-neutral-900/80 dark:text-neutral-200"
-      @click="next()"
-      aria-label="Siguiente"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-    </button>
-  </div>
-  <figcaption class="mx-auto mt-3 max-w-3xl text-center text-xs font-semibold text-neutral-700 dark:text-neutral-200">
-    <span x-show="lang==='es'" x-text="screens[currentIndex].labelEs"></span>
-    <span x-show="lang==='en'" x-text="screens[currentIndex].labelEn"></span>
-  </figcaption>
-  <div class="mt-4 flex flex-wrap items-center justify-center gap-2" role="tablist" aria-label="Miniaturas de la galería">
-    {screenshots.map((shot, idx) => (
-      <button
-        type="button"
-        class="h-20 w-20 overflow-hidden rounded-xl border border-transparent bg-neutral-100 p-1 transition hover:border-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:bg-neutral-800"
-        role="tab"
-        data-index={idx}
-        x-bind:data-active="currentIndex === Number($el.dataset.index)"
-        x-bind:class="currentIndex === Number($el.dataset.index) ? 'border-accent ring-2 ring-accent/40' : ''"
-        x-bind:aria-selected="(currentIndex === Number($el.dataset.index)).toString()"
-        x-bind:aria-label="thumbLabel(Number($el.dataset.index))"
-        @click="goTo(Number($el.dataset.index))"
-      >
-        <img src={shot.src} alt={shot.alt} class="h-full w-full object-contain" loading="lazy" />
-      </button>
-    ))}
   </div>
 
-  <!-- Lightbox fullscreen overlay -->
-  <div
-    x-show="lightboxOpen"
-    x-transition.opacity
-    class="fixed inset-0 z-50 overflow-y-auto bg-black/90 p-6"
-    role="dialog"
-    aria-modal="true"
-    x-cloak
-  >
-    <button
-      type="button"
-      class="fixed right-6 top-6 z-10 rounded-full border border-white/20 bg-white/10 p-2 text-white/90 backdrop-blur transition hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-      @click="closeLightbox()"
-      aria-label="Cerrar / Close"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+  <div x-show="lightbox" x-transition.opacity class="fixed inset-0 z-[60] flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm" @click.self="closeLightbox()" @keydown.escape.window="closeLightbox()" @keydown.right.window="lightbox && nxt()" @keydown.left.window="lightbox && prev()" x-cloak>
+    <button type="button" @click="closeLightbox()" class="absolute right-4 top-4 z-10 rounded-full bg-white/10 p-3 text-white transition hover:bg-white/20" aria-label="Close">
+      <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M6 18L18 6M6 6l12 12"/></svg>
     </button>
-    <div class="mx-auto flex min-h-[calc(100vh-3rem)] max-w-5xl flex-col items-center justify-center gap-6">
-      <div class="relative">
-        <button
-          type="button"
-          class="absolute left-4 top-1/2 -translate-y-1/2 rounded-full border border-white/20 bg-white/10 p-3 text-white/90 backdrop-blur transition hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-          @click="previous()"
-          aria-label="Anterior"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-        </button>
-        <img
-          x-bind:src="screens[currentIndex].src"
-          x-bind:alt="screens[currentIndex].alt"
-          class="block h-auto w-auto max-w-[92vw] object-contain md:max-w-4xl"
-        />
-        <button
-          type="button"
-          class="absolute right-4 top-1/2 -translate-y-1/2 rounded-full border border-white/20 bg-white/10 p-3 text-white/90 backdrop-blur transition hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-          @click="next()"
-          aria-label="Siguiente"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-        </button>
-      </div>
-      <p class="text-center text-sm font-semibold text-white">
+    <button type="button" @click="prev()" class="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white transition hover:bg-white/20" aria-label="Previous">
+      <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+    </button>
+    <div class="max-h-[85vh] max-w-[90vw]">
+      <img :src="screens[currentIndex].src" :alt="screens[currentIndex].alt" class="max-h-[80vh] w-auto rounded-2xl object-contain shadow-2xl" />
+      <p class="mt-3 text-center text-sm font-semibold text-white/90">
         <span x-show="lang==='es'" x-text="screens[currentIndex].labelEs"></span>
         <span x-show="lang==='en'" x-text="screens[currentIndex].labelEn"></span>
       </p>
     </div>
+    <button type="button" @click="nxt()" class="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white transition hover:bg-white/20" aria-label="Next">
+      <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+    </button>
   </div>
 </div>
 
 <script is:inline>
-function screenshotCarousel({ screenshots }) {
+function carousel(screens) {
   return {
-    screens: screenshots,
+    screens,
     currentIndex: 0,
-    lightboxOpen: false,
-    get currentSlide() {
-      return this.currentIndex + 1;
-    },
-    label: 'Fun Phone screenshots carousel',
-    autoPlayTimer: null,
-    prefersReducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-    init() {
-      this.startAutoPlay();
-      this.bindKeyboard();
-    },
-    openLightbox() {
-      this.lightboxOpen = true;
-      this.stopAutoPlay();
-      document.documentElement.style.overflow = 'hidden';
-    },
-    closeLightbox() {
-      this.lightboxOpen = false;
-      this.startAutoPlay();
-      document.documentElement.style.overflow = '';
-    },
-    startAutoPlay() {
-      if (this.prefersReducedMotion || this.autoPlayTimer) return;
-      this.autoPlayTimer = setInterval(() => this.next(), 5000);
-    },
-    stopAutoPlay() {
-      if (!this.autoPlayTimer) return;
-      clearInterval(this.autoPlayTimer);
-      this.autoPlayTimer = null;
-    },
-    next() {
-      if (!this.lightboxOpen) this.stopAutoPlay();
-      this.currentIndex = (this.currentIndex + 1) % this.screens.length;
-      if (!this.lightboxOpen) this.startAutoPlay();
-    },
-    previous() {
-      if (!this.lightboxOpen) this.stopAutoPlay();
-      this.currentIndex = (this.currentIndex - 1 + this.screens.length) % this.screens.length;
-      if (!this.lightboxOpen) this.startAutoPlay();
-    },
-    goTo(index) {
-      if (!this.lightboxOpen) this.stopAutoPlay();
-      this.currentIndex = index;
-      if (!this.lightboxOpen) this.startAutoPlay();
-    },
-    thumbLabel(index) {
-      return `${index + 1} / ${this.screens.length}`;
-    },
-    bindKeyboard() {
-      window.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape' && this.lightboxOpen) {
-          event.preventDefault();
-          this.closeLightbox();
-        } else if (event.key === 'ArrowRight') {
-          event.preventDefault();
-          this.next();
-        } else if (event.key === 'ArrowLeft') {
-          event.preventDefault();
-          this.previous();
-        }
-      });
-    },
-    touchStartX: null,
-    onTouchStart(e) {
-      this.touchStartX = e.changedTouches[0].clientX;
-    },
-    onTouchEnd(e) {
-      if (this.touchStartX === null) return;
-      const dx = e.changedTouches[0].clientX - this.touchStartX;
-      if (Math.abs(dx) > 40) {
-        dx < 0 ? this.next() : this.previous();
-      }
-      this.touchStartX = null;
-    }
+    lightbox: false,
+    timer: null,
+    tx: null,
+    init() { this.startAuto(); },
+    startAuto() { if (this.timer) return; this.timer = setInterval(() => this.nxt(), 4000); },
+    stopAuto() { clearInterval(this.timer); this.timer = null; },
+    scrollTo(i) { this.currentIndex = i; const t = this.$refs.track; const el = t && t.children[i]; if (!el) return; const left = el.offsetLeft - (t.offsetWidth / 2) + (el.offsetWidth / 2); t.scrollTo({ left, behavior: 'smooth' }); },
+    nxt() { this.scrollTo((this.currentIndex + 1) % this.screens.length); },
+    prev() { this.scrollTo((this.currentIndex - 1 + this.screens.length) % this.screens.length); },
+    openLightbox(i) { this.currentIndex = i; this.lightbox = true; this.stopAuto(); document.documentElement.style.overflow = 'hidden'; },
+    closeLightbox() { this.lightbox = false; this.startAuto(); document.documentElement.style.overflow = ''; },
+    handleSwipe(e) { if (this.tx === null) return; const dx = e.changedTouches[0].clientX - this.tx; if (Math.abs(dx) > 40) dx < 0 ? this.nxt() : this.prev(); this.tx = null; }
   };
 }
 </script>

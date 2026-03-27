@@ -1,0 +1,83 @@
+---
+const rows = [
+  { es: 'Marcador T9 inteligente', en: 'Smart T9 dialer', fun: true, stock: false },
+  { es: 'Dual-SIM y VoLTE', en: 'Dual-SIM & VoLTE', fun: true, stock: true },
+  { es: 'Gestor de contactos avanzado', en: 'Advanced contact manager', fun: true, stock: false },
+  { es: 'Compartir contactos por QR', en: 'Share contacts via QR', fun: true, stock: false },
+  { es: 'Suite de productividad (notas, tareas)', en: 'Productivity suite (notes, tasks)', fun: true, stock: false },
+  { es: 'Gestor de contrase\u00f1as (Tink)', en: 'Password manager (Tink)', fun: true, stock: false },
+  { es: 'Gestor de gastos', en: 'Expense manager', fun: true, stock: false },
+  { es: 'Calendario menstrual', en: 'Menstrual calendar', fun: true, stock: false },
+  { es: 'Herramientas de voz (TTS/STT)', en: 'Voice tools (TTS/STT)', fun: true, stock: false },
+  { es: '10 minijuegos cl\u00e1sicos', en: '10 classic mini-games', fun: true, stock: false },
+  { es: 'Estudio de pintura digital', en: 'Digital paint studio', fun: true, stock: false },
+  { es: 'Temas y personalizaci\u00f3n total', en: 'Full themes & customization', fun: true, stock: false },
+  { es: 'Modo oscuro', en: 'Dark mode', fun: true, stock: true },
+  { es: 'Sin anuncios', en: 'Ad-free', fun: true, stock: true },
+  { es: 'Datos 100% locales', en: '100% local data', fun: true, stock: false },
+  { es: 'Calendario de festivos', en: 'Holiday calendar', fun: true, stock: false },
+];
+---
+<div class="overflow-hidden rounded-2xl border border-neutral-200/60 dark:border-white/10">
+  <div class="overflow-x-auto">
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="bg-gradient-to-r from-accent/5 to-electric/5 dark:from-accent/10 dark:to-electric/10">
+          <th class="px-5 py-4 text-left font-display text-xs font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
+            <span x-show="lang==='es'">Funcionalidad</span>
+            <span x-show="lang==='en'">Feature</span>
+          </th>
+          <th class="px-5 py-4 text-center">
+            <div class="inline-flex items-center gap-2 rounded-full bg-accent/10 px-3 py-1">
+              <span class="font-display text-xs font-bold text-accent">Fun Phone</span>
+            </div>
+          </th>
+          <th class="px-5 py-4 text-center">
+            <span class="font-display text-xs font-bold text-neutral-400 dark:text-neutral-500">
+              <span x-show="lang==='es'">Stock Dialer</span>
+              <span x-show="lang==='en'">Stock Dialer</span>
+            </span>
+          </th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-neutral-100 dark:divide-white/5">
+        {rows.map((row, i) => (
+          <tr class:list={['transition-colors hover:bg-accent/[0.02] dark:hover:bg-accent/[0.04]', i % 2 === 0 ? 'bg-white dark:bg-transparent' : 'bg-neutral-50/50 dark:bg-white/[0.01]']}>
+            <td class="px-5 py-3.5 font-body text-neutral-700 dark:text-neutral-300">
+              <span x-show="lang==='es'">{row.es}</span>
+              <span x-show="lang==='en'">{row.en}</span>
+            </td>
+            <td class="px-5 py-3.5 text-center">
+              {row.fun ? (
+                <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-accent/10 text-accent">
+                  <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                </span>
+              ) : (
+                <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-neutral-100 text-neutral-400 dark:bg-neutral-800 dark:text-neutral-500">
+                  <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                </span>
+              )}
+            </td>
+            <td class="px-5 py-3.5 text-center">
+              {row.stock ? (
+                <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-neutral-100 text-neutral-500 dark:bg-neutral-800 dark:text-neutral-400">
+                  <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                </span>
+              ) : (
+                <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-red-50 text-red-400 dark:bg-red-900/20 dark:text-red-400/60">
+                  <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                </span>
+              )}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <div class="border-t border-neutral-200/60 bg-gradient-to-r from-accent/5 to-electric/5 px-5 py-4 text-center dark:border-white/10 dark:from-accent/10 dark:to-electric/10">
+    <p class="text-sm font-semibold text-accent">
+      <span x-show="lang==='es'">Fun Phone: 16/16 funciones &middot; Stock Dialer: 3/16</span>
+      <span x-show="lang==='en'">Fun Phone: 16/16 features &middot; Stock Dialer: 3/16</span>
+    </p>
+  </div>
+</div>

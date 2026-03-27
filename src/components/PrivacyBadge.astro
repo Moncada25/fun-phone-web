@@ -1,17 +1,11 @@
 ---
-// Privacy/Data Safety badge accesible
-const statements = {
-  es: 'Ni se comparten ni se recopilan datos',
-  en: 'No data shared · No data collected'
-};
 ---
-<span class="inline-flex items-center gap-2 rounded-full border border-green-600/30 bg-green-50 px-4 py-1.5 text-sm font-semibold text-green-700 shadow-sm dark:border-green-400/20 dark:bg-green-900/30 dark:text-green-200" role="status">
-  <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-  <span class="text-xs uppercase tracking-wide text-green-600/80 dark:text-green-300">Data Safety</span>
-  <template x-if="lang === 'es'">
-    <span>{statements.es}</span>
-  </template>
-  <template x-if="lang === 'en'">
-    <span>{statements.en}</span>
-  </template>
+<span class="inline-flex items-center gap-2.5 rounded-full border border-emerald-200/60 bg-emerald-50/80 px-4 py-2 text-sm font-semibold shadow-sm backdrop-blur dark:border-emerald-500/20 dark:bg-emerald-500/10" role="status">
+  <span class="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500 text-white">
+    <svg class="h-3 w-3" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+  </span>
+  <span class="text-emerald-700 dark:text-emerald-300">
+    <span x-show="lang==='es'">Sin datos compartidos &middot; Sin datos recopilados</span>
+    <span x-show="lang==='en'">No data shared &middot; No data collected</span>
+  </span>
 </span>
