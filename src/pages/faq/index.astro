@@ -28,16 +28,16 @@ const faqSchema = JSON.stringify({
     <div class="container-editorial py-20 md:py-28">
       <div class="mx-auto max-w-4xl text-center">
         <h1 class="reveal text-balance font-display-condensed text-[3rem] font-extrabold leading-[0.92] tracking-tightest text-ink sm:text-[4.5rem] md:text-[6rem] lg:text-[7rem]">
-          <span x-show="lang==='es'">Preguntas </span>
-          <span x-show="lang==='en'">Frequently </span>
+          <span x-cloak x-show="lang==='es'">Preguntas </span>
+          <span x-cloak x-show="lang==='en'">Frequently </span>
           <span class="font-serif-italic text-flame">
-            <span x-show="lang==='es'">frecuentes</span>
-            <span x-show="lang==='en'">asked</span>
+            <span x-cloak x-show="lang==='es'">frecuentes</span>
+            <span x-cloak x-show="lang==='en'">asked</span>
           </span>
         </h1>
         <p class="mt-6 max-w-2xl mx-auto text-pretty text-base text-ink-muted md:text-lg">
-          <span x-show="lang==='es'">Las preguntas más comunes sobre Fun Phone, respondidas sin rodeos. Si no encuentras lo que buscas, escríbenos.</span>
-          <span x-show="lang==='en'">The most common questions about Fun Phone, answered without the fluff. If you don't find what you're looking for, drop us a line.</span>
+          <span x-cloak x-show="lang==='es'">Las preguntas más comunes sobre Fun Phone, respondidas sin rodeos. Si no encuentras lo que buscas, escríbenos.</span>
+          <span x-cloak x-show="lang==='en'">The most common questions about Fun Phone, answered without the fluff. If you don't find what you're looking for, drop us a line.</span>
         </p>
       </div>
     </div>
@@ -54,12 +54,12 @@ const faqSchema = JSON.stringify({
             </span>
           </div>
           <h3 class="font-display-condensed text-xl font-extrabold tracking-tightest text-ink">
-            <span x-show="lang==='es'">Primeros pasos</span>
-            <span x-show="lang==='en'">Getting started</span>
+            <span x-cloak x-show="lang==='es'">Primeros pasos</span>
+            <span x-cloak x-show="lang==='en'">Getting started</span>
           </h3>
           <p class="text-xs leading-relaxed text-ink-muted">
-            <span x-show="lang==='es'">Ajustes → Apps predeterminadas → Teléfono → Fun Phone.</span>
-            <span x-show="lang==='en'">Settings → Default apps → Phone → Fun Phone.</span>
+            <span x-cloak x-show="lang==='es'">Ajustes → Apps predeterminadas → Teléfono → Fun Phone.</span>
+            <span x-cloak x-show="lang==='en'">Settings → Default apps → Phone → Fun Phone.</span>
           </p>
         </article>
         <article class="group flex flex-col gap-3 border border-ink/15 bg-paper p-6 transition-colors hover:border-ink" style="border-radius: 18px;">
@@ -69,8 +69,8 @@ const faqSchema = JSON.stringify({
             </span>
           </div>
           <h3 class="font-display-condensed text-xl font-extrabold tracking-tightest text-ink">
-            <span x-show="lang==='es'">Soporte</span>
-            <span x-show="lang==='en'">Support</span>
+            <span x-cloak x-show="lang==='es'">Soporte</span>
+            <span x-cloak x-show="lang==='en'">Support</span>
           </h3>
           <p class="text-xs leading-relaxed text-ink-muted">
             <a href="mailto:santiago.moncada.dev@gmail.com" class="underline-link text-ink">santiago.moncada.dev@gmail.com</a>
@@ -83,12 +83,12 @@ const faqSchema = JSON.stringify({
             </span>
           </div>
           <h3 class="font-display-condensed text-xl font-extrabold tracking-tightest text-ink">
-            <span x-show="lang==='es'">Idioma</span>
-            <span x-show="lang==='en'">Language</span>
+            <span x-cloak x-show="lang==='es'">Idioma</span>
+            <span x-cloak x-show="lang==='en'">Language</span>
           </h3>
           <p class="text-xs leading-relaxed text-ink-muted">
-            <span x-show="lang==='es'">Cambia desde la barra superior, o en Ajustes → Idioma dentro de la app.</span>
-            <span x-show="lang==='en'">Switch from the top bar, or in Settings → Language inside the app.</span>
+            <span x-cloak x-show="lang==='es'">Cambia desde la barra superior, o en Ajustes → Idioma dentro de la app.</span>
+            <span x-cloak x-show="lang==='en'">Switch from the top bar, or in Settings → Language inside the app.</span>
           </p>
         </article>
       </div>
@@ -100,11 +100,11 @@ const faqSchema = JSON.stringify({
     <div class="container-editorial">
       <div class="mx-auto max-w-3xl text-center">
         <h2 class="text-balance font-display-condensed text-[2.25rem] font-extrabold leading-[0.95] tracking-tightest text-ink md:text-[3rem]">
-          <span x-show="lang==='es'">Doce respuestas </span>
-          <span x-show="lang==='en'">Twelve answers </span>
+          <span x-cloak x-show="lang==='es'">Doce respuestas </span>
+          <span x-cloak x-show="lang==='en'">Twelve answers </span>
           <span class="font-serif-italic text-flame">
-            <span x-show="lang==='es'">honestas.</span>
-            <span x-show="lang==='en'">that are honest.</span>
+            <span x-cloak x-show="lang==='es'">honestas.</span>
+            <span x-cloak x-show="lang==='en'">that are honest.</span>
           </span>
         </h2>
       </div>

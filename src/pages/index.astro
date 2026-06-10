@@ -128,8 +128,8 @@ const marqueeItems = [
         <div class="flex shrink-0 items-center gap-8 pr-8 font-display-condensed text-[1.5rem] font-extrabold uppercase leading-none tracking-tightest md:text-[2rem]">
           {marqueeItems.map((item) => (
             <Fragment>
-              <span class:list={[item.accent ? 'text-flame' : 'text-ink']} x-show={`lang==='es'`}>{item.es}</span>
-              <span class:list={[item.accent ? 'text-flame' : 'text-ink']} x-show={`lang==='en'`}>{item.en}</span>
+              <span class:list={[item.accent ? 'text-flame' : 'text-ink']} x-cloak x-show={`lang==='es'`}>{item.es}</span>
+              <span class:list={[item.accent ? 'text-flame' : 'text-ink']} x-cloak x-show={`lang==='en'`}>{item.en}</span>
               <span class="text-flame">✱</span>
             </Fragment>
           ))}

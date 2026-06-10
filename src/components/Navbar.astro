@@ -164,7 +164,7 @@ const isActive = (suffix: string) => {
 
   <!-- Mobile menu -->
   <div
-    x-show="menuOpen"
+    x-cloak x-show="menuOpen"
     x-cloak
     x-transition:enter="transition duration-300 ease-out"
     x-transition:enter-start="opacity-0"

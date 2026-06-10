@@ -31,12 +31,12 @@ const { title, titleEn = title, bullets, bulletsEn = bullets, number, variant = 
     ]}
   >
     <span class="flex items-center gap-2">
-      {number && <span x-show={variant === 'light' ? "true" : "false"} class="text-flame">{number}</span>}
+      {number && <span x-cloak x-show={variant === 'light' ? "true" : "false"} class="text-flame">{number}</span>}
       {number && <span class:list={[variant === 'dark' && 'text-flame', variant === 'flame' && 'text-paper']}>{number}</span>}
       {category && (
         <span>
-          <span x-show="lang==='es'">{category.es}</span>
-          <span x-show="lang==='en'">{category.en}</span>
+          <span x-cloak x-show="lang==='es'">{category.es}</span>
+          <span x-cloak x-show="lang==='en'">{category.en}</span>
         </span>
       )}
     </span>
@@ -58,8 +58,8 @@ const { title, titleEn = title, bullets, bulletsEn = bullets, number, variant = 
         'font-display-condensed text-2xl font-extrabold leading-tight tracking-tightest md:text-[1.7rem]',
       ]}
     >
-      <span x-show="lang==='es'">{title}</span>
-      <span x-show="lang==='en'">{titleEn}</span>
+      <span x-cloak x-show="lang==='es'">{title}</span>
+      <span x-cloak x-show="lang==='en'">{titleEn}</span>
     </h3>
 
     <div
@@ -90,8 +90,8 @@ const { title, titleEn = title, bullets, bulletsEn = bullets, number, variant = 
             ]}
           ></span>
           <span>
-            <span x-show="lang==='es'">{b}</span>
-            <span x-show="lang==='en'">{bulletsEn[i] ?? b}</span>
+            <span x-cloak x-show="lang==='es'">{b}</span>
+            <span x-cloak x-show="lang==='en'">{bulletsEn[i] ?? b}</span>
           </span>
         </li>
       ))}

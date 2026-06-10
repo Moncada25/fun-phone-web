@@ -27,22 +27,22 @@ const sections = [
     <div class="container-editorial py-20 md:py-28">
       <div class="mx-auto max-w-4xl text-center">
         <h1 class="reveal text-balance font-display-condensed text-[3rem] font-extrabold leading-[0.92] tracking-tightest text-ink sm:text-[4.5rem] md:text-[6rem] lg:text-[7rem]">
-          <span x-show="lang==='es'">Política de </span>
-          <span x-show="lang==='en'">Privacy </span>
+          <span x-cloak x-show="lang==='es'">Política de </span>
+          <span x-cloak x-show="lang==='en'">Privacy </span>
           <span class="font-serif-italic text-flame">
-            <span x-show="lang==='es'">privacidad</span>
-            <span x-show="lang==='en'">policy</span>
+            <span x-cloak x-show="lang==='es'">privacidad</span>
+            <span x-cloak x-show="lang==='en'">policy</span>
           </span>
         </h1>
         <p class="mt-6 max-w-2xl mx-auto text-pretty text-base text-ink-muted md:text-lg">
-          <span x-show="lang==='es'">Honesta, breve y sin tecnicismos innecesarios. Lo que recogemos, lo que no, y cómo mantener el control.</span>
-          <span x-show="lang==='en'">Honest, short, and free of unnecessary legalese. What we collect, what we don't, and how to stay in control.</span>
+          <span x-cloak x-show="lang==='es'">Honesta, breve y sin tecnicismos innecesarios. Lo que recogemos, lo que no, y cómo mantener el control.</span>
+          <span x-cloak x-show="lang==='en'">Honest, short, and free of unnecessary legalese. What we collect, what we don't, and how to stay in control.</span>
         </p>
         <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
           <PrivacyBadge />
           <span class="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-ink-ghost">
-            <span x-show="lang==='es'">Actualizado: {lastUpdated.es}</span>
-            <span x-show="lang==='en'">Updated: {lastUpdated.en}</span>
+            <span x-cloak x-show="lang==='es'">Actualizado: {lastUpdated.es}</span>
+            <span x-cloak x-show="lang==='en'">Updated: {lastUpdated.en}</span>
           </span>
         </div>
       </div>
@@ -56,29 +56,29 @@ const sections = [
         <div class="bg-paper p-6 md:p-8">
           <p class="font-display-condensed text-5xl font-extrabold leading-none tracking-tighter text-flame md:text-6xl">0</p>
           <p class="mt-3 text-xs font-semibold text-ink-muted">
-            <span x-show="lang==='es'">Datos compartidos</span>
-            <span x-show="lang==='en'">Data shared</span>
+            <span x-cloak x-show="lang==='es'">Datos compartidos</span>
+            <span x-cloak x-show="lang==='en'">Data shared</span>
           </p>
         </div>
         <div class="bg-paper p-6 md:p-8">
           <p class="font-display-condensed text-5xl font-extrabold leading-none tracking-tighter text-ink md:text-6xl">0</p>
           <p class="mt-3 text-xs font-semibold text-ink-muted">
-            <span x-show="lang==='es'">Anuncios</span>
-            <span x-show="lang==='en'">Ads</span>
+            <span x-cloak x-show="lang==='es'">Anuncios</span>
+            <span x-cloak x-show="lang==='en'">Ads</span>
           </p>
         </div>
         <div class="bg-paper p-6 md:p-8">
           <p class="font-display-condensed text-5xl font-extrabold leading-none tracking-tighter text-ink md:text-6xl">100<span class="text-flame">%</span></p>
           <p class="mt-3 text-xs font-semibold text-ink-muted">
-            <span x-show="lang==='es'">Almacenamiento local</span>
-            <span x-show="lang==='en'">Local storage</span>
+            <span x-cloak x-show="lang==='es'">Almacenamiento local</span>
+            <span x-cloak x-show="lang==='en'">Local storage</span>
           </p>
         </div>
         <div class="bg-paper p-6 md:p-8">
           <p class="font-display-condensed text-5xl font-extrabold leading-none tracking-tighter text-ink md:text-6xl">GPL<span class="text-flame">v3</span></p>
           <p class="mt-3 text-xs font-semibold text-ink-muted">
-            <span x-show="lang==='es'">Open source</span>
-            <span x-show="lang==='en'">Open source</span>
+            <span x-cloak x-show="lang==='es'">Open source</span>
+            <span x-cloak x-show="lang==='en'">Open source</span>
           </p>
         </div>
       </div>
@@ -95,18 +95,18 @@ const sections = [
           <section id="about">
             <header class="mb-4">
               <span class="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-ghost">
-                <span x-show="lang==='es'">Sobre la app</span>
-                <span x-show="lang==='en'">About</span>
+                <span x-cloak x-show="lang==='es'">Sobre la app</span>
+                <span x-cloak x-show="lang==='en'">About</span>
               </span>
             </header>
             <h2 class="text-balance font-display-condensed text-2xl font-extrabold leading-tight tracking-tightest text-ink md:text-3xl">
-              <span x-show="lang==='es'">Sobre Fun Phone</span>
-              <span x-show="lang==='en'">About Fun Phone</span>
+              <span x-cloak x-show="lang==='es'">Sobre Fun Phone</span>
+              <span x-cloak x-show="lang==='en'">About Fun Phone</span>
             </h2>
             <p class="mt-4 max-w-2xl text-pretty text-sm leading-relaxed text-ink-muted md:text-base">
               <em class="font-serif-italic text-flame">Fun Phone</em>
-              <span x-show="lang==='es'"> es una app de marcador y contactos. Al configurarla como <b>app de Teléfono predeterminada</b>, puedes realizar, contestar y gestionar llamadas y contactos. Es <b>open source</b> bajo licencia <b>GPL v3</b>: el código está disponible, es auditable y la comunidad puede revisarlo. Las builds FOSS (sin Firebase) no transmiten absolutamente nada a servidores externos.</span>
-              <span x-show="lang==='en'"> is a dialer and contacts app. When set as your <b>default Phone app</b>, it lets you place, receive, and manage calls and contacts. It's <b>open source</b> under the <b>GPL v3</b> license: the code is available, auditable, and community-reviewed. FOSS builds (without Firebase) transmit absolutely nothing to external servers.</span>
+              <span x-cloak x-show="lang==='es'"> es una app de marcador y contactos. Al configurarla como <b>app de Teléfono predeterminada</b>, puedes realizar, contestar y gestionar llamadas y contactos. Es <b>open source</b> bajo licencia <b>GPL v3</b>: el código está disponible, es auditable y la comunidad puede revisarlo. Las builds FOSS (sin Firebase) no transmiten absolutamente nada a servidores externos.</span>
+              <span x-cloak x-show="lang==='en'"> is a dialer and contacts app. When set as your <b>default Phone app</b>, it lets you place, receive, and manage calls and contacts. It's <b>open source</b> under the <b>GPL v3</b> license: the code is available, auditable, and community-reviewed. FOSS builds (without Firebase) transmit absolutely nothing to external servers.</span>
             </p>
           </section>
 
@@ -114,13 +114,13 @@ const sections = [
           <section id="data">
             <header class="mb-4">
               <span class="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-ghost">
-                <span x-show="lang==='es'">Datos</span>
-                <span x-show="lang==='en'">Data</span>
+                <span x-cloak x-show="lang==='es'">Datos</span>
+                <span x-cloak x-show="lang==='en'">Data</span>
               </span>
             </header>
             <h2 class="text-balance font-display-condensed text-2xl font-extrabold leading-tight tracking-tightest text-ink md:text-3xl">
-              <span x-show="lang==='es'">Datos que tratamos</span>
-              <span x-show="lang==='en'">Data we process</span>
+              <span x-cloak x-show="lang==='es'">Datos que tratamos</span>
+              <span x-cloak x-show="lang==='en'">Data we process</span>
             </h2>
             <ul class="mt-5 space-y-3 text-sm text-ink-muted md:text-base">
               {[
@@ -135,8 +135,8 @@ const sections = [
                   <div>
                     <p class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.18em] text-ink">{item.name}</p>
                     <p class="mt-0.5 text-ink-muted">
-                      <span x-show="lang==='es'">{item.descEs}</span>
-                      <span x-show="lang==='en'">{item.descEn}</span>
+                      <span x-cloak x-show="lang==='es'">{item.descEs}</span>
+                      <span x-cloak x-show="lang==='en'">{item.descEn}</span>
                     </p>
                   </div>
                 </li>
@@ -148,13 +148,13 @@ const sections = [
           <section id="purpose">
             <header class="mb-4">
               <span class="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-ghost">
-                <span x-show="lang==='es'">Finalidad</span>
-                <span x-show="lang==='en'">Purpose</span>
+                <span x-cloak x-show="lang==='es'">Finalidad</span>
+                <span x-cloak x-show="lang==='en'">Purpose</span>
               </span>
             </header>
             <h2 class="text-balance font-display-condensed text-2xl font-extrabold leading-tight tracking-tightest text-ink md:text-3xl">
-              <span x-show="lang==='es'">Para qué usamos los datos</span>
-              <span x-show="lang==='en'">Why we use the data</span>
+              <span x-cloak x-show="lang==='es'">Para qué usamos los datos</span>
+              <span x-cloak x-show="lang==='en'">Why we use the data</span>
             </h2>
             <ul class="mt-5 space-y-2 text-sm text-ink-muted md:text-base">
               {[
@@ -166,8 +166,8 @@ const sections = [
                 <li class="flex items-start gap-3">
                   <svg class="mt-1 h-3.5 w-3.5 flex-shrink-0 text-flame" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
                   <span>
-                    <span x-show="lang==='es'">{item.es}</span>
-                    <span x-show="lang==='en'">{item.en}</span>
+                    <span x-cloak x-show="lang==='es'">{item.es}</span>
+                    <span x-cloak x-show="lang==='en'">{item.en}</span>
                   </span>
                 </li>
               ))}
@@ -178,17 +178,17 @@ const sections = [
           <section id="storage">
             <header class="mb-4">
               <span class="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-ghost">
-                <span x-show="lang==='es'">Almacenamiento</span>
-                <span x-show="lang==='en'">Storage</span>
+                <span x-cloak x-show="lang==='es'">Almacenamiento</span>
+                <span x-cloak x-show="lang==='en'">Storage</span>
               </span>
             </header>
             <h2 class="text-balance font-display-condensed text-2xl font-extrabold leading-tight tracking-tightest text-ink md:text-3xl">
-              <span x-show="lang==='es'">Dónde viven los datos</span>
-              <span x-show="lang==='en'">Where the data lives</span>
+              <span x-cloak x-show="lang==='es'">Dónde viven los datos</span>
+              <span x-cloak x-show="lang==='en'">Where the data lives</span>
             </h2>
             <p class="mt-4 max-w-2xl text-pretty text-sm leading-relaxed text-ink-muted md:text-base">
-              <span x-show="lang==='es'">Por defecto, los datos permanecen en tu dispositivo Android cifrados en Room + Tink. La sincronización en la nube es <b>estrictamente opcional</b> y se activa solo si la pides (Firebase Auth, Storage, Crashlytics, App Check). Builds FOSS no incluyen Firebase: cero datos salen del dispositivo. Jamás.</span>
-              <span x-show="lang==='en'">By default, data stays on your Android device, encrypted in Room + Tink. Cloud sync is <b>strictly opt-in</b> and only activates if you ask (Firebase Auth, Storage, Crashlytics, App Check). FOSS builds don't include Firebase: zero data leaves the device. Ever.</span>
+              <span x-cloak x-show="lang==='es'">Por defecto, los datos permanecen en tu dispositivo Android cifrados en Room + Tink. La sincronización en la nube es <b>estrictamente opcional</b> y se activa solo si la pides (Firebase Auth, Storage, Crashlytics, App Check). Builds FOSS no incluyen Firebase: cero datos salen del dispositivo. Jamás.</span>
+              <span x-cloak x-show="lang==='en'">By default, data stays on your Android device, encrypted in Room + Tink. Cloud sync is <b>strictly opt-in</b> and only activates if you ask (Firebase Auth, Storage, Crashlytics, App Check). FOSS builds don't include Firebase: zero data leaves the device. Ever.</span>
             </p>
           </section>
 
@@ -196,17 +196,17 @@ const sections = [
           <section id="sharing">
             <header class="mb-4">
               <span class="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-ghost">
-                <span x-show="lang==='es'">Compartición</span>
-                <span x-show="lang==='en'">Sharing</span>
+                <span x-cloak x-show="lang==='es'">Compartición</span>
+                <span x-cloak x-show="lang==='en'">Sharing</span>
               </span>
             </header>
             <h2 class="text-balance font-display-condensed text-2xl font-extrabold leading-tight tracking-tightest text-ink md:text-3xl">
-              <span x-show="lang==='es'">Quién ve qué</span>
-              <span x-show="lang==='en'">Who sees what</span>
+              <span x-cloak x-show="lang==='es'">Quién ve qué</span>
+              <span x-cloak x-show="lang==='en'">Who sees what</span>
             </h2>
             <p class="mt-4 max-w-2xl text-pretty text-sm leading-relaxed text-ink-muted md:text-base">
-              <span x-show="lang==='es'">No vendemos ni compartimos datos con terceros. No construimos perfiles publicitarios. Google Play confirma: <b>"No se comparten datos con terceros"</b> y <b>"No se recolectan datos"</b>. Si en el futuro cambiamos esto, esta página se actualiza antes de que el código llegue a la tienda.</span>
-              <span x-show="lang==='en'">We don't sell or share data with third parties. We don't build advertising profiles. Google Play confirms: <b>"No data shared with third parties"</b> and <b>"No data collected"</b>. If that ever changes, this page updates before the code ships.</span>
+              <span x-cloak x-show="lang==='es'">No vendemos ni compartimos datos con terceros. No construimos perfiles publicitarios. Google Play confirma: <b>"No se comparten datos con terceros"</b> y <b>"No se recolectan datos"</b>. Si en el futuro cambiamos esto, esta página se actualiza antes de que el código llegue a la tienda.</span>
+              <span x-cloak x-show="lang==='en'">We don't sell or share data with third parties. We don't build advertising profiles. Google Play confirms: <b>"No data shared with third parties"</b> and <b>"No data collected"</b>. If that ever changes, this page updates before the code ships.</span>
             </p>
           </section>
 
@@ -214,13 +214,13 @@ const sections = [
           <section id="permissions">
             <header class="mb-4">
               <span class="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-ghost">
-                <span x-show="lang==='es'">Permisos</span>
-                <span x-show="lang==='en'">Permissions</span>
+                <span x-cloak x-show="lang==='es'">Permisos</span>
+                <span x-cloak x-show="lang==='en'">Permissions</span>
               </span>
             </header>
             <h2 class="text-balance font-display-condensed text-2xl font-extrabold leading-tight tracking-tightest text-ink md:text-3xl">
-              <span x-show="lang==='es'">Permisos y por qué</span>
-              <span x-show="lang==='en'">Permissions & why</span>
+              <span x-cloak x-show="lang==='es'">Permisos y por qué</span>
+              <span x-cloak x-show="lang==='en'">Permissions & why</span>
             </h2>
             <div class="mt-5">
               <PermissionsBlock />
@@ -231,13 +231,13 @@ const sections = [
           <section id="controls">
             <header class="mb-4">
               <span class="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-ghost">
-                <span x-show="lang==='es'">Controles</span>
-                <span x-show="lang==='en'">Controls</span>
+                <span x-cloak x-show="lang==='es'">Controles</span>
+                <span x-cloak x-show="lang==='en'">Controls</span>
               </span>
             </header>
             <h2 class="text-balance font-display-condensed text-2xl font-extrabold leading-tight tracking-tightest text-ink md:text-3xl">
-              <span x-show="lang==='es'">Lo que siempre puedes hacer</span>
-              <span x-show="lang==='en'">What you can always do</span>
+              <span x-cloak x-show="lang==='es'">Lo que siempre puedes hacer</span>
+              <span x-cloak x-show="lang==='en'">What you can always do</span>
             </h2>
             <ul class="mt-5 space-y-2 text-sm text-ink-muted md:text-base">
               {[
@@ -250,8 +250,8 @@ const sections = [
                 <li class="flex items-start gap-3">
                   <svg class="mt-1 h-3.5 w-3.5 flex-shrink-0 text-flame" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
                   <span>
-                    <span x-show="lang==='es'">{item.es}</span>
-                    <span x-show="lang==='en'">{item.en}</span>
+                    <span x-cloak x-show="lang==='es'">{item.es}</span>
+                    <span x-cloak x-show="lang==='en'">{item.en}</span>
                   </span>
                 </li>
               ))}
@@ -264,16 +264,16 @@ const sections = [
           <div class="sticky top-24 space-y-6">
             <nav class="border border-ink/15 bg-paper p-6" style="border-radius: 20px;">
               <p class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-ink-ghost">
-                <span x-show="lang==='es'">En esta página</span>
-                <span x-show="lang==='en'">On this page</span>
+                <span x-cloak x-show="lang==='es'">En esta página</span>
+                <span x-cloak x-show="lang==='en'">On this page</span>
               </p>
               <ul class="mt-4 space-y-1">
                 {sections.map((s, i) => (
                   <li>
                     <a href={`#${s.id}`} class="group flex items-center justify-between rounded-lg px-2.5 py-1.5 text-sm text-ink-muted transition hover:bg-ink/5 hover:text-ink">
                       <span>
-                        <span x-show="lang==='es'">{s.es}</span>
-                        <span x-show="lang==='en'">{s.en}</span>
+                        <span x-cloak x-show="lang==='es'">{s.es}</span>
+                        <span x-cloak x-show="lang==='en'">{s.en}</span>
                       </span>
                       <span class="font-mono text-[0.65rem] text-ink-ghost transition group-hover:text-flame">{(i + 1).toString().padStart(2, '0')}</span>
                     </a>
@@ -284,19 +284,19 @@ const sections = [
 
             <div class="border border-flame/30 bg-flame/5 p-6" style="border-radius: 20px;">
               <p class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-flame">
-                <span x-show="lang==='es'">Dudas</span>
-                <span x-show="lang==='en'">Questions</span>
+                <span x-cloak x-show="lang==='es'">Dudas</span>
+                <span x-cloak x-show="lang==='en'">Questions</span>
               </p>
               <p class="mt-3 text-sm text-ink-muted">
-                <span x-show="lang==='es'">Escríbenos a </span>
-                <span x-show="lang==='en'">Drop us a line: </span>
+                <span x-cloak x-show="lang==='es'">Escríbenos a </span>
+                <span x-cloak x-show="lang==='en'">Drop us a line: </span>
                 <a href="mailto:santiago.moncada.dev@gmail.com" class="font-mono text-xs font-bold text-flame underline underline-offset-4">
                   santiago.moncada.dev@gmail.com
                 </a>
               </p>
               <p class="mt-3 text-xs text-ink-muted">
-                <span x-show="lang==='es'">O revisa el código en </span>
-                <span x-show="lang==='en'">Or read the code at </span>
+                <span x-cloak x-show="lang==='es'">O revisa el código en </span>
+                <span x-cloak x-show="lang==='en'">Or read the code at </span>
                 <a href="https://github.com/Moncada25/fun-phone" target="_blank" rel="noopener" class="font-mono text-xs font-bold text-flame underline underline-offset-4">
                   github.com/Moncada25/fun-phone
                 </a>
