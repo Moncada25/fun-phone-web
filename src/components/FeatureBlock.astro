@@ -4,28 +4,91 @@ export interface Props {
   titleEn?: string;
   bullets: string[];
   bulletsEn?: string[];
+  number?: string;
+  variant?: 'light' | 'dark' | 'flame';
+  category?: { es: string; en: string };
 }
-const { title, titleEn = title, bullets, bulletsEn = bullets } = Astro.props;
+
+const { title, titleEn = title, bullets, bulletsEn = bullets, number, variant = 'light', category } = Astro.props;
 ---
-<div class="group relative overflow-hidden rounded-2xl border border-neutral-200/60 bg-white/60 p-6 backdrop-blur transition-all duration-500 hover:-translate-y-1 hover:border-accent/20 hover:shadow-xl hover:shadow-accent/5 dark:border-white/[0.06] dark:bg-white/[0.02] dark:hover:border-accent/20 dark:hover:shadow-accent/10">
-  <div class="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-accent/5 transition-transform duration-700 group-hover:scale-150 dark:bg-accent/10"></div>
-  <div class="relative">
-    <div class="mb-4 flex items-start justify-between gap-4">
-      <div>
-        <h3 class="font-display text-lg font-bold text-neutral-900 dark:text-white">
-          <span x-show="lang==='es'">{title}</span>
-          <span x-show="lang==='en'">{titleEn}</span>
-        </h3>
-        <div class="mt-1.5 h-0.5 w-8 rounded-full bg-gradient-to-r from-accent to-electric transition-all duration-500 group-hover:w-16"></div>
-      </div>
-      <div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent transition-colors duration-300 group-hover:bg-accent group-hover:text-white dark:bg-accent/20">
-        <slot name="icon" />
-      </div>
-    </div>
-    <ul class="space-y-2 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+
+<article
+  class:list={[
+    'group relative flex h-full flex-col overflow-hidden border transition-all duration-500',
+    variant === 'dark' && 'border-ink bg-ink text-paper',
+    variant === 'flame' && 'border-flame bg-flame text-paper',
+    variant === 'light' && 'border-ink/15 bg-paper hover:border-ink',
+  ]}
+  style="border-radius: 20px;"
+>
+  <!-- Top meta strip -->
+  <header
+    class:list={[
+      'flex items-center justify-between border-b px-5 py-3 font-mono text-[0.65rem] font-bold uppercase tracking-[0.2em]',
+      variant === 'dark' && 'border-paper/15 text-paper/70',
+      variant === 'flame' && 'border-paper/20 text-paper/80',
+      variant === 'light' && 'border-ink/10 text-ink-ghost',
+    ]}
+  >
+    <span class="flex items-center gap-2">
+      {number && <span x-show={variant === 'light' ? "true" : "false"} class="text-flame">{number}</span>}
+      {number && <span class:list={[variant === 'dark' && 'text-flame', variant === 'flame' && 'text-paper']}>{number}</span>}
+      {category && (
+        <span>
+          <span x-show="lang==='es'">{category.es}</span>
+          <span x-show="lang==='en'">{category.en}</span>
+        </span>
+      )}
+    </span>
+    <span
+      class:list={[
+        'flex h-7 w-7 items-center justify-center rounded-full transition-transform duration-500 group-hover:rotate-[20deg]',
+        variant === 'light' && 'bg-ink/5 text-ink group-hover:bg-flame group-hover:text-paper',
+        variant === 'dark' && 'bg-paper/10 text-paper group-hover:bg-flame',
+        variant === 'flame' && 'bg-paper/20 text-paper group-hover:bg-ink',
+      ]}
+    >
+      <slot name="icon" />
+    </span>
+  </header>
+
+  <div class="flex flex-1 flex-col p-6">
+    <h3
+      class:list={[
+        'font-display-condensed text-2xl font-extrabold leading-tight tracking-tightest md:text-[1.7rem]',
+      ]}
+    >
+      <span x-show="lang==='es'">{title}</span>
+      <span x-show="lang==='en'">{titleEn}</span>
+    </h3>
+
+    <div
+      class:list={[
+        'mt-2 h-[2px] w-10 transition-all duration-500 group-hover:w-20',
+        variant === 'light' && 'bg-ink',
+        variant === 'dark' && 'bg-flame',
+        variant === 'flame' && 'bg-paper',
+      ]}
+    ></div>
+
+    <ul
+      class:list={[
+        'mt-5 flex-1 space-y-2.5 text-sm leading-relaxed',
+        variant === 'light' && 'text-ink-muted',
+        variant === 'dark' && 'text-paper/75',
+        variant === 'flame' && 'text-paper/85',
+      ]}
+    >
       {bullets.map((b, i) => (
         <li class="flex items-start gap-2.5">
-          <span class="mt-2 h-1 w-1 flex-shrink-0 rounded-full bg-accent/60"></span>
+          <span
+            class:list={[
+              'mt-2 h-1 w-1 flex-shrink-0 rounded-full',
+              variant === 'light' && 'bg-ink',
+              variant === 'dark' && 'bg-flame',
+              variant === 'flame' && 'bg-paper',
+            ]}
+          ></span>
           <span>
             <span x-show="lang==='es'">{b}</span>
             <span x-show="lang==='en'">{bulletsEn[i] ?? b}</span>
@@ -34,4 +97,4 @@ const { title, titleEn = title, bullets, bulletsEn = bullets } = Astro.props;
       ))}
     </ul>
   </div>
-</div>
+</article>
