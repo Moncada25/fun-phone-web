@@ -1,10 +1,12 @@
 import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   output: 'static',
-  integrations: [tailwind()],
   site: 'https://moncada25.github.io/fun-phone-web/',
   base: '/fun-phone-web/',
-  trailingSlash: 'always'
+  trailingSlash: 'always',
+  vite: {
+    plugins: [tailwindcss()],
+  },
 });
