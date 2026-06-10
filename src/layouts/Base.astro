@@ -31,7 +31,7 @@ const heroImg = ogImage || (base + 'assets/screenshots/favorites.png');
 ---
 
 <!DOCTYPE html>
-<html lang="es" x-data="{ lang: localStorage.getItem('lang') || (navigator.language && navigator.language.startsWith('es') ? 'es' : 'en') }" x-bind:lang="lang" class="scroll-smooth">
+<html lang="es" x-data="{ lang: localStorage.getItem('lang') || (navigator.language && navigator.language.startsWith('es') ? 'es' : 'en') }" x-bind:lang="lang" @lang.window="lang = $event.detail" class="scroll-smooth">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
