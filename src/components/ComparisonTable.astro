@@ -30,7 +30,7 @@ const stockCount = rows.filter(r => r.stock).length;
   <!-- Header row — proper 3-col grid aligned with body -->
   <div
     class="grid border-b border-ink/15 px-5 py-3 font-mono text-[0.65rem] font-bold uppercase tracking-[0.2em] text-ink-ghost bg-paper-soft"
-    style="grid-template-columns: 1fr 64px 64px;"
+    style="grid-template-columns: 1fr 120px 120px;"
   >
     <span>
       <span x-show="lang==='es'">Funcionalidad</span>
@@ -49,7 +49,7 @@ const stockCount = rows.filter(r => r.stock).length;
     {rows.map((row, i) => (
       <div
         class="grid items-center px-5 py-3.5 transition-colors hover:bg-ink/[0.03]"
-        style="grid-template-columns: 1fr 64px 64px; {i % 2 === 1 ? 'background-color: var(--paper-soft);' : ''}"
+        style="grid-template-columns: 1fr 120px 120px; {i % 2 === 1 ? 'background-color: var(--paper-soft);' : ''}"
       >
         <div class="flex items-center gap-3 pr-4">
           <span class="font-mono text-[0.65rem] text-ink-ghost">{(i + 1).toString().padStart(2, '0')}</span>
@@ -85,7 +85,7 @@ const stockCount = rows.filter(r => r.stock).length;
   </div>
 
   <!-- Score footer — 2 cols aligned 50/50 to the 2 rightmost table columns -->
-  <div class="grid border-t border-ink/15 bg-paper-soft" style="grid-template-columns: 1fr 128px;">
+  <div class="grid border-t border-ink/15 bg-paper-soft" style="grid-template-columns: 1fr 240px;">
     <div class="border-r border-ink/15 p-5">
       <p class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.18em] text-ink">
         <span x-show="lang==='es'">Resultado</span>

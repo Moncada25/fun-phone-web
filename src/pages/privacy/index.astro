@@ -25,34 +25,25 @@ const sections = [
   <!-- Hero: flame accent strip + matching page bg so it adapts in dark mode -->
   <section class="relative border-b border-ink/15 overflow-hidden">
     <div class="container-editorial py-20 md:py-28">
-      <div class="grid grid-cols-12 gap-6">
-        <div class="col-span-12 md:col-span-3 reveal">
-          <p class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-flame">Capítulo 01</p>
-          <p class="mt-2 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-ghost">
-            <span x-show="lang==='es'">El contrato</span>
-            <span x-show="lang==='en'">The contract</span>
-          </p>
-        </div>
-        <div class="col-span-12 md:col-span-9">
-          <h1 class="reveal text-balance font-display-condensed text-[3rem] font-extrabold leading-[0.92] tracking-tightest text-ink sm:text-[4.5rem] md:text-[6rem] lg:text-[7rem]">
-            <span x-show="lang==='es'">Política de </span>
-            <span x-show="lang==='en'">Privacy </span>
-            <span class="font-serif-italic text-flame">
-              <span x-show="lang==='es'">privacidad</span>
-              <span x-show="lang==='en'">policy</span>
-            </span>
-          </h1>
-          <p class="mt-6 max-w-2xl text-pretty text-base text-ink-muted md:text-lg">
-            <span x-show="lang==='es'">Honesta, breve y sin tecnicismos innecesarios. Lo que recogemos, lo que no, y cómo mantener el control.</span>
-            <span x-show="lang==='en'">Honest, short, and free of unnecessary legalese. What we collect, what we don't, and how to stay in control.</span>
-          </p>
-          <div class="mt-8 flex flex-wrap items-center gap-4">
-            <PrivacyBadge />
-            <span class="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-ink-ghost">
-              <span x-show="lang==='es'">Actualizado: {lastUpdated.es}</span>
-              <span x-show="lang==='en'">Updated: {lastUpdated.en}</span>
-            </span>
-          </div>
+      <div class="mx-auto max-w-4xl text-center">
+        <h1 class="reveal text-balance font-display-condensed text-[3rem] font-extrabold leading-[0.92] tracking-tightest text-ink sm:text-[4.5rem] md:text-[6rem] lg:text-[7rem]">
+          <span x-show="lang==='es'">Política de </span>
+          <span x-show="lang==='en'">Privacy </span>
+          <span class="font-serif-italic text-flame">
+            <span x-show="lang==='es'">privacidad</span>
+            <span x-show="lang==='en'">policy</span>
+          </span>
+        </h1>
+        <p class="mt-6 max-w-2xl mx-auto text-pretty text-base text-ink-muted md:text-lg">
+          <span x-show="lang==='es'">Honesta, breve y sin tecnicismos innecesarios. Lo que recogemos, lo que no, y cómo mantener el control.</span>
+          <span x-show="lang==='en'">Honest, short, and free of unnecessary legalese. What we collect, what we don't, and how to stay in control.</span>
+        </p>
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+          <PrivacyBadge />
+          <span class="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-ink-ghost">
+            <span x-show="lang==='es'">Actualizado: {lastUpdated.es}</span>
+            <span x-show="lang==='en'">Updated: {lastUpdated.en}</span>
+          </span>
         </div>
       </div>
     </div>
@@ -63,33 +54,29 @@ const sections = [
     <div class="container-editorial">
       <div class="grid grid-cols-2 gap-px overflow-hidden border border-ink/15 bg-ink/15 md:grid-cols-4" style="border-radius: 20px;">
         <div class="bg-paper p-6 md:p-8">
-          <p class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.2em] text-ink-ghost">§01</p>
-          <p class="mt-3 font-display-condensed text-5xl font-extrabold leading-none tracking-tighter text-flame md:text-6xl">0</p>
-          <p class="mt-2 text-xs font-semibold text-ink-muted">
+          <p class="font-display-condensed text-5xl font-extrabold leading-none tracking-tighter text-flame md:text-6xl">0</p>
+          <p class="mt-3 text-xs font-semibold text-ink-muted">
             <span x-show="lang==='es'">Datos compartidos</span>
             <span x-show="lang==='en'">Data shared</span>
           </p>
         </div>
         <div class="bg-paper p-6 md:p-8">
-          <p class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.2em] text-ink-ghost">§02</p>
-          <p class="mt-3 font-display-condensed text-5xl font-extrabold leading-none tracking-tighter text-ink md:text-6xl">0</p>
-          <p class="mt-2 text-xs font-semibold text-ink-muted">
+          <p class="font-display-condensed text-5xl font-extrabold leading-none tracking-tighter text-ink md:text-6xl">0</p>
+          <p class="mt-3 text-xs font-semibold text-ink-muted">
             <span x-show="lang==='es'">Anuncios</span>
             <span x-show="lang==='en'">Ads</span>
           </p>
         </div>
         <div class="bg-paper p-6 md:p-8">
-          <p class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.2em] text-ink-ghost">§03</p>
-          <p class="mt-3 font-display-condensed text-5xl font-extrabold leading-none tracking-tighter text-ink md:text-6xl">100<span class="text-flame">%</span></p>
-          <p class="mt-2 text-xs font-semibold text-ink-muted">
+          <p class="font-display-condensed text-5xl font-extrabold leading-none tracking-tighter text-ink md:text-6xl">100<span class="text-flame">%</span></p>
+          <p class="mt-3 text-xs font-semibold text-ink-muted">
             <span x-show="lang==='es'">Almacenamiento local</span>
             <span x-show="lang==='en'">Local storage</span>
           </p>
         </div>
         <div class="bg-paper p-6 md:p-8">
-          <p class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.2em] text-ink-ghost">§04</p>
-          <p class="mt-3 font-display-condensed text-5xl font-extrabold leading-none tracking-tighter text-ink md:text-6xl">GPL<span class="text-flame">v3</span></p>
-          <p class="mt-2 text-xs font-semibold text-ink-muted">
+          <p class="font-display-condensed text-5xl font-extrabold leading-none tracking-tighter text-ink md:text-6xl">GPL<span class="text-flame">v3</span></p>
+          <p class="mt-3 text-xs font-semibold text-ink-muted">
             <span x-show="lang==='es'">Open source</span>
             <span x-show="lang==='en'">Open source</span>
           </p>
@@ -106,9 +93,7 @@ const sections = [
         <article class="col-span-12 space-y-12 lg:col-span-8">
           <!-- ABOUT -->
           <section id="about">
-            <header class="mb-4 flex items-end gap-3">
-              <span class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-flame">§ 01</span>
-              <span class="h-px flex-1 bg-ink/15"></span>
+            <header class="mb-4">
               <span class="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-ghost">
                 <span x-show="lang==='es'">Sobre la app</span>
                 <span x-show="lang==='en'">About</span>
@@ -127,9 +112,7 @@ const sections = [
 
           <!-- DATA -->
           <section id="data">
-            <header class="mb-4 flex items-end gap-3">
-              <span class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-flame">§ 02</span>
-              <span class="h-px flex-1 bg-ink/15"></span>
+            <header class="mb-4">
               <span class="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-ghost">
                 <span x-show="lang==='es'">Datos</span>
                 <span x-show="lang==='en'">Data</span>
@@ -163,9 +146,7 @@ const sections = [
 
           <!-- PURPOSE -->
           <section id="purpose">
-            <header class="mb-4 flex items-end gap-3">
-              <span class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-flame">§ 03</span>
-              <span class="h-px flex-1 bg-ink/15"></span>
+            <header class="mb-4">
               <span class="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-ghost">
                 <span x-show="lang==='es'">Finalidad</span>
                 <span x-show="lang==='en'">Purpose</span>
@@ -195,9 +176,7 @@ const sections = [
 
           <!-- STORAGE -->
           <section id="storage">
-            <header class="mb-4 flex items-end gap-3">
-              <span class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-flame">§ 04</span>
-              <span class="h-px flex-1 bg-ink/15"></span>
+            <header class="mb-4">
               <span class="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-ghost">
                 <span x-show="lang==='es'">Almacenamiento</span>
                 <span x-show="lang==='en'">Storage</span>
@@ -215,9 +194,7 @@ const sections = [
 
           <!-- SHARING -->
           <section id="sharing">
-            <header class="mb-4 flex items-end gap-3">
-              <span class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-flame">§ 05</span>
-              <span class="h-px flex-1 bg-ink/15"></span>
+            <header class="mb-4">
               <span class="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-ghost">
                 <span x-show="lang==='es'">Compartición</span>
                 <span x-show="lang==='en'">Sharing</span>
@@ -235,9 +212,7 @@ const sections = [
 
           <!-- PERMISSIONS -->
           <section id="permissions">
-            <header class="mb-4 flex items-end gap-3">
-              <span class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-flame">§ 06</span>
-              <span class="h-px flex-1 bg-ink/15"></span>
+            <header class="mb-4">
               <span class="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-ghost">
                 <span x-show="lang==='es'">Permisos</span>
                 <span x-show="lang==='en'">Permissions</span>
@@ -254,9 +229,7 @@ const sections = [
 
           <!-- CONTROLS -->
           <section id="controls">
-            <header class="mb-4 flex items-end gap-3">
-              <span class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-flame">§ 07</span>
-              <span class="h-px flex-1 bg-ink/15"></span>
+            <header class="mb-4">
               <span class="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-ghost">
                 <span x-show="lang==='es'">Controles</span>
                 <span x-show="lang==='en'">Controls</span>
@@ -289,43 +262,6 @@ const sections = [
         <!-- Aside -->
         <aside class="col-span-12 lg:col-span-4">
           <div class="sticky top-24 space-y-6">
-            <div class="border border-ink/15 bg-paper p-6" style="border-radius: 20px;">
-              <p class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-ink-ghost">
-                <span x-show="lang==='es'">Resumen</span>
-                <span x-show="lang==='en'">Summary</span>
-              </p>
-              <dl class="mt-5 space-y-3 text-sm">
-                <div class="flex items-baseline justify-between border-b border-ink/10 pb-2">
-                  <dt class="text-ink-muted">
-                    <span x-show="lang==='es'">Datos compartidos</span>
-                    <span x-show="lang==='en'">Data shared</span>
-                  </dt>
-                  <dd class="font-display-condensed text-2xl font-extrabold tracking-tighter text-flame">0</dd>
-                </div>
-                <div class="flex items-baseline justify-between border-b border-ink/10 pb-2">
-                  <dt class="text-ink-muted">
-                    <span x-show="lang==='es'">Almacenamiento</span>
-                    <span x-show="lang==='en'">Storage</span>
-                  </dt>
-                  <dd class="font-display-condensed text-2xl font-extrabold tracking-tighter text-ink">100%</dd>
-                </div>
-                <div class="flex items-baseline justify-between border-b border-ink/10 pb-2">
-                  <dt class="text-ink-muted">
-                    <span x-show="lang==='es'">Anuncios</span>
-                    <span x-show="lang==='en'">Ads</span>
-                  </dt>
-                  <dd class="font-display-condensed text-2xl font-extrabold tracking-tighter text-ink">0</dd>
-                </div>
-                <div class="flex items-baseline justify-between">
-                  <dt class="text-ink-muted">
-                    <span x-show="lang==='es'">Licencia</span>
-                    <span x-show="lang==='en'">License</span>
-                  </dt>
-                  <dd class="font-mono text-sm font-bold text-ink">GPL v3</dd>
-                </div>
-              </dl>
-            </div>
-
             <nav class="border border-ink/15 bg-paper p-6" style="border-radius: 20px;">
               <p class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-ink-ghost">
                 <span x-show="lang==='es'">En esta página</span>

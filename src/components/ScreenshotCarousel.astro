@@ -25,8 +25,8 @@ const carouselData = JSON.stringify(screenshots);
   <div class="mb-8 flex items-end justify-between border-b border-ink/15 pb-4">
     <div>
       <p class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-ink-ghost">
-        <span x-show="lang==='es'">Selección · Capítulo 03</span>
-        <span x-show="lang==='en'">Selection · Chapter 03</span>
+        <span x-show="lang==='es'">Selección</span>
+        <span x-show="lang==='en'">Selection</span>
       </p>
       <h3 class="mt-1.5 font-display-condensed text-2xl font-extrabold tracking-tighter md:text-3xl">
         <span x-show="lang==='es'">Una vuelta por la app</span>
@@ -104,11 +104,6 @@ const carouselData = JSON.stringify(screenshots);
           class="group relative block w-full overflow-hidden border border-ink/15 bg-paper-soft"
           style="border-radius: 28px; box-shadow: 0 30px 60px -30px rgba(10,10,10,0.25);"
         >
-          <div class="absolute left-5 top-5 z-10 inline-flex items-center gap-2 rounded-full border border-ink/15 bg-paper/90 px-2.5 py-1 font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em] text-ink-muted backdrop-blur">
-            <span class="blink-dot inline-block h-1.5 w-1.5 rounded-full bg-flame"></span>
-            <span x-show="lang==='es'">En vivo</span>
-            <span x-show="lang==='en'">Live</span>
-          </div>
           <div class="relative aspect-[9/16] w-full md:aspect-[4/5]">
             <img
               :src="screens[currentIndex].src"

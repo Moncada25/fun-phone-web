@@ -9,7 +9,6 @@ const v = '?v=4.0.0';
 
 const groups = [
   {
-    chapter: '03',
     title: { es: 'Comunicación', en: 'Communication' },
     blurb: { es: 'Todo lo que necesitas para hablar, llamar y organizar tus conexiones.', en: 'Everything you need to talk, call and organize your connections.' },
     items: [
@@ -18,7 +17,6 @@ const groups = [
     ]
   },
   {
-    chapter: '04',
     title: { es: 'Contactos', en: 'Contacts' },
     blurb: { es: 'Gestiona tu agenda con herramientas que otros dialers ni imaginan.', en: 'Manage your address book with tools other dialers can\'t even imagine.' },
     items: [
@@ -27,7 +25,6 @@ const groups = [
     ]
   },
   {
-    chapter: '05',
     title: { es: 'Productividad', en: 'Productivity' },
     blurb: { es: 'Notas, tareas y recordatorios en un único espacio privado.', en: 'Notes, tasks and reminders in a single private space.' },
     items: [
@@ -36,7 +33,6 @@ const groups = [
     ]
   },
   {
-    chapter: '06',
     title: { es: 'Seguridad y utilidades', en: 'Security & utilities' },
     blurb: { es: 'Tus secretos, cifrados en tu dispositivo. Punto.', en: 'Your secrets, encrypted on your device. Period.' },
     items: [
@@ -46,7 +42,6 @@ const groups = [
     ]
   },
   {
-    chapter: '07',
     title: { es: 'Estilo de vida y finanzas', en: 'Lifestyle & finances' },
     blurb: { es: 'Bienestar y dinero bajo el mismo techo cifrado.', en: 'Wellness and money under the same encrypted roof.' },
     items: [
@@ -55,7 +50,6 @@ const groups = [
     ]
   },
   {
-    chapter: '08',
     title: { es: 'Estudio y enfoque', en: 'Study & focus' },
     blurb: { es: 'Para gente que rinde, no para gente que procrastina.', en: 'For people who ship, not for people who procrastinate.' },
     items: [
@@ -64,7 +58,6 @@ const groups = [
     ]
   },
   {
-    chapter: '09',
     title: { es: 'Entretenimiento', en: 'Entertainment' },
     blurb: { es: 'Ríete un rato. Sin micropagos, sin trampas.', en: 'Laugh for a while. No microtransactions, no tricks.' },
     items: [
@@ -74,7 +67,6 @@ const groups = [
     ]
   },
   {
-    chapter: '10',
     title: { es: 'Código abierto', en: 'Open source' },
     blurb: { es: 'Auditable. Modificable. Fiable.', en: 'Auditable. Modifiable. Trustworthy.' },
     items: [
@@ -92,16 +84,8 @@ const groups = [
   <!-- Hero -->
   <section class="relative border-b border-ink/15">
     <div class="container-editorial py-20 md:py-28">
-      <div class="grid grid-cols-12 gap-6">
-        <div class="col-span-12 md:col-span-3 reveal">
-          <p class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-flame">Capítulo 01</p>
-          <p class="mt-2 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-ghost">
-            <span x-show="lang==='es'">El índice</span>
-            <span x-show="lang==='en'">The index</span>
-          </p>
-        </div>
-        <div class="col-span-12 md:col-span-9">
-          <h1 class="reveal text-balance font-display-condensed text-[3rem] font-extrabold leading-[0.92] tracking-tightest text-ink sm:text-[4.5rem] md:text-[6rem] lg:text-[7rem]">
+      <div class="mx-auto max-w-4xl text-center">
+        <h1 class="reveal text-balance font-display-condensed text-[3rem] font-extrabold leading-[0.92] tracking-tightest text-ink sm:text-[4.5rem] md:text-[6rem] lg:text-[7rem]">
             <span x-show="lang==='es'">Funciones que </span>
             <span x-show="lang==='en'">Features that </span>
             <span class="font-serif-italic text-flame">
@@ -113,11 +97,10 @@ const groups = [
             <span x-show="lang==='es'"> en algo más.</span>
             <span x-show="lang==='en'"> into something more.</span>
           </h1>
-          <p class="mt-6 max-w-2xl text-pretty text-base text-ink-muted md:text-lg">
+          <p class="mt-6 max-w-2xl mx-auto text-pretty text-base text-ink-muted md:text-lg">
             <span x-show="lang==='es'">Una taxonomía honesta de lo que hace Fun Phone. Sin funciones fantasma, sin promesas vacías.</span>
             <span x-show="lang==='en'">An honest taxonomy of what Fun Phone actually does. No ghost features, no empty promises.</span>
           </p>
-        </div>
       </div>
     </div>
   </section>
@@ -146,21 +129,15 @@ const groups = [
   {groups.map((group) => (
     <section class="relative border-b border-ink/15 py-16 md:py-24">
       <div class="container-editorial">
-        <div class="mb-10 grid grid-cols-12 items-end gap-6">
-          <div class="col-span-12 md:col-span-3">
-            <p class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-flame">Capítulo {group.chapter}</p>
-            <p class="mt-2 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-ghost">{group.title.es} / {group.title.en}</p>
-          </div>
-          <div class="col-span-12 md:col-span-9">
+        <div class="mb-10 mx-auto max-w-3xl text-center">
             <h2 class="text-balance font-display-condensed text-[2.25rem] font-extrabold leading-[0.95] tracking-tightest text-ink md:text-[3rem]">
               <span x-show="lang==='es'">{group.title.es}</span>
               <span x-show="lang==='en'">{group.title.en}</span>
             </h2>
-            <p class="mt-3 max-w-xl text-pretty text-sm text-ink-muted md:text-base">
+            <p class="mt-3 max-w-xl mx-auto text-pretty text-sm text-ink-muted md:text-base">
               <span x-show="lang==='es'">{group.blurb.es}</span>
               <span x-show="lang==='en'">{group.blurb.en}</span>
             </p>
-          </div>
         </div>
         <div class:list={['grid gap-4', group.items.length === 2 ? 'md:grid-cols-2' : 'md:grid-cols-2 lg:grid-cols-3']}>
           {group.items.map((item, idx) => (
@@ -205,12 +182,7 @@ const groups = [
   <!-- Comparison -->
   <section class="border-t border-ink/15 py-20 md:py-28">
     <div class="container-editorial">
-      <div class="mb-12 grid grid-cols-12 gap-6">
-        <div class="col-span-12 md:col-span-3">
-          <p class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-flame">Capítulo 09</p>
-          <p class="mt-2 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-ghost">vs. Stock Dialer</p>
-        </div>
-        <div class="col-span-12 md:col-span-9">
+      <div class="mb-12 mx-auto max-w-4xl text-center">
           <h2 class="text-balance font-display-condensed text-[2.5rem] font-extrabold leading-[0.96] tracking-tightest text-ink md:text-[4rem]">
             <span x-show="lang==='es'">El marcador de fábrica, </span>
             <span x-show="lang==='en'">The stock dialer, </span>
@@ -219,7 +191,6 @@ const groups = [
               <span x-show="lang==='en'">by the numbers.</span>
             </span>
           </h2>
-        </div>
       </div>
       <ComparisonTable />
     </div>
@@ -229,7 +200,6 @@ const groups = [
   <section class="border-b border-ink/15 py-20 md:py-28">
     <div class="container-editorial">
       <div class="mx-auto max-w-3xl text-center">
-        <p class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-flame">El último capítulo</p>
         <h2 class="mt-6 text-balance font-display-condensed text-[2.5rem] font-extrabold leading-[0.95] tracking-tightest text-ink md:text-[4rem]">
           <span x-show="lang==='es'">¿Listo para </span>
           <span x-show="lang==='en'">Ready to </span>

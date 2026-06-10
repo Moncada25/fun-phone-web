@@ -8,7 +8,7 @@ const isActive = (suffix: string) => {
 ---
 
 <header
-  class="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+  class="fixed top-3 left-0 right-0 z-50 transition-all duration-500 sm:top-4"
   x-data="navbarComponent()"
   x-init="init()"
   :class="scrolled ? 'translate-y-1' : 'translate-y-0'"
@@ -86,19 +86,6 @@ const isActive = (suffix: string) => {
           ></span>
           <span x-show="lang==='es'">Privacidad</span>
           <span x-show="lang==='en'">Privacy</span>
-        </a>
-        <a
-          href={baseUrl + 'roadmap/'}
-          class:list={[
-            'group relative flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[0.8rem] font-semibold transition-colors',
-            isActive('roadmap') ? 'text-paper' : 'text-ink-muted hover:text-ink'
-          ]}
-        >
-          <span
-            class="absolute inset-0 -z-10 rounded-full bg-ink transition-all duration-300"
-            class:list={[isActive('roadmap') ? 'scale-100 opacity-100' : 'scale-90 opacity-0 group-hover:scale-100 group-hover:opacity-100']}
-          ></span>
-          Roadmap
         </a>
       </nav>
 
@@ -202,9 +189,6 @@ const isActive = (suffix: string) => {
         <a href={baseUrl + 'privacy/'} x-on:click="closeMenu()" class="group flex items-center justify-between rounded-2xl px-4 py-3 text-base font-bold text-ink transition hover:bg-ink/5">
           <span x-show="lang==='es'">Privacidad</span><span x-show="lang==='en'">Privacy</span>
           <span class="font-mono text-xs text-ink-ghost group-hover:text-flame">03</span>
-        </a>
-        <a href={baseUrl + 'roadmap/'} x-on:click="closeMenu()" class="group flex items-center justify-between rounded-2xl px-4 py-3 text-base font-bold text-ink transition hover:bg-ink/5">
-          Roadmap <span class="font-mono text-xs text-ink-ghost group-hover:text-flame">04</span>
         </a>
       </nav>
       <div class="mt-4 flex gap-2">
