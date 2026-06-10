@@ -1,27 +1,32 @@
-# Fun Phone: Dialer & Contacts — Web
+# Fun Phone: Your Private Dialer — Web
 
 [![Deploy to GitHub Pages](https://github.com/Moncada25/fun-phone-web/actions/workflows/deploy.yml/badge.svg)](https://github.com/Moncada25/fun-phone-web/actions/workflows/deploy.yml)
 ![Astro](https://img.shields.io/badge/Astro-4.x-ff5d01?logo=astro&logoColor=white)
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.x-38b2ac?logo=tailwindcss&logoColor=white)
 ![PWA](https://img.shields.io/badge/PWA-Ready-brightgreen)
+![License](https://img.shields.io/badge/license-GPLv3-blue)
 
-Landing oficial, features y política de privacidad para la app Fun Phone. Sitio estático, rápido, bilingüe y optimizado para GitHub Pages.
+Landing oficial, features y política de privacidad para la app **Fun Phone v3.16.1** (★ 5.0 en Play Store). Sitio estático, bilingüe ES/EN, dark/light y optimizado para GitHub Pages.
 
 ## 🚀 Stack
 
-- Astro + TailwindCSS
+- Astro 4 + TailwindCSS 3
 - Salida 100% estática para GitHub Pages (base: `/fun-phone-web/`)
-- Dark/Light con auto‑detección y toggle
+- Dark/Light con auto-detección y toggle, sin flash
 - PWA (manifest + service worker)
+- Bricolage Grotesque + Instrument Serif + JetBrains Mono
+- Editorial design language ("The Fun Phone Codex")
 
-## ✨ Qué destaca en la app
+## ✨ Qué destaca en la app (v3.16.1)
 
-- Marcador avanzado: T9 rápido, historial segmentado y filtros, Dual‑SIM inteligente.
-- Contactos potentes: multi‑cuenta (Google/local), importar/exportar (vCard/CSV/JSON), deduplicación y bloqueo de spam.
-- Productividad: notas enriquecidas, checklists, recordatorios, grabadora de voz, protección biométrica, backup/restauración.
-- Seguridad: gestor y generador de contraseñas local (sin sincronización remota).
-- Extras: mini‑juegos, lienzo de pintura, calendario de festivos e utilidades QR (escanear/generar/compartir).
-- Personalización: temas claro/oscuro, paletas, fuentes y animaciones. Bilingüe ES/EN.
+- **Marcador**: T9 rápido, historial segmentado, Dual‑SIM, bloqueo de spam, contestación personalizable.
+- **Contactos**: multi‑cuenta (Google/local), importar/exportar (vCard/JSON), QR, anti-spam, deduplicación.
+- **Productividad**: notas con markdown, checklists, recordatorios, grabadora de voz, bloqueo biométrico.
+- **Seguridad**: gestor de contraseñas con cifrado Tink (sin sync obligatoria, opcional en la nube).
+- **Estilo de vida**: gestor de gastos, calendario menstrual, gestión académica, Pomodoro 25/5.
+- **Extras**: 10 mini‑juegos, lienzo de pintura, calendario de festivos (Nager.Date), QR, voz (STT/TTS).
+- **Personalización**: temas, paletas, fuentes, animaciones, widgets, atajos.
+- **Open source**: GPL v3, builds FOSS sin Firebase, código en github.com/Moncada25/fun-phone.
 
 Consulta la tabla comparativa en `src/pages/features/index.astro` para ver por qué Fun Phone supera al marcador estándar.
 

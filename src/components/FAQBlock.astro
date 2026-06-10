@@ -1,32 +1,52 @@
 ---
 const faqs = [
-  { id: 'default-app', qEs: '\u00bfC\u00f3mo la configuro como app predeterminada?', qEn: 'How do I set it as my default phone app?', aEs: 'Ve a Ajustes \u2192 Apps predeterminadas \u2192 Tel\u00e9fono y selecciona Fun Phone.', aEn: 'Go to Settings \u2192 Default apps \u2192 Phone and select Fun Phone.' },
-  { id: 'games', qEs: '\u00bfQu\u00e9 juegos incluye?', qEn: 'What games are included?', aEs: 'Fun Phone incluye 10 minijuegos cl\u00e1sicos: Fun Bird, Snake, Buscaminas, 2048, Puzzle, Tres en raya, Ahorcado, Breakout, Sudoku y Memory. Adem\u00e1s un estudio de pintura.', aEn: 'Fun Phone includes 10 classic mini-games: Fun Bird, Snake, Minesweeper, 2048, Puzzle, Tic-Tac-Toe, Hangman, Breakout, Sudoku, and Memory. Plus a Paint Studio.' },
-  { id: 'notes', qEs: '\u00bfPuedo tomar notas durante llamadas?', qEn: 'Can I take notes during calls?', aEs: 'S\u00ed, puedes crear notas r\u00e1pidas y recordatorios asociados a llamadas desde la Suite de Productividad.', aEn: 'Yes, you can create quick notes and call reminders from the Productivity Suite.' },
-  { id: 'passwords', qEs: '\u00bfIncluye gestor de contrase\u00f1as?', qEn: 'Does it include a password manager?', aEs: 'S\u00ed. Usa cifrado Tink, almacena todo localmente y protege el acceso con biometr\u00eda o PIN.', aEn: 'Yes. It uses Tink encryption, stores everything locally, and protects access with biometrics or PIN.' },
-  { id: 'customization', qEs: '\u00bfC\u00f3mo personalizo la app?', qEn: 'How can I customize the app?', aEs: 'En Ajustes \u2192 Personalizaci\u00f3n puedes cambiar temas, colores, fuentes, animaciones y modo oscuro.', aEn: 'Go to Settings \u2192 Personalization to change themes, colors, fonts, animations, and dark mode.' },
-  { id: 'ads', qEs: '\u00bfTiene anuncios?', qEn: 'Does it have ads?', aEs: 'No. Fun Phone es libre de anuncios invasivos.', aEn: 'No. Fun Phone is free from invasive ads.' },
-  { id: 'permissions', qEs: '\u00bfQu\u00e9 permisos solicita?', qEn: 'What permissions does it request?', aEs: 'Solo los necesarios para llamadas, contactos y funciones opcionales. Puedes revocarlos en Ajustes \u2192 Apps \u2192 Fun Phone.', aEn: 'Only those needed for calls, contacts, and optional features. Revoke anytime in Settings \u2192 Apps \u2192 Fun Phone.' },
-  { id: 'export', qEs: '\u00bfC\u00f3mo exporto mis contactos?', qEn: 'How do I export my contacts?', aEs: 'Desde contactos puedes importar/exportar a JSON/vCard o sincronizar con Google.', aEn: 'From contacts you can import/export to JSON/vCard or sync with Google.' },
-  { id: 'support', qEs: '\u00bfC\u00f3mo contacto soporte?', qEn: 'How do I reach support?', aEs: 'Escribe a santiago.moncada.dev@gmail.com o desde la secci\u00f3n Contacto en la app.', aEn: 'Email santiago.moncada.dev@gmail.com or use the in-app Contact section.' },
-  { id: 'data-sharing', qEs: '\u00bfSe comparten datos?', qEn: 'Is any data shared?', aEs: 'No. Seg\u00fan Google Play: \u201cNo se comparten datos con terceros\u201d y \u201cNo se recolectan datos\u201d.', aEn: 'No. Per Google Play: \u201cNo data shared with third parties\u201d and \u201cNo data collected.\u201d' },
-  { id: 'dual-sim', qEs: '\u00bfSoporta Dual-SIM?', qEn: 'Does it support Dual-SIM?', aEs: 'S\u00ed, con soporte VoLTE completo.', aEn: 'Yes, with full VoLTE support.' },
-  { id: 'languages', qEs: '\u00bfIdiomas soportados?', qEn: 'Supported languages?', aEs: 'Espa\u00f1ol e ingl\u00e9s.', aEn: 'Spanish and English.' },
+  { id: 'default-app', qEs: '¿Cómo la configuro como app predeterminada?', qEn: 'How do I set it as my default phone app?', aEs: 'Ve a Ajustes → Apps predeterminadas → Teléfono y selecciona Fun Phone.', aEn: 'Go to Settings → Default apps → Phone and select Fun Phone.' },
+  { id: 'games', qEs: '¿Qué juegos incluye?', qEn: 'What games are included?', aEs: 'Fun Phone incluye 10 minijuegos clásicos: Fun Bird, Snake, Buscaminas, 2048, Puzzle, Tres en raya, Ahorcado, Breakout, Sudoku y Memory. Además un estudio de pintura.', aEn: 'Fun Phone includes 10 classic mini-games: Fun Bird, Snake, Minesweeper, 2048, Puzzle, Tic-Tac-Toe, Hangman, Breakout, Sudoku, and Memory. Plus a Paint Studio.' },
+  { id: 'notes', qEs: '¿Puedo tomar notas durante llamadas?', qEn: 'Can I take notes during calls?', aEs: 'Sí, puedes crear notas rápidas y recordatorios asociados a llamadas desde la Suite de Productividad.', aEn: 'Yes, you can create quick notes and call reminders from the Productivity Suite.' },
+  { id: 'passwords', qEs: '¿Incluye gestor de contraseñas?', qEn: 'Does it include a password manager?', aEs: 'Sí. Usa cifrado Tink, almacena todo localmente y protege el acceso con biometría o PIN.', aEn: 'Yes. It uses Tink encryption, stores everything locally, and protects access with biometrics or PIN.' },
+  { id: 'customization', qEs: '¿Cómo personalizo la app?', qEn: 'How can I customize the app?', aEs: 'En Ajustes → Personalización puedes cambiar temas, colores, fuentes, animaciones y modo oscuro.', aEn: 'Go to Settings → Personalization to change themes, colors, fonts, animations, and dark mode.' },
+  { id: 'ads', qEs: '¿Tiene anuncios?', qEn: 'Does it have ads?', aEs: 'No. Fun Phone es libre de anuncios invasivos.', aEn: 'No. Fun Phone is free from invasive ads.' },
+  { id: 'permissions', qEs: '¿Qué permisos solicita?', qEn: 'What permissions does it request?', aEs: 'Solo los necesarios para llamadas, contactos y funciones opcionales. Puedes revocarlos en Ajustes → Apps → Fun Phone.', aEn: 'Only those needed for calls, contacts, and optional features. Revoke anytime in Settings → Apps → Fun Phone.' },
+  { id: 'export', qEs: '¿Cómo exporto mis contactos?', qEn: 'How do I export my contacts?', aEs: 'Desde contactos puedes importar/exportar a JSON/vCard o sincronizar con Google.', aEn: 'From contacts you can import/export to JSON/vCard or sync with Google.' },
+  { id: 'support', qEs: '¿Cómo contacto soporte?', qEn: 'How do I reach support?', aEs: 'Escribe a santiago.moncada.dev@gmail.com o desde la sección Contacto en la app.', aEn: 'Email santiago.moncada.dev@gmail.com or use the in-app Contact section.' },
+  { id: 'data-sharing', qEs: '¿Se comparten datos?', qEn: 'Is any data shared?', aEs: 'No. Según Google Play: “No se comparten datos con terceros” y “No se recolectan datos”.', aEn: 'No. Per Google Play: “No data shared with third parties” and “No data collected.”' },
+  { id: 'dual-sim', qEs: '¿Soporta Dual-SIM?', qEn: 'Does it support Dual-SIM?', aEs: 'Sí, con soporte VoLTE completo.', aEn: 'Yes, with full VoLTE support.' },
+  { id: 'languages', qEs: '¿Idiomas soportados?', qEn: 'Supported languages?', aEs: 'Español e inglés.', aEn: 'Spanish and English.' },
+  { id: 'foss', qEs: '¿Es código abierto?', qEn: 'Is it open source?', aEs: 'Sí. Fun Phone es GPL v3: el código está en github.com/Moncada25/fun-phone. Puedes auditarlo, compilar tu propia build (incluso sin Firebase) y contribuir.', aEn: 'Yes. Fun Phone is GPL v3: the code is at github.com/Moncada25/fun-phone. You can audit it, build your own version (even without Firebase) and contribute.' },
+  { id: 'academic', qEs: '¿Tiene gestión académica?', qEn: 'Is there academic management?', aEs: 'Sí. Desde v3.12 incluye Gestión Académica: materias, notas con promedios ponderados, tareas, asistencia y reportes.', aEn: 'Yes. From v3.12 it includes Academic Management: subjects, weighted grades, tasks, attendance and reports.' },
+  { id: 'pomodoro', qEs: '¿Tiene Pomodoro?', qEn: 'Is there a Pomodoro?', aEs: 'Sí. Timer configurable 25/5 con sonidos, notificaciones y soporte para segundo plano. Ideal para estudiar o trabajar.', aEn: 'Yes. Configurable 25/5 timer with sounds, notifications and background support. Ideal for study or work sessions.' },
+  { id: 'cloud', qEs: '¿Sincroniza con la nube?', qEn: 'Does it sync to the cloud?', aEs: 'Solo si tú lo activas. La sincronización en la nube (Firebase) es estrictamente opcional. Si prefieres 100% local, usa la build FOSS sin Firebase.', aEn: 'Only if you opt in. Cloud sync (Firebase) is strictly opt-in. If you prefer 100% local, use the FOSS build without Firebase.' },
 ];
 ---
+
 <div class="space-y-3" role="list">
-  {faqs.map((faq) => (
-    <details class="group rounded-xl border border-neutral-200/60 bg-white/60 backdrop-blur transition-all hover:border-accent/20 dark:border-white/[0.06] dark:bg-white/[0.02] dark:hover:border-accent/20" id={`faq-${faq.id}`}>
-      <summary class="flex cursor-pointer items-center justify-between gap-4 px-5 py-4 text-sm font-semibold text-neutral-800 transition select-none hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:text-neutral-100">
-        <span>
-          <span x-show="lang==='es'">{faq.qEs}</span>
-          <span x-show="lang==='en'">{faq.qEn}</span>
+  {faqs.map((faq, i) => (
+    <details
+      class:list={['group relative overflow-hidden border border-ink/15 bg-paper transition-all duration-300 open:border-ink open:shadow-[0_2px_0_0_var(--ink)]']}
+      style="border-radius: 16px;"
+      id={`faq-${faq.id}`}
+    >
+      <summary
+        class="flex cursor-pointer items-center justify-between gap-4 px-5 py-4 text-sm font-semibold text-ink select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-flame focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+      >
+        <span class="flex items-center gap-4">
+          <span class="font-mono text-[0.65rem] font-bold text-ink-ghost">{(i + 1).toString().padStart(2, '0')}</span>
+          <span class="text-pretty">
+            <span x-show="lang==='es'">{faq.qEs}</span>
+            <span x-show="lang==='en'">{faq.qEn}</span>
+          </span>
         </span>
-        <svg class="h-4 w-4 flex-shrink-0 text-neutral-400 transition-transform duration-300 group-open:rotate-180 group-open:text-accent" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        <span class="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full border border-ink/15 text-ink-muted transition-all duration-300 group-open:rotate-45 group-open:border-flame group-open:bg-flame group-open:text-paper">
+          <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 5v14M5 12h14"/>
+          </svg>
+        </span>
       </summary>
-      <div class="border-t border-neutral-100 px-5 py-4 text-sm leading-relaxed text-neutral-600 dark:border-white/5 dark:text-neutral-400">
-        <p x-show="lang==='es'">{faq.aEs}</p>
-        <p x-show="lang==='en'">{faq.aEn}</p>
+      <div class="border-t border-ink/10 px-5 py-4 text-sm leading-relaxed text-ink-muted">
+        <p class="text-pretty">
+          <span x-show="lang==='es'">{faq.aEs}</span>
+          <span x-show="lang==='en'">{faq.aEn}</span>
+        </p>
       </div>
     </details>
   ))}

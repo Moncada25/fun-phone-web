@@ -1,185 +1,310 @@
 ---
-import Navbar from '../../components/Navbar.astro';
-import Footer from '../../components/Footer.astro';
+import Base from '../../layouts/Base.astro';
 import PrivacyBadge from '../../components/PrivacyBadge.astro';
 import PermissionsBlock from '../../components/PermissionsBlock.astro';
 
 const base = import.meta.env.BASE_URL;
-const siteUrl = 'https://moncada25.github.io/fun-phone-web/privacy/';
-const lastUpdated = '3 sep 2025';
-const lastUpdatedEn = 'Sep 3, 2025';
+const lastUpdated = { es: '23 may 2026', en: 'May 23, 2026' };
+
+const sections = [
+  { id: 'about', es: 'Sobre la app', en: 'About' },
+  { id: 'data', es: 'Datos', en: 'Data' },
+  { id: 'purpose', es: 'Finalidad', en: 'Purpose' },
+  { id: 'storage', es: 'Almacenamiento', en: 'Storage' },
+  { id: 'sharing', es: 'Compartición', en: 'Sharing' },
+  { id: 'permissions', es: 'Permisos', en: 'Permissions' },
+  { id: 'controls', es: 'Controles', en: 'Controls' },
+];
 ---
-<!DOCTYPE html>
-<html lang="es" x-data="pageState()" x-on:lang.window="updateLang($event.detail)" x-bind:lang="lang" class="scroll-smooth">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Privacy Policy | Fun Phone: Dialer & Contacts</title>
-    <meta name="description" content="Fun Phone privacy policy: how we handle your data, permissions, storage, and controls available to you." />
-    <link rel="canonical" href={siteUrl} />
-    <link rel="alternate" href={siteUrl} hreflang="es" />
-    <link rel="alternate" href={siteUrl} hreflang="en" />
-    <meta name="robots" content="index, follow" />
-    <meta property="og:type" content="article" />
-    <meta property="og:site_name" content="Fun Phone" />
-    <meta property="og:title" content="Fun Phone Privacy Policy" />
-    <meta property="og:url" content={siteUrl} />
-    <meta property="og:locale" content="es_ES" />
-    <meta property="og:locale:alternate" content="en_US" />
-    <link rel="icon" type="image/png" href={base + 'assets/logo.png'} />
-    <link rel="apple-touch-icon" href={base + 'assets/logo.png'} />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-    <script>
-      const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
-      const saved = localStorage.getItem('darkMode');
-      const isDark = saved !== null ? saved === 'true' : prefersDark;
-      document.documentElement.classList.toggle('dark', isDark);
-      document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';
-    </script>
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <style>[x-cloak]{display:none!important}</style>
-  </head>
-  <body class="font-body bg-white text-neutral-900 antialiased dark:bg-midnight dark:text-neutral-100">
-    <Navbar />
-    <main id="main-content" class="mx-auto max-w-5xl px-6 pt-28 pb-20">
-      <header class="py-16 text-center">
-        <p class="text-xs font-bold uppercase tracking-[0.2em] text-accent">
-          <span x-show="lang==='es'">Privacidad real</span>
-          <span x-show="lang==='en'">Real privacy</span>
-        </p>
-        <h1 class="mt-4 font-display text-4xl font-black tracking-tight sm:text-5xl">
-          <span x-show="lang==='es'" class="text-neutral-900 dark:text-white">Pol&iacute;tica de <span class="text-accent">privacidad</span></span>
-          <span x-show="lang==='en'" class="text-neutral-900 dark:text-white">Privacy <span class="text-accent">policy</span></span>
+
+<Base
+  title="Privacy Policy — Fun Phone"
+  description="Fun Phone privacy policy: how we handle your data, permissions, storage, and controls available to you. 100% local, open source (GPL v3), zero ads."
+  canonical="https://moncada25.github.io/fun-phone-web/privacy/"
+>
+  <!-- Hero: flame accent strip + matching page bg so it adapts in dark mode -->
+  <section class="relative border-b border-ink/15 overflow-hidden">
+    <div class="container-editorial py-20 md:py-28">
+      <div class="mx-auto max-w-4xl text-center">
+        <h1 class="reveal text-balance font-display-condensed text-[3rem] font-extrabold leading-[0.92] tracking-tightest text-ink sm:text-[4.5rem] md:text-[6rem] lg:text-[7rem]">
+          <span x-show="lang==='es'">Política de </span>
+          <span x-show="lang==='en'">Privacy </span>
+          <span class="font-serif-italic text-flame">
+            <span x-show="lang==='es'">privacidad</span>
+            <span x-show="lang==='en'">policy</span>
+          </span>
         </h1>
-        <div class="mt-6 flex flex-col items-center gap-3">
+        <p class="mt-6 max-w-2xl mx-auto text-pretty text-base text-ink-muted md:text-lg">
+          <span x-show="lang==='es'">Honesta, breve y sin tecnicismos innecesarios. Lo que recogemos, lo que no, y cómo mantener el control.</span>
+          <span x-show="lang==='en'">Honest, short, and free of unnecessary legalese. What we collect, what we don't, and how to stay in control.</span>
+        </p>
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
           <PrivacyBadge />
-          <p class="text-sm text-neutral-500 dark:text-neutral-400">
-            <span x-show="lang==='es'"><b>Actualizado:</b> {lastUpdated}</span>
-            <span x-show="lang==='en'"><b>Updated:</b> {lastUpdatedEn}</span>
+          <span class="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-ink-ghost">
+            <span x-show="lang==='es'">Actualizado: {lastUpdated.es}</span>
+            <span x-show="lang==='en'">Updated: {lastUpdated.en}</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Big stats -->
+  <section class="border-b border-ink/15 py-10 md:py-14">
+    <div class="container-editorial">
+      <div class="grid grid-cols-2 gap-px overflow-hidden border border-ink/15 bg-ink/15 md:grid-cols-4" style="border-radius: 20px;">
+        <div class="bg-paper p-6 md:p-8">
+          <p class="font-display-condensed text-5xl font-extrabold leading-none tracking-tighter text-flame md:text-6xl">0</p>
+          <p class="mt-3 text-xs font-semibold text-ink-muted">
+            <span x-show="lang==='es'">Datos compartidos</span>
+            <span x-show="lang==='en'">Data shared</span>
           </p>
         </div>
-      </header>
+        <div class="bg-paper p-6 md:p-8">
+          <p class="font-display-condensed text-5xl font-extrabold leading-none tracking-tighter text-ink md:text-6xl">0</p>
+          <p class="mt-3 text-xs font-semibold text-ink-muted">
+            <span x-show="lang==='es'">Anuncios</span>
+            <span x-show="lang==='en'">Ads</span>
+          </p>
+        </div>
+        <div class="bg-paper p-6 md:p-8">
+          <p class="font-display-condensed text-5xl font-extrabold leading-none tracking-tighter text-ink md:text-6xl">100<span class="text-flame">%</span></p>
+          <p class="mt-3 text-xs font-semibold text-ink-muted">
+            <span x-show="lang==='es'">Almacenamiento local</span>
+            <span x-show="lang==='en'">Local storage</span>
+          </p>
+        </div>
+        <div class="bg-paper p-6 md:p-8">
+          <p class="font-display-condensed text-5xl font-extrabold leading-none tracking-tighter text-ink md:text-6xl">GPL<span class="text-flame">v3</span></p>
+          <p class="mt-3 text-xs font-semibold text-ink-muted">
+            <span x-show="lang==='es'">Open source</span>
+            <span x-show="lang==='en'">Open source</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-      <div class="grid gap-8 lg:grid-cols-[1fr_280px]">
-        <article class="space-y-6">
-          <section id="about" class="rounded-2xl border border-neutral-200/60 bg-white/60 p-6 backdrop-blur dark:border-white/[0.06] dark:bg-white/[0.02]">
-            <p class="text-sm leading-relaxed text-neutral-600 dark:text-neutral-400" x-show="lang==='es'">
-              <em>Fun Phone</em> es una app de tel&eacute;fono/dialer y contactos. Al configurarla como <b>app de Tel&eacute;fono predeterminada</b>, puedes realizar, contestar y gestionar llamadas y contactos.
-            </p>
-            <p class="text-sm leading-relaxed text-neutral-600 dark:text-neutral-400" x-show="lang==='en'">
-              <em>Fun Phone</em> is a dialer and contacts app. When set as your <b>default Phone app</b>, it lets you place, receive, and manage calls and contacts.
+  <!-- Body -->
+  <section class="py-16 md:py-24">
+    <div class="container-editorial">
+      <div class="grid grid-cols-12 gap-10">
+        <!-- Article -->
+        <article class="col-span-12 space-y-12 lg:col-span-8">
+          <!-- ABOUT -->
+          <section id="about">
+            <header class="mb-4">
+              <span class="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-ghost">
+                <span x-show="lang==='es'">Sobre la app</span>
+                <span x-show="lang==='en'">About</span>
+              </span>
+            </header>
+            <h2 class="text-balance font-display-condensed text-2xl font-extrabold leading-tight tracking-tightest text-ink md:text-3xl">
+              <span x-show="lang==='es'">Sobre Fun Phone</span>
+              <span x-show="lang==='en'">About Fun Phone</span>
+            </h2>
+            <p class="mt-4 max-w-2xl text-pretty text-sm leading-relaxed text-ink-muted md:text-base">
+              <em class="font-serif-italic text-flame">Fun Phone</em>
+              <span x-show="lang==='es'"> es una app de marcador y contactos. Al configurarla como <b>app de Teléfono predeterminada</b>, puedes realizar, contestar y gestionar llamadas y contactos. Es <b>open source</b> bajo licencia <b>GPL v3</b>: el código está disponible, es auditable y la comunidad puede revisarlo. Las builds FOSS (sin Firebase) no transmiten absolutamente nada a servidores externos.</span>
+              <span x-show="lang==='en'"> is a dialer and contacts app. When set as your <b>default Phone app</b>, it lets you place, receive, and manage calls and contacts. It's <b>open source</b> under the <b>GPL v3</b> license: the code is available, auditable, and community-reviewed. FOSS builds (without Firebase) transmit absolutely nothing to external servers.</span>
             </p>
           </section>
 
-          <section id="data" class="rounded-2xl border border-neutral-200/60 bg-white/60 p-6 backdrop-blur dark:border-white/[0.06] dark:bg-white/[0.02]">
-            <h2 class="font-display text-lg font-bold text-neutral-900 dark:text-white">
-              <span x-show="lang==='es'">1. Datos que tratamos</span>
-              <span x-show="lang==='en'">1. Data we process</span>
+          <!-- DATA -->
+          <section id="data">
+            <header class="mb-4">
+              <span class="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-ghost">
+                <span x-show="lang==='es'">Datos</span>
+                <span x-show="lang==='en'">Data</span>
+              </span>
+            </header>
+            <h2 class="text-balance font-display-condensed text-2xl font-extrabold leading-tight tracking-tightest text-ink md:text-3xl">
+              <span x-show="lang==='es'">Datos que tratamos</span>
+              <span x-show="lang==='en'">Data we process</span>
             </h2>
-            <ul class="mt-4 space-y-3 text-sm text-neutral-600 dark:text-neutral-400">
-              <li class="flex items-start gap-2"><span class="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-accent"></span><span><strong>Contacts</strong> <span x-show="lang==='es'">&mdash; leer, crear, editar y eliminar.</span><span x-show="lang==='en'">&mdash; read, create, edit, and delete.</span></span></li>
-              <li class="flex items-start gap-2"><span class="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-accent"></span><span><strong>Call log</strong> <span x-show="lang==='es'">&mdash; leer/escribir historial como app predeterminada.</span><span x-show="lang==='en'">&mdash; read/write history as default app.</span></span></li>
-              <li class="flex items-start gap-2"><span class="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-accent"></span><span><strong>Phone state</strong> <span x-show="lang==='es'">&mdash; identificar l&iacute;nea activa y estado.</span><span x-show="lang==='en'">&mdash; identify active line and state.</span></span></li>
+            <ul class="mt-5 space-y-3 text-sm text-ink-muted md:text-base">
+              {[
+                { name: 'Contacts', descEs: 'leer, crear, editar y eliminar.', descEn: 'read, create, edit, and delete.' },
+                { name: 'Call log', descEs: 'leer/escribir historial como app predeterminada.', descEn: 'read/write history as default app.' },
+                { name: 'Phone state', descEs: 'identificar línea activa y estado.', descEn: 'identify active line and state.' },
+                { name: 'Notes & Vault', descEs: 'almacenadas localmente, cifradas con Tink + Android Keystore.', descEn: 'stored locally, encrypted with Tink + Android Keystore.' },
+                { name: 'Expenses, cycle, academic', descEs: '100% locales, sin sincronización obligatoria.', descEn: '100% local, no mandatory sync.' },
+              ].map((item) => (
+                <li class="flex items-start gap-3 border-b border-ink/10 pb-3">
+                  <span class="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-flame"></span>
+                  <div>
+                    <p class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.18em] text-ink">{item.name}</p>
+                    <p class="mt-0.5 text-ink-muted">
+                      <span x-show="lang==='es'">{item.descEs}</span>
+                      <span x-show="lang==='en'">{item.descEn}</span>
+                    </p>
+                  </div>
+                </li>
+              ))}
             </ul>
           </section>
 
-          <section id="purpose" class="rounded-2xl border border-neutral-200/60 bg-white/60 p-6 backdrop-blur dark:border-white/[0.06] dark:bg-white/[0.02]">
-            <h2 class="font-display text-lg font-bold text-neutral-900 dark:text-white">
-              <span x-show="lang==='es'">2. Finalidad</span>
-              <span x-show="lang==='en'">2. Purpose</span>
+          <!-- PURPOSE -->
+          <section id="purpose">
+            <header class="mb-4">
+              <span class="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-ghost">
+                <span x-show="lang==='es'">Finalidad</span>
+                <span x-show="lang==='en'">Purpose</span>
+              </span>
+            </header>
+            <h2 class="text-balance font-display-condensed text-2xl font-extrabold leading-tight tracking-tightest text-ink md:text-3xl">
+              <span x-show="lang==='es'">Para qué usamos los datos</span>
+              <span x-show="lang==='en'">Why we use the data</span>
             </h2>
-            <ul class="mt-4 space-y-2 text-sm text-neutral-600 dark:text-neutral-400">
-              <li class="flex items-start gap-2" x-show="lang==='es'"><span class="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-accent"></span><span>Mostrar y gestionar llamadas recientes.</span></li>
-              <li class="flex items-start gap-2" x-show="lang==='en'"><span class="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-accent"></span><span>Display and manage recent calls.</span></li>
-              <li class="flex items-start gap-2" x-show="lang==='es'"><span class="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-accent"></span><span>Realizar o contestar llamadas.</span></li>
-              <li class="flex items-start gap-2" x-show="lang==='en'"><span class="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-accent"></span><span>Place or answer calls.</span></li>
-              <li class="flex items-start gap-2" x-show="lang==='es'"><span class="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-accent"></span><span>Sincronizar nombres con el historial.</span></li>
-              <li class="flex items-start gap-2" x-show="lang==='en'"><span class="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-accent"></span><span>Sync contact names with call history.</span></li>
+            <ul class="mt-5 space-y-2 text-sm text-ink-muted md:text-base">
+              {[
+                { es: 'Mostrar y gestionar llamadas recientes.', en: 'Display and manage recent calls.' },
+                { es: 'Realizar o contestar llamadas.', en: 'Place or answer calls.' },
+                { es: 'Sincronizar nombres con el historial.', en: 'Sync contact names with call history.' },
+                { es: 'Sincronización en la nube opcional (solo si la activas).', en: 'Optional cloud sync (only if you enable it).' },
+              ].map((item) => (
+                <li class="flex items-start gap-3">
+                  <svg class="mt-1 h-3.5 w-3.5 flex-shrink-0 text-flame" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+                  <span>
+                    <span x-show="lang==='es'">{item.es}</span>
+                    <span x-show="lang==='en'">{item.en}</span>
+                  </span>
+                </li>
+              ))}
             </ul>
           </section>
 
-          <section id="storage" class="rounded-2xl border border-neutral-200/60 bg-white/60 p-6 backdrop-blur dark:border-white/[0.06] dark:bg-white/[0.02]">
-            <h2 class="font-display text-lg font-bold text-neutral-900 dark:text-white">
-              <span x-show="lang==='es'">3. Almacenamiento</span>
-              <span x-show="lang==='en'">3. Storage</span>
+          <!-- STORAGE -->
+          <section id="storage">
+            <header class="mb-4">
+              <span class="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-ghost">
+                <span x-show="lang==='es'">Almacenamiento</span>
+                <span x-show="lang==='en'">Storage</span>
+              </span>
+            </header>
+            <h2 class="text-balance font-display-condensed text-2xl font-extrabold leading-tight tracking-tightest text-ink md:text-3xl">
+              <span x-show="lang==='es'">Dónde viven los datos</span>
+              <span x-show="lang==='en'">Where the data lives</span>
             </h2>
-            <p class="mt-3 text-sm text-neutral-600 dark:text-neutral-400" x-show="lang==='es'">Los datos permanecen en tu dispositivo Android. No se transfieren a servidores propios.</p>
-            <p class="mt-3 text-sm text-neutral-600 dark:text-neutral-400" x-show="lang==='en'">Data stays on your device. We do not transfer data to our servers.</p>
+            <p class="mt-4 max-w-2xl text-pretty text-sm leading-relaxed text-ink-muted md:text-base">
+              <span x-show="lang==='es'">Por defecto, los datos permanecen en tu dispositivo Android cifrados en Room + Tink. La sincronización en la nube es <b>estrictamente opcional</b> y se activa solo si la pides (Firebase Auth, Storage, Crashlytics, App Check). Builds FOSS no incluyen Firebase: cero datos salen del dispositivo. Jamás.</span>
+              <span x-show="lang==='en'">By default, data stays on your Android device, encrypted in Room + Tink. Cloud sync is <b>strictly opt-in</b> and only activates if you ask (Firebase Auth, Storage, Crashlytics, App Check). FOSS builds don't include Firebase: zero data leaves the device. Ever.</span>
+            </p>
           </section>
 
-          <section id="sharing" class="rounded-2xl border border-neutral-200/60 bg-white/60 p-6 backdrop-blur dark:border-white/[0.06] dark:bg-white/[0.02]">
-            <h2 class="font-display text-lg font-bold text-neutral-900 dark:text-white">
-              <span x-show="lang==='es'">4. Compartici&oacute;n</span>
-              <span x-show="lang==='en'">4. Sharing</span>
+          <!-- SHARING -->
+          <section id="sharing">
+            <header class="mb-4">
+              <span class="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-ghost">
+                <span x-show="lang==='es'">Compartición</span>
+                <span x-show="lang==='en'">Sharing</span>
+              </span>
+            </header>
+            <h2 class="text-balance font-display-condensed text-2xl font-extrabold leading-tight tracking-tightest text-ink md:text-3xl">
+              <span x-show="lang==='es'">Quién ve qué</span>
+              <span x-show="lang==='en'">Who sees what</span>
             </h2>
-            <p class="mt-3 text-sm text-neutral-600 dark:text-neutral-400" x-show="lang==='es'">No vendemos ni compartimos datos con terceros.</p>
-            <p class="mt-3 text-sm text-neutral-600 dark:text-neutral-400" x-show="lang==='en'">We do not sell or share data with third parties.</p>
+            <p class="mt-4 max-w-2xl text-pretty text-sm leading-relaxed text-ink-muted md:text-base">
+              <span x-show="lang==='es'">No vendemos ni compartimos datos con terceros. No construimos perfiles publicitarios. Google Play confirma: <b>"No se comparten datos con terceros"</b> y <b>"No se recolectan datos"</b>. Si en el futuro cambiamos esto, esta página se actualiza antes de que el código llegue a la tienda.</span>
+              <span x-show="lang==='en'">We don't sell or share data with third parties. We don't build advertising profiles. Google Play confirms: <b>"No data shared with third parties"</b> and <b>"No data collected"</b>. If that ever changes, this page updates before the code ships.</span>
+            </p>
           </section>
 
-          <section id="permissions" class="rounded-2xl border border-neutral-200/60 bg-white/60 p-6 backdrop-blur dark:border-white/[0.06] dark:bg-white/[0.02]">
-            <h2 class="mb-4 font-display text-lg font-bold text-neutral-900 dark:text-white">
-              <span x-show="lang==='es'">5. Permisos</span>
-              <span x-show="lang==='en'">5. Permissions</span>
+          <!-- PERMISSIONS -->
+          <section id="permissions">
+            <header class="mb-4">
+              <span class="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-ghost">
+                <span x-show="lang==='es'">Permisos</span>
+                <span x-show="lang==='en'">Permissions</span>
+              </span>
+            </header>
+            <h2 class="text-balance font-display-condensed text-2xl font-extrabold leading-tight tracking-tightest text-ink md:text-3xl">
+              <span x-show="lang==='es'">Permisos y por qué</span>
+              <span x-show="lang==='en'">Permissions & why</span>
             </h2>
-            <PermissionsBlock />
+            <div class="mt-5">
+              <PermissionsBlock />
+            </div>
           </section>
 
-          <section id="controls" class="rounded-2xl border border-neutral-200/60 bg-white/60 p-6 backdrop-blur dark:border-white/[0.06] dark:bg-white/[0.02]">
-            <h2 class="font-display text-lg font-bold text-neutral-900 dark:text-white">
-              <span x-show="lang==='es'">6. Tus controles</span>
-              <span x-show="lang==='en'">6. Your controls</span>
+          <!-- CONTROLS -->
+          <section id="controls">
+            <header class="mb-4">
+              <span class="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-ghost">
+                <span x-show="lang==='es'">Controles</span>
+                <span x-show="lang==='en'">Controls</span>
+              </span>
+            </header>
+            <h2 class="text-balance font-display-condensed text-2xl font-extrabold leading-tight tracking-tightest text-ink md:text-3xl">
+              <span x-show="lang==='es'">Lo que siempre puedes hacer</span>
+              <span x-show="lang==='en'">What you can always do</span>
             </h2>
-            <ul class="mt-4 space-y-2 text-sm text-neutral-600 dark:text-neutral-400">
-              <li class="flex items-start gap-2" x-show="lang==='es'"><span class="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-accent"></span><span>Revocar permisos: Ajustes &rarr; Apps &rarr; Fun Phone &rarr; Permisos.</span></li>
-              <li class="flex items-start gap-2" x-show="lang==='en'"><span class="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-accent"></span><span>Revoke permissions: Settings &rarr; Apps &rarr; Fun Phone &rarr; Permissions.</span></li>
-              <li class="flex items-start gap-2" x-show="lang==='es'"><span class="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-accent"></span><span>Quitar como predeterminado: Ajustes &rarr; Apps predeterminadas.</span></li>
-              <li class="flex items-start gap-2" x-show="lang==='en'"><span class="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-accent"></span><span>Remove as default: Settings &rarr; Default apps.</span></li>
-              <li class="flex items-start gap-2" x-show="lang==='es'"><span class="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-accent"></span><span>Eliminar datos: gestionar historial o desinstalar.</span></li>
-              <li class="flex items-start gap-2" x-show="lang==='en'"><span class="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-accent"></span><span>Delete data: manage call log or uninstall.</span></li>
+            <ul class="mt-5 space-y-2 text-sm text-ink-muted md:text-base">
+              {[
+                { es: 'Revocar permisos: Ajustes → Apps → Fun Phone → Permisos.', en: 'Revoke permissions: Settings → Apps → Fun Phone → Permissions.' },
+                { es: 'Quitar como predeterminado: Ajustes → Apps predeterminadas.', en: 'Remove as default: Settings → Default apps.' },
+                { es: 'Eliminar datos: gestiona el historial o desinstala.', en: 'Delete data: manage call log or uninstall.' },
+                { es: 'Auditar el código: github.com/Moncada25/fun-phone (GPL v3).', en: 'Audit the code: github.com/Moncada25/fun-phone (GPL v3).' },
+                { es: 'Compilar tu propia build FOSS sin Firebase.', en: 'Compile your own FOSS build without Firebase.' },
+              ].map((item) => (
+                <li class="flex items-start gap-3">
+                  <svg class="mt-1 h-3.5 w-3.5 flex-shrink-0 text-flame" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+                  <span>
+                    <span x-show="lang==='es'">{item.es}</span>
+                    <span x-show="lang==='en'">{item.en}</span>
+                  </span>
+                </li>
+              ))}
             </ul>
           </section>
         </article>
 
-        <aside class="sticky top-28 hidden h-fit space-y-6 rounded-2xl border border-neutral-200/60 bg-white/60 p-6 backdrop-blur dark:border-white/[0.06] dark:bg-white/[0.02] lg:block">
-          <h3 class="text-xs font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500">
-            <span x-show="lang==='es'">Resumen</span>
-            <span x-show="lang==='en'">Summary</span>
-          </h3>
-          <dl class="space-y-3 text-sm">
-            <div class="flex justify-between"><dt class="text-neutral-500 dark:text-neutral-400" x-show="lang==='es'">Datos compartidos</dt><dt class="text-neutral-500 dark:text-neutral-400" x-show="lang==='en'">Data shared</dt><dd class="font-bold text-accent">0</dd></div>
-            <div class="flex justify-between"><dt class="text-neutral-500 dark:text-neutral-400" x-show="lang==='es'">Almacenamiento</dt><dt class="text-neutral-500 dark:text-neutral-400" x-show="lang==='en'">Storage</dt><dd class="font-bold text-accent">100% local</dd></div>
-          </dl>
-          <nav class="space-y-1 text-sm" x-data="{ sections: [
-            { id:'about', es:'Sobre la app', en:'About' },
-            { id:'data', es:'Datos', en:'Data' },
-            { id:'purpose', es:'Finalidad', en:'Purpose' },
-            { id:'storage', es:'Almacenamiento', en:'Storage' },
-            { id:'sharing', es:'Compartici\u00f3n', en:'Sharing' },
-            { id:'permissions', es:'Permisos', en:'Permissions' },
-            { id:'controls', es:'Controles', en:'Controls' }
-          ]}">
-            <template x-for="s in sections" :key="s.id">
-              <a :href="'#'+s.id" class="block rounded-lg px-3 py-2 text-neutral-500 transition hover:bg-accent/5 hover:text-accent dark:text-neutral-400 dark:hover:bg-accent/10" x-text="lang==='es' ? s.es : s.en"></a>
-            </template>
-          </nav>
-          <div class="rounded-xl border border-dashed border-accent/20 bg-accent/5 p-4 text-xs text-neutral-500 dark:border-accent/30 dark:bg-accent/10 dark:text-neutral-400">
-            <p x-show="lang==='es'">Dudas: <a href="mailto:santiago.moncada.dev@gmail.com" class="text-accent hover:underline">santiago.moncada.dev@gmail.com</a></p>
-            <p x-show="lang==='en'">Questions: <a href="mailto:santiago.moncada.dev@gmail.com" class="text-accent hover:underline">santiago.moncada.dev@gmail.com</a></p>
+        <!-- Aside -->
+        <aside class="col-span-12 lg:col-span-4">
+          <div class="sticky top-24 space-y-6">
+            <nav class="border border-ink/15 bg-paper p-6" style="border-radius: 20px;">
+              <p class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-ink-ghost">
+                <span x-show="lang==='es'">En esta página</span>
+                <span x-show="lang==='en'">On this page</span>
+              </p>
+              <ul class="mt-4 space-y-1">
+                {sections.map((s, i) => (
+                  <li>
+                    <a href={`#${s.id}`} class="group flex items-center justify-between rounded-lg px-2.5 py-1.5 text-sm text-ink-muted transition hover:bg-ink/5 hover:text-ink">
+                      <span>
+                        <span x-show="lang==='es'">{s.es}</span>
+                        <span x-show="lang==='en'">{s.en}</span>
+                      </span>
+                      <span class="font-mono text-[0.65rem] text-ink-ghost transition group-hover:text-flame">{(i + 1).toString().padStart(2, '0')}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+
+            <div class="border border-flame/30 bg-flame/5 p-6" style="border-radius: 20px;">
+              <p class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-flame">
+                <span x-show="lang==='es'">Dudas</span>
+                <span x-show="lang==='en'">Questions</span>
+              </p>
+              <p class="mt-3 text-sm text-ink-muted">
+                <span x-show="lang==='es'">Escríbenos a </span>
+                <span x-show="lang==='en'">Drop us a line: </span>
+                <a href="mailto:santiago.moncada.dev@gmail.com" class="font-mono text-xs font-bold text-flame underline underline-offset-4">
+                  santiago.moncada.dev@gmail.com
+                </a>
+              </p>
+              <p class="mt-3 text-xs text-ink-muted">
+                <span x-show="lang==='es'">O revisa el código en </span>
+                <span x-show="lang==='en'">Or read the code at </span>
+                <a href="https://github.com/Moncada25/fun-phone" target="_blank" rel="noopener" class="font-mono text-xs font-bold text-flame underline underline-offset-4">
+                  github.com/Moncada25/fun-phone
+                </a>
+              </p>
+            </div>
           </div>
         </aside>
       </div>
-    </main>
-    <Footer />
-    <script is:inline>
-      function pageState() {
-        return {
-          lang: localStorage.getItem('lang') || (navigator.language?.startsWith('es') ? 'es' : 'en'),
-          init() { document.documentElement.setAttribute('data-lang', this.lang); },
-          updateLang(v) { if (!v) return; this.lang = v; document.documentElement.setAttribute('data-lang', this.lang); }
-        };
-      }
-    </script>
-  </body>
-</html>
+    </div>
+  </section>
+</Base>

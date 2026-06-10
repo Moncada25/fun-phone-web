@@ -4,80 +4,113 @@ const rows = [
   { es: 'Dual-SIM y VoLTE', en: 'Dual-SIM & VoLTE', fun: true, stock: true },
   { es: 'Gestor de contactos avanzado', en: 'Advanced contact manager', fun: true, stock: false },
   { es: 'Compartir contactos por QR', en: 'Share contacts via QR', fun: true, stock: false },
-  { es: 'Suite de productividad (notas, tareas)', en: 'Productivity suite (notes, tasks)', fun: true, stock: false },
-  { es: 'Gestor de contrase\u00f1as (Tink)', en: 'Password manager (Tink)', fun: true, stock: false },
+  { es: 'Bloqueo de spam y lista negra', en: 'Spam blocking & blacklist', fun: true, stock: false },
+  { es: 'Notas con markdown, checklists y audio', en: 'Markdown notes, checklists & audio', fun: true, stock: false },
+  { es: 'Gestor de contraseñas (Tink)', en: 'Password manager (Tink)', fun: true, stock: false },
   { es: 'Gestor de gastos', en: 'Expense manager', fun: true, stock: false },
   { es: 'Calendario menstrual', en: 'Menstrual calendar', fun: true, stock: false },
+  { es: 'Gestión académica', en: 'Academic management', fun: true, stock: false },
+  { es: 'Pomodoro 25/5', en: 'Pomodoro 25/5', fun: true, stock: false },
   { es: 'Herramientas de voz (TTS/STT)', en: 'Voice tools (TTS/STT)', fun: true, stock: false },
-  { es: '10 minijuegos cl\u00e1sicos', en: '10 classic mini-games', fun: true, stock: false },
+  { es: '10 minijuegos clásicos', en: '10 classic mini-games', fun: true, stock: false },
   { es: 'Estudio de pintura digital', en: 'Digital paint studio', fun: true, stock: false },
-  { es: 'Temas y personalizaci\u00f3n total', en: 'Full themes & customization', fun: true, stock: false },
+  { es: 'Calendario de festivos (Nager.Date)', en: 'Holiday calendar (Nager.Date)', fun: true, stock: false },
+  { es: 'Temas y personalización total', en: 'Full themes & customization', fun: true, stock: false },
   { es: 'Modo oscuro', en: 'Dark mode', fun: true, stock: true },
   { es: 'Sin anuncios', en: 'Ad-free', fun: true, stock: true },
   { es: 'Datos 100% locales', en: '100% local data', fun: true, stock: false },
-  { es: 'Calendario de festivos', en: 'Holiday calendar', fun: true, stock: false },
+  { es: 'Open source (GPL v3)', en: 'Open source (GPL v3)', fun: true, stock: false },
 ];
+
+const funCount = rows.filter(r => r.fun).length;
+const stockCount = rows.filter(r => r.stock).length;
 ---
-<div class="overflow-hidden rounded-2xl border border-neutral-200/60 dark:border-white/10">
-  <div class="overflow-x-auto">
-    <table class="w-full text-sm">
-      <thead>
-        <tr class="bg-gradient-to-r from-accent/5 to-electric/5 dark:from-accent/10 dark:to-electric/10">
-          <th class="px-5 py-4 text-left font-display text-xs font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
-            <span x-show="lang==='es'">Funcionalidad</span>
-            <span x-show="lang==='en'">Feature</span>
-          </th>
-          <th class="px-5 py-4 text-center">
-            <div class="inline-flex items-center gap-2 rounded-full bg-accent/10 px-3 py-1">
-              <span class="font-display text-xs font-bold text-accent">Fun Phone</span>
-            </div>
-          </th>
-          <th class="px-5 py-4 text-center">
-            <span class="font-display text-xs font-bold text-neutral-400 dark:text-neutral-500">
-              <span x-show="lang==='es'">Stock Dialer</span>
-              <span x-show="lang==='en'">Stock Dialer</span>
-            </span>
-          </th>
-        </tr>
-      </thead>
-      <tbody class="divide-y divide-neutral-100 dark:divide-white/5">
-        {rows.map((row, i) => (
-          <tr class:list={['transition-colors hover:bg-accent/[0.02] dark:hover:bg-accent/[0.04]', i % 2 === 0 ? 'bg-white dark:bg-transparent' : 'bg-neutral-50/50 dark:bg-white/[0.01]']}>
-            <td class="px-5 py-3.5 font-body text-neutral-700 dark:text-neutral-300">
-              <span x-show="lang==='es'">{row.es}</span>
-              <span x-show="lang==='en'">{row.en}</span>
-            </td>
-            <td class="px-5 py-3.5 text-center">
-              {row.fun ? (
-                <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-accent/10 text-accent">
-                  <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-                </span>
-              ) : (
-                <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-neutral-100 text-neutral-400 dark:bg-neutral-800 dark:text-neutral-500">
-                  <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M6 18L18 6M6 6l12 12"/></svg>
-                </span>
-              )}
-            </td>
-            <td class="px-5 py-3.5 text-center">
-              {row.stock ? (
-                <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-neutral-100 text-neutral-500 dark:bg-neutral-800 dark:text-neutral-400">
-                  <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-                </span>
-              ) : (
-                <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-red-50 text-red-400 dark:bg-red-900/20 dark:text-red-400/60">
-                  <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M6 18L18 6M6 6l12 12"/></svg>
-                </span>
-              )}
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+
+<div class="relative border border-ink/15 bg-paper overflow-hidden" style="border-radius: 24px;">
+  <!-- Header row — proper 3-col grid aligned with body -->
+  <div
+    class="grid border-b border-ink/15 px-5 py-3 font-mono text-[0.65rem] font-bold uppercase tracking-[0.2em] text-ink-ghost bg-paper-soft"
+    style="grid-template-columns: 1fr 120px 120px;"
+  >
+    <span>
+      <span x-show="lang==='es'">Funcionalidad</span>
+      <span x-show="lang==='en'">Feature</span>
+    </span>
+    <span class="text-center">
+      <span class="inline-block rounded-full bg-ink px-2 py-0.5 text-[0.6rem] text-paper">Fun Phone</span>
+    </span>
+    <span class="text-center">
+      <span class="inline-block rounded-full border border-ink/30 px-2 py-0.5 text-[0.6rem] text-ink-muted">Stock</span>
+    </span>
   </div>
-  <div class="border-t border-neutral-200/60 bg-gradient-to-r from-accent/5 to-electric/5 px-5 py-4 text-center dark:border-white/10 dark:from-accent/10 dark:to-electric/10">
-    <p class="text-sm font-semibold text-accent">
-      <span x-show="lang==='es'">Fun Phone: 16/16 funciones &middot; Stock Dialer: 3/16</span>
-      <span x-show="lang==='en'">Fun Phone: 16/16 features &middot; Stock Dialer: 3/16</span>
-    </p>
+
+  <!-- Body -->
+  <div class="divide-y divide-ink/10">
+    {rows.map((row, i) => (
+      <div
+        class="grid items-center px-5 py-3.5 transition-colors hover:bg-ink/[0.03]"
+        style="grid-template-columns: 1fr 120px 120px; {i % 2 === 1 ? 'background-color: var(--paper-soft);' : ''}"
+      >
+        <div class="flex items-center gap-3 pr-4">
+          <span class="font-mono text-[0.65rem] text-ink-ghost">{(i + 1).toString().padStart(2, '0')}</span>
+          <span class="font-medium text-ink">
+            <span x-show="lang==='es'">{row.es}</span>
+            <span x-show="lang==='en'">{row.en}</span>
+          </span>
+        </div>
+        <div class="flex items-center justify-center">
+          {row.fun ? (
+            <span class="inline-flex h-7 w-7 items-center justify-center rounded-full bg-flame text-paper shadow-sm shadow-flame/30">
+              <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+            </span>
+          ) : (
+            <span class="inline-flex h-7 w-7 items-center justify-center rounded-full border border-ink/20 text-ink-ghost">
+              <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M6 18L18 6"/></svg>
+            </span>
+          )}
+        </div>
+        <div class="flex items-center justify-center">
+          {row.stock ? (
+            <span class="inline-flex h-7 w-7 items-center justify-center rounded-full border border-ink/30 text-ink-muted">
+              <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+            </span>
+          ) : (
+            <span class="inline-flex h-7 w-7 items-center justify-center rounded-full border border-ink/15 text-ink-ghost">
+              <span class="font-mono text-[0.65rem]">—</span>
+            </span>
+          )}
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <!-- Score footer — 2 cols aligned 50/50 to the 2 rightmost table columns -->
+  <div class="grid border-t border-ink/15 bg-paper-soft" style="grid-template-columns: 1fr 240px;">
+    <div class="border-r border-ink/15 p-5">
+      <p class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.18em] text-ink">
+        <span x-show="lang==='es'">Resultado</span>
+        <span x-show="lang==='en'">Score</span>
+      </p>
+      <p class="mt-1 font-mono text-[0.65rem] uppercase tracking-[0.18em] text-ink-ghost">
+        <span x-show="lang==='es'">Funciones verificadas</span>
+        <span x-show="lang==='en'">Verified features</span>
+      </p>
+    </div>
+    <div class="grid grid-cols-2">
+      <div class="flex flex-col items-center justify-center border-r border-ink/15 p-3 text-center">
+        <div class="flex items-baseline gap-1">
+          <span class="font-display-condensed text-4xl font-extrabold leading-none tracking-tighter text-flame md:text-5xl">{funCount}</span>
+          <span class="font-mono text-[0.6rem] uppercase tracking-[0.16em] text-ink-ghost">/{rows.length}</span>
+        </div>
+        <p class="mt-1 font-mono text-[0.6rem] font-bold uppercase tracking-[0.18em] text-ink">Fun Phone</p>
+      </div>
+      <div class="flex flex-col items-center justify-center p-3 text-center">
+        <div class="flex items-baseline gap-1">
+          <span class="font-display-condensed text-4xl font-extrabold leading-none tracking-tighter text-ink-muted md:text-5xl">{stockCount}</span>
+          <span class="font-mono text-[0.6rem] uppercase tracking-[0.16em] text-ink-ghost">/{rows.length}</span>
+        </div>
+        <p class="mt-1 font-mono text-[0.6rem] font-bold uppercase tracking-[0.18em] text-ink-muted">Stock</p>
+      </div>
+    </div>
   </div>
 </div>
