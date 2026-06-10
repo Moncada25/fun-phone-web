@@ -42,12 +42,12 @@ const groups = [
           <span class="font-mono text-[0.65rem] font-bold text-ink-ghost">{(idx + 1).toString().padStart(2, '0')}</span>
           <div>
             <p class="text-sm font-semibold text-ink">
-              <span x-show="lang==='es'">{group.title.es}</span>
-              <span x-show="lang==='en'">{group.title.en}</span>
+              <span x-cloak x-show="lang==='es'">{group.title.es}</span>
+              <span x-cloak x-show="lang==='en'">{group.title.en}</span>
             </p>
             <p class="mt-0.5 text-xs text-ink-ghost">
-              <span x-show="lang==='es'">{group.description.es}</span>
-              <span x-show="lang==='en'">{group.description.en}</span>
+              <span x-cloak x-show="lang==='es'">{group.description.es}</span>
+              <span x-cloak x-show="lang==='en'">{group.description.en}</span>
             </p>
           </div>
         </div>
@@ -63,8 +63,8 @@ const groups = [
             <li class="grid grid-cols-[1fr_auto] items-center gap-3 px-5 py-3 text-sm">
               <code class="font-mono text-xs font-medium text-ink">{perm.name}</code>
               <span class="text-xs text-ink-muted">
-                <span x-show="lang==='es'">{perm.purpose.es}</span>
-                <span x-show="lang==='en'">{perm.purpose.en}</span>
+                <span x-cloak x-show="lang==='es'">{perm.purpose.es}</span>
+                <span x-cloak x-show="lang==='en'">{perm.purpose.en}</span>
               </span>
             </li>
           ))}
