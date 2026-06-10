@@ -3,7 +3,8 @@ const baseUrl = import.meta.env.BASE_URL;
 const path = Astro.url.pathname;
 const isActive = (suffix: string) => {
   const cleanPath = path.replace(baseUrl, '/');
-  return cleanPath === `/${suffix}` || cleanPath.startsWith(`/${suffix}`);
+  if (suffix === '') return cleanPath === '/' || cleanPath === '';
+  return cleanPath === `/${suffix}` || cleanPath.startsWith(`/${suffix}/`);
 };
 ---
 
@@ -19,8 +20,8 @@ const isActive = (suffix: string) => {
 
   <div class="container-editorial">
     <div
-      class="relative grid grid-cols-[1fr_auto] items-center gap-3 border border-ink/15 bg-paper/85 px-3 py-2.5 backdrop-blur-xl transition-all duration-500 sm:gap-6 sm:px-5 md:grid-cols-[1fr_auto_1fr]"
-      :class="scrolled ? 'border-ink/30 shadow-[0_2px_0_0_rgba(10,10,10,0.04)]' : 'border-ink/10'"
+      class="relative grid grid-cols-[1fr_auto] items-center gap-3 border border-ink/25 bg-paper/75 px-3 py-2.5 shadow-[0_2px_0_0_rgba(10,10,10,0.04)] backdrop-blur-2xl backdrop-saturate-150 transition-all duration-500 sm:gap-6 sm:px-5 md:grid-cols-[1fr_auto_1fr]"
+      :class="scrolled ? 'border-ink/40 bg-paper/85 shadow-[0_8px_24px_-8px_rgba(10,10,10,0.18)]' : 'border-ink/20 bg-paper/70'"
       style="border-radius: 999px;"
     >
       <!-- LEFT: logo -->
@@ -47,24 +48,38 @@ const isActive = (suffix: string) => {
       <!-- CENTER: nav -->
       <nav class="hidden items-center gap-0.5 md:flex" aria-label="Principal">
         <a
+          href={baseUrl}
+          class:list={[
+            'group relative flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[0.8rem] font-semibold transition-colors',
+            isActive('') ? 'text-paper' : 'text-ink-muted hover:text-paper'
+          ]}
+        >
+          <span
+            class="absolute inset-0 -z-10 rounded-full bg-ink transition-all duration-300"
+            class:list={[isActive('') ? 'scale-100 opacity-100' : 'scale-90 opacity-0 group-hover:scale-100 group-hover:opacity-100']}
+          ></span>
+          <span x-cloak x-show="lang==='es'">Inicio</span>
+          <span x-cloak x-show="lang==='en'">Home</span>
+        </a>
+        <a
           href={baseUrl + 'features/'}
           class:list={[
             'group relative flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[0.8rem] font-semibold transition-colors',
-            isActive('features') ? 'text-paper' : 'text-ink-muted group-hover:text-paper'
+            isActive('features') ? 'text-paper' : 'text-ink-muted hover:text-paper'
           ]}
         >
           <span
             class="absolute inset-0 -z-10 rounded-full bg-ink transition-all duration-300"
             class:list={[isActive('features') ? 'scale-100 opacity-100' : 'scale-90 opacity-0 group-hover:scale-100 group-hover:opacity-100']}
           ></span>
-          <span x-show="lang==='es'">Funciones</span>
-          <span x-show="lang==='en'">Features</span>
+          <span x-cloak x-show="lang==='es'">Funciones</span>
+          <span x-cloak x-show="lang==='en'">Features</span>
         </a>
         <a
           href={baseUrl + 'faq/'}
           class:list={[
             'group relative flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[0.8rem] font-semibold transition-colors',
-            isActive('faq') ? 'text-paper' : 'text-ink-muted group-hover:text-paper'
+            isActive('faq') ? 'text-paper' : 'text-ink-muted hover:text-paper'
           ]}
         >
           <span
@@ -77,15 +92,15 @@ const isActive = (suffix: string) => {
           href={baseUrl + 'privacy/'}
           class:list={[
             'group relative flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[0.8rem] font-semibold transition-colors',
-            isActive('privacy') ? 'text-paper' : 'text-ink-muted group-hover:text-paper'
+            isActive('privacy') ? 'text-paper' : 'text-ink-muted hover:text-paper'
           ]}
         >
           <span
             class="absolute inset-0 -z-10 rounded-full bg-ink transition-all duration-300"
             class:list={[isActive('privacy') ? 'scale-100 opacity-100' : 'scale-90 opacity-0 group-hover:scale-100 group-hover:opacity-100']}
           ></span>
-          <span x-show="lang==='es'">Privacidad</span>
-          <span x-show="lang==='en'">Privacy</span>
+          <span x-cloak x-show="lang==='es'">Privacidad</span>
+          <span x-cloak x-show="lang==='en'">Privacy</span>
         </a>
       </nav>
 
@@ -97,9 +112,9 @@ const isActive = (suffix: string) => {
           class="hidden h-9 items-center gap-1 rounded-full border border-ink/15 px-2.5 font-mono text-[0.7rem] font-bold tracking-wider text-ink-muted transition-colors hover:border-ink/40 hover:text-ink sm:flex"
           aria-label="Cambiar idioma"
         >
-          <span x-text="(lang || 'es').toUpperCase()"></span>
+          <span x-cloak x-text="(lang || 'es').toUpperCase()"></span>
           <span class="text-ink-ghost">/</span>
-          <span class="text-ink-ghost" x-text="(lang === 'es' ? 'EN' : 'ES')"></span>
+          <span x-cloak class="text-ink-ghost" x-text="(lang === 'es' ? 'EN' : 'ES')"></span>
         </button>
 
         <button
@@ -108,10 +123,10 @@ const isActive = (suffix: string) => {
           class="flex h-9 w-9 items-center justify-center rounded-full border border-ink/15 text-ink-muted transition-all hover:border-ink/40 hover:text-ink"
           :aria-label="isDark ? 'Modo claro' : 'Modo oscuro'"
         >
-          <svg x-show="!isDark" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <svg x-cloak x-show="!isDark" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
           </svg>
-          <svg x-show="isDark" x-cloak xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <svg x-cloak x-show="isDark" x-cloak xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="4"/>
             <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/>
           </svg>
@@ -123,8 +138,8 @@ const isActive = (suffix: string) => {
           rel="noopener"
           class="group hidden h-9 items-center gap-1.5 rounded-full bg-ink pl-3 pr-1.5 text-[0.8rem] font-bold text-paper transition-all hover:-translate-y-0.5 hover:bg-flame sm:flex"
         >
-          <span x-show="lang==='es'">Instalar</span>
-          <span x-show="lang==='en'">Install</span>
+          <span x-cloak x-show="lang==='es'">Instalar</span>
+          <span x-cloak x-show="lang==='en'">Install</span>
           <span class="flex h-6 w-6 items-center justify-center rounded-full bg-paper text-ink transition-transform group-hover:rotate-[20deg]">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="currentColor">
               <path d="M5 4l14 8-14 8V4z"/>
@@ -140,8 +155,8 @@ const isActive = (suffix: string) => {
           aria-controls="mobile-menu"
           aria-label="Menú"
         >
-          <svg x-show="!menuOpen" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h12M4 17h16"/></svg>
-          <svg x-show="menuOpen" x-cloak class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M6 18L18 6"/></svg>
+          <svg x-cloak x-show="!menuOpen" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h12M4 17h16"/></svg>
+          <svg x-cloak x-show="menuOpen" x-cloak class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M6 18L18 6"/></svg>
         </button>
       </div>
     </div>
@@ -149,7 +164,7 @@ const isActive = (suffix: string) => {
 
   <!-- Mobile menu -->
   <div
-    x-show="menuOpen"
+    x-cloak x-show="menuOpen"
     x-cloak
     x-transition:enter="transition duration-300 ease-out"
     x-transition:enter-start="opacity-0"
@@ -179,28 +194,32 @@ const isActive = (suffix: string) => {
         </button>
       </div>
       <nav class="mt-4 flex flex-col gap-1">
-        <a href={baseUrl + 'features/'} x-on:click="closeMenu()" class="group flex items-center justify-between rounded-2xl px-4 py-3 text-base font-bold text-ink transition hover:bg-ink/5">
-          <span x-show="lang==='es'">Funciones</span><span x-show="lang==='en'">Features</span>
+        <a href={baseUrl} x-on:click="closeMenu()" class="group flex items-center justify-between rounded-2xl px-4 py-3 text-base font-bold text-ink transition hover:bg-ink/5">
+          <span><span x-cloak x-show="lang==='es'">Inicio</span><span x-cloak x-show="lang==='en'">Home</span></span>
           <span class="font-mono text-xs text-ink-ghost group-hover:text-flame">01</span>
         </a>
+        <a href={baseUrl + 'features/'} x-on:click="closeMenu()" class="group flex items-center justify-between rounded-2xl px-4 py-3 text-base font-bold text-ink transition hover:bg-ink/5">
+          <span><span x-cloak x-show="lang==='es'">Funciones</span><span x-cloak x-show="lang==='en'">Features</span></span>
+          <span class="font-mono text-xs text-ink-ghost group-hover:text-flame">02</span>
+        </a>
         <a href={baseUrl + 'faq/'} x-on:click="closeMenu()" class="group flex items-center justify-between rounded-2xl px-4 py-3 text-base font-bold text-ink transition hover:bg-ink/5">
-          FAQ <span class="font-mono text-xs text-ink-ghost group-hover:text-flame">02</span>
+          FAQ <span class="font-mono text-xs text-ink-ghost group-hover:text-flame">03</span>
         </a>
         <a href={baseUrl + 'privacy/'} x-on:click="closeMenu()" class="group flex items-center justify-between rounded-2xl px-4 py-3 text-base font-bold text-ink transition hover:bg-ink/5">
-          <span x-show="lang==='es'">Privacidad</span><span x-show="lang==='en'">Privacy</span>
-          <span class="font-mono text-xs text-ink-ghost group-hover:text-flame">03</span>
+          <span><span x-cloak x-show="lang==='es'">Privacidad</span><span x-cloak x-show="lang==='en'">Privacy</span></span>
+          <span class="font-mono text-xs text-ink-ghost group-hover:text-flame">04</span>
         </a>
       </nav>
       <div class="mt-4 flex gap-2">
         <button x-on:click="toggleLanguage(); closeMenu();" class="flex-1 rounded-full border border-ink/15 py-2.5 font-mono text-xs font-bold uppercase tracking-wider text-ink-muted">
-          <span x-text="lang === 'es' ? 'ES · Español' : 'EN · English'"></span>
+          <span x-cloak x-text="lang === 'es' ? 'ES · Español' : 'EN · English'"></span>
         </button>
         <button x-on:click="toggleTheme(); closeMenu();" class="flex-1 rounded-full border border-ink/15 py-2.5 font-mono text-xs font-bold uppercase tracking-wider text-ink-muted">
-          <span x-text="isDark ? (lang==='es' ? 'Claro' : 'Light') : (lang==='es' ? 'Oscuro' : 'Dark')"></span>
+          <span x-cloak x-text="isDark ? (lang==='es' ? 'Claro' : 'Light') : (lang==='es' ? 'Oscuro' : 'Dark')"></span>
         </button>
       </div>
       <a href="https://play.google.com/store/apps/details?id=com.bookverse.contacts" target="_blank" rel="noopener" x-on:click="closeMenu()" class="mt-3 flex items-center justify-center gap-2 rounded-full bg-ink py-3 text-sm font-bold text-paper hover:bg-flame">
-        <span x-show="lang==='es'">Instalar gratis</span><span x-show="lang==='en'">Install free</span>
+        <span x-cloak x-show="lang==='es'">Instalar gratis</span><span x-cloak x-show="lang==='en'">Install free</span>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="currentColor"><path d="M5 4l14 8-14 8V4z"/></svg>
       </a>
     </div>
@@ -219,6 +238,7 @@ const isActive = (suffix: string) => {
       })(),
       scrolled: false,
       init() {
+        this.scrolled = window.scrollY > 24;
         this.applyTheme();
         document.documentElement.setAttribute('data-lang', this.lang);
         document.documentElement.lang = this.lang;

@@ -128,8 +128,8 @@ const marqueeItems = [
         <div class="flex shrink-0 items-center gap-8 pr-8 font-display-condensed text-[1.5rem] font-extrabold uppercase leading-none tracking-tightest md:text-[2rem]">
           {marqueeItems.map((item) => (
             <Fragment>
-              <span class:list={[item.accent ? 'text-flame' : 'text-ink']} x-show={`lang==='es'`}>{item.es}</span>
-              <span class:list={[item.accent ? 'text-flame' : 'text-ink']} x-show={`lang==='en'`}>{item.en}</span>
+              <span class:list={[item.accent ? 'text-flame' : 'text-ink']} x-cloak x-show={`lang==='es'`}>{item.es}</span>
+              <span class:list={[item.accent ? 'text-flame' : 'text-ink']} x-cloak x-show={`lang==='en'`}>{item.en}</span>
               <span class="text-flame">✱</span>
             </Fragment>
           ))}
@@ -149,18 +149,14 @@ const marqueeItems = [
       <div class="grid grid-cols-12 gap-6 md:gap-10">
         <!-- LEFT META -->
         <div class="col-span-12 flex flex-col gap-4 md:col-span-3 reveal">
-          <p class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-ink-ghost">
-            <span x-show="lang==='es'">Android · v3.16.1 · Bookverse</span>
-            <span x-show="lang==='en'">Android · v3.16.1 · Bookverse</span>
-          </p>
           <div class="mt-4 flex items-center gap-2">
             <span class="flex h-2 w-2">
               <span class="absolute inline-flex h-2 w-2 animate-ping rounded-full bg-flame opacity-75"></span>
               <span class="relative inline-flex h-2 w-2 rounded-full bg-flame"></span>
             </span>
             <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em] text-ink">
-              <span x-show="lang==='es'">Gratis en Play Store · 5.0★</span>
-              <span x-show="lang==='en'">Free on Play Store · 5.0★</span>
+              <span x-cloak x-show="lang==='es'">Gratis en Play Store · 5.0★</span>
+              <span x-cloak x-show="lang==='en'">Free on Play Store · 5.0★</span>
             </span>
           </div>
         </div>
@@ -169,28 +165,28 @@ const marqueeItems = [
         <div class="col-span-12 md:col-span-9">
           <h1 class="reveal text-balance font-display-condensed text-[3rem] font-extrabold leading-[0.92] tracking-tightest text-ink sm:text-[4.5rem] md:text-[6.5rem] lg:text-[7.5rem]">
             <span class="block">
-              <span x-show="lang==='es'">Tu central</span>
-              <span x-show="lang==='en'">Your hub</span>
+              <span x-cloak x-show="lang==='es'">Tu central</span>
+              <span x-cloak x-show="lang==='en'">Your hub</span>
             </span>
             <span class="block">
-              <span x-show="lang==='es'">de </span>
-              <span x-show="lang==='en'">for </span>
+              <span x-cloak x-show="lang==='es'">de </span>
+              <span x-cloak x-show="lang==='en'">for </span>
               <span class="font-serif-italic text-flame">
-                <span x-show="lang==='es'">comunicación</span>
-                <span x-show="lang==='en'">communication</span>
+                <span x-cloak x-show="lang==='es'">comunicación</span>
+                <span x-cloak x-show="lang==='en'">communication</span>
               </span>
-            </span>
-            <span class="block">
               <span class="font-serif-italic text-ink">
-                <span x-show="lang==='es'">&amp;</span>
-                <span x-show="lang==='en'">&amp;</span>
+                <span x-cloak x-show="lang==='es'">&amp;</span>
+                <span x-cloak x-show="lang==='en'">&amp;</span>
               </span>
-              <span x-show="lang==='es'">productividad,</span>
-              <span x-show="lang==='en'">productivity,</span>
             </span>
             <span class="block">
-              <span x-show="lang==='es'">en una app.</span>
-              <span x-show="lang==='en'">in one app.</span>
+              <span x-cloak x-show="lang==='es'">productividad,</span>
+              <span x-cloak x-show="lang==='en'">productivity,</span>
+            </span>
+            <span class="block">
+              <span x-cloak x-show="lang==='es'">en una app.</span>
+              <span x-cloak x-show="lang==='en'">in one app.</span>
             </span>
           </h1>
         </div>
@@ -199,16 +195,16 @@ const marqueeItems = [
         <div class="col-span-12 md:col-start-4 md:col-span-9 reveal">
           <div class="grid gap-8 md:grid-cols-2 md:items-end">
             <p class="max-w-md text-pretty text-base leading-relaxed text-ink-muted md:text-lg">
-              <span x-show="lang==='es'">Marcador avanzado, contactos, notas, gastos, contraseñas cifradas, Pomodoro, gestión académica, juegos y más. <b class="text-ink">Open source bajo GPL v3</b>. Sin anuncios. Sin datos compartidos.</span>
-              <span x-show="lang==='en'">Advanced dialer, contacts, notes, expenses, encrypted passwords, Pomodoro, academic management, games and more. <b class="text-ink">Open source under GPL v3</b>. No ads. No data sharing.</span>
+              <span x-cloak x-show="lang==='es'">Marcador avanzado, contactos, notas, gastos, contraseñas cifradas, Pomodoro, gestión académica, juegos y más. <b class="text-ink">Open source bajo GPL v3</b>. Sin anuncios. Sin datos compartidos.</span>
+              <span x-cloak x-show="lang==='en'">Advanced dialer, contacts, notes, expenses, encrypted passwords, Pomodoro, academic management, games and more. <b class="text-ink">Open source under GPL v3</b>. No ads. No data sharing.</span>
             </p>
             <div class="flex flex-wrap items-center gap-3">
               <a href="https://play.google.com/store/apps/details?id=com.bookverse.contacts" target="_blank" rel="noopener" class="btn-primary group">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4" fill="currentColor">
                   <path d="M3.609 1.814 13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893 2.302 2.302-10.937 6.333 8.635-8.635zm3.199-1.4 2.545 1.474c.879.51.879 1.69 0 2.2l-2.545 1.474-2.626-2.262 2.626-2.262zM5.864 2.658 16.802 8.99l-2.302 2.302L5.864 2.658z"/>
                 </svg>
-                <span x-show="lang==='es'">Instalar gratis</span>
-                <span x-show="lang==='en'">Install free</span>
+                <span x-cloak x-show="lang==='es'">Instalar gratis</span>
+                <span x-cloak x-show="lang==='en'">Install free</span>
                 <span class="ml-1 flex h-5 w-5 items-center justify-center rounded-full bg-paper/20 font-mono text-[0.6rem]">↗</span>
               </a>
               <a href="https://github.com/Moncada25/fun-phone" target="_blank" rel="noopener" class="btn-ghost group">
@@ -217,8 +213,8 @@ const marqueeItems = [
                 <span class="font-mono text-xs">★</span>
               </a>
               <a href={base + 'features/'} class="font-mono text-xs font-bold uppercase tracking-[0.18em] text-ink-muted underline-link">
-                <span x-show="lang==='es'">Ver funciones</span>
-                <span x-show="lang==='en'">See features</span>
+                <span x-cloak x-show="lang==='es'">Ver funciones</span>
+                <span x-cloak x-show="lang==='en'">See features</span>
                 <span>→</span>
               </a>
             </div>
@@ -233,12 +229,12 @@ const marqueeItems = [
           <div class="border-t border-ink/20 pt-4">
             <p class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.2em] text-ink-ghost">Fig. 01</p>
             <p class="mt-2 font-display text-base font-bold text-ink">
-              <span x-show="lang==='es'">La pantalla de Favoritos, recién salida del estudio.</span>
-              <span x-show="lang==='en'">The Favorites screen, fresh from the studio.</span>
+              <span x-cloak x-show="lang==='es'">La pantalla de Favoritos, recién salida del estudio.</span>
+              <span x-cloak x-show="lang==='en'">The Favorites screen, fresh from the studio.</span>
             </p>
             <p class="mt-1 text-xs text-ink-muted">
-              <span x-show="lang==='es'">Atajos a las personas que más importan. Sin pestañas escondidas, sin bloatware.</span>
-              <span x-show="lang==='en'">Shortcuts to the people who matter. No hidden tabs, no bloatware.</span>
+              <span x-cloak x-show="lang==='es'">Atajos a las personas que más importan. Sin pestañas escondidas, sin bloatware.</span>
+              <span x-cloak x-show="lang==='en'">Shortcuts to the people who matter. No hidden tabs, no bloatware.</span>
             </p>
           </div>
 
@@ -291,8 +287,8 @@ const marqueeItems = [
     <div class="container-editorial">
       <div class="mb-6 flex items-center gap-3">
         <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.2em] text-ink-ghost">
-          <span x-show="lang==='es'">Cifras</span>
-          <span x-show="lang==='en'">By the numbers</span>
+          <span x-cloak x-show="lang==='es'">Cifras</span>
+          <span x-cloak x-show="lang==='en'">By the numbers</span>
         </span>
         <span class="h-px flex-1 bg-ink/15"></span>
         <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.2em] text-ink-ghost">2026</span>
@@ -303,8 +299,8 @@ const marqueeItems = [
             <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.2em] text-ink-ghost transition-colors group-hover:text-paper/80">{(i + 1).toString().padStart(2, '0')}</span>
             <span class="font-display-condensed text-5xl font-extrabold leading-none tracking-tighter text-ink transition-colors group-hover:text-paper md:text-6xl">{stat.num}</span>
             <span class="mt-1 text-xs font-semibold text-ink-muted transition-colors group-hover:text-paper/85">
-              <span x-show="lang==='es'">{stat.label.es}</span>
-              <span x-show="lang==='en'">{stat.label.en}</span>
+              <span x-cloak x-show="lang==='es'">{stat.label.es}</span>
+              <span x-cloak x-show="lang==='en'">{stat.label.en}</span>
             </span>
           </div>
         ))}
@@ -319,31 +315,31 @@ const marqueeItems = [
     <div class="container-editorial">
       <div class="mx-auto max-w-5xl text-center reveal">
         <p class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-flame">
-          <span x-show="lang==='es'">Manifiesto</span>
-          <span x-show="lang==='en'">Manifesto</span>
+          <span x-cloak x-show="lang==='es'">Manifiesto</span>
+          <span x-cloak x-show="lang==='en'">Manifesto</span>
         </p>
         <blockquote class="mt-8 text-balance font-display-condensed text-[2.5rem] font-extrabold leading-[0.96] tracking-tightest text-ink md:text-[4rem] lg:text-[5rem]">
-          <span x-show="lang==='es'">Una app </span>
-          <span x-show="lang==='en'">An app </span>
+          <span x-cloak x-show="lang==='es'">Una app </span>
+          <span x-cloak x-show="lang==='en'">An app </span>
           <span class="font-serif-italic text-flame">
-            <span x-show="lang==='es'">open source</span>
-            <span x-show="lang==='en'">open source</span>
+            <span x-cloak x-show="lang==='es'">open source</span>
+            <span x-cloak x-show="lang==='en'">open source</span>
           </span>
-          <span x-show="lang==='es'"> que no te rastrea,</span>
-          <span x-show="lang==='en'"> that doesn't track you,</span>
+          <span x-cloak x-show="lang==='es'"> que no te rastrea,</span>
+          <span x-cloak x-show="lang==='en'"> that doesn't track you,</span>
           <br />
-          <span x-show="lang==='es'">que respeta tu batería </span>
-          <span x-show="lang==='en'">that respects your battery </span>
+          <span x-cloak x-show="lang==='es'">que respeta tu batería </span>
+          <span x-cloak x-show="lang==='en'">that respects your battery </span>
           <span class="font-serif-italic text-ink">
-            <span x-show="lang==='es'">y tu tiempo.</span>
-            <span x-show="lang==='en'">and your time.</span>
+            <span x-cloak x-show="lang==='es'">y tu tiempo.</span>
+            <span x-cloak x-show="lang==='en'">and your time.</span>
           </span>
         </blockquote>
         <div class="mt-10 flex items-center justify-center gap-3 font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em] text-ink-ghost">
           <span class="h-px w-12 bg-ink/30"></span>
           <span>
-            <span x-show="lang==='es'">— Fun Phone · GPL v3 · Bookverse</span>
-            <span x-show="lang==='en'">— Fun Phone · GPL v3 · Bookverse</span>
+            <span x-cloak x-show="lang==='es'">— Fun Phone · GPL v3 · Bookverse</span>
+            <span x-cloak x-show="lang==='en'">— Fun Phone · GPL v3 · Bookverse</span>
           </span>
           <span class="h-px w-12 bg-ink/30"></span>
         </div>
@@ -358,16 +354,16 @@ const marqueeItems = [
     <div class="container-editorial">
       <div class="mb-12 mx-auto max-w-4xl text-center">
         <h2 class="text-balance font-display-condensed text-[2.5rem] font-extrabold leading-[0.96] tracking-tightest text-ink md:text-[3.5rem] lg:text-[4.5rem]">
-          <span x-show="lang==='es'">Doce herramientas, </span>
-          <span x-show="lang==='en'">Twelve tools, </span>
+          <span x-cloak x-show="lang==='es'">Doce herramientas, </span>
+          <span x-cloak x-show="lang==='en'">Twelve tools, </span>
           <span class="font-serif-italic text-flame">
-            <span x-show="lang==='es'">una sola app.</span>
-            <span x-show="lang==='en'">one single app.</span>
+            <span x-cloak x-show="lang==='es'">una sola app.</span>
+            <span x-cloak x-show="lang==='en'">one single app.</span>
           </span>
         </h2>
         <p class="mt-4 max-w-2xl mx-auto text-pretty text-base text-ink-muted">
-          <span x-show="lang==='es'">Todo lo esencial para llamar, organizar, jugar y crear — sin cambiar de app cada cinco minutos.</span>
-          <span x-show="lang==='en'">Everything you need to call, organize, play and create — without bouncing between five different apps.</span>
+          <span x-cloak x-show="lang==='es'">Todo lo esencial para llamar, organizar, jugar y crear — sin cambiar de app cada cinco minutos.</span>
+          <span x-cloak x-show="lang==='en'">Everything you need to call, organize, play and create — without bouncing between five different apps.</span>
         </p>
       </div>
 
@@ -390,12 +386,12 @@ const marqueeItems = [
             </header>
             <div>
               <h3 class="font-display-condensed text-2xl font-extrabold leading-tight tracking-tightest text-ink">
-                <span x-show="lang==='es'">{tool.title.es}</span>
-                <span x-show="lang==='en'">{tool.title.en}</span>
+                <span x-cloak x-show="lang==='es'">{tool.title.es}</span>
+                <span x-cloak x-show="lang==='en'">{tool.title.en}</span>
               </h3>
               <p class="mt-2 text-sm leading-relaxed text-ink-muted">
-                <span x-show="lang==='es'">{tool.desc.es}</span>
-                <span x-show="lang==='en'">{tool.desc.en}</span>
+                <span x-cloak x-show="lang==='es'">{tool.desc.es}</span>
+                <span x-cloak x-show="lang==='en'">{tool.desc.en}</span>
               </p>
             </div>
             <div class:list={['mt-auto h-px transition-all duration-500 group-hover:w-full', tool.color === 'flame' ? 'w-12 bg-flame' : 'w-12 bg-ink/20 group-hover:bg-ink']}></div>
@@ -405,8 +401,8 @@ const marqueeItems = [
 
       <div class="mt-12 text-center">
         <a href={base + 'features/'} class="inline-flex items-center gap-2 border-b-2 border-ink pb-1 font-display text-base font-bold text-ink transition-colors hover:border-flame hover:text-flame">
-          <span x-show="lang==='es'">Ver el índice completo</span>
-          <span x-show="lang==='en'">See the full index</span>
+          <span x-cloak x-show="lang==='es'">Ver el índice completo</span>
+          <span x-cloak x-show="lang==='en'">See the full index</span>
           <span>→</span>
         </a>
       </div>
@@ -429,18 +425,18 @@ const marqueeItems = [
     <div class="container-editorial">
       <div class="mb-12 mx-auto max-w-4xl text-center">
         <h2 class="text-balance font-display-condensed text-[2.5rem] font-extrabold leading-[0.96] tracking-tightest text-ink md:text-[3.5rem] lg:text-[4.5rem]">
-          <span x-show="lang==='es'">Tu marcador </span>
-          <span x-show="lang==='en'">Your stock dialer </span>
+          <span x-cloak x-show="lang==='es'">Tu marcador </span>
+          <span x-cloak x-show="lang==='en'">Your stock dialer </span>
           <span class="font-serif-italic text-flame">
-            <span x-show="lang==='es'">solo marca.</span>
-            <span x-show="lang==='en'">just dials.</span>
+            <span x-cloak x-show="lang==='es'">solo marca.</span>
+            <span x-cloak x-show="lang==='en'">just dials.</span>
           </span>
           <br />
-          <span x-show="lang==='es'">Fun Phone </span>
-          <span x-show="lang==='en'">Fun Phone </span>
+          <span x-cloak x-show="lang==='es'">Fun Phone </span>
+          <span x-cloak x-show="lang==='en'">Fun Phone </span>
           <span class="font-serif-italic text-ink">
-            <span x-show="lang==='es'">hace mucho más.</span>
-            <span x-show="lang==='en'">does so much more.</span>
+            <span x-cloak x-show="lang==='es'">hace mucho más.</span>
+            <span x-cloak x-show="lang==='en'">does so much more.</span>
           </span>
         </h2>
       </div>
@@ -462,12 +458,12 @@ const marqueeItems = [
             </span>
           </div>
           <h3 class="font-display-condensed text-2xl font-extrabold leading-tight tracking-tightest text-ink">
-            <span x-show="lang==='es'">Privacidad real</span>
-            <span x-show="lang==='en'">Real privacy</span>
+            <span x-cloak x-show="lang==='es'">Privacidad real</span>
+            <span x-cloak x-show="lang==='en'">Real privacy</span>
           </h3>
           <p class="text-sm leading-relaxed text-ink-muted">
-            <span x-show="lang==='es'">Todos tus datos viven en tu dispositivo. Sin servidores, sin rastreo, sin anuncios. Punto.</span>
-            <span x-show="lang==='en'">All your data lives on your device. No servers, no tracking, no ads. Period.</span>
+            <span x-cloak x-show="lang==='es'">Todos tus datos viven en tu dispositivo. Sin servidores, sin rastreo, sin anuncios. Punto.</span>
+            <span x-cloak x-show="lang==='en'">All your data lives on your device. No servers, no tracking, no ads. Period.</span>
           </p>
         </article>
 
@@ -478,12 +474,12 @@ const marqueeItems = [
             </span>
           </div>
           <h3 class="font-display-condensed text-2xl font-extrabold leading-tight tracking-tightest">
-            <span x-show="lang==='es'">Open source</span>
-            <span x-show="lang==='en'">Open source</span>
+            <span x-cloak x-show="lang==='es'">Open source</span>
+            <span x-cloak x-show="lang==='en'">Open source</span>
           </h3>
           <p class="text-sm leading-relaxed text-paper/75 group-hover:text-paper/90">
-            <span x-show="lang==='es'">Código disponible bajo GPL v3. Builds FOSS sin Firebase, auditables y compilables por la comunidad.</span>
-            <span x-show="lang==='en'">Code available under GPL v3. FOSS builds without Firebase, auditable and community-compilable.</span>
+            <span x-cloak x-show="lang==='es'">Código disponible bajo GPL v3. Builds FOSS sin Firebase, auditables y compilables por la comunidad.</span>
+            <span x-cloak x-show="lang==='en'">Code available under GPL v3. FOSS builds without Firebase, auditable and community-compilable.</span>
           </p>
         </article>
 
@@ -494,12 +490,12 @@ const marqueeItems = [
             </span>
           </div>
           <h3 class="font-display-condensed text-2xl font-extrabold leading-tight tracking-tightest text-ink">
-            <span x-show="lang==='es'">A tu medida</span>
-            <span x-show="lang==='en'">Made for you</span>
+            <span x-cloak x-show="lang==='es'">A tu medida</span>
+            <span x-cloak x-show="lang==='en'">Made for you</span>
           </h3>
           <p class="text-sm leading-relaxed text-ink-muted">
-            <span x-show="lang==='es'">Personaliza temas, colores, fuentes, animaciones y widgets. Modo claro y oscuro. Bilingüe ES/EN.</span>
-            <span x-show="lang==='en'">Customize themes, colors, fonts, animations & widgets. Light and dark mode. Bilingual ES/EN.</span>
+            <span x-cloak x-show="lang==='es'">Personaliza temas, colores, fuentes, animaciones y widgets. Modo claro y oscuro. Bilingüe ES/EN.</span>
+            <span x-cloak x-show="lang==='en'">Customize themes, colors, fonts, animations & widgets. Light and dark mode. Bilingual ES/EN.</span>
           </p>
         </article>
       </div>
@@ -514,28 +510,28 @@ const marqueeItems = [
       <div class="grid grid-cols-12 gap-6">
         <div class="col-span-12 md:col-span-8">
           <h2 class="text-balance font-display-condensed text-[3rem] font-extrabold leading-[0.92] tracking-tightest md:text-[5rem] lg:text-[6.5rem]">
-            <span x-show="lang==='es'">Instala. Audita. </span>
-            <span x-show="lang==='en'">Install. Audit. </span>
+            <span x-cloak x-show="lang==='es'">Instala. Audita. </span>
+            <span x-cloak x-show="lang==='en'">Install. Audit. </span>
             <span class="font-serif-italic">
-              <span x-show="lang==='es'">Listo.</span>
-              <span x-show="lang==='en'">Done.</span>
+              <span x-cloak x-show="lang==='es'">Listo.</span>
+              <span x-cloak x-show="lang==='en'">Done.</span>
             </span>
           </h2>
         </div>
         <div class="col-span-12 flex flex-col justify-end gap-5 md:col-span-4">
           <p class="text-pretty text-base leading-relaxed text-paper/85 md:text-lg">
-            <span x-show="lang==='es'">Menos de cinco minutos para tener Fun Phone funcionando como app de teléfono predeterminada, con todos tus contactos a salvo.</span>
-            <span x-show="lang==='en'">Less than five minutes to set Fun Phone as your default dialer, with every contact kept safe and local.</span>
+            <span x-cloak x-show="lang==='es'">Menos de cinco minutos para tener Fun Phone funcionando como app de teléfono predeterminada, con todos tus contactos a salvo.</span>
+            <span x-cloak x-show="lang==='en'">Less than five minutes to set Fun Phone as your default dialer, with every contact kept safe and local.</span>
           </p>
           <div class="flex flex-wrap items-center gap-3">
             <a href="https://play.google.com/store/apps/details?id=com.bookverse.contacts" target="_blank" rel="noopener" class="group inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm font-bold text-paper transition-transform hover:-translate-y-0.5">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4" fill="currentColor"><path d="M3.609 1.814 13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893 2.302 2.302-10.937 6.333 8.635-8.635z"/></svg>
-              <span x-show="lang==='es'">Google Play</span>
-              <span x-show="lang==='en'">Google Play</span>
+              <span x-cloak x-show="lang==='es'">Google Play</span>
+              <span x-cloak x-show="lang==='en'">Google Play</span>
             </a>
             <a href={base + 'privacy/'} class="inline-flex items-center gap-2 rounded-full border border-paper/30 px-6 py-3.5 text-sm font-bold text-paper transition hover:bg-paper/10">
-              <span x-show="lang==='es'">Política de privacidad</span>
-              <span x-show="lang==='en'">Privacy policy</span>
+              <span x-cloak x-show="lang==='es'">Política de privacidad</span>
+              <span x-cloak x-show="lang==='en'">Privacy policy</span>
             </a>
           </div>
         </div>

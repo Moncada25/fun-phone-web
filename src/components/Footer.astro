@@ -56,31 +56,31 @@ const sections = [
       <div class="grid gap-12 border-b border-ink/15 pb-12 lg:grid-cols-[1.5fr_1fr]">
         <div>
           <p class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.18em] text-ink-ghost">
-            <span x-show="lang==='es'">Fun Phone · The Codeword</span>
-            <span x-show="lang==='en'">Fun Phone · The Codeword</span>
+            <span x-cloak x-show="lang==='es'">Fun Phone · The Codeword</span>
+            <span x-cloak x-show="lang==='en'">Fun Phone · The Codeword</span>
           </p>
           <h2 class="mt-4 max-w-xl text-balance font-display-condensed text-[2.5rem] font-extrabold leading-[0.92] tracking-tightest md:text-[3.5rem]">
             <span class="text-ink">
-              <span x-show="lang==='es'">Una app de teléfono </span>
-              <span x-show="lang==='en'">A phone app </span>
+              <span x-cloak x-show="lang==='es'">Una app de teléfono </span>
+              <span x-cloak x-show="lang==='en'">A phone app </span>
             </span>
             <span class="font-serif-italic text-flame">
-              <span x-show="lang==='es'">hecha a mano</span>
-              <span x-show="lang==='en'">hand-crafted</span>
+              <span x-cloak x-show="lang==='es'">hecha a mano</span>
+              <span x-cloak x-show="lang==='en'">hand-crafted</span>
             </span>
             <span class="text-ink">
-              <span x-show="lang==='es'"> y open source.</span>
-              <span x-show="lang==='en'"> and open source.</span>
+              <span x-cloak x-show="lang==='es'"> y open source.</span>
+              <span x-cloak x-show="lang==='en'"> and open source.</span>
             </span>
           </h2>
           <p class="mt-6 max-w-md text-pretty text-sm text-ink-muted md:text-base">
-            <span x-show="lang==='es'">Construida en Medellín · Distribuida en el mundo. GPL v3, sin telemetría oculta, sin patrones oscuros, sin servidores obligatorios.</span>
-            <span x-show="lang==='en'">Built in Medellín · Distributed globally. GPL v3, no hidden telemetry, no dark patterns, no mandatory servers.</span>
+            <span x-cloak x-show="lang==='es'">Construida en Medellín · Distribuida en el mundo. GPL v3, sin telemetría oculta, sin patrones oscuros, sin servidores obligatorios.</span>
+            <span x-cloak x-show="lang==='en'">Built in Medellín · Distributed globally. GPL v3, no hidden telemetry, no dark patterns, no mandatory servers.</span>
           </p>
           <div class="mt-8 flex flex-wrap items-center gap-3">
             <a href="https://play.google.com/store/apps/details?id=com.bookverse.contacts" target="_blank" rel="noopener" class="btn-primary group">
-              <span x-show="lang==='es'">Instalar en Google Play</span>
-              <span x-show="lang==='en'">Get it on Google Play</span>
+              <span x-cloak x-show="lang==='es'">Instalar en Google Play</span>
+              <span x-cloak x-show="lang==='en'">Get it on Google Play</span>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="currentColor"><path d="M5 4l14 8-14 8V4z"/></svg>
             </a>
             <a href="https://github.com/Moncada25/fun-phone" target="_blank" rel="noopener" class="btn-ghost group">
@@ -96,19 +96,19 @@ const sections = [
             <p class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em] text-ink-ghost">v3.16.1</p>
             <p class="mt-1 font-display-condensed text-3xl font-extrabold tracking-tighter text-ink">2026</p>
             <p class="mt-1 text-xs text-ink-ghost">
-              <span x-show="lang==='es'">Última edición</span>
-              <span x-show="lang==='en'">Latest edition</span>
+              <span x-cloak x-show="lang==='es'">Última edición</span>
+              <span x-cloak x-show="lang==='en'">Latest edition</span>
             </p>
           </div>
           <div class="border-l border-ink/15 pl-5">
             <p class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em] text-ink-ghost">
-              <span x-show="lang==='es'">Datos</span>
-              <span x-show="lang==='en'">Data</span>
+              <span x-cloak x-show="lang==='es'">Datos</span>
+              <span x-cloak x-show="lang==='en'">Data</span>
             </p>
             <p class="mt-1 font-display-condensed text-3xl font-extrabold tracking-tighter text-flame">0 KB</p>
             <p class="mt-1 text-xs text-ink-ghost">
-              <span x-show="lang==='es'">Compartidos con terceros</span>
-              <span x-show="lang==='en'">Shared with third parties</span>
+              <span x-cloak x-show="lang==='es'">Compartidos con terceros</span>
+              <span x-cloak x-show="lang==='en'">Shared with third parties</span>
             </p>
           </div>
         </div>
@@ -119,8 +119,8 @@ const sections = [
       {sections.map((col) => (
         <div>
           <h3 class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.18em] text-ink-ghost">
-            <span x-show={`lang==='es'`}>{col.title.es}</span>
-            <span x-show={`lang==='en'`}>{col.title.en}</span>
+            <span x-cloak x-show={`lang==='es'`}>{col.title.es}</span>
+            <span x-cloak x-show={`lang==='en'`}>{col.title.en}</span>
           </h3>
           <ul class="mt-5 space-y-3">
             {col.items.map((item) => (
@@ -134,8 +134,8 @@ const sections = [
                     item.mono ? 'font-mono text-xs text-ink-muted' : 'text-sm font-semibold text-ink'
                   ]}
                 >
-                  <span x-show={`lang==='es'`}>{item.es}</span>
-                  <span x-show={`lang==='en'`}>{item.en}</span>
+                  <span x-cloak x-show={`lang==='es'`}>{item.es}</span>
+                  <span x-cloak x-show={`lang==='en'`}>{item.en}</span>
                   {item.external && (
                     <svg class="h-3 w-3 opacity-50 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                       <path d="M7 17L17 7M7 7h10v10"/>
@@ -151,8 +151,8 @@ const sections = [
       <!-- Logo column -->
       <div>
         <h3 class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.18em] text-ink-ghost">
-          <span x-show="lang==='es'">Edición</span>
-          <span x-show="lang==='en'">Edition</span>
+          <span x-cloak x-show="lang==='es'">Edición</span>
+          <span x-cloak x-show="lang==='en'">Edition</span>
         </h3>
         <div class="mt-5 flex items-start gap-3">
           <div class="relative flex h-14 w-14 shrink-0 items-center justify-center border border-ink">
@@ -164,8 +164,8 @@ const sections = [
           </div>
         </div>
         <p class="mt-4 text-xs text-ink-muted">
-          <span x-show="lang==='es'">Por Bookverse · Colombia</span>
-          <span x-show="lang==='en'">By Bookverse · Colombia</span>
+          <span x-cloak x-show="lang==='es'">Por Bookverse · Colombia</span>
+          <span x-cloak x-show="lang==='en'">By Bookverse · Colombia</span>
         </p>
       </div>
     </div>

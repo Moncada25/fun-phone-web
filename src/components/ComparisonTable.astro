@@ -33,8 +33,8 @@ const stockCount = rows.filter(r => r.stock).length;
     style="grid-template-columns: 1fr 120px 120px;"
   >
     <span>
-      <span x-show="lang==='es'">Funcionalidad</span>
-      <span x-show="lang==='en'">Feature</span>
+      <span x-cloak x-show="lang==='es'">Funcionalidad</span>
+      <span x-cloak x-show="lang==='en'">Feature</span>
     </span>
     <span class="text-center">
       <span class="inline-block rounded-full bg-ink px-2 py-0.5 text-[0.6rem] text-paper">Fun Phone</span>
@@ -54,8 +54,8 @@ const stockCount = rows.filter(r => r.stock).length;
         <div class="flex items-center gap-3 pr-4">
           <span class="font-mono text-[0.65rem] text-ink-ghost">{(i + 1).toString().padStart(2, '0')}</span>
           <span class="font-medium text-ink">
-            <span x-show="lang==='es'">{row.es}</span>
-            <span x-show="lang==='en'">{row.en}</span>
+            <span x-cloak x-show="lang==='es'">{row.es}</span>
+            <span x-cloak x-show="lang==='en'">{row.en}</span>
           </span>
         </div>
         <div class="flex items-center justify-center">
@@ -88,12 +88,12 @@ const stockCount = rows.filter(r => r.stock).length;
   <div class="grid border-t border-ink/15 bg-paper-soft" style="grid-template-columns: 1fr 240px;">
     <div class="border-r border-ink/15 p-5">
       <p class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.18em] text-ink">
-        <span x-show="lang==='es'">Resultado</span>
-        <span x-show="lang==='en'">Score</span>
+        <span x-cloak x-show="lang==='es'">Resultado</span>
+        <span x-cloak x-show="lang==='en'">Score</span>
       </p>
       <p class="mt-1 font-mono text-[0.65rem] uppercase tracking-[0.18em] text-ink-ghost">
-        <span x-show="lang==='es'">Funciones verificadas</span>
-        <span x-show="lang==='en'">Verified features</span>
+        <span x-cloak x-show="lang==='es'">Funciones verificadas</span>
+        <span x-cloak x-show="lang==='en'">Verified features</span>
       </p>
     </div>
     <div class="grid grid-cols-2">
