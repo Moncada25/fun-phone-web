@@ -32,8 +32,8 @@ const faqs = [
         <span class="flex items-center gap-4">
           <span class="font-mono text-[0.65rem] font-bold text-ink-ghost">{(i + 1).toString().padStart(2, '0')}</span>
           <span class="text-pretty">
-            <span x-show="lang==='es'">{faq.qEs}</span>
-            <span x-show="lang==='en'">{faq.qEn}</span>
+            <span x-cloak x-show="lang==='es'">{faq.qEs}</span>
+            <span x-cloak x-show="lang==='en'">{faq.qEn}</span>
           </span>
         </span>
         <span class="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full border border-ink/15 text-ink-muted transition-all duration-300 group-open:rotate-45 group-open:border-flame group-open:bg-flame group-open:text-paper">
@@ -44,8 +44,8 @@ const faqs = [
       </summary>
       <div class="border-t border-ink/10 px-5 py-4 text-sm leading-relaxed text-ink-muted">
         <p class="text-pretty">
-          <span x-show="lang==='es'">{faq.aEs}</span>
-          <span x-show="lang==='en'">{faq.aEn}</span>
+          <span x-cloak x-show="lang==='es'">{faq.aEs}</span>
+          <span x-cloak x-show="lang==='en'">{faq.aEn}</span>
         </p>
       </div>
     </details>
