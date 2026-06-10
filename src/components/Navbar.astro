@@ -19,7 +19,7 @@ const isActive = (suffix: string) => {
 
   <div class="container-editorial">
     <div
-      class="relative grid grid-cols-[1fr_auto_1fr] items-center gap-3 border border-ink/15 bg-paper/85 px-3 py-2.5 backdrop-blur-xl transition-all duration-500 sm:gap-6 sm:px-5"
+      class="relative grid grid-cols-[1fr_auto] items-center gap-3 border border-ink/15 bg-paper/85 px-3 py-2.5 backdrop-blur-xl transition-all duration-500 sm:gap-6 sm:px-5 md:grid-cols-[1fr_auto_1fr]"
       :class="scrolled ? 'border-ink/30 shadow-[0_2px_0_0_rgba(10,10,10,0.04)]' : 'border-ink/10'"
       style="border-radius: 999px;"
     >
@@ -50,7 +50,7 @@ const isActive = (suffix: string) => {
           href={baseUrl + 'features/'}
           class:list={[
             'group relative flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[0.8rem] font-semibold transition-colors',
-            isActive('features') ? 'text-paper' : 'text-ink-muted hover:text-ink'
+            isActive('features') ? 'text-paper' : 'text-ink-muted group-hover:text-paper'
           ]}
         >
           <span
@@ -64,7 +64,7 @@ const isActive = (suffix: string) => {
           href={baseUrl + 'faq/'}
           class:list={[
             'group relative flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[0.8rem] font-semibold transition-colors',
-            isActive('faq') ? 'text-paper' : 'text-ink-muted hover:text-ink'
+            isActive('faq') ? 'text-paper' : 'text-ink-muted group-hover:text-paper'
           ]}
         >
           <span
@@ -77,7 +77,7 @@ const isActive = (suffix: string) => {
           href={baseUrl + 'privacy/'}
           class:list={[
             'group relative flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[0.8rem] font-semibold transition-colors',
-            isActive('privacy') ? 'text-paper' : 'text-ink-muted hover:text-ink'
+            isActive('privacy') ? 'text-paper' : 'text-ink-muted group-hover:text-paper'
           ]}
         >
           <span
@@ -90,7 +90,7 @@ const isActive = (suffix: string) => {
       </nav>
 
       <!-- RIGHT: actions -->
-      <div class="flex items-center justify-end gap-1.5">
+      <div class="col-start-2 flex items-center justify-end gap-1.5 md:col-start-3">
         <button
           type="button"
           x-on:click="toggleLanguage()"
@@ -158,12 +158,11 @@ const isActive = (suffix: string) => {
     x-transition:leave-start="opacity-100"
     x-transition:leave-end="opacity-0"
     class="fixed inset-0 z-40 md:hidden"
-    @click.self="closeMenu()"
     @keydown.escape.window="menuOpen && closeMenu()"
   >
-    <div class="absolute inset-0 bg-ink/40 backdrop-blur-sm"></div>
+    <div class="absolute inset-0 bg-ink/40 backdrop-blur-sm" @click="closeMenu()"></div>
     <div
-      class="absolute right-3 top-3 w-[min(360px,calc(100vw-24px))] origin-top-right border border-ink/15 bg-paper p-5 shadow-2xl"
+      class="absolute right-3 top-3 w-[min(360px,calc(100vw-1.5rem))] max-h-[calc(100vh-1.5rem)] overflow-y-auto origin-top-right border border-ink/15 bg-paper p-5 shadow-2xl"
       style="border-radius: 24px;"
       x-transition:enter="transition duration-300 ease-out"
       x-transition:enter-start="opacity-0 scale-95 -translate-y-2"
@@ -171,6 +170,7 @@ const isActive = (suffix: string) => {
       x-transition:leave="transition duration-200 ease-in"
       x-transition:leave-start="opacity-100 scale-100"
       x-transition:leave-end="opacity-0 scale-95"
+      @click.stop
     >
       <div class="flex items-center justify-between border-b border-ink/10 pb-3">
         <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em] text-ink-ghost">Menú</span>
