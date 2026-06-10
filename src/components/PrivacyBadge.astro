@@ -1,11 +1,17 @@
 ---
 ---
-<span class="inline-flex items-center gap-2.5 rounded-full border border-emerald-200/60 bg-emerald-50/80 px-4 py-2 text-sm font-semibold shadow-sm backdrop-blur dark:border-emerald-500/20 dark:bg-emerald-500/10" role="status">
-  <span class="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500 text-white">
-    <svg class="h-3 w-3" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+
+<div
+  class="inline-flex items-center gap-2.5 border border-ink bg-ink px-3.5 py-2 text-paper"
+  style="border-radius: 999px;"
+  role="status"
+>
+  <span class="relative flex h-2 w-2">
+    <span class="absolute inset-0 animate-ping rounded-full bg-flame opacity-75"></span>
+    <span class="relative inline-block h-2 w-2 rounded-full bg-flame"></span>
   </span>
-  <span class="text-emerald-700 dark:text-emerald-300">
-    <span x-show="lang==='es'">Sin datos compartidos &middot; Sin datos recopilados</span>
-    <span x-show="lang==='en'">No data shared &middot; No data collected</span>
+  <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em]">
+    <span x-show="lang==='es'">No data shared · No data collected</span>
+    <span x-show="lang==='en'">No data shared · No data collected</span>
   </span>
-</span>
+</div>

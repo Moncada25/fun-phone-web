@@ -3,119 +3,164 @@ const basePath = import.meta.env.BASE_URL + 'assets/screenshots/';
 const v = '?v=4.0.0';
 
 const screenshots = [
-  { src: `${basePath}favorites.png${v}`, alt: 'Fun Phone Favorites', labelEs: 'Conecta con las personas que m\u00e1s importan', labelEn: 'Connect with the people who matter most' },
-  { src: `${basePath}tools1.png${v}`, alt: 'Fun Phone Tools Hub', labelEs: 'Centro todo-en-uno de herramientas', labelEn: 'All-in-one tools hub' },
-  { src: `${basePath}tools2.png${v}`, alt: 'Fun Phone Password Manager', labelEs: 'Genera y protege claves localmente', labelEn: 'Generate and protect keys locally' },
-  { src: `${basePath}tools3.png${v}`, alt: 'Fun Phone Cycle Tracker', labelEs: 'Predicciones de ciclo y bienestar', labelEn: 'Cycle predictions and wellness' },
-  { src: `${basePath}dark_mode.png${v}`, alt: 'Fun Phone Dark Mode', labelEs: 'Personaliza cada detalle visual', labelEn: 'Personalize every visual detail' },
-  { src: `${basePath}games.png${v}`, alt: 'Fun Phone Games', labelEs: 'Juegos cl\u00e1sicos para cada momento', labelEn: 'Classic games for every moment' },
-  { src: `${basePath}notes.png${v}`, alt: 'Fun Phone Notes', labelEs: 'Captura ideas y recordatorios', labelEn: 'Capture ideas and reminders' },
-  { src: `${basePath}details.png${v}`, alt: 'Fun Phone Contact Details', labelEs: 'Detalles de contacto completos', labelEn: 'Complete contact details' },
+  { src: `${basePath}favorites.png${v}`, alt: 'Fun Phone Favorites', caption: { es: 'Favoritos · Conexiones que importan', en: 'Favorites · The connections that matter' }, col: { es: 'Pantalla principal', en: 'Main screen' }, num: '01' },
+  { src: `${basePath}tools1.png${v}`, alt: 'Fun Phone Tools Hub', caption: { es: 'Centro de herramientas · 15 utilidades en uno', en: 'Tools hub · 15 utilities in one' }, col: { es: 'Hub', en: 'Hub' }, num: '02' },
+  { src: `${basePath}tools2.png${v}`, alt: 'Fun Phone Password Manager', caption: { es: 'Vault · Cifrado Tink + biometría', en: 'Vault · Tink encryption + biometrics' }, col: { es: 'Seguridad', en: 'Security' }, num: '03' },
+  { src: `${basePath}tools3.png${v}`, alt: 'Fun Phone Cycle Tracker', caption: { es: 'Calendario menstrual · Predicciones privadas', en: 'Cycle tracker · Private predictions' }, col: { es: 'Bienestar', en: 'Wellness' }, num: '04' },
+  { src: `${basePath}dark_mode.png${v}`, alt: 'Fun Phone Dark Mode', caption: { es: 'Personalización · Modo oscuro y acentos', en: 'Personalization · Dark mode & accents' }, col: { es: 'Tema', en: 'Theme' }, num: '05' },
+  { src: `${basePath}games.png${v}`, alt: 'Fun Phone Games', caption: { es: '10 juegos · Snake, 2048, Sudoku…', en: '10 games · Snake, 2048, Sudoku…' }, col: { es: 'Juegos', en: 'Games' }, num: '06' },
+  { src: `${basePath}notes.png${v}`, alt: 'Fun Phone Notes', caption: { es: 'Notas · Recordatorios y checklists', en: 'Notes · Reminders & checklists' }, col: { es: 'Productividad', en: 'Productivity' }, num: '07' },
+  { src: `${basePath}details.png${v}`, alt: 'Fun Phone Contact Details', caption: { es: 'Detalle de contacto · Completo y editable', en: 'Contact detail · Complete & editable' }, col: { es: 'Contactos', en: 'Contacts' }, num: '08' },
 ];
 
 const carouselData = JSON.stringify(screenshots);
 ---
-<div
+
+<section
   class="relative"
-  x-data={`carousel(${carouselData})`}
+  x-data={`gallery(${carouselData})`}
   x-init="init()"
-  role="region"
-  aria-roledescription="carousel"
-  aria-label="App screenshots"
 >
-  <div class="relative overflow-hidden">
-    <div
-      class="flex gap-4 overflow-x-auto scroll-smooth pb-4 snap-x snap-mandatory scrollbar-hide"
-      x-ref="track"
-      @mouseenter="stopAuto()"
-      @mouseleave="startAuto()"
-      @touchstart.passive="tx=$event.changedTouches[0].clientX"
-      @touchend.passive="handleSwipe($event)"
-      style="scrollbar-width: none; -ms-overflow-style: none;"
-    >
-      {screenshots.map((shot, i) => (
+  <!-- Editorial header strip -->
+  <div class="mb-8 flex items-end justify-between border-b border-ink/15 pb-4">
+    <div>
+      <p class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-ink-ghost">
+        <span x-show="lang==='es'">Selección</span>
+        <span x-show="lang==='en'">Selection</span>
+      </p>
+      <h3 class="mt-1.5 font-display-condensed text-2xl font-extrabold tracking-tighter md:text-3xl">
+        <span x-show="lang==='es'">Una vuelta por la app</span>
+        <span x-show="lang==='en'">A walk through the app</span>
+      </h3>
+    </div>
+    <div class="hidden items-center gap-2 sm:flex">
+      <button type="button" x-on:click="prev()" class="flex h-10 w-10 items-center justify-center rounded-full border border-ink/15 text-ink-muted transition hover:border-ink hover:text-ink" aria-label="Anterior">
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <span class="font-mono text-xs font-bold text-ink-ghost">
+        <span x-text="String(currentIndex + 1).padStart(2, '0')"></span>
+        <span class="text-ink-ghost/50"> / </span>
+        <span x-text="String(screens.length).padStart(2, '0')"></span>
+      </span>
+      <button type="button" x-on:click="nxt()" class="flex h-10 w-10 items-center justify-center rounded-full border border-ink/15 text-ink-muted transition hover:border-ink hover:text-ink" aria-label="Siguiente">
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Stage -->
+  <div class="relative">
+    <div class="grid gap-6 md:grid-cols-[1fr_1.3fr] md:items-center">
+      <!-- Caption column -->
+      <div class="order-2 md:order-1">
+        <div class="space-y-6">
+          <div>
+            <span class="inline-flex items-center gap-2 font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-flame">
+              <span x-text="screens[currentIndex].num"></span>
+              <span class="h-px w-6 bg-flame"></span>
+              <span x-show="lang==='es'" x-text="screens[currentIndex].col.es"></span>
+              <span x-show="lang==='en'" x-text="screens[currentIndex].col.en"></span>
+            </span>
+            <p class="mt-4 max-w-md text-balance font-display-condensed text-2xl font-bold leading-tight tracking-tight md:text-3xl">
+              <span x-show="lang==='es'" x-text="screens[currentIndex].caption.es"></span>
+              <span x-show="lang==='en'" x-text="screens[currentIndex].caption.en"></span>
+            </p>
+          </div>
+
+          <!-- Thumbs strip -->
+          <div class="flex flex-wrap gap-2">
+            <template x-for="(s, i) in screens" :key="i">
+              <button
+                type="button"
+                x-on:click="scrollTo(i)"
+                class="h-12 w-9 overflow-hidden border transition-all"
+                :class="currentIndex === i ? 'border-flame ring-2 ring-flame/30' : 'border-ink/15 opacity-60 hover:opacity-100'"
+                :aria-label="`Screenshot ${i + 1}`"
+              >
+                <img :src="s.src" :alt="s.alt" class="h-full w-full object-cover" loading="lazy" />
+              </button>
+            </template>
+          </div>
+
+          <button
+            type="button"
+            x-on:click="openLightbox()"
+            class="inline-flex items-center gap-1.5 font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-ink underline underline-offset-4 hover:text-flame"
+          >
+            <span x-show="lang==='es'">Ver en grande</span>
+            <span x-show="lang==='en'">View fullscreen</span>
+            <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 3h7v7M21 3l-9 9M10 21H3v-7M3 21l9-9"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Featured image -->
+      <div class="order-1 md:order-2">
         <button
           type="button"
-          class="group relative flex-shrink-0 snap-center cursor-pointer"
-          data-idx={i}
-          @click="openLightbox(Number($el.dataset.idx))"
+          x-on:click="openLightbox()"
+          class="group relative block w-full overflow-hidden border border-ink/15 bg-paper-soft"
+          style="border-radius: 28px; box-shadow: 0 30px 60px -30px rgba(10,10,10,0.25);"
         >
-          <div class="relative overflow-hidden rounded-2xl border border-neutral-200/60 bg-gradient-to-b from-neutral-50 to-neutral-100 shadow-lg transition-all duration-500 hover:shadow-2xl hover:shadow-accent/10 dark:border-white/10 dark:from-neutral-800 dark:to-neutral-900">
+          <div class="relative aspect-[9/16] w-full md:aspect-[4/5]">
             <img
-              src={shot.src}
-              alt={shot.alt}
-              class="h-[380px] w-auto object-contain transition-transform duration-700 group-hover:scale-[1.02] sm:h-[440px]"
+              :src="screens[currentIndex].src"
+              :alt="screens[currentIndex].alt"
+              class="absolute inset-0 h-full w-full object-contain transition-transform duration-700 group-hover:scale-[1.02]"
               loading="lazy"
             />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
-            <div class="absolute bottom-0 left-0 right-0 translate-y-4 p-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-              <p class="text-center text-xs font-semibold text-white drop-shadow-lg" x-show="lang==='es'">{shot.labelEs}</p>
-              <p class="text-center text-xs font-semibold text-white drop-shadow-lg" x-show="lang==='en'">{shot.labelEn}</p>
-            </div>
           </div>
         </button>
-      ))}
+      </div>
     </div>
   </div>
 
-  <div class="mt-6 flex items-center justify-center gap-3">
-    <button type="button" @click="prev()" class="flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200/60 bg-white/80 text-neutral-600 shadow-sm backdrop-blur transition hover:border-accent/30 hover:text-accent dark:border-white/10 dark:bg-neutral-800/80 dark:text-neutral-300" aria-label="Previous">
-      <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+  <!-- Lightbox -->
+  <div
+    x-show="lightbox"
+    x-cloak
+    x-transition.opacity
+    class="fixed inset-0 z-[60] flex items-center justify-center bg-ink/95 p-4 backdrop-blur-sm"
+    x-on:click.self="closeLightbox()"
+    @keydown.escape.window="lightbox && closeLightbox()"
+    @keydown.right.window="lightbox && nxt()"
+    @keydown.left.window="lightbox && prev()"
+  >
+    <button type="button" x-on:click="closeLightbox()" class="absolute right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-paper/20 bg-paper/5 text-paper transition hover:bg-paper/10" aria-label="Cerrar">
+      <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M6 18L18 6"/></svg>
     </button>
-    <div class="flex gap-1.5">
-      {screenshots.map((_, i) => (
-        <button
-          type="button"
-          class="h-2 rounded-full transition-all duration-300"
-          data-dot={i}
-          :class={`currentIndex===${i} ? 'w-6 bg-accent' : 'w-2 bg-neutral-300 dark:bg-neutral-600 hover:bg-accent/50'`}
-          @click={`scrollTo(${i})`}
-          aria-label={`Screenshot ${i + 1}`}
-        ></button>
-      ))}
-    </div>
-    <button type="button" @click="nxt()" class="flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200/60 bg-white/80 text-neutral-600 shadow-sm backdrop-blur transition hover:border-accent/30 hover:text-accent dark:border-white/10 dark:bg-neutral-800/80 dark:text-neutral-300" aria-label="Next">
-      <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+    <button type="button" x-on:click="prev()" class="absolute left-4 top-1/2 z-10 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-paper/20 bg-paper/5 text-paper transition hover:bg-paper/10 sm:flex" aria-label="Anterior">
+      <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
     </button>
+    <button type="button" x-on:click="nxt()" class="absolute right-4 top-1/2 z-10 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-paper/20 bg-paper/5 text-paper transition hover:bg-paper/10 sm:flex" aria-label="Siguiente">
+      <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+    </button>
+    <figure class="max-h-[88vh] max-w-[92vw]">
+      <img :src="screens[currentIndex].src" :alt="screens[currentIndex].alt" class="max-h-[80vh] w-auto rounded-2xl object-contain" />
+      <figcaption class="mt-3 text-center font-mono text-xs uppercase tracking-[0.18em] text-paper/70">
+        <span class="text-flame" x-text="screens[currentIndex].num"></span>
+        · <span x-text="screens[currentIndex].col[lang]"></span>
+        · <span x-text="screens[currentIndex].caption[lang]"></span>
+      </figcaption>
+    </figure>
   </div>
-
-  <div x-show="lightbox" x-transition.opacity class="fixed inset-0 z-[60] flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm" @click.self="closeLightbox()" @keydown.escape.window="closeLightbox()" @keydown.right.window="lightbox && nxt()" @keydown.left.window="lightbox && prev()" x-cloak>
-    <button type="button" @click="closeLightbox()" class="absolute right-4 top-4 z-10 rounded-full bg-white/10 p-3 text-white transition hover:bg-white/20" aria-label="Close">
-      <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M6 18L18 6M6 6l12 12"/></svg>
-    </button>
-    <button type="button" @click="prev()" class="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white transition hover:bg-white/20" aria-label="Previous">
-      <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
-    </button>
-    <div class="max-h-[85vh] max-w-[90vw]">
-      <img :src="screens[currentIndex].src" :alt="screens[currentIndex].alt" class="max-h-[80vh] w-auto rounded-2xl object-contain shadow-2xl" />
-      <p class="mt-3 text-center text-sm font-semibold text-white/90">
-        <span x-show="lang==='es'" x-text="screens[currentIndex].labelEs"></span>
-        <span x-show="lang==='en'" x-text="screens[currentIndex].labelEn"></span>
-      </p>
-    </div>
-    <button type="button" @click="nxt()" class="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white transition hover:bg-white/20" aria-label="Next">
-      <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
-    </button>
-  </div>
-</div>
+</section>
 
 <script is:inline>
-function carousel(screens) {
-  return {
-    screens,
-    currentIndex: 0,
-    lightbox: false,
-    timer: null,
-    tx: null,
-    init() { this.startAuto(); },
-    startAuto() { if (this.timer) return; this.timer = setInterval(() => this.nxt(), 4000); },
-    stopAuto() { clearInterval(this.timer); this.timer = null; },
-    scrollTo(i) { this.currentIndex = i; const t = this.$refs.track; const el = t && t.children[i]; if (!el) return; const left = el.offsetLeft - (t.offsetWidth / 2) + (el.offsetWidth / 2); t.scrollTo({ left, behavior: 'smooth' }); },
-    nxt() { this.scrollTo((this.currentIndex + 1) % this.screens.length); },
-    prev() { this.scrollTo((this.currentIndex - 1 + this.screens.length) % this.screens.length); },
-    openLightbox(i) { this.currentIndex = i; this.lightbox = true; this.stopAuto(); document.documentElement.style.overflow = 'hidden'; },
-    closeLightbox() { this.lightbox = false; this.startAuto(); document.documentElement.style.overflow = ''; },
-    handleSwipe(e) { if (this.tx === null) return; const dx = e.changedTouches[0].clientX - this.tx; if (Math.abs(dx) > 40) dx < 0 ? this.nxt() : this.prev(); this.tx = null; }
-  };
-}
+  function gallery(screens) {
+    return {
+      screens,
+      currentIndex: 0,
+      lightbox: false,
+      tx: null,
+      init() {},
+      scrollTo(i) { this.currentIndex = i; },
+      nxt() { this.currentIndex = (this.currentIndex + 1) % this.screens.length; },
+      prev() { this.currentIndex = (this.currentIndex - 1 + this.screens.length) % this.screens.length; },
+      openLightbox() { this.lightbox = true; document.documentElement.style.overflow = 'hidden'; },
+      closeLightbox() { this.lightbox = false; document.documentElement.style.overflow = ''; },
+    };
+  }
 </script>
