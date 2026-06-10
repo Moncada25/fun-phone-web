@@ -1,327 +1,580 @@
 ---
-import Navbar from '../components/Navbar.astro';
-import Footer from '../components/Footer.astro';
-import StickyCTA from '../components/StickyCTA.astro';
-import PrivacyBadge from '../components/PrivacyBadge.astro';
+import Base from '../layouts/Base.astro';
 import ScreenshotCarousel from '../components/ScreenshotCarousel.astro';
 import ComparisonTable from '../components/ComparisonTable.astro';
 
-const siteUrl = 'https://moncada25.github.io/fun-phone-web/';
 const base = import.meta.env.BASE_URL;
 const heroImg = base + 'assets/screenshots/favorites.png?v=4.0.0';
-const toolsImg = base + 'assets/screenshots/tools1.png?v=4.0.0';
+
+const stats = [
+  { num: '15+', label: { es: 'Herramientas integradas', en: 'Built-in tools' } },
+  { num: '10', label: { es: 'Minijuegos clásicos', en: 'Classic mini-games' } },
+  { num: '0 KB', label: { es: 'Datos compartidos', en: 'Data shared' } },
+  { num: 'GPL v3', label: { es: 'Open source', en: 'Open source' } },
+];
+
+const tools = [
+  {
+    num: '01',
+    title: { es: 'Marcador T9', en: 'T9 Dialer' },
+    desc: { es: 'Búsqueda instantánea, favoritos y Dual-SIM.', en: 'Instant search, favorites, and Dual-SIM.' },
+    color: 'flame',
+  },
+  {
+    num: '02',
+    title: { es: 'Contactos Pro', en: 'Pro Contacts' },
+    desc: { es: 'QR, importación vCard/JSON, anti-spam.', en: 'QR, vCard/JSON import, anti-spam.' },
+    color: 'ink',
+  },
+  {
+    num: '03',
+    title: { es: 'Notas', en: 'Notes' },
+    desc: { es: 'Markdown, checklists, audio y recordatorios.', en: 'Markdown, checklists, audio & reminders.' },
+    color: 'ink',
+  },
+  {
+    num: '04',
+    title: { es: 'Vault', en: 'Vault' },
+    desc: { es: 'Cifrado Tink, biometría y generador.', en: 'Tink encryption, biometrics & generator.' },
+    color: 'flame',
+  },
+  {
+    num: '05',
+    title: { es: 'Gastos', en: 'Expenses' },
+    desc: { es: 'Categorías, presupuestos y análisis.', en: 'Categories, budgets & analytics.' },
+    color: 'ink',
+  },
+  {
+    num: '06',
+    title: { es: 'Ciclo', en: 'Cycle' },
+    desc: { es: 'Predicciones y bienestar privado.', en: 'Predictions & private wellness.' },
+    color: 'ink',
+  },
+  {
+    num: '07',
+    title: { es: 'Académica', en: 'Academic' },
+    desc: { es: 'Materias, notas, tareas y asistencia.', en: 'Subjects, grades, tasks & attendance.' },
+    color: 'flame',
+  },
+  {
+    num: '08',
+    title: { es: 'Pomodoro', en: 'Pomodoro' },
+    desc: { es: '25/5, configurable, en segundo plano.', en: '25/5, customizable, runs in background.' },
+    color: 'ink',
+  },
+  {
+    num: '09',
+    title: { es: 'Voz + QR', en: 'Voice + QR' },
+    desc: { es: 'STT, TTS, escáner y generador.', en: 'STT, TTS, scanner & generator.' },
+    color: 'ink',
+  },
+  {
+    num: '10',
+    title: { es: 'Festivos', en: 'Holidays' },
+    desc: { es: 'API Nager.Date, países y años.', en: 'Nager.Date API, countries & years.' },
+    color: 'flame',
+  },
+  {
+    num: '11',
+    title: { es: 'Juegos', en: 'Games' },
+    desc: { es: 'Snake, 2048, Sudoku, Memory y más.', en: 'Snake, 2048, Sudoku, Memory & more.' },
+    color: 'ink',
+  },
+  {
+    num: '12',
+    title: { es: 'Pintura', en: 'Paint' },
+    desc: { es: 'Pinceles expresivos, exportar y compartir.', en: 'Expressive brushes, export & share.' },
+    color: 'ink',
+  },
+];
+
+const marqueeItems = [
+  { es: 'Fun Phone', en: 'Fun Phone', accent: true },
+  { es: 'Open source', en: 'Open source' },
+  { es: 'GPL v3', en: 'GPL v3' },
+  { es: 'Sin anuncios', en: 'Ad-free' },
+  { es: 'Privacidad real', en: 'Real privacy' },
+  { es: 'Cero servidores', en: 'Zero servers' },
+  { es: 'Cifrado Tink', en: 'Tink encryption' },
+  { es: '★ 5.0 en Play Store', en: '★ 5.0 on Play Store' },
+];
 ---
-<!DOCTYPE html>
-<html lang="es" x-data="pageState()" x-on:lang.window="updateLang($event.detail)" x-bind:lang="lang" class="scroll-smooth">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Fun Phone: Dialer & Contacts | The All-in-One Android Phone App</title>
-    <meta name="description" content="Fun Phone combines an advanced dialer, smart contacts, productivity tools, games and more. Free on Google Play. No ads. No data sharing." />
-    <meta name="keywords" content="fun phone, dialer, contacts, android, privacy, phone app, productivity" />
-    <meta name="robots" content="index, follow" />
-    <link rel="canonical" href={siteUrl} />
-    <link rel="alternate" href={siteUrl} hreflang="es" />
-    <link rel="alternate" href={siteUrl} hreflang="en" />
-    <link rel="manifest" href={base + 'site.webmanifest'} />
-    <link rel="icon" type="image/png" href={base + 'assets/logo.png'} />
-    <link rel="apple-touch-icon" href={base + 'assets/logo.png'} />
-    <meta name="theme-color" content="#0066e0" />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Fun Phone" />
-    <meta property="og:title" content="Fun Phone: Dialer & Contacts" />
-    <meta property="og:description" content="Your complete Android hub for calls, contacts, and productivity. Ad-free. No data sharing." />
-    <meta property="og:image" content={heroImg} />
-    <meta property="og:url" content={siteUrl} />
-    <meta property="og:locale" content="es_ES" />
-    <meta property="og:locale:alternate" content="en_US" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Fun Phone: Dialer & Contacts" />
-    <meta name="twitter:image" content={heroImg} />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-    <script type="application/ld+json">
-    {
-      "@context":"https://schema.org","@type":"MobileApplication","name":"Fun Phone: Dialer & Contacts","operatingSystem":"Android","applicationCategory":"CommunicationApplication","inLanguage":["es","en"],"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"downloadUrl":"https://play.google.com/store/apps/details?id=com.bookverse.contacts","author":{"@type":"Organization","name":"Bookverse"},"privacyPolicy":"https://moncada25.github.io/fun-phone-web/privacy/"
-    }
-    </script>
-    <script>
-      const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
-      const saved = localStorage.getItem('darkMode');
-      const isDark = saved !== null ? saved === 'true' : prefersDark;
-      document.documentElement.classList.toggle('dark', isDark);
-      document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';
-    </script>
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <style>
-      .scrollbar-hide::-webkit-scrollbar { display: none; }
-      [x-cloak] { display: none !important; }
-      @keyframes heroGlow {
-        0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.4; }
-        50% { transform: scale(1.1) rotate(3deg); opacity: 0.7; }
-      }
-      .hero-glow { animation: heroGlow 8s ease-in-out infinite; }
-      .hero-glow-2 { animation: heroGlow 8s ease-in-out 3s infinite; }
-      @keyframes grain { 0%,100%{transform:translate(0,0)}10%{transform:translate(-5%,-10%)}30%{transform:translate(3%,2%)}50%{transform:translate(-3%,5%)}70%{transform:translate(5%,-2%)}90%{transform:translate(-2%,8%)} }
-      .grain::after { content:''; position:absolute; inset:-50%; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"); animation:grain 4s steps(6) infinite; pointer-events:none; }
-    </style>
-  </head>
-  <body class="font-body bg-white text-neutral-900 antialiased dark:bg-midnight dark:text-neutral-100">
-    <Navbar />
 
-    <!-- HERO -->
-    <section class="grain relative min-h-screen overflow-hidden pt-24 pb-12 lg:pt-32">
-      <div class="absolute inset-0 bg-mesh-gradient dark:bg-mesh-gradient-dark"></div>
-      <div class="absolute left-1/2 top-1/4 -translate-x-1/2 -translate-y-1/2">
-        <div class="hero-glow h-[500px] w-[500px] rounded-full bg-accent/20 blur-[120px] dark:bg-accent/30 lg:h-[700px] lg:w-[700px]"></div>
-      </div>
-      <div class="absolute right-0 top-0">
-        <div class="hero-glow-2 h-[300px] w-[300px] rounded-full bg-electric/10 blur-[100px] dark:bg-electric/20"></div>
-      </div>
+<Base
+  title="Fun Phone — The Android Dialer that does more"
+  description="Fun Phone combines an advanced dialer, smart contacts, productivity tools, games, password manager and more. Free on Google Play. No ads. No data sharing."
+  ogImage={heroImg}
+  canonical="https://moncada25.github.io/fun-phone-web/"
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "MobileApplication",
+    "name": "Fun Phone: Dialer & Contacts",
+    "operatingSystem": "Android",
+    "applicationCategory": "CommunicationApplication",
+    "inLanguage": ["es", "en"],
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "downloadUrl": "https://play.google.com/store/apps/details?id=com.bookverse.contacts",
+    "author": { "@type": "Organization", "name": "Bookverse" },
+    "privacyPolicy": "https://moncada25.github.io/fun-phone-web/privacy/"
+  })}></script>
 
-      <div class="relative mx-auto max-w-7xl px-6">
-        <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-          <div class="max-w-2xl pt-8 lg:pt-0">
-            <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/5 px-4 py-1.5 text-xs font-semibold text-accent backdrop-blur dark:border-accent/30 dark:bg-accent/10">
-              <span class="h-1.5 w-1.5 rounded-full bg-accent animate-pulse"></span>
-              <span x-show="lang==='es'">Gratis en Google Play</span>
-              <span x-show="lang==='en'">Free on Google Play</span>
-            </div>
+  <!-- ======================== -->
+  <!-- HERO MARQUEE -->
+  <!-- ======================== -->
+  <section class="relative border-b border-ink/15 overflow-hidden">
+    <div class="marquee-track py-5">
+      {[0, 1].map(() => (
+        <div class="flex shrink-0 items-center gap-8 pr-8 font-display-condensed text-[1.5rem] font-extrabold uppercase leading-none tracking-tightest md:text-[2rem]">
+          {marqueeItems.map((item) => (
+            <Fragment>
+              <span class:list={[item.accent ? 'text-flame' : 'text-ink']} x-show={`lang==='es'`}>{item.es}</span>
+              <span class:list={[item.accent ? 'text-flame' : 'text-ink']} x-show={`lang==='en'`}>{item.en}</span>
+              <span class="text-flame">✱</span>
+            </Fragment>
+          ))}
+          <span class="font-serif-italic text-flame lowercase">on-device only</span>
+          <span class="text-flame">✱</span>
+        </div>
+      ))}
+    </div>
+  </section>
 
-            <h1 class="font-display text-4xl font-black leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
-              <span x-show="lang==='es'">
-                <span class="text-neutral-900 dark:text-white">Tu central de </span>
-                <span class="bg-gradient-to-r from-accent via-accent to-electric bg-clip-text text-transparent">comunicaci&oacute;n</span>
-                <span class="text-neutral-900 dark:text-white"> y </span>
-                <span class="bg-gradient-to-r from-electric to-accent bg-clip-text text-transparent">productividad</span>
+  <!-- ======================== -->
+  <!-- HERO -->
+  <!-- ======================== -->
+  <section class="relative overflow-hidden">
+    <div class="container-editorial relative pb-24 pt-12 md:pb-32 md:pt-20">
+      <!-- Editorial grid -->
+      <div class="grid grid-cols-12 gap-6 md:gap-10">
+        <!-- LEFT META -->
+        <div class="col-span-12 flex flex-col gap-4 md:col-span-3 reveal">
+          <div class="flex items-center gap-3">
+            <span class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-ink-ghost">Edición 03</span>
+            <span class="h-px flex-1 bg-ink/20"></span>
+          </div>
+          <p class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-ink-ghost">
+            <span x-show="lang==='es'">Android · v3.16.1 · 2026</span>
+            <span x-show="lang==='en'">Android · v3.16.1 · 2026</span>
+          </p>
+          <div class="mt-4 flex items-center gap-2">
+            <span class="flex h-2 w-2">
+              <span class="absolute inline-flex h-2 w-2 animate-ping rounded-full bg-flame opacity-75"></span>
+              <span class="relative inline-flex h-2 w-2 rounded-full bg-flame"></span>
+            </span>
+            <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em] text-ink">
+              <span x-show="lang==='es'">Gratis en Play Store · 5.0★</span>
+              <span x-show="lang==='en'">Free on Play Store · 5.0★</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- CENTER HEADLINE -->
+        <div class="col-span-12 md:col-span-9">
+          <h1 class="reveal text-balance font-display-condensed text-[3rem] font-extrabold leading-[0.92] tracking-tightest text-ink sm:text-[4.5rem] md:text-[6.5rem] lg:text-[7.5rem]">
+            <span class="block">
+              <span x-show="lang==='es'">Tu central</span>
+              <span x-show="lang==='en'">Your hub</span>
+            </span>
+            <span class="block">
+              <span x-show="lang==='es'">de </span>
+              <span x-show="lang==='en'">for </span>
+              <span class="font-serif-italic text-flame">
+                <span x-show="lang==='es'">comunicación</span>
+                <span x-show="lang==='en'">communication</span>
               </span>
-              <span x-show="lang==='en'">
-                <span class="text-neutral-900 dark:text-white">Your </span>
-                <span class="bg-gradient-to-r from-accent via-accent to-electric bg-clip-text text-transparent">communication</span>
-                <span class="text-neutral-900 dark:text-white"> & </span>
-                <span class="bg-gradient-to-r from-electric to-accent bg-clip-text text-transparent">productivity</span>
-                <span class="text-neutral-900 dark:text-white"> hub</span>
+            </span>
+            <span class="block">
+              <span class="font-serif-italic text-ink">
+                <span x-show="lang==='es'">&amp;</span>
+                <span x-show="lang==='en'">&amp;</span>
               </span>
-            </h1>
+              <span x-show="lang==='es'">productividad,</span>
+              <span x-show="lang==='en'">productivity,</span>
+            </span>
+            <span class="block">
+              <span x-show="lang==='es'">en una app.</span>
+              <span x-show="lang==='en'">in one app.</span>
+            </span>
+          </h1>
+        </div>
 
-            <p class="mt-6 max-w-lg text-lg leading-relaxed text-neutral-600 dark:text-neutral-300" x-show="lang==='es'">
-              Marcador avanzado, contactos inteligentes, notas, gestor de gastos, contrase&ntilde;as seguras, juegos y m&aacute;s. Todo en una app. Sin anuncios. Sin datos compartidos.
+        <!-- SUBHEAD + CTA ROW -->
+        <div class="col-span-12 md:col-start-4 md:col-span-9 reveal">
+          <div class="grid gap-8 md:grid-cols-2 md:items-end">
+            <p class="max-w-md text-pretty text-base leading-relaxed text-ink-muted md:text-lg">
+              <span x-show="lang==='es'">Marcador avanzado, contactos, notas, gastos, contraseñas cifradas, Pomodoro, gestión académica, juegos y más. <b class="text-ink">Open source bajo GPL v3</b>. Sin anuncios. Sin datos compartidos.</span>
+              <span x-show="lang==='en'">Advanced dialer, contacts, notes, expenses, encrypted passwords, Pomodoro, academic management, games and more. <b class="text-ink">Open source under GPL v3</b>. No ads. No data sharing.</span>
             </p>
-            <p class="mt-6 max-w-lg text-lg leading-relaxed text-neutral-600 dark:text-neutral-300" x-show="lang==='en'">
-              Advanced dialer, smart contacts, notes, expense manager, secure passwords, games and more. All in one app. No ads. No data sharing.
-            </p>
-
-            <div class="mt-8 flex flex-wrap items-center gap-4">
-              <a href="https://play.google.com/store/apps/details?id=com.bookverse.contacts" target="_blank" rel="noopener" class="group relative inline-flex items-center gap-3 overflow-hidden rounded-2xl bg-accent px-7 py-4 font-display text-base font-bold text-white shadow-xl shadow-accent/25 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-accent/30 active:translate-y-0">
-                <span class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full transition-transform duration-700 group-hover:translate-x-full"></span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="relative h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M3 20.5v-17c0-.8.9-1.3 1.6-.8l14.4 8.5c.7.4.7 1.2 0 1.6L4.6 21.3c-.7.5-1.6 0-1.6-.8z"/></svg>
-                <span class="relative" x-show="lang==='es'">Descargar gratis</span>
-                <span class="relative" x-show="lang==='en'">Download free</span>
+            <div class="flex flex-wrap items-center gap-3">
+              <a href="https://play.google.com/store/apps/details?id=com.bookverse.contacts" target="_blank" rel="noopener" class="btn-primary group">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4" fill="currentColor">
+                  <path d="M3.609 1.814 13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893 2.302 2.302-10.937 6.333 8.635-8.635zm3.199-1.4 2.545 1.474c.879.51.879 1.69 0 2.2l-2.545 1.474-2.626-2.262 2.626-2.262zM5.864 2.658 16.802 8.99l-2.302 2.302L5.864 2.658z"/>
+                </svg>
+                <span x-show="lang==='es'">Instalar gratis</span>
+                <span x-show="lang==='en'">Install free</span>
+                <span class="ml-1 flex h-5 w-5 items-center justify-center rounded-full bg-paper/20 font-mono text-[0.6rem]">↗</span>
               </a>
-              <a href={base + 'features/'} class="inline-flex items-center gap-2 rounded-2xl border border-neutral-300/60 bg-white/60 px-7 py-4 font-display text-base font-bold text-neutral-700 backdrop-blur transition-all hover:-translate-y-0.5 hover:border-accent/30 hover:text-accent dark:border-white/10 dark:bg-white/5 dark:text-neutral-200 dark:hover:border-accent/30 dark:hover:text-accent">
+              <a href="https://github.com/Moncada25/fun-phone" target="_blank" rel="noopener" class="btn-ghost group">
+                <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .5C5.4.5 0 5.9 0 12.5c0 5.3 3.4 9.8 8.2 11.4.6.1.8-.3.8-.6v-2.1c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.3 1.9 1.3 1.1 1.9 2.9 1.4 3.6 1 .1-.8.4-1.4.8-1.7-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.6 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.7-5.5 6 .4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.8-1.6 8.2-6.1 8.2-11.4C24 5.9 18.6.5 12 .5z"/></svg>
+                <span>GitHub</span>
+                <span class="font-mono text-xs">★</span>
+              </a>
+              <a href={base + 'features/'} class="font-mono text-xs font-bold uppercase tracking-[0.18em] text-ink-muted underline-link">
                 <span x-show="lang==='es'">Ver funciones</span>
                 <span x-show="lang==='en'">See features</span>
-                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                <span>→</span>
               </a>
             </div>
+          </div>
+        </div>
+      </div>
 
-            <div class="mt-8 flex flex-wrap items-center gap-4">
-              <PrivacyBadge />
-              <span class="inline-flex items-center gap-2 rounded-full border border-neutral-200/60 bg-white/60 px-4 py-2 text-xs font-semibold text-neutral-500 backdrop-blur dark:border-white/10 dark:bg-white/5 dark:text-neutral-400">
-                <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                Android 9+
+      <!-- HERO IMAGE STAGE -->
+      <div class="mt-16 grid grid-cols-12 gap-6 md:mt-24 md:gap-10">
+        <!-- Caption block -->
+        <div class="col-span-12 flex flex-col justify-end md:col-span-4 reveal">
+          <div class="border-t border-ink/20 pt-4">
+            <p class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.2em] text-ink-ghost">Fig. 01</p>
+            <p class="mt-2 font-display text-base font-bold text-ink">
+              <span x-show="lang==='es'">La pantalla de Favoritos, recién salida del estudio.</span>
+              <span x-show="lang==='en'">The Favorites screen, fresh from the studio.</span>
+            </p>
+            <p class="mt-1 text-xs text-ink-muted">
+              <span x-show="lang==='es'">Atajos a las personas que más importan. Sin pestañas escondidas, sin bloatware.</span>
+              <span x-show="lang==='en'">Shortcuts to the people who matter. No hidden tabs, no bloatware.</span>
+            </p>
+          </div>
+
+          <!-- Floating chip -->
+          <div class="mt-8 inline-flex items-center gap-3 self-start border border-ink bg-ink px-4 py-2.5 text-paper" style="border-radius: 999px;">
+            <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em]">Android 9+</span>
+            <span class="h-3 w-px bg-paper/30"></span>
+            <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em] text-flame">v3.16.1</span>
+            <span class="h-3 w-px bg-paper/30"></span>
+            <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em]">GPL v3</span>
+          </div>
+        </div>
+
+        <!-- Phone stage -->
+        <div class="col-span-12 md:col-span-8 reveal">
+          <div class="relative">
+            <!-- Annotation labels (decorative) -->
+            <div class="absolute -left-2 top-12 hidden -rotate-12 md:block">
+              <span class="font-serif-italic text-2xl text-flame">your people</span>
+              <svg class="ml-12 -mt-2 h-10 w-24" viewBox="0 0 100 40" fill="none">
+                <path d="M5 35 Q 30 5, 90 20" stroke="#FF4D1A" stroke-width="1.5" stroke-linecap="round" fill="none" class="scribble-arrow"/>
+                <path d="M88 16 L 92 21 L 86 23" stroke="#FF4D1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              </svg>
+            </div>
+
+            <div
+              class="relative mx-auto w-full max-w-[480px] overflow-hidden border border-ink/15 bg-gradient-to-b from-paper-soft to-paper"
+              style="border-radius: 36px; box-shadow: 0 30px 80px -30px rgba(10,10,10,0.4), 0 0 0 1px rgba(10,10,10,0.04);"
+            >
+              <img src={heroImg} alt="Fun Phone app screenshot" class="block h-auto w-full" loading="eager" width="540" height="1080" />
+            </div>
+
+            <!-- Bottom labels -->
+            <div class="absolute -right-2 bottom-8 hidden rotate-6 md:block">
+              <span class="font-serif-italic text-xl text-ink">0% cloud. 100% yours.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Decorative ticker line -->
+    <div class="hairline-b border-ink/15"></div>
+  </section>
+
+  <!-- ======================== -->
+  <!-- STATS BAR -->
+  <!-- ======================== -->
+  <section class="border-b border-ink/15 py-10 md:py-14">
+    <div class="container-editorial">
+      <div class="mb-6 flex items-center gap-3">
+        <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.2em] text-ink-ghost">
+          <span x-show="lang==='es'">Cifras</span>
+          <span x-show="lang==='en'">By the numbers</span>
+        </span>
+        <span class="h-px flex-1 bg-ink/15"></span>
+        <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.2em] text-ink-ghost">2025</span>
+      </div>
+      <div class="grid grid-cols-2 gap-px overflow-hidden border border-ink/15 bg-ink/15 md:grid-cols-4" style="border-radius: 20px;">
+        {stats.map((stat, i) => (
+          <div class="group relative flex flex-col gap-2 bg-paper p-6 transition-colors hover:bg-flame md:p-8">
+            <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.2em] text-ink-ghost transition-colors group-hover:text-paper/80">{(i + 1).toString().padStart(2, '0')}</span>
+            <span class="font-display-condensed text-5xl font-extrabold leading-none tracking-tighter text-ink transition-colors group-hover:text-paper md:text-6xl">{stat.num}</span>
+            <span class="mt-1 text-xs font-semibold text-ink-muted transition-colors group-hover:text-paper/85">
+              <span x-show="lang==='es'">{stat.label.es}</span>
+              <span x-show="lang==='en'">{stat.label.en}</span>
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== -->
+  <!-- MANIFESTO QUOTE -->
+  <!-- ======================== -->
+  <section class="relative py-20 md:py-32">
+    <div class="container-editorial">
+      <div class="mx-auto max-w-5xl text-center reveal">
+        <p class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-flame">
+          <span x-show="lang==='es'">Manifiesto · §01</span>
+          <span x-show="lang==='en'">Manifesto · §01</span>
+        </p>
+        <blockquote class="mt-8 text-balance font-display-condensed text-[2.5rem] font-extrabold leading-[0.96] tracking-tightest text-ink md:text-[4rem] lg:text-[5rem]">
+          <span x-show="lang==='es'">Una app </span>
+          <span x-show="lang==='en'">An app </span>
+          <span class="font-serif-italic text-flame">
+            <span x-show="lang==='es'">open source</span>
+            <span x-show="lang==='en'">open source</span>
+          </span>
+          <span x-show="lang==='es'"> que no te rastrea,</span>
+          <span x-show="lang==='en'"> that doesn't track you,</span>
+          <br />
+          <span x-show="lang==='es'">que respeta tu batería </span>
+          <span x-show="lang==='en'">that respects your battery </span>
+          <span class="font-serif-italic text-ink">
+            <span x-show="lang==='es'">y tu tiempo.</span>
+            <span x-show="lang==='en'">and your time.</span>
+          </span>
+        </blockquote>
+        <div class="mt-10 flex items-center justify-center gap-3 font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em] text-ink-ghost">
+          <span class="h-px w-12 bg-ink/30"></span>
+          <span>
+            <span x-show="lang==='es'">— Fun Phone · GPL v3 · Bookverse</span>
+            <span x-show="lang==='en'">— Fun Phone · GPL v3 · Bookverse</span>
+          </span>
+          <span class="h-px w-12 bg-ink/30"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== -->
+  <!-- TOOLS GRID -->
+  <!-- ======================== -->
+  <section class="relative border-y border-ink/15 bg-paper-soft/40 py-20 md:py-28">
+    <div class="container-editorial">
+      <div class="mb-12 grid grid-cols-12 gap-6">
+        <div class="col-span-12 md:col-span-3">
+          <p class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-flame">
+            <span x-show="lang==='es'">Capítulo 02</span>
+            <span x-show="lang==='en'">Chapter 02</span>
+          </p>
+          <p class="mt-2 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-ghost">
+            <span x-show="lang==='es'">El inventario</span>
+            <span x-show="lang==='en'">The inventory</span>
+          </p>
+        </div>
+        <div class="col-span-12 md:col-span-9">
+          <h2 class="text-balance font-display-condensed text-[2.5rem] font-extrabold leading-[0.96] tracking-tightest text-ink md:text-[3.5rem] lg:text-[4.5rem]">
+            <span x-show="lang==='es'">Doce herramientas, </span>
+            <span x-show="lang==='en'">Twelve tools, </span>
+            <span class="font-serif-italic text-flame">
+              <span x-show="lang==='es'">una sola app.</span>
+              <span x-show="lang==='en'">one single app.</span>
+            </span>
+          </h2>
+          <p class="mt-4 max-w-2xl text-pretty text-base text-ink-muted">
+            <span x-show="lang==='es'">Todo lo esencial para llamar, organizar, jugar y crear — sin cambiar de app cada cinco minutos.</span>
+            <span x-show="lang==='en'">Everything you need to call, organize, play and create — without bouncing between five different apps.</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {tools.map((tool) => (
+          <article
+            class:list={[
+              'group relative flex flex-col gap-4 border bg-paper p-6 transition-all duration-500 hover:-translate-y-1',
+              tool.color === 'flame' ? 'border-ink hover:border-flame' : 'border-ink/15 hover:border-ink',
+            ]}
+            style="border-radius: 18px;"
+          >
+            <header class="flex items-center justify-between">
+              <span class:list={['font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em]', tool.color === 'flame' ? 'text-flame' : 'text-ink-ghost']}>{tool.num}</span>
+              <span class:list={['flex h-7 w-7 items-center justify-center rounded-full transition-all duration-500 group-hover:rotate-45', tool.color === 'flame' ? 'bg-flame text-paper' : 'bg-ink/5 text-ink group-hover:bg-ink group-hover:text-paper']}>
+                <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14M13 5l7 7-7 7"/>
+                </svg>
               </span>
-            </div>
-          </div>
-
-          <div class="relative flex justify-center lg:justify-end">
-            <div class="absolute -inset-4 rounded-[2.5rem] bg-gradient-to-br from-accent/20 via-transparent to-electric/20 blur-2xl dark:from-accent/30 dark:to-electric/30"></div>
-            <div class="relative animate-float">
-              <div class="overflow-hidden rounded-[2rem] border border-white/20 bg-gradient-to-b from-white/10 to-white/5 p-2 shadow-2xl shadow-accent/10 backdrop-blur dark:border-white/10">
-                <img src={heroImg} alt="Fun Phone app screenshot" class="h-[480px] w-auto rounded-[1.5rem] object-contain sm:h-[540px]" loading="eager" />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- STATS -->
-        <div class="mt-20 grid grid-cols-2 gap-4 sm:grid-cols-4 lg:mt-28">
-          {[
-            { numEs: '15+', numEn: '15+', labelEs: 'Herramientas integradas', labelEn: 'Built-in tools' },
-            { numEs: '10', numEn: '10', labelEs: 'Minijuegos cl\u00e1sicos', labelEn: 'Classic mini-games' },
-            { numEs: '0', numEn: '0', labelEs: 'Datos compartidos', labelEn: 'Data shared' },
-            { numEs: '100%', numEn: '100%', labelEs: 'Almacenamiento local', labelEn: 'Local storage' },
-          ].map((stat) => (
-            <div class="rounded-2xl border border-neutral-200/60 bg-white/60 p-5 text-center backdrop-blur transition-all hover:border-accent/20 hover:shadow-lg hover:shadow-accent/5 dark:border-white/[0.06] dark:bg-white/[0.02] dark:hover:border-accent/20">
-              <p class="font-display text-3xl font-black text-accent">
-                <span x-show="lang==='es'">{stat.numEs}</span>
-                <span x-show="lang==='en'">{stat.numEn}</span>
-              </p>
-              <p class="mt-1 text-xs font-semibold text-neutral-500 dark:text-neutral-400">
-                <span x-show="lang==='es'">{stat.labelEs}</span>
-                <span x-show="lang==='en'">{stat.labelEn}</span>
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <!-- TOOLS EMPHASIS -->
-    <section class="relative py-24 lg:py-32">
-      <div class="mx-auto max-w-7xl px-6">
-        <div class="mx-auto max-w-2xl text-center">
-          <p class="text-xs font-bold uppercase tracking-[0.2em] text-accent">
-            <span x-show="lang==='es'">M&aacute;s que un marcador</span>
-            <span x-show="lang==='en'">More than a dialer</span>
-          </p>
-          <h2 class="mt-4 font-display text-3xl font-black tracking-tight sm:text-4xl lg:text-5xl">
-            <span x-show="lang==='es'" class="text-neutral-900 dark:text-white">Un centro completo de <span class="bg-gradient-to-r from-accent to-electric bg-clip-text text-transparent">herramientas</span></span>
-            <span x-show="lang==='en'" class="text-neutral-900 dark:text-white">A complete <span class="bg-gradient-to-r from-accent to-electric bg-clip-text text-transparent">tools hub</span></span>
-          </h2>
-          <p class="mt-4 text-neutral-500 dark:text-neutral-400" x-show="lang==='es'">Cada herramienta que necesitas, integrada en tu app de tel&eacute;fono. Sin instalar nada m&aacute;s.</p>
-          <p class="mt-4 text-neutral-500 dark:text-neutral-400" x-show="lang==='en'">Every tool you need, built into your phone app. No extra installs.</p>
-        </div>
-
-        <div class="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {[
-            { icon: '<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92V19a2 2 0 01-2.18 2A19.72 19.72 0 013 5.18 2 2 0 015 3h2a2 2 0 012 1.72c.13 1.23.37 2.44.7 3.62a2 2 0 01-.45 2.11l-1.27 1.27a16 16 0 007.07 7.07l1.27-1.27a2 2 0 012.11-.45c1.18.33 2.39.57 3.62.7A2 2 0 0122 16.92z"/></svg>', tEs: 'Marcador T9', tEn: 'T9 Dialer', dEs: 'B\u00fasqueda instant\u00e1nea, favoritos y Dual-SIM.', dEn: 'Instant search, favorites, and Dual-SIM.' },
-            { icon: '<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87"/><circle cx="9" cy="7" r="4"/><circle cx="15" cy="7" r="4"/></svg>', tEs: 'Contactos Pro', tEn: 'Pro Contacts', dEs: 'Import/export, QR, deduplicaci\u00f3n y sync.', dEn: 'Import/export, QR, deduplication & sync.' },
-            { icon: '<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="16" height="16" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h8M8 14h6"/></svg>', tEs: 'Productividad', tEn: 'Productivity', dEs: 'Notas, checklists, recordatorios y grabador.', dEn: 'Notes, checklists, reminders & recorder.' },
-            { icon: '<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><rect x="4" y="10" width="16" height="10" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M8 10V8a4 4 0 118 0v2"/></svg>', tEs: 'Contrase\u00f1as', tEn: 'Passwords', dEs: 'Cifrado Tink, biometr\u00eda y generador.', dEn: 'Tink encryption, biometrics & generator.' },
-            { icon: '<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>', tEs: 'Gestor de gastos', tEn: 'Expense Manager', dEs: 'Categor\u00edas, presupuestos y estad\u00edsticas.', dEn: 'Categories, budgets & real-time stats.' },
-            { icon: '<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>', tEs: 'Calendario menstrual', tEn: 'Cycle Tracker', dEs: 'Predicciones, fases y consejos privados.', dEn: 'Predictions, phases & private wellness tips.' },
-            { icon: '<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg>', tEs: 'Herramientas de voz', tEn: 'Voice Tools', dEs: 'Dictado, TTS multi-idioma y compartir.', dEn: 'Dictation, multi-language TTS & share.' },
-            { icon: '<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg>', tEs: '10 juegos cl\u00e1sicos', tEn: '10 Classic Games', dEs: 'Snake, 2048, Sudoku, Memory y m\u00e1s.', dEn: 'Snake, 2048, Sudoku, Memory & more.' },
-            { icon: '<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>', tEs: 'Estudio de pintura', tEn: 'Paint Studio', dEs: 'Pinceles expresivos, exportar y compartir.', dEn: 'Expressive brushes, export & share.' },
-          ].map((tool) => (
-            <div class="group rounded-2xl border border-neutral-200/60 bg-white/60 p-6 backdrop-blur transition-all duration-500 hover:-translate-y-1 hover:border-accent/20 hover:shadow-xl hover:shadow-accent/5 dark:border-white/[0.06] dark:bg-white/[0.02] dark:hover:border-accent/20">
-              <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-accent/10 text-accent transition-colors group-hover:bg-accent group-hover:text-white dark:bg-accent/20" set:html={tool.icon}></div>
-              <h3 class="font-display text-base font-bold text-neutral-900 dark:text-white">
-                <span x-show="lang==='es'">{tool.tEs}</span>
-                <span x-show="lang==='en'">{tool.tEn}</span>
+            </header>
+            <div>
+              <h3 class="font-display-condensed text-2xl font-extrabold leading-tight tracking-tightest text-ink">
+                <span x-show="lang==='es'">{tool.title.es}</span>
+                <span x-show="lang==='en'">{tool.title.en}</span>
               </h3>
-              <p class="mt-2 text-sm text-neutral-500 dark:text-neutral-400">
-                <span x-show="lang==='es'">{tool.dEs}</span>
-                <span x-show="lang==='en'">{tool.dEn}</span>
+              <p class="mt-2 text-sm leading-relaxed text-ink-muted">
+                <span x-show="lang==='es'">{tool.desc.es}</span>
+                <span x-show="lang==='en'">{tool.desc.en}</span>
               </p>
             </div>
-          ))}
-        </div>
+            <div class:list={['mt-auto h-px transition-all duration-500 group-hover:w-full', tool.color === 'flame' ? 'w-12 bg-flame' : 'w-12 bg-ink/20 group-hover:bg-ink']}></div>
+          </article>
+        ))}
       </div>
-    </section>
 
-    <!-- SCREENSHOTS GALLERY -->
-    <section class="relative py-24 lg:py-32">
-      <div class="absolute inset-0 bg-gradient-to-b from-transparent via-accent/[0.02] to-transparent dark:via-accent/[0.04]"></div>
-      <div class="relative mx-auto max-w-7xl px-6">
-        <div class="mx-auto mb-14 max-w-2xl text-center">
-          <p class="text-xs font-bold uppercase tracking-[0.2em] text-accent">
-            <span x-show="lang==='es'">Mira la app en acci&oacute;n</span>
-            <span x-show="lang==='en'">See the app in action</span>
+      <div class="mt-12 text-center">
+        <a href={base + 'features/'} class="inline-flex items-center gap-2 border-b-2 border-ink pb-1 font-display text-base font-bold text-ink transition-colors hover:border-flame hover:text-flame">
+          <span x-show="lang==='es'">Ver el índice completo</span>
+          <span x-show="lang==='en'">See the full index</span>
+          <span>→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== -->
+  <!-- SCREENSHOTS -->
+  <!-- ======================== -->
+  <section class="relative py-20 md:py-32">
+    <div class="container-editorial">
+      <ScreenshotCarousel />
+    </div>
+  </section>
+
+  <!-- ======================== -->
+  <!-- COMPARISON -->
+  <!-- ======================== -->
+  <section class="relative border-y border-ink/15 py-20 md:py-28">
+    <div class="container-editorial">
+      <div class="mb-12 grid grid-cols-12 gap-6">
+        <div class="col-span-12 md:col-span-3">
+          <p class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-flame">
+            <span x-show="lang==='es'">Capítulo 04</span>
+            <span x-show="lang==='en'">Chapter 04</span>
           </p>
-          <h2 class="mt-4 font-display text-3xl font-black tracking-tight sm:text-4xl">
-            <span x-show="lang==='es'" class="text-neutral-900 dark:text-white">Capturas de <span class="text-accent">pantalla</span></span>
-            <span x-show="lang==='en'" class="text-neutral-900 dark:text-white">App <span class="text-accent">screenshots</span></span>
+          <p class="mt-2 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-ghost">
+            <span x-show="lang==='es'">La diferencia</span>
+            <span x-show="lang==='en'">The difference</span>
+          </p>
+        </div>
+        <div class="col-span-12 md:col-span-9">
+          <h2 class="text-balance font-display-condensed text-[2.5rem] font-extrabold leading-[0.96] tracking-tightest text-ink md:text-[3.5rem] lg:text-[4.5rem]">
+            <span x-show="lang==='es'">Tu marcador </span>
+            <span x-show="lang==='en'">Your stock dialer </span>
+            <span class="font-serif-italic text-flame">
+              <span x-show="lang==='es'">solo marca.</span>
+              <span x-show="lang==='en'">just dials.</span>
+            </span>
+            <br />
+            <span x-show="lang==='es'">Fun Phone </span>
+            <span x-show="lang==='en'">Fun Phone </span>
+            <span class="font-serif-italic text-ink">
+              <span x-show="lang==='es'">hace mucho más.</span>
+              <span x-show="lang==='en'">does so much more.</span>
+            </span>
           </h2>
         </div>
-        <ScreenshotCarousel />
       </div>
-    </section>
 
-    <!-- VS COMPARISON -->
-    <section class="relative py-24 lg:py-32">
-      <div class="mx-auto max-w-7xl px-6">
-        <div class="mx-auto mb-14 max-w-2xl text-center">
-          <p class="text-xs font-bold uppercase tracking-[0.2em] text-accent">
-            <span x-show="lang==='es'">La diferencia es clara</span>
-            <span x-show="lang==='en'">The difference is clear</span>
+      <ComparisonTable />
+    </div>
+  </section>
+
+  <!-- ======================== -->
+  <!-- BENEFITS / TRIO -->
+  <!-- ======================== -->
+  <section class="relative py-20 md:py-32">
+    <div class="container-editorial">
+      <div class="grid gap-3 md:grid-cols-3">
+        <article class="group relative flex flex-col gap-4 border border-ink/15 bg-paper p-7 transition-all duration-500 hover:-translate-y-1 hover:border-ink" style="border-radius: 22px;">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-flame">§01</span>
+            <span class="flex h-10 w-10 items-center justify-center rounded-full border border-flame text-flame transition-transform duration-500 group-hover:rotate-[20deg]">
+              <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 11V7a3 3 0 116 0v4M5 11h14v10H5z"/></svg>
+            </span>
+          </div>
+          <h3 class="font-display-condensed text-2xl font-extrabold leading-tight tracking-tightest text-ink">
+            <span x-show="lang==='es'">Privacidad real</span>
+            <span x-show="lang==='en'">Real privacy</span>
+          </h3>
+          <p class="text-sm leading-relaxed text-ink-muted">
+            <span x-show="lang==='es'">Todos tus datos viven en tu dispositivo. Sin servidores, sin rastreo, sin anuncios. Punto.</span>
+            <span x-show="lang==='en'">All your data lives on your device. No servers, no tracking, no ads. Period.</span>
           </p>
-          <h2 class="mt-4 font-display text-3xl font-black tracking-tight sm:text-4xl">
-            <span x-show="lang==='es'" class="text-neutral-900 dark:text-white">Fun Phone <span class="text-accent">vs</span> Stock Dialer</span>
-            <span x-show="lang==='en'" class="text-neutral-900 dark:text-white">Fun Phone <span class="text-accent">vs</span> Stock Dialer</span>
+        </article>
+
+        <article class="group relative flex flex-col gap-4 border border-ink bg-ink p-7 text-paper transition-all duration-500 hover:-translate-y-1 hover:bg-flame hover:border-flame" style="border-radius: 22px;">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-flame group-hover:text-paper">§02</span>
+            <span class="flex h-10 w-10 items-center justify-center rounded-full border border-flame text-flame transition-transform duration-500 group-hover:rotate-[20deg] group-hover:border-paper group-hover:text-paper">
+              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .5C5.4.5 0 5.9 0 12.5c0 5.3 3.4 9.8 8.2 11.4.6.1.8-.3.8-.6v-2.1c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.3 1.9 1.3 1.1 1.9 2.9 1.4 3.6 1 .1-.8.4-1.4.8-1.7-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.6 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.7-5.5 6 .4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.8-1.6 8.2-6.1 8.2-11.4C24 5.9 18.6.5 12 .5z"/></svg>
+            </span>
+          </div>
+          <h3 class="font-display-condensed text-2xl font-extrabold leading-tight tracking-tightest">
+            <span x-show="lang==='es'">Open source</span>
+            <span x-show="lang==='en'">Open source</span>
+          </h3>
+          <p class="text-sm leading-relaxed text-paper/75 group-hover:text-paper/90">
+            <span x-show="lang==='es'">Código disponible bajo GPL v3. Builds FOSS sin Firebase, auditables y compilables por la comunidad.</span>
+            <span x-show="lang==='en'">Code available under GPL v3. FOSS builds without Firebase, auditable and community-compilable.</span>
+          </p>
+        </article>
+
+        <article class="group relative flex flex-col gap-4 border border-ink/15 bg-paper p-7 transition-all duration-500 hover:-translate-y-1 hover:border-ink" style="border-radius: 22px;">
+          <div class="flex items-center justify-between">
+            <span class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-flame">§03</span>
+            <span class="flex h-10 w-10 items-center justify-center rounded-full border border-flame text-flame transition-transform duration-500 group-hover:rotate-[20deg]">
+              <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16.862 3.487a2.25 2.25 0 113.182 3.182L7.5 19.213l-4.5 1.5 1.5-4.5 12.362-12.726z"/></svg>
+            </span>
+          </div>
+          <h3 class="font-display-condensed text-2xl font-extrabold leading-tight tracking-tightest text-ink">
+            <span x-show="lang==='es'">A tu medida</span>
+            <span x-show="lang==='en'">Made for you</span>
+          </h3>
+          <p class="text-sm leading-relaxed text-ink-muted">
+            <span x-show="lang==='es'">Personaliza temas, colores, fuentes, animaciones y widgets. Modo claro y oscuro. Bilingüe ES/EN.</span>
+            <span x-show="lang==='en'">Customize themes, colors, fonts, animations & widgets. Light and dark mode. Bilingual ES/EN.</span>
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== -->
+  <!-- FINAL CTA -->
+  <!-- ======================== -->
+  <section class="relative overflow-hidden border-t border-ink/15 bg-flame py-24 text-paper md:py-32">
+    <div class="container-editorial relative">
+      <div class="grid grid-cols-12 gap-6">
+        <div class="col-span-12 md:col-span-8">
+          <p class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-paper/80">
+            <span x-show="lang==='es'">El último capítulo · §05</span>
+            <span x-show="lang==='en'">The last chapter · §05</span>
+          </p>
+          <h2 class="mt-6 text-balance font-display-condensed text-[3rem] font-extrabold leading-[0.92] tracking-tightest md:text-[5rem] lg:text-[6.5rem]">
+            <span x-show="lang==='es'">Instala. Audita. </span>
+            <span x-show="lang==='en'">Install. Audit. </span>
+            <span class="font-serif-italic">
+              <span x-show="lang==='es'">Listo.</span>
+              <span x-show="lang==='en'">Done.</span>
+            </span>
           </h2>
-          <p class="mt-4 text-neutral-500 dark:text-neutral-400" x-show="lang==='es'">Tu marcador de f&aacute;brica solo marca y llama. Fun Phone hace mucho m&aacute;s.</p>
-          <p class="mt-4 text-neutral-500 dark:text-neutral-400" x-show="lang==='en'">Your stock dialer just dials and calls. Fun Phone does so much more.</p>
         </div>
-        <div class="mx-auto max-w-4xl">
-          <ComparisonTable />
-        </div>
-      </div>
-    </section>
-
-    <!-- BENEFITS / WHY FUN PHONE -->
-    <section class="relative py-24 lg:py-32">
-      <div class="absolute inset-0 bg-gradient-to-b from-transparent via-accent/[0.02] to-transparent dark:via-accent/[0.04]"></div>
-      <div class="relative mx-auto max-w-7xl px-6">
-        <div class="grid gap-8 lg:grid-cols-3">
-          {[
-            { emoji: '\uD83D\uDD12', tEs: 'Privacidad real', tEn: 'Real privacy', dEs: 'Todos tus datos permanecen en tu dispositivo. Sin servidores externos, sin rastreo, sin anuncios. Punto.', dEn: 'All your data stays on your device. No external servers, no tracking, no ads. Period.' },
-            { emoji: '\u26A1', tEs: 'Todo-en-uno', tEn: 'All-in-one', dEs: 'Reemplaza 5+ apps: marcador, notas, contrase\u00f1as, gastos, calendario y entretenimiento en un solo lugar.', dEn: 'Replace 5+ apps: dialer, notes, passwords, expenses, calendar & entertainment in one place.' },
-            { emoji: '\uD83C\uDFA8', tEs: 'Hecho a tu medida', tEn: 'Made for you', dEs: 'Personaliza temas, colores, fuentes y animaciones. Modo claro y oscuro. Biling\u00fce ES/EN.', dEn: 'Customize themes, colors, fonts & animations. Light and dark mode. Bilingual ES/EN.' },
-          ].map((benefit) => (
-            <div class="relative overflow-hidden rounded-2xl border border-neutral-200/60 bg-white/60 p-8 backdrop-blur transition-all hover:border-accent/20 hover:shadow-lg dark:border-white/[0.06] dark:bg-white/[0.02] dark:hover:border-accent/20">
-              <div class="absolute -right-4 -top-4 text-6xl opacity-10">{benefit.emoji}</div>
-              <span class="text-3xl">{benefit.emoji}</span>
-              <h3 class="mt-4 font-display text-xl font-bold text-neutral-900 dark:text-white">
-                <span x-show="lang==='es'">{benefit.tEs}</span>
-                <span x-show="lang==='en'">{benefit.tEn}</span>
-              </h3>
-              <p class="mt-3 text-sm leading-relaxed text-neutral-500 dark:text-neutral-400">
-                <span x-show="lang==='es'">{benefit.dEs}</span>
-                <span x-show="lang==='en'">{benefit.dEn}</span>
-              </p>
-            </div>
-          ))}
+        <div class="col-span-12 flex flex-col justify-end gap-5 md:col-span-4">
+          <p class="text-pretty text-base leading-relaxed text-paper/85 md:text-lg">
+            <span x-show="lang==='es'">Menos de cinco minutos para tener Fun Phone funcionando como app de teléfono predeterminada, con todos tus contactos a salvo.</span>
+            <span x-show="lang==='en'">Less than five minutes to set Fun Phone as your default dialer, with every contact kept safe and local.</span>
+          </p>
+          <div class="flex flex-wrap items-center gap-3">
+            <a href="https://play.google.com/store/apps/details?id=com.bookverse.contacts" target="_blank" rel="noopener" class="group inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm font-bold text-paper transition-transform hover:-translate-y-0.5">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4" fill="currentColor"><path d="M3.609 1.814 13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893 2.302 2.302-10.937 6.333 8.635-8.635z"/></svg>
+              <span x-show="lang==='es'">Google Play</span>
+              <span x-show="lang==='en'">Google Play</span>
+            </a>
+            <a href={base + 'privacy/'} class="inline-flex items-center gap-2 rounded-full border border-paper/30 px-6 py-3.5 text-sm font-bold text-paper transition hover:bg-paper/10">
+              <span x-show="lang==='es'">Política de privacidad</span>
+              <span x-show="lang==='en'">Privacy policy</span>
+            </a>
+          </div>
         </div>
       </div>
-    </section>
-
-    <!-- FINAL CTA -->
-    <section class="relative overflow-hidden py-24 lg:py-32">
-      <div class="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-electric/5 dark:from-accent/10 dark:to-electric/10"></div>
-      <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-        <div class="h-[400px] w-[400px] rounded-full bg-accent/10 blur-[100px] dark:bg-accent/20"></div>
-      </div>
-      <div class="relative mx-auto max-w-3xl px-6 text-center">
-        <h2 class="font-display text-3xl font-black tracking-tight sm:text-4xl lg:text-5xl">
-          <span x-show="lang==='es'" class="text-neutral-900 dark:text-white">&iquest;Listo para transformar tu <span class="text-accent">Android</span>?</span>
-          <span x-show="lang==='en'" class="text-neutral-900 dark:text-white">Ready to transform your <span class="text-accent">Android</span>?</span>
-        </h2>
-        <p class="mt-5 text-lg text-neutral-500 dark:text-neutral-400" x-show="lang==='es'">
-          Instala Fun Phone, importa tus contactos y activa el modo productividad en menos de 5 minutos.
-        </p>
-        <p class="mt-5 text-lg text-neutral-500 dark:text-neutral-400" x-show="lang==='en'">
-          Install Fun Phone, import your contacts, and activate productivity mode in under 5 minutes.
-        </p>
-        <div class="mt-10 flex flex-wrap justify-center gap-4">
-          <a href="https://play.google.com/store/apps/details?id=com.bookverse.contacts" target="_blank" rel="noopener" class="group relative inline-flex items-center gap-3 overflow-hidden rounded-2xl bg-accent px-8 py-4 font-display text-base font-bold text-white shadow-xl shadow-accent/25 transition-all hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-accent/30">
-            <span class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full transition-transform duration-700 group-hover:translate-x-full"></span>
-            <svg xmlns="http://www.w3.org/2000/svg" class="relative h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M3 20.5v-17c0-.8.9-1.3 1.6-.8l14.4 8.5c.7.4.7 1.2 0 1.6L4.6 21.3c-.7.5-1.6 0-1.6-.8z"/></svg>
-            <span class="relative" x-show="lang==='es'">Instalar desde Google Play</span>
-            <span class="relative" x-show="lang==='en'">Install from Google Play</span>
-          </a>
-          <a href={base + 'privacy/'} class="inline-flex items-center gap-2 rounded-2xl border border-neutral-300/60 bg-white/60 px-8 py-4 font-display text-base font-bold text-neutral-700 backdrop-blur transition-all hover:-translate-y-0.5 hover:border-accent/30 hover:text-accent dark:border-white/10 dark:bg-white/5 dark:text-neutral-200">
-            <span x-show="lang==='es'">Pol&iacute;tica de privacidad</span>
-            <span x-show="lang==='en'">Privacy policy</span>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <StickyCTA />
-    <Footer />
-
-    <script is:inline>
-      function pageState() {
-        return {
-          lang: localStorage.getItem('lang') || (navigator.language?.startsWith('es') ? 'es' : 'en'),
-          init() { this.setDocumentLang(); },
-          updateLang(v) { if (!v) return; this.lang = v; this.setDocumentLang(); },
-          setDocumentLang() { document.documentElement.setAttribute('data-lang', this.lang); }
-        };
-      }
-    </script>
-  </body>
-</html>
+    </div>
+  </section>
+</Base>

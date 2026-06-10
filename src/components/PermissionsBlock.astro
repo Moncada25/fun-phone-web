@@ -1,46 +1,75 @@
 ---
+const groups = [
+  {
+    title: { es: 'Teléfono y llamadas', en: 'Phone & calls' },
+    description: { es: 'Requerido solo si la app se establece como predeterminada.', en: 'Required only when set as default dialer.' },
+    perms: [
+      { name: 'CALL_PHONE', purpose: { es: 'Realizar llamadas', en: 'Place calls' } },
+      { name: 'ANSWER_PHONE_CALLS', purpose: { es: 'Contestar llamadas', en: 'Answer calls' } },
+      { name: 'READ_CALL_LOG', purpose: { es: 'Leer historial', en: 'Read call history' } },
+      { name: 'WRITE_CALL_LOG', purpose: { es: 'Escribir historial', en: 'Write call history' } },
+    ]
+  },
+  {
+    title: { es: 'Contactos y agenda', en: 'Contacts & address book' },
+    description: { es: 'Para gestión local. Nunca salen del dispositivo.', en: 'For local management. Never leave the device.' },
+    perms: [
+      { name: 'READ_CONTACTS', purpose: { es: 'Mostrar contactos', en: 'Display contacts' } },
+      { name: 'WRITE_CONTACTS', purpose: { es: 'Crear/editar contactos', en: 'Create/edit contacts' } },
+      { name: 'GET_ACCOUNTS', purpose: { es: 'Sync multi-cuenta', en: 'Multi-account sync' } },
+    ]
+  },
+  {
+    title: { es: 'Extras opcionales', en: 'Optional extras' },
+    description: { es: 'Solo se piden al usar la función. Siempre revocables.', en: 'Only requested on use. Always revocable.' },
+    perms: [
+      { name: 'CAMERA', purpose: { es: 'QR y fotos de perfil', en: 'QR & profile photos' } },
+      { name: 'RECORD_AUDIO', purpose: { es: 'Notas de voz y dictado', en: 'Voice notes & dictation' } },
+      { name: 'READ_CALENDAR', purpose: { es: 'Festivos y eventos', en: 'Holidays & events' } },
+    ]
+  }
+];
 ---
+
 <div class="space-y-3">
-  <details class="group rounded-xl border border-neutral-200/60 bg-white/60 backdrop-blur dark:border-white/[0.06] dark:bg-white/[0.02]" open>
-    <summary class="flex cursor-pointer items-center justify-between gap-4 px-5 py-4 text-sm font-semibold text-neutral-800 transition hover:text-accent dark:text-neutral-100">
-      <div class="flex items-center gap-3">
-        <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/10 text-accent"><svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M22 16.92V19a2 2 0 01-2.18 2A19.72 19.72 0 013 5.18 2 2 0 015 3h2a2 2 0 012 1.72c.13 1.23.37 2.44.7 3.62a2 2 0 01-.45 2.11l-1.27 1.27a16 16 0 007.07 7.07l1.27-1.27a2 2 0 012.11-.45c1.18.33 2.39.57 3.62.7A2 2 0 0122 16.92z"/></svg></span>
-        <span x-show="lang==='es'">Tel\u00e9fono y llamadas</span>
-        <span x-show="lang==='en'">Phone & calls</span>
+  {groups.map((group, idx) => (
+    <details
+      class:list={['group relative overflow-hidden border border-ink/15 bg-paper transition-all duration-300 open:border-ink', idx === 0 ? 'open' : '']}
+      style="border-radius: 16px;"
+    >
+      <summary class="flex cursor-pointer items-center justify-between gap-4 px-5 py-4 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-flame focus-visible:ring-offset-2 focus-visible:ring-offset-paper">
+        <div class="flex items-center gap-4">
+          <span class="font-mono text-[0.65rem] font-bold text-ink-ghost">{(idx + 1).toString().padStart(2, '0')}</span>
+          <div>
+            <p class="text-sm font-semibold text-ink">
+              <span x-show="lang==='es'">{group.title.es}</span>
+              <span x-show="lang==='en'">{group.title.en}</span>
+            </p>
+            <p class="mt-0.5 text-xs text-ink-ghost">
+              <span x-show="lang==='es'">{group.description.es}</span>
+              <span x-show="lang==='en'">{group.description.en}</span>
+            </p>
+          </div>
+        </div>
+        <span class="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full border border-ink/15 text-ink-muted transition-transform duration-300 group-open:rotate-180 group-open:border-flame group-open:bg-flame group-open:text-paper">
+          <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 9l6 6 6-6"/>
+          </svg>
+        </span>
+      </summary>
+      <div class="border-t border-ink/10">
+        <ul class="divide-y divide-ink/5">
+          {group.perms.map((perm) => (
+            <li class="grid grid-cols-[1fr_auto] items-center gap-3 px-5 py-3 text-sm">
+              <code class="font-mono text-xs font-medium text-ink">{perm.name}</code>
+              <span class="text-xs text-ink-muted">
+                <span x-show="lang==='es'">{perm.purpose.es}</span>
+                <span x-show="lang==='en'">{perm.purpose.en}</span>
+              </span>
+            </li>
+          ))}
+        </ul>
       </div>
-      <svg class="h-4 w-4 transition group-open:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-    </summary>
-    <div class="border-t border-neutral-100 px-5 py-4 text-sm text-neutral-600 dark:border-white/5 dark:text-neutral-400">
-      <p x-show="lang==='es'"><b>CALL_PHONE</b>, <b>ANSWER_PHONE_CALLS</b> &mdash; realizar y contestar llamadas. <b>READ/WRITE_CALL_LOG</b> &mdash; gestionar historial cuando es app predeterminada.</p>
-      <p x-show="lang==='en'"><b>CALL_PHONE</b>, <b>ANSWER_PHONE_CALLS</b> &mdash; place and answer calls. <b>READ/WRITE_CALL_LOG</b> &mdash; manage history as default app.</p>
-    </div>
-  </details>
-  <details class="group rounded-xl border border-neutral-200/60 bg-white/60 backdrop-blur dark:border-white/[0.06] dark:bg-white/[0.02]">
-    <summary class="flex cursor-pointer items-center justify-between gap-4 px-5 py-4 text-sm font-semibold text-neutral-800 transition hover:text-accent dark:text-neutral-100">
-      <div class="flex items-center gap-3">
-        <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/10 text-accent"><svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87"/><circle cx="9" cy="7" r="4"/><circle cx="15" cy="7" r="4"/></svg></span>
-        <span x-show="lang==='es'">Contactos y agenda</span>
-        <span x-show="lang==='en'">Contacts & address book</span>
-      </div>
-      <svg class="h-4 w-4 transition group-open:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-    </summary>
-    <div class="border-t border-neutral-100 px-5 py-4 text-sm text-neutral-600 dark:border-white/5 dark:text-neutral-400">
-      <p x-show="lang==='es'"><b>READ/WRITE_CONTACTS</b> &mdash; mostrar, crear y editar contactos. Esc\u00e1ner QR y sincronizaci\u00f3n multi-cuenta.</p>
-      <p x-show="lang==='en'"><b>READ/WRITE_CONTACTS</b> &mdash; display, create, and edit contacts. QR scanner and multi-account sync.</p>
-    </div>
-  </details>
-  <details class="group rounded-xl border border-neutral-200/60 bg-white/60 backdrop-blur dark:border-white/[0.06] dark:bg-white/[0.02]">
-    <summary class="flex cursor-pointer items-center justify-between gap-4 px-5 py-4 text-sm font-semibold text-neutral-800 transition hover:text-accent dark:text-neutral-100">
-      <div class="flex items-center gap-3">
-        <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/10 text-accent"><svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg></span>
-        <span x-show="lang==='es'">Extras opcionales</span>
-        <span x-show="lang==='en'">Optional extras</span>
-      </div>
-      <svg class="h-4 w-4 transition group-open:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-    </summary>
-    <div class="border-t border-neutral-100 px-5 py-4 text-sm text-neutral-600 dark:border-white/5 dark:text-neutral-400">
-      <p x-show="lang==='es'"><b>Micr\u00f3fono</b> si usas grabaci\u00f3n o notas de voz. <b>C\u00e1mara</b> solo para fotos y QR. Todo opcional y revocable.</p>
-      <p x-show="lang==='en'"><b>Microphone</b> if using recording or voice notes. <b>Camera</b> only for photos and QR. All optional and revocable.</p>
-    </div>
-  </details>
+    </details>
+  ))}
 </div>
