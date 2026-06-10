@@ -7,7 +7,6 @@ const sections = [
     title: { es: 'Producto', en: 'Product' },
     items: [
       { es: 'Funciones', en: 'Features', href: baseUrl + 'features/' },
-      { es: 'Hoja de ruta', en: 'Roadmap', href: baseUrl + 'roadmap/' },
       { es: 'Preguntas frecuentes', en: 'FAQ', href: baseUrl + 'faq/' },
       { es: 'Código fuente', en: 'Source code', href: 'https://github.com/Moncada25/fun-phone', external: true },
     ]
@@ -172,19 +171,10 @@ const sections = [
     </div>
 
     <!-- Bottom -->
-    <div class="flex flex-col items-start justify-between gap-4 border-t border-ink/15 pt-8 md:flex-row md:items-center">
+    <div class="flex flex-col items-center justify-center gap-2 border-t border-ink/15 pt-8 text-center">
       <p class="font-mono text-[0.7rem] uppercase tracking-[0.16em] text-ink-ghost">
-        © {year} Fun Phone · Bookverse · <span x-show="lang==='es'">Hecho con cuidado</span><span x-show="lang==='en'">Made with care</span>
+        © {year} Fun Phone · Bookverse
       </p>
-      <div class="flex items-center gap-3">
-        <span class="flex items-center gap-1.5 font-mono text-[0.7rem] uppercase tracking-[0.16em] text-ink-ghost">
-          <span class="blink-dot inline-block h-1.5 w-1.5 rounded-full bg-flame"></span>
-          <span x-show="lang==='es'">Sistema 100% local</span>
-          <span x-show="lang==='en'">100% local system</span>
-        </span>
-        <span class="h-3 w-px bg-ink/15"></span>
-        <span class="font-mono text-[0.7rem] uppercase tracking-[0.16em] text-ink-ghost">ES / EN</span>
-      </div>
     </div>
   </div>
 </footer>

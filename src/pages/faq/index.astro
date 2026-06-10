@@ -26,28 +26,19 @@ const faqSchema = JSON.stringify({
   <!-- Hero -->
   <section class="relative border-b border-ink/15">
     <div class="container-editorial py-20 md:py-28">
-      <div class="grid grid-cols-12 gap-6">
-        <div class="col-span-12 md:col-span-3 reveal">
-          <p class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-flame">Capítulo 01</p>
-          <p class="mt-2 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-ghost">
-            <span x-show="lang==='es'">Ayuda rápida</span>
-            <span x-show="lang==='en'">Quick help</span>
-          </p>
-        </div>
-        <div class="col-span-12 md:col-span-9">
-          <h1 class="reveal text-balance font-display-condensed text-[3rem] font-extrabold leading-[0.92] tracking-tightest text-ink sm:text-[4.5rem] md:text-[6rem] lg:text-[7rem]">
-            <span x-show="lang==='es'">Preguntas </span>
-            <span x-show="lang==='en'">Frequently </span>
-            <span class="font-serif-italic text-flame">
-              <span x-show="lang==='es'">frecuentes</span>
-              <span x-show="lang==='en'">asked</span>
-            </span>
-          </h1>
-          <p class="mt-6 max-w-2xl text-pretty text-base text-ink-muted md:text-lg">
-            <span x-show="lang==='es'">Las preguntas más comunes sobre Fun Phone, respondidas sin rodeos. Si no encuentras lo que buscas, escríbenos.</span>
-            <span x-show="lang==='en'">The most common questions about Fun Phone, answered without the fluff. If you don't find what you're looking for, drop us a line.</span>
-          </p>
-        </div>
+      <div class="mx-auto max-w-4xl text-center">
+        <h1 class="reveal text-balance font-display-condensed text-[3rem] font-extrabold leading-[0.92] tracking-tightest text-ink sm:text-[4.5rem] md:text-[6rem] lg:text-[7rem]">
+          <span x-show="lang==='es'">Preguntas </span>
+          <span x-show="lang==='en'">Frequently </span>
+          <span class="font-serif-italic text-flame">
+            <span x-show="lang==='es'">frecuentes</span>
+            <span x-show="lang==='en'">asked</span>
+          </span>
+        </h1>
+        <p class="mt-6 max-w-2xl mx-auto text-pretty text-base text-ink-muted md:text-lg">
+          <span x-show="lang==='es'">Las preguntas más comunes sobre Fun Phone, respondidas sin rodeos. Si no encuentras lo que buscas, escríbenos.</span>
+          <span x-show="lang==='en'">The most common questions about Fun Phone, answered without the fluff. If you don't find what you're looking for, drop us a line.</span>
+        </p>
       </div>
     </div>
   </section>
@@ -57,8 +48,7 @@ const faqSchema = JSON.stringify({
     <div class="container-editorial">
       <div class="grid gap-3 md:grid-cols-3">
         <article class="group flex flex-col gap-3 border border-ink/15 bg-paper p-6 transition-colors hover:border-ink" style="border-radius: 18px;">
-          <div class="flex items-center justify-between">
-            <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.2em] text-flame">§01</span>
+          <div class="flex items-center justify-end">
             <span class="flex h-7 w-7 items-center justify-center rounded-full bg-ink/5 text-ink transition-transform group-hover:rotate-[20deg] group-hover:bg-flame group-hover:text-paper">
               <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
             </span>
@@ -73,8 +63,7 @@ const faqSchema = JSON.stringify({
           </p>
         </article>
         <article class="group flex flex-col gap-3 border border-ink/15 bg-paper p-6 transition-colors hover:border-ink" style="border-radius: 18px;">
-          <div class="flex items-center justify-between">
-            <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.2em] text-flame">§02</span>
+          <div class="flex items-center justify-end">
             <span class="flex h-7 w-7 items-center justify-center rounded-full bg-ink/5 text-ink transition-transform group-hover:rotate-[20deg] group-hover:bg-flame group-hover:text-paper">
               <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
             </span>
@@ -88,8 +77,7 @@ const faqSchema = JSON.stringify({
           </p>
         </article>
         <article class="group flex flex-col gap-3 border border-ink/15 bg-paper p-6 transition-colors hover:border-ink" style="border-radius: 18px;">
-          <div class="flex items-center justify-between">
-            <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.2em] text-flame">§03</span>
+          <div class="flex items-center justify-end">
             <span class="flex h-7 w-7 items-center justify-center rounded-full bg-ink/5 text-ink transition-transform group-hover:rotate-[20deg] group-hover:bg-flame group-hover:text-paper">
               <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
             </span>
@@ -110,64 +98,18 @@ const faqSchema = JSON.stringify({
   <!-- FAQ list -->
   <section class="py-16 md:py-24">
     <div class="container-editorial">
-      <div class="grid grid-cols-12 gap-6">
-        <div class="col-span-12 md:col-span-3">
-          <p class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-flame">Capítulo 02</p>
-          <p class="mt-2 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-ghost">
-            <span x-show="lang==='es'">Las preguntas</span>
-            <span x-show="lang==='en'">The questions</span>
-          </p>
-        </div>
-        <div class="col-span-12 md:col-span-9">
-          <h2 class="text-balance font-display-condensed text-[2.25rem] font-extrabold leading-[0.95] tracking-tightest text-ink md:text-[3rem]">
-            <span x-show="lang==='es'">Doce respuestas </span>
-            <span x-show="lang==='en'">Twelve answers </span>
-            <span class="font-serif-italic text-flame">
-              <span x-show="lang==='es'">honestas.</span>
-              <span x-show="lang==='en'">that are honest.</span>
-            </span>
-          </h2>
-          <div class="mt-10">
-            <FAQBlock />
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Final CTA -->
-  <section class="border-t border-ink/15 py-16 md:py-24">
-    <div class="container-editorial">
-      <div class="mx-auto max-w-3xl border border-ink bg-ink p-10 text-paper text-center" style="border-radius: 24px;">
-        <p class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-flame">
-          <span x-show="lang==='es'">¿Más preguntas?</span>
-          <span x-show="lang==='en'">More questions?</span>
-        </p>
-        <h2 class="mt-4 text-balance font-display-condensed text-2xl font-extrabold leading-tight tracking-tightest text-paper md:text-3xl">
-          <span x-show="lang==='es'">No encuentras </span>
-          <span x-show="lang==='en'">Can't find </span>
+      <div class="mx-auto max-w-3xl text-center">
+        <h2 class="text-balance font-display-condensed text-[2.25rem] font-extrabold leading-[0.95] tracking-tightest text-ink md:text-[3rem]">
+          <span x-show="lang==='es'">Doce respuestas </span>
+          <span x-show="lang==='en'">Twelve answers </span>
           <span class="font-serif-italic text-flame">
-            <span x-show="lang==='es'">tu respuesta</span>
-            <span x-show="lang==='en'">your answer</span>
+            <span x-show="lang==='es'">honestas.</span>
+            <span x-show="lang==='en'">that are honest.</span>
           </span>
-          <span x-show="lang==='es'">?</span>
-          <span x-show="lang==='en'">?</span>
         </h2>
-        <p class="mt-3 text-sm text-paper/75">
-          <span x-show="lang==='es'">Consulta la </span>
-          <span x-show="lang==='en'">Read the </span>
-          <a href={base + 'privacy/'} class="text-flame underline underline-offset-4">
-            <span x-show="lang==='es'">política de privacidad</span>
-            <span x-show="lang==='en'">privacy policy</span>
-          </a>
-          <span x-show="lang==='es'"> o escríbenos con tu dispositivo y versión de Android.</span>
-          <span x-show="lang==='en'"> or email us with your device and Android version.</span>
-        </p>
-        <a href="mailto:santiago.moncada.dev@gmail.com" class="mt-6 inline-flex items-center gap-2 rounded-full bg-flame px-6 py-3 text-sm font-bold text-paper transition-transform hover:-translate-y-0.5">
-          <span x-show="lang==='es'">Escribir a soporte</span>
-          <span x-show="lang==='en'">Email support</span>
-          <span>→</span>
-        </a>
+      </div>
+      <div class="mt-10">
+        <FAQBlock />
       </div>
     </div>
   </section>
