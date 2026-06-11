@@ -29,8 +29,7 @@ const stockCount = rows.filter(r => r.stock).length;
 <div class="relative border border-ink/15 bg-paper overflow-hidden" style="border-radius: 24px;">
   <!-- Header row — proper 3-col grid aligned with body -->
   <div
-    class="grid border-b border-ink/15 px-5 py-3 font-mono text-[0.65rem] font-bold uppercase tracking-[0.2em] text-ink-ghost bg-paper-soft"
-    style="grid-template-columns: 1fr 120px 120px;"
+    class="comparison-grid border-b border-ink/15 px-4 md:px-5 py-3 font-mono text-[0.65rem] font-bold uppercase tracking-[0.2em] text-ink-ghost bg-paper-soft"
   >
     <span>
       <span x-cloak x-show="lang==='es'">Funcionalidad</span>
@@ -48,8 +47,10 @@ const stockCount = rows.filter(r => r.stock).length;
   <div class="divide-y divide-ink/10">
     {rows.map((row, i) => (
       <div
-        class="grid items-center px-5 py-3.5 transition-colors hover:bg-ink/[0.03]"
-        style="grid-template-columns: 1fr 120px 120px; {i % 2 === 1 ? 'background-color: var(--paper-soft);' : ''}"
+        class:list={[
+          "comparison-grid items-center px-4 md:px-5 py-3.5 transition-colors hover:bg-ink/[0.03]",
+          i % 2 === 1 ? "bg-paper-soft" : ""
+        ]}
       >
         <div class="flex items-center gap-3 pr-4">
           <span class="font-mono text-[0.65rem] text-ink-ghost">{(i + 1).toString().padStart(2, '0')}</span>
@@ -85,7 +86,7 @@ const stockCount = rows.filter(r => r.stock).length;
   </div>
 
   <!-- Score footer — 2 cols aligned 50/50 to the 2 rightmost table columns -->
-  <div class="grid border-t border-ink/15 bg-paper-soft" style="grid-template-columns: 1fr 240px;">
+  <div class="comparison-grid-footer border-t border-ink/15 bg-paper-soft">
     <div class="border-r border-ink/15 p-5">
       <p class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.18em] text-ink">
         <span x-cloak x-show="lang==='es'">Resultado</span>

@@ -123,6 +123,28 @@
     border-color: var(--paper-edge);
   }
 
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 72px 72px;
+  }
+
+  @media (min-width: 768px) {
+    .comparison-grid {
+      grid-template-columns: 1fr 120px 120px;
+    }
+  }
+
+  .comparison-grid-footer {
+    display: grid;
+    grid-template-columns: 1fr 144px;
+  }
+
+  @media (min-width: 768px) {
+    .comparison-grid-footer {
+      grid-template-columns: 1fr 240px;
+    }
+  }
+
   .hairline-t { border-top: 1px solid var(--paper-edge); }
   .hairline-b { border-bottom: 1px solid var(--paper-edge); }
   .hairline-l { border-left: 1px solid var(--paper-edge); }
