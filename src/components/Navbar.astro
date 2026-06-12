@@ -177,7 +177,7 @@ const isActive = (suffix: string) => {
   >
     <div class="absolute inset-0 bg-ink/40 backdrop-blur-sm" @click="closeMenu()"></div>
     <div
-      class="absolute right-3 top-3 w-[min(360px,calc(100vw-1.5rem))] max-h-[calc(100vh-1.5rem)] overflow-y-auto origin-top-right border border-ink/15 bg-paper p-5 shadow-2xl"
+      class="absolute left-1/2 top-20 w-[min(360px,calc(100vw-1.5rem))] max-h-[calc(100vh-1.5rem)] -translate-x-1/2 overflow-y-auto origin-top border border-ink/15 bg-paper p-5 shadow-2xl"
       style="border-radius: 24px;"
       x-transition:enter="transition duration-300 ease-out"
       x-transition:enter-start="opacity-0 scale-95 -translate-y-2"
@@ -194,20 +194,49 @@ const isActive = (suffix: string) => {
         </button>
       </div>
       <nav class="mt-4 flex flex-col gap-1">
-        <a href={baseUrl} x-on:click="closeMenu()" class="group flex items-center justify-between rounded-2xl px-4 py-3 text-base font-bold text-ink transition hover:bg-ink/5">
+        <a
+          href={baseUrl}
+          x-on:click="closeMenu()"
+          class:list={[
+            'flex items-center gap-3 rounded-2xl px-4 py-3 text-base font-bold transition',
+            isActive('') ? 'text-flame' : 'text-ink hover:bg-ink/5'
+          ]}
+        >
+          <span class:list={['h-2 w-2 rounded-full transition', isActive('') ? 'bg-flame' : 'bg-transparent']}></span>
           <span><span x-cloak x-show="lang==='es'">Inicio</span><span x-cloak x-show="lang==='en'">Home</span></span>
-          <span class="font-mono text-xs text-ink-ghost group-hover:text-flame">01</span>
         </a>
-        <a href={baseUrl + 'features/'} x-on:click="closeMenu()" class="group flex items-center justify-between rounded-2xl px-4 py-3 text-base font-bold text-ink transition hover:bg-ink/5">
+        <a
+          href={baseUrl + 'features/'}
+          x-on:click="closeMenu()"
+          class:list={[
+            'flex items-center gap-3 rounded-2xl px-4 py-3 text-base font-bold transition',
+            isActive('features') ? 'text-flame' : 'text-ink hover:bg-ink/5'
+          ]}
+        >
+          <span class:list={['h-2 w-2 rounded-full transition', isActive('features') ? 'bg-flame' : 'bg-transparent']}></span>
           <span><span x-cloak x-show="lang==='es'">Funciones</span><span x-cloak x-show="lang==='en'">Features</span></span>
-          <span class="font-mono text-xs text-ink-ghost group-hover:text-flame">02</span>
         </a>
-        <a href={baseUrl + 'faq/'} x-on:click="closeMenu()" class="group flex items-center justify-between rounded-2xl px-4 py-3 text-base font-bold text-ink transition hover:bg-ink/5">
-          FAQ <span class="font-mono text-xs text-ink-ghost group-hover:text-flame">03</span>
+        <a
+          href={baseUrl + 'faq/'}
+          x-on:click="closeMenu()"
+          class:list={[
+            'flex items-center gap-3 rounded-2xl px-4 py-3 text-base font-bold transition',
+            isActive('faq') ? 'text-flame' : 'text-ink hover:bg-ink/5'
+          ]}
+        >
+          <span class:list={['h-2 w-2 rounded-full transition', isActive('faq') ? 'bg-flame' : 'bg-transparent']}></span>
+          <span><span x-cloak x-show="lang==='es'">FAQ</span><span x-cloak x-show="lang==='en'">FAQ</span></span>
         </a>
-        <a href={baseUrl + 'privacy/'} x-on:click="closeMenu()" class="group flex items-center justify-between rounded-2xl px-4 py-3 text-base font-bold text-ink transition hover:bg-ink/5">
+        <a
+          href={baseUrl + 'privacy/'}
+          x-on:click="closeMenu()"
+          class:list={[
+            'flex items-center gap-3 rounded-2xl px-4 py-3 text-base font-bold transition',
+            isActive('privacy') ? 'text-flame' : 'text-ink hover:bg-ink/5'
+          ]}
+        >
+          <span class:list={['h-2 w-2 rounded-full transition', isActive('privacy') ? 'bg-flame' : 'bg-transparent']}></span>
           <span><span x-cloak x-show="lang==='es'">Privacidad</span><span x-cloak x-show="lang==='en'">Privacy</span></span>
-          <span class="font-mono text-xs text-ink-ghost group-hover:text-flame">04</span>
         </a>
       </nav>
       <div class="mt-4 flex gap-2">
