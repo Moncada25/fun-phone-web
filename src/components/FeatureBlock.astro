@@ -4,12 +4,10 @@ export interface Props {
   titleEn?: string;
   bullets: string[];
   bulletsEn?: string[];
-  number?: string;
   variant?: 'light' | 'dark' | 'flame';
-  category?: { es: string; en: string };
 }
 
-const { title, titleEn = title, bullets, bulletsEn = bullets, number, variant = 'light', category } = Astro.props;
+const { title, titleEn = title, bullets, bulletsEn = bullets, variant = 'light' } = Astro.props;
 ---
 
 <article
@@ -21,37 +19,6 @@ const { title, titleEn = title, bullets, bulletsEn = bullets, number, variant = 
   ]}
   style="border-radius: 20px;"
 >
-  <!-- Top meta strip -->
-  <header
-    class:list={[
-      'flex items-center justify-between border-b px-5 py-3 font-mono text-[0.65rem] font-bold uppercase tracking-[0.2em]',
-      variant === 'dark' && 'border-paper/15 text-paper/70',
-      variant === 'flame' && 'border-paper/20 text-paper/80',
-      variant === 'light' && 'border-ink/10 text-ink-ghost',
-    ]}
-  >
-    <span class="flex items-center gap-2">
-      {number && <span x-cloak x-show={variant === 'light' ? "true" : "false"} class="text-flame">{number}</span>}
-      {number && <span class:list={[variant === 'dark' && 'text-flame', variant === 'flame' && 'text-paper']}>{number}</span>}
-      {category && (
-        <span>
-          <span x-cloak x-show="lang==='es'">{category.es}</span>
-          <span x-cloak x-show="lang==='en'">{category.en}</span>
-        </span>
-      )}
-    </span>
-    <span
-      class:list={[
-        'flex h-7 w-7 items-center justify-center rounded-full transition-transform duration-500 group-hover:rotate-[20deg]',
-        variant === 'light' && 'bg-ink/5 text-ink group-hover:bg-flame group-hover:text-paper',
-        variant === 'dark' && 'bg-paper/10 text-paper group-hover:bg-flame',
-        variant === 'flame' && 'bg-paper/20 text-paper group-hover:bg-ink',
-      ]}
-    >
-      <slot name="icon" />
-    </span>
-  </header>
-
   <div class="flex flex-1 flex-col p-6">
     <h3
       class:list={[
