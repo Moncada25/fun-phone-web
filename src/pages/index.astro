@@ -7,10 +7,10 @@ const base = import.meta.env.BASE_URL;
 const heroImg = base + 'assets/screenshots/favorites.png?v=4.0.0';
 
 const stats = [
-  { num: '12+', label: { es: 'Herramientas integradas', en: 'Built-in tools' } },
+  { num: '11+', label: { es: 'Herramientas opcionales', en: 'Optional tools' } },
   { num: '10', label: { es: 'Minijuegos clásicos', en: 'Classic mini-games' } },
-  { num: '0 KB', label: { es: 'Datos compartidos', en: 'Data shared' } },
-  { num: 'GPL v3', label: { es: 'Open source', en: 'Open source' } },
+  { num: 'T9', label: { es: 'Búsqueda rápida', en: 'Fast search' } },
+  { num: 'Android 9+', label: { es: 'Compatibilidad', en: 'Compatibility' } },
 ];
 
 const tools = [
@@ -52,36 +52,30 @@ const tools = [
   },
   {
     num: '07',
-    title: { es: 'Académica', en: 'Academic' },
-    desc: { es: 'Materias, notas, tareas y asistencia.', en: 'Subjects, grades, tasks & attendance.' },
-    color: 'flame',
-  },
-  {
-    num: '08',
     title: { es: 'Pomodoro', en: 'Pomodoro' },
     desc: { es: '25/5, configurable, en segundo plano.', en: '25/5, customizable, runs in background.' },
     color: 'ink',
   },
   {
-    num: '09',
+    num: '08',
     title: { es: 'Voz + QR', en: 'Voice + QR' },
     desc: { es: 'STT, TTS, escáner y generador.', en: 'STT, TTS, scanner & generator.' },
     color: 'ink',
   },
   {
-    num: '10',
+    num: '09',
     title: { es: 'Festivos', en: 'Holidays' },
     desc: { es: 'API Nager.Date, países y años.', en: 'Nager.Date API, countries & years.' },
     color: 'flame',
   },
   {
-    num: '11',
+    num: '10',
     title: { es: 'Juegos', en: 'Games' },
     desc: { es: 'Snake, 2048, Sudoku, Memory y más.', en: 'Snake, 2048, Sudoku, Memory & more.' },
     color: 'ink',
   },
   {
-    num: '12',
+    num: '11',
     title: { es: 'Pintura', en: 'Paint' },
     desc: { es: 'Pinceles expresivos, exportar y compartir.', en: 'Expressive brushes, export & share.' },
     color: 'ink',
@@ -90,11 +84,11 @@ const tools = [
 
 const marqueeItems = [
   { es: 'Fun Phone', en: 'Fun Phone', accent: true },
-  { es: 'Open source', en: 'Open source' },
-  { es: 'GPL v3', en: 'GPL v3' },
+  { es: 'Marcador T9', en: 'T9 dialer' },
+  { es: 'Contactos primero', en: 'Contacts first' },
   { es: 'Sin anuncios', en: 'Ad-free' },
-  { es: 'Privacidad real', en: 'Real privacy' },
-  { es: 'Cero servidores', en: 'Zero servers' },
+  { es: 'Permisos claros', en: 'Clear permissions' },
+  { es: 'Herramientas opcionales', en: 'Optional tools' },
   { es: 'Cifrado Tink', en: 'Tink encryption' },
   { es: '★ 5.0 en Play Store', en: '★ 5.0 on Play Store' },
 ];
@@ -102,7 +96,7 @@ const marqueeItems = [
 
 <Base
   title="Fun Phone — The Android Dialer that does more"
-  description="Fun Phone combines an advanced dialer, smart contacts, productivity tools, games, password manager and more. Free on Google Play. No ads. No data sharing."
+  description="A private, customizable Android dialer and contacts app with T9 search, clear permissions and optional tools."
   ogImage={heroImg}
   canonical="https://moncada25.github.io/fun-phone-web/"
 >
@@ -133,7 +127,7 @@ const marqueeItems = [
               <span class="text-flame">✱</span>
             </Fragment>
           ))}
-          <span class="font-serif-italic text-flame lowercase">on-device only</span>
+          <span class="font-serif-italic text-flame lowercase">local-first</span>
           <span class="text-flame">✱</span>
         </div>
       ))}
@@ -165,28 +159,20 @@ const marqueeItems = [
         <div class="col-span-12 md:col-span-9">
           <h1 class="reveal text-balance font-display-condensed text-[3rem] font-extrabold leading-[0.92] tracking-tightest text-ink sm:text-[4.5rem] md:text-[6.5rem] lg:text-[7.5rem]">
             <span class="block">
-              <span x-cloak x-show="lang==='es'">Tu central</span>
-              <span x-cloak x-show="lang==='en'">Your hub</span>
+              <span x-cloak x-show="lang==='es'">Tu teléfono,</span>
+              <span x-cloak x-show="lang==='en'">Your phone,</span>
             </span>
             <span class="block">
-              <span x-cloak x-show="lang==='es'">de </span>
-              <span x-cloak x-show="lang==='en'">for </span>
+              <span x-cloak x-show="lang==='es'">a tu </span>
+              <span x-cloak x-show="lang==='en'">your </span>
               <span class="font-serif-italic text-flame">
-                <span x-cloak x-show="lang==='es'">comunicación</span>
-                <span x-cloak x-show="lang==='en'">communication</span>
-              </span>
-              <span class="font-serif-italic text-ink">
-                <span x-cloak x-show="lang==='es'">&amp;</span>
-                <span x-cloak x-show="lang==='en'">&amp;</span>
+                <span x-cloak x-show="lang==='es'">manera.</span>
+                <span x-cloak x-show="lang==='en'">way.</span>
               </span>
             </span>
             <span class="block">
-              <span x-cloak x-show="lang==='es'">productividad,</span>
-              <span x-cloak x-show="lang==='en'">productivity,</span>
-            </span>
-            <span class="block">
-              <span x-cloak x-show="lang==='es'">en una app.</span>
-              <span x-cloak x-show="lang==='en'">in one app.</span>
+              <span x-cloak x-show="lang==='es'">Llamadas y contactos primero.</span>
+              <span x-cloak x-show="lang==='en'">Calls and contacts first.</span>
             </span>
           </h1>
         </div>
@@ -195,8 +181,8 @@ const marqueeItems = [
         <div class="col-span-12 md:col-start-4 md:col-span-9 reveal">
           <div class="grid gap-8 md:grid-cols-2 md:items-end">
             <p class="max-w-md text-pretty text-base leading-relaxed text-ink-muted md:text-lg">
-              <span x-cloak x-show="lang==='es'">Marcador avanzado, contactos, notas, gastos, contraseñas cifradas, Pomodoro, gestión académica, juegos y más. <b class="text-ink">Open source bajo GPL v3</b>. Sin anuncios. Sin datos compartidos.</span>
-              <span x-cloak x-show="lang==='en'">Advanced dialer, contacts, notes, expenses, encrypted passwords, Pomodoro, academic management, games and more. <b class="text-ink">Open source under GPL v3</b>. No ads. No data sharing.</span>
+              <span x-cloak x-show="lang==='es'">Marcador T9, favoritos, recientes y contactos con permisos claros. Activa solo las herramientas que quieras y mantén el teléfono enfocado.</span>
+              <span x-cloak x-show="lang==='en'">T9 dialer, favorites, recents and contacts with clear permissions. Enable only the tools you want and keep your phone focused.</span>
             </p>
             <div class="flex flex-wrap items-center gap-3">
               <a href="https://play.google.com/store/apps/details?id=com.bookverse.contacts" target="_blank" rel="noopener" class="btn-primary group">
@@ -206,11 +192,6 @@ const marqueeItems = [
                 <span x-cloak x-show="lang==='es'">Instalar gratis</span>
                 <span x-cloak x-show="lang==='en'">Install free</span>
                 <span class="ml-1 flex h-5 w-5 items-center justify-center rounded-full bg-paper/20 font-mono text-[0.6rem]">↗</span>
-              </a>
-              <a href="https://github.com/Moncada25/fun-phone" target="_blank" rel="noopener" class="btn-ghost group">
-                <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .5C5.4.5 0 5.9 0 12.5c0 5.3 3.4 9.8 8.2 11.4.6.1.8-.3.8-.6v-2.1c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.3 1.9 1.3 1.1 1.9 2.9 1.4 3.6 1 .1-.8.4-1.4.8-1.7-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.6 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.7-5.5 6 .4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.8-1.6 8.2-6.1 8.2-11.4C24 5.9 18.6.5 12 .5z"/></svg>
-                <span>GitHub</span>
-                <span class="font-mono text-xs">★</span>
               </a>
               <a href={base + 'features/'} class="font-mono text-xs font-bold uppercase tracking-[0.18em] text-ink-muted underline-link">
                 <span x-cloak x-show="lang==='es'">Ver funciones</span>
@@ -242,9 +223,9 @@ const marqueeItems = [
           <div class="mt-8 inline-flex items-center gap-3 self-start border border-ink bg-ink px-4 py-2.5 text-paper" style="border-radius: 999px;">
             <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em]">Android 9+</span>
             <span class="h-3 w-px bg-paper/30"></span>
-            <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em] text-flame">v3.16.1</span>
+            <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em] text-flame">v3.17.0</span>
             <span class="h-3 w-px bg-paper/30"></span>
-            <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em]">GPL v3</span>
+            <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em]">Play</span>
           </div>
         </div>
 
@@ -269,7 +250,7 @@ const marqueeItems = [
 
             <!-- Bottom labels -->
             <div class="absolute -right-2 bottom-8 hidden rotate-6 md:block">
-              <span class="font-serif-italic text-xl text-ink">0% cloud. 100% yours.</span>
+              <span class="font-serif-italic text-xl text-ink">local-first. clearly controlled.</span>
             </div>
           </div>
         </div>
@@ -319,14 +300,14 @@ const marqueeItems = [
           <span x-cloak x-show="lang==='en'">Manifesto</span>
         </p>
         <blockquote class="mt-8 text-balance font-display-condensed text-[2.5rem] font-extrabold leading-[0.96] tracking-tightest text-ink md:text-[4rem] lg:text-[5rem]">
-          <span x-cloak x-show="lang==='es'">Una app </span>
-          <span x-cloak x-show="lang==='en'">An app </span>
+          <span x-cloak x-show="lang==='es'">Una app de teléfono </span>
+          <span x-cloak x-show="lang==='en'">A phone app </span>
           <span class="font-serif-italic text-flame">
-            <span x-cloak x-show="lang==='es'">open source</span>
-            <span x-cloak x-show="lang==='en'">open source</span>
+            <span x-cloak x-show="lang==='es'">enfocada</span>
+            <span x-cloak x-show="lang==='en'">focused</span>
           </span>
-          <span x-cloak x-show="lang==='es'"> que no te rastrea,</span>
-          <span x-cloak x-show="lang==='en'"> that doesn't track you,</span>
+          <span x-cloak x-show="lang==='es'"> en las personas,</span>
+          <span x-cloak x-show="lang==='en'"> on people,</span>
           <br />
           <span x-cloak x-show="lang==='es'">que respeta tu batería </span>
           <span x-cloak x-show="lang==='en'">that respects your battery </span>
@@ -338,8 +319,8 @@ const marqueeItems = [
         <div class="mt-10 flex items-center justify-center gap-3 font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em] text-ink-ghost">
           <span class="h-px w-12 bg-ink/30"></span>
           <span>
-            <span x-cloak x-show="lang==='es'">— Fun Phone · GPL v3 · Bookverse</span>
-            <span x-cloak x-show="lang==='en'">— Fun Phone · GPL v3 · Bookverse</span>
+            <span x-cloak x-show="lang==='es'">— Fun Phone · v3.17 · Bookverse</span>
+            <span x-cloak x-show="lang==='en'">— Fun Phone · v3.17 · Bookverse</span>
           </span>
           <span class="h-px w-12 bg-ink/30"></span>
         </div>
@@ -354,11 +335,11 @@ const marqueeItems = [
     <div class="container-editorial">
       <div class="mb-12 mx-auto max-w-4xl text-center">
         <h2 class="text-balance font-display-condensed text-[2.5rem] font-extrabold leading-[0.96] tracking-tightest text-ink md:text-[3.5rem] lg:text-[4.5rem]">
-          <span x-cloak x-show="lang==='es'">Doce herramientas, </span>
-          <span x-cloak x-show="lang==='en'">Twelve tools, </span>
+          <span x-cloak x-show="lang==='es'">Herramientas cuando </span>
+          <span x-cloak x-show="lang==='en'">Tools when </span>
           <span class="font-serif-italic text-flame">
-            <span x-cloak x-show="lang==='es'">una sola app.</span>
-            <span x-cloak x-show="lang==='en'">one single app.</span>
+            <span x-cloak x-show="lang==='es'">tú las eliges.</span>
+            <span x-cloak x-show="lang==='en'">you choose them.</span>
           </span>
         </h2>
         <p class="mt-4 max-w-2xl mx-auto text-pretty text-base text-ink-muted">
@@ -462,8 +443,8 @@ const marqueeItems = [
             <span x-cloak x-show="lang==='en'">Real privacy</span>
           </h3>
           <p class="text-sm leading-relaxed text-ink-muted">
-            <span x-cloak x-show="lang==='es'">Todos tus datos viven en tu dispositivo. Sin servidores, sin rastreo, sin anuncios. Punto.</span>
-            <span x-cloak x-show="lang==='en'">All your data lives on your device. No servers, no tracking, no ads. Period.</span>
+            <span x-cloak x-show="lang==='es'">Tus datos principales se guardan localmente. Las funciones de red opcionales están documentadas y bajo tu control.</span>
+            <span x-cloak x-show="lang==='en'">Your core data is stored locally. Optional network features are documented and remain under your control.</span>
           </p>
         </article>
 
@@ -474,12 +455,12 @@ const marqueeItems = [
             </span>
           </div>
           <h3 class="font-display-condensed text-2xl font-extrabold leading-tight tracking-tightest">
-            <span x-cloak x-show="lang==='es'">Open source</span>
-            <span x-cloak x-show="lang==='en'">Open source</span>
+            <span x-cloak x-show="lang==='es'">Permisos claros</span>
+            <span x-cloak x-show="lang==='en'">Clear permissions</span>
           </h3>
           <p class="text-sm leading-relaxed text-paper/75 group-hover:text-paper/90">
-            <span x-cloak x-show="lang==='es'">Código disponible bajo GPL v3. Builds FOSS sin Firebase, auditables y compilables por la comunidad.</span>
-            <span x-cloak x-show="lang==='en'">Code available under GPL v3. FOSS builds without Firebase, auditable and community-compilable.</span>
+            <span x-cloak x-show="lang==='es'">Estado del teléfono explica qué falta, por qué importa y cómo resolverlo sin pedir permisos en bloque.</span>
+            <span x-cloak x-show="lang==='en'">Phone Status explains what is missing, why it matters and how to fix it without blanket permission requests.</span>
           </p>
         </article>
 
