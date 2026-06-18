@@ -26,7 +26,7 @@ Landing oficial, features y política de privacidad para la app **Fun Phone v3.1
 - **Estilo de vida**: gestor de gastos, calendario menstrual, gestión académica, Pomodoro 25/5.
 - **Extras**: 10 mini‑juegos, lienzo de pintura, calendario de festivos (Nager.Date), QR, voz (STT/TTS).
 - **Personalización**: temas, paletas, fuentes, animaciones, widgets, atajos.
-- **Open source**: GPL v3, builds FOSS sin Firebase, código en github.com/Moncada25/fun-phone.
+- **Open source**: GPL v3, código en github.com/Moncada25/fun-phone.
 
 Consulta la tabla comparativa en `src/pages/features/index.astro` para ver por qué Fun Phone supera al marcador estándar.
 
