@@ -4,7 +4,7 @@ import PrivacyBadge from '../../components/PrivacyBadge.astro';
 import PermissionsBlock from '../../components/PermissionsBlock.astro';
 
 const base = import.meta.env.BASE_URL;
-const lastUpdated = { es: '23 may 2026', en: 'May 23, 2026' };
+const lastUpdated = { es: '24 jul 2026', en: 'July 24, 2026' };
 
 const sections = [
   { id: 'about', es: 'Sobre la app', en: 'About' },
@@ -19,7 +19,7 @@ const sections = [
 
 <Base
   title="Privacy Policy — Fun Phone"
-  description="Fun Phone privacy policy: how we handle your data, permissions, storage, and controls available to you. 100% local, open source (GPL v3), zero ads."
+  description="Fun Phone privacy policy: local storage, optional network services, permissions and the controls available to you."
   canonical="https://moncada25.github.io/fun-phone-web/privacy/"
 >
   <!-- Hero: flame accent strip + matching page bg so it adapts in dark mode -->
@@ -54,10 +54,10 @@ const sections = [
     <div class="container-editorial">
       <div class="grid grid-cols-2 gap-px overflow-hidden border border-ink/15 bg-ink/15 md:grid-cols-4" style="border-radius: 20px;">
         <div class="bg-paper p-6 md:p-8">
-          <p class="font-display-condensed text-5xl font-extrabold leading-none tracking-tighter text-flame md:text-6xl">0</p>
+          <p class="font-display-condensed text-5xl font-extrabold leading-none tracking-tighter text-flame md:text-6xl">Local</p>
           <p class="mt-3 text-xs font-semibold text-ink-muted">
-            <span x-cloak x-show="lang==='es'">Datos compartidos</span>
-            <span x-cloak x-show="lang==='en'">Data shared</span>
+            <span x-cloak x-show="lang==='es'">Datos principales</span>
+            <span x-cloak x-show="lang==='en'">Core data</span>
           </p>
         </div>
         <div class="bg-paper p-6 md:p-8">
@@ -68,17 +68,17 @@ const sections = [
           </p>
         </div>
         <div class="bg-paper p-6 md:p-8">
-          <p class="font-display-condensed text-5xl font-extrabold leading-none tracking-tighter text-ink md:text-6xl">100<span class="text-flame">%</span></p>
+          <p class="font-display-condensed text-5xl font-extrabold leading-none tracking-tighter text-ink md:text-6xl">Opt<span class="text-flame">-in</span></p>
           <p class="mt-3 text-xs font-semibold text-ink-muted">
-            <span x-cloak x-show="lang==='es'">Almacenamiento local</span>
-            <span x-cloak x-show="lang==='en'">Local storage</span>
+            <span x-cloak x-show="lang==='es'">Métricas anónimas</span>
+            <span x-cloak x-show="lang==='en'">Anonymous metrics</span>
           </p>
         </div>
         <div class="bg-paper p-6 md:p-8">
-          <p class="font-display-condensed text-5xl font-extrabold leading-none tracking-tighter text-ink md:text-6xl">GPL<span class="text-flame">v3</span></p>
+          <p class="font-display-condensed text-5xl font-extrabold leading-none tracking-tighter text-ink md:text-6xl">Clear</p>
           <p class="mt-3 text-xs font-semibold text-ink-muted">
-            <span x-cloak x-show="lang==='es'">Open source</span>
-            <span x-cloak x-show="lang==='en'">Open source</span>
+            <span x-cloak x-show="lang==='es'">Permisos</span>
+            <span x-cloak x-show="lang==='en'">Permissions</span>
           </p>
         </div>
       </div>
@@ -105,8 +105,8 @@ const sections = [
             </h2>
             <p class="mt-4 max-w-2xl text-pretty text-sm leading-relaxed text-ink-muted md:text-base">
               <em class="font-serif-italic text-flame">Fun Phone</em>
-              <span x-cloak x-show="lang==='es'"> es una app de marcador y contactos. Al configurarla como <b>app de Teléfono predeterminada</b>, puedes realizar, contestar y gestionar llamadas y contactos. Es <b>open source</b> bajo licencia <b>GPL v3</b>: el código está disponible, es auditable y la comunidad puede revisarlo. Las builds FOSS (sin Firebase) no transmiten absolutamente nada a servidores externos.</span>
-              <span x-cloak x-show="lang==='en'"> is a dialer and contacts app. When set as your <b>default Phone app</b>, it lets you place, receive, and manage calls and contacts. It's <b>open source</b> under the <b>GPL v3</b> license: the code is available, auditable, and community-reviewed. FOSS builds (without Firebase) transmit absolutely nothing to external servers.</span>
+              <span x-cloak x-show="lang==='es'"> es una app de marcador y contactos. Al configurarla como <b>app de Teléfono predeterminada</b>, puedes realizar, contestar y gestionar llamadas y contactos. Este release se distribuye por Google Play; el repositorio de código todavía no es público.</span>
+              <span x-cloak x-show="lang==='en'"> is a dialer and contacts app. When set as your <b>default Phone app</b>, it lets you place, receive, and manage calls and contacts. This release is distributed through Google Play; the source repository is not public yet.</span>
             </p>
           </section>
 
@@ -128,7 +128,7 @@ const sections = [
                 { name: 'Call log', descEs: 'leer/escribir historial como app predeterminada.', descEn: 'read/write history as default app.' },
                 { name: 'Phone state', descEs: 'identificar línea activa y estado.', descEn: 'identify active line and state.' },
                 { name: 'Notes & Vault', descEs: 'almacenadas localmente, cifradas con Tink + Android Keystore.', descEn: 'stored locally, encrypted with Tink + Android Keystore.' },
-                { name: 'Expenses, cycle, academic', descEs: '100% locales, sin sincronización obligatoria.', descEn: '100% local, no mandatory sync.' },
+                { name: 'Expenses & cycle', descEs: 'locales, sin sincronización obligatoria.', descEn: 'local, with no mandatory sync.' },
               ].map((item) => (
                 <li class="flex items-start gap-3 border-b border-ink/10 pb-3">
                   <span class="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-flame"></span>
@@ -161,7 +161,9 @@ const sections = [
                 { es: 'Mostrar y gestionar llamadas recientes.', en: 'Display and manage recent calls.' },
                 { es: 'Realizar o contestar llamadas.', en: 'Place or answer calls.' },
                 { es: 'Sincronizar nombres con el historial.', en: 'Sync contact names with call history.' },
-                { es: 'Sincronización en la nube opcional (solo si la activas).', en: 'Optional cloud sync (only if you enable it).' },
+                { es: 'Compartir fotos de contactos mediante enlace temporal.', en: 'Share contact photos via a temporary link.' },
+                { es: 'Consultar festivos, previews y proveedores de voz cuando activas esas funciones.', en: 'Fetch holidays, previews and voice providers when you activate those features.' },
+                { es: 'Medir activación de forma anónima solo después de tu consentimiento.', en: 'Measure anonymous activation only after your consent.' },
               ].map((item) => (
                 <li class="flex items-start gap-3">
                   <svg class="mt-1 h-3.5 w-3.5 flex-shrink-0 text-flame" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
@@ -187,8 +189,8 @@ const sections = [
               <span x-cloak x-show="lang==='en'">Where the data lives</span>
             </h2>
             <p class="mt-4 max-w-2xl text-pretty text-sm leading-relaxed text-ink-muted md:text-base">
-              <span x-cloak x-show="lang==='es'">Por defecto, los datos permanecen en tu dispositivo Android cifrados en Room + Tink. La sincronización en la nube es <b>estrictamente opcional</b> y se activa solo si la pides (Firebase Auth, Storage, Crashlytics, App Check). Builds FOSS no incluyen Firebase: cero datos salen del dispositivo. Jamás.</span>
-              <span x-cloak x-show="lang==='en'">By default, data stays on your Android device, encrypted in Room + Tink. Cloud sync is <b>strictly opt-in</b> and only activates if you ask (Firebase Auth, Storage, Crashlytics, App Check). FOSS builds don't include Firebase: zero data leaves the device. Ever.</span>
+              <span x-cloak x-show="lang==='es'">Los contactos y llamadas usan los proveedores protegidos de Android; notas, bóveda, gastos y ajustes se guardan localmente. La versión Play incluye Firebase Auth, App Check y Storage para funciones concretas, y Analytics solo con consentimiento revocable. Festivos, previews y algunos proveedores de voz usan sus propios servicios cuando los activas.</span>
+              <span x-cloak x-show="lang==='en'">Contacts and calls use Android protected providers; notes, vault, expenses and settings are stored locally. The Play build includes Firebase Auth, App Check and Storage for specific features, and Analytics only with revocable consent. Holidays, previews and some voice providers use their own services when activated.</span>
             </p>
           </section>
 
@@ -205,8 +207,8 @@ const sections = [
               <span x-cloak x-show="lang==='en'">Who sees what</span>
             </h2>
             <p class="mt-4 max-w-2xl text-pretty text-sm leading-relaxed text-ink-muted md:text-base">
-              <span x-cloak x-show="lang==='es'">No vendemos ni compartimos datos con terceros. No construimos perfiles publicitarios. Google Play confirma: <b>"No se comparten datos con terceros"</b> y <b>"No se recolectan datos"</b>. Si en el futuro cambiamos esto, esta página se actualiza antes de que el código llegue a la tienda.</span>
-              <span x-cloak x-show="lang==='en'">We don't sell or share data with third parties. We don't build advertising profiles. Google Play confirms: <b>"No data shared with third parties"</b> and <b>"No data collected"</b>. If that ever changes, this page updates before the code ships.</span>
+              <span x-cloak x-show="lang==='es'">No vendemos datos ni construimos perfiles publicitarios. Algunas funciones envían los datos mínimos necesarios a sus proveedores —por ejemplo, una foto que eliges compartir o el país/año para consultar festivos— y las métricas de activación requieren consentimiento. La ficha Data Safety de Play debe coincidir con esta conducta antes de publicar.</span>
+              <span x-cloak x-show="lang==='en'">We do not sell data or build advertising profiles. Some features send the minimum required data to their providers—for example, a photo you choose to share or country/year for a holiday lookup—and activation metrics require consent. The Play Data Safety form must match this behavior before publication.</span>
             </p>
           </section>
 
@@ -245,7 +247,7 @@ const sections = [
                 { es: 'Quitar como predeterminado: Ajustes → Apps predeterminadas.', en: 'Remove as default: Settings → Default apps.' },
                 { es: 'Eliminar datos: gestiona el historial o desinstala.', en: 'Delete data: manage call log or uninstall.' },
                 { es: 'Auditar el código: github.com/Moncada25/fun-phone (GPL v3).', en: 'Audit the code: github.com/Moncada25/fun-phone (GPL v3).' },
-                { es: 'Compilar tu propia build FOSS sin Firebase.', en: 'Compile your own FOSS build without Firebase.' },
+                { es: 'Compilar tu propia build desde el código fuente.', en: 'Compile your own build from the source code.' },
               ].map((item) => (
                 <li class="flex items-start gap-3">
                   <svg class="mt-1 h-3.5 w-3.5 flex-shrink-0 text-flame" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
