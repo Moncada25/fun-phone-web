@@ -105,8 +105,8 @@ const sections = [
             </h2>
             <p class="mt-4 max-w-2xl text-pretty text-sm leading-relaxed text-ink-muted md:text-base">
               <em class="font-serif-italic text-flame">Fun Phone</em>
-              <span x-cloak x-show="lang==='es'"> es una app de marcador y contactos. Al configurarla como <b>app de Teléfono predeterminada</b>, puedes realizar, contestar y gestionar llamadas y contactos. Es <b>open source</b> bajo licencia <b>GPL v3</b>: el código está disponible, es auditable y la comunidad puede revisarlo. Las builds FOSS (sin Firebase) no transmiten absolutamente nada a servidores externos.</span>
-              <span x-cloak x-show="lang==='en'"> is a dialer and contacts app. When set as your <b>default Phone app</b>, it lets you place, receive, and manage calls and contacts. It's <b>open source</b> under the <b>GPL v3</b> license: the code is available, auditable, and community-reviewed. FOSS builds (without Firebase) transmit absolutely nothing to external servers.</span>
+              <span x-cloak x-show="lang==='es'"> es una app de marcador y contactos. Al configurarla como <b>app de Teléfono predeterminada</b>, puedes realizar, contestar y gestionar llamadas y contactos. Es <b>open source</b> bajo licencia <b>GPL v3</b>: el código está disponible, es auditable y la comunidad puede revisarlo.</span>
+              <span x-cloak x-show="lang==='en'"> is a dialer and contacts app. When set as your <b>default Phone app</b>, it lets you place, receive, and manage calls and contacts. It's <b>open source</b> under the <b>GPL v3</b> license: the code is available, auditable, and community-reviewed.</span>
             </p>
           </section>
 
@@ -161,7 +161,7 @@ const sections = [
                 { es: 'Mostrar y gestionar llamadas recientes.', en: 'Display and manage recent calls.' },
                 { es: 'Realizar o contestar llamadas.', en: 'Place or answer calls.' },
                 { es: 'Sincronizar nombres con el historial.', en: 'Sync contact names with call history.' },
-                { es: 'Sincronización en la nube opcional (solo si la activas).', en: 'Optional cloud sync (only if you enable it).' },
+                { es: 'Compartir fotos de contactos mediante enlace temporal.', en: 'Share contact photos via a temporary link.' },
               ].map((item) => (
                 <li class="flex items-start gap-3">
                   <svg class="mt-1 h-3.5 w-3.5 flex-shrink-0 text-flame" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
@@ -187,8 +187,8 @@ const sections = [
               <span x-cloak x-show="lang==='en'">Where the data lives</span>
             </h2>
             <p class="mt-4 max-w-2xl text-pretty text-sm leading-relaxed text-ink-muted md:text-base">
-              <span x-cloak x-show="lang==='es'">Por defecto, los datos permanecen en tu dispositivo Android cifrados en Room + Tink. La sincronización en la nube es <b>estrictamente opcional</b> y se activa solo si la pides (Firebase Auth, Storage, Crashlytics, App Check). Builds FOSS no incluyen Firebase: cero datos salen del dispositivo. Jamás.</span>
-              <span x-cloak x-show="lang==='en'">By default, data stays on your Android device, encrypted in Room + Tink. Cloud sync is <b>strictly opt-in</b> and only activates if you ask (Firebase Auth, Storage, Crashlytics, App Check). FOSS builds don't include Firebase: zero data leaves the device. Ever.</span>
+              <span x-cloak x-show="lang==='es'">Por defecto, los datos permanecen en tu dispositivo Android cifrados en Room + Tink. Firebase se utiliza únicamente de forma temporal para alojar <b>fotos de contactos al compartirlas</b> mediante un enlace. Tus notas, contraseñas y el resto de información <b>nunca</b> salen del dispositivo.</span>
+              <span x-cloak x-show="lang==='en'">By default, your data stays on your Android device, encrypted in Room + Tink. Firebase is used only temporarily to host <b>contact photos when you share them</b> via a link. Your notes, passwords, and all other data <b>never</b> leave the device.</span>
             </p>
           </section>
 
@@ -245,7 +245,7 @@ const sections = [
                 { es: 'Quitar como predeterminado: Ajustes → Apps predeterminadas.', en: 'Remove as default: Settings → Default apps.' },
                 { es: 'Eliminar datos: gestiona el historial o desinstala.', en: 'Delete data: manage call log or uninstall.' },
                 { es: 'Auditar el código: github.com/Moncada25/fun-phone (GPL v3).', en: 'Audit the code: github.com/Moncada25/fun-phone (GPL v3).' },
-                { es: 'Compilar tu propia build FOSS sin Firebase.', en: 'Compile your own FOSS build without Firebase.' },
+                { es: 'Compilar tu propia build desde el código fuente.', en: 'Compile your own build from the source code.' },
               ].map((item) => (
                 <li class="flex items-start gap-3">
                   <svg class="mt-1 h-3.5 w-3.5 flex-shrink-0 text-flame" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
