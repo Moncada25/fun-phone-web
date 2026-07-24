@@ -8,7 +8,6 @@ const sections = [
     items: [
       { es: 'Funciones', en: 'Features', href: baseUrl + 'features/' },
       { es: 'Preguntas frecuentes', en: 'FAQ', href: baseUrl + 'faq/' },
-      { es: 'Código fuente', en: 'Source code', href: 'https://github.com/Moncada25/fun-phone', external: true },
     ]
   },
   {
@@ -16,7 +15,6 @@ const sections = [
     items: [
       { es: 'Privacidad', en: 'Privacy', href: baseUrl + 'privacy/' },
       { es: 'Google Play', en: 'Google Play', href: 'https://play.google.com/store/apps/details?id=com.bookverse.contacts', external: true },
-      { es: 'Licencia GPL v3', en: 'GPL v3 License', href: 'https://github.com/Moncada25/fun-phone/blob/main/LICENSE', external: true },
     ]
   },
   {
@@ -38,9 +36,9 @@ const sections = [
         <div class="flex shrink-0 items-center gap-8 pr-8 font-display text-[2.5rem] font-extrabold leading-none tracking-tighter md:text-[4rem]">
           <span class="text-ink">Fun Phone</span>
           <span class="text-flame">★</span>
-          <span class="font-serif-italic text-flame">on-device</span>
+          <span class="font-serif-italic text-flame">local-first</span>
           <span class="text-ink">·</span>
-          <span class="text-ink">sin servidores</span>
+          <span class="text-ink">permisos claros</span>
           <span class="text-flame">★</span>
           <span class="font-serif-italic text-ink">zero ads</span>
           <span class="text-ink">·</span>
@@ -68,14 +66,11 @@ const sections = [
               <span x-cloak x-show="lang==='es'">hecha a mano</span>
               <span x-cloak x-show="lang==='en'">hand-crafted</span>
             </span>
-            <span class="text-ink">
-              <span x-cloak x-show="lang==='es'"> y open source.</span>
-              <span x-cloak x-show="lang==='en'"> and open source.</span>
-            </span>
+            <span class="text-ink">.</span>
           </h2>
           <p class="mt-6 max-w-md text-pretty text-sm text-ink-muted md:text-base">
-            <span x-cloak x-show="lang==='es'">Construida en Medellín · Distribuida en el mundo. GPL v3, sin telemetría oculta, sin patrones oscuros, sin servidores obligatorios.</span>
-            <span x-cloak x-show="lang==='en'">Built in Medellín · Distributed globally. GPL v3, no hidden telemetry, no dark patterns, no mandatory servers.</span>
+            <span x-cloak x-show="lang==='es'">Construida en Medellín · Distribuida en el mundo. Sin anuncios invasivos, con funciones de red documentadas y herramientas opcionales.</span>
+            <span x-cloak x-show="lang==='en'">Built in Medellín · Distributed globally. No invasive ads, with documented network features and optional tools.</span>
           </p>
           <div class="mt-8 flex flex-wrap items-center gap-3">
             <a href="https://play.google.com/store/apps/details?id=com.bookverse.contacts" target="_blank" rel="noopener" class="btn-primary group">
@@ -83,17 +78,12 @@ const sections = [
               <span x-cloak x-show="lang==='en'">Get it on Google Play</span>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="currentColor"><path d="M5 4l14 8-14 8V4z"/></svg>
             </a>
-            <a href="https://github.com/Moncada25/fun-phone" target="_blank" rel="noopener" class="btn-ghost group">
-              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .5C5.4.5 0 5.9 0 12.5c0 5.3 3.4 9.8 8.2 11.4.6.1.8-.3.8-.6v-2.1c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.3 1.9 1.3 1.1 1.9 2.9 1.4 3.6 1 .1-.8.4-1.4.8-1.7-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.6 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.7-5.5 6 .4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.8-1.6 8.2-6.1 8.2-11.4C24 5.9 18.6.5 12 .5z"/></svg>
-              <span>GitHub</span>
-              <span class="font-mono text-xs">★</span>
-            </a>
           </div>
         </div>
 
         <div class="grid grid-cols-2 gap-6 self-end">
           <div class="border-l border-ink/15 pl-5">
-            <p class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em] text-ink-ghost">v3.16.1</p>
+            <p class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em] text-ink-ghost">v3.17.0</p>
             <p class="mt-1 font-display-condensed text-3xl font-extrabold tracking-tighter text-ink">2026</p>
             <p class="mt-1 text-xs text-ink-ghost">
               <span x-cloak x-show="lang==='es'">Última edición</span>
@@ -105,10 +95,10 @@ const sections = [
               <span x-cloak x-show="lang==='es'">Datos</span>
               <span x-cloak x-show="lang==='en'">Data</span>
             </p>
-            <p class="mt-1 font-display-condensed text-3xl font-extrabold tracking-tighter text-flame">0 KB</p>
+            <p class="mt-1 font-display-condensed text-3xl font-extrabold tracking-tighter text-flame">Local</p>
             <p class="mt-1 text-xs text-ink-ghost">
-              <span x-cloak x-show="lang==='es'">Compartidos con terceros</span>
-              <span x-cloak x-show="lang==='en'">Shared with third parties</span>
+              <span x-cloak x-show="lang==='es'">Datos principales</span>
+              <span x-cloak x-show="lang==='en'">Core data</span>
             </p>
           </div>
         </div>
@@ -160,7 +150,7 @@ const sections = [
           </div>
           <div>
             <p class="font-display text-sm font-extrabold text-ink">Fun Phone</p>
-            <p class="mt-0.5 font-mono text-[0.65rem] uppercase tracking-wider text-ink-ghost">v3.16.1 · build 225</p>
+            <p class="mt-0.5 font-mono text-[0.65rem] uppercase tracking-wider text-ink-ghost">v3.17.0 · build 230</p>
           </div>
         </div>
         <p class="mt-4 text-xs text-ink-muted">
