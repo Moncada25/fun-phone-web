@@ -1,32 +1,32 @@
 # Fun Phone: Your Private Dialer — Web
 
 [![Deploy to GitHub Pages](https://github.com/Moncada25/fun-phone-web/actions/workflows/deploy.yml/badge.svg)](https://github.com/Moncada25/fun-phone-web/actions/workflows/deploy.yml)
-![Astro](https://img.shields.io/badge/Astro-4.x-ff5d01?logo=astro&logoColor=white)
-![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.x-38b2ac?logo=tailwindcss&logoColor=white)
+![Astro](https://img.shields.io/badge/Astro-6.x-ff5d01?logo=astro&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4.x-38b2ac?logo=tailwindcss&logoColor=white)
 ![PWA](https://img.shields.io/badge/PWA-Ready-brightgreen)
 ![License](https://img.shields.io/badge/license-GPLv3-blue)
 
-Landing oficial, features y política de privacidad para la app **Fun Phone v3.16.1** (★ 5.0 en Play Store). Sitio estático, bilingüe ES/EN, dark/light y optimizado para GitHub Pages.
+Landing oficial, features y política de privacidad para **Fun Phone v3.17.0**. Sitio estático, bilingüe ES/EN, dark/light y optimizado para GitHub Pages.
 
 ## 🚀 Stack
 
-- Astro 4 + TailwindCSS 3
+- Astro 6 + TailwindCSS 4
 - Salida 100% estática para GitHub Pages (base: `/fun-phone-web/`)
 - Dark/Light con auto-detección y toggle, sin flash
 - PWA (manifest + service worker)
 - Bricolage Grotesque + Instrument Serif + JetBrains Mono
 - Editorial design language ("The Fun Phone Codex")
 
-## ✨ Qué destaca en la app (v3.16.1)
+## ✨ Qué destaca en la app (v3.17.0)
 
 - **Marcador**: T9 rápido, historial segmentado, Dual‑SIM, bloqueo de spam, contestación personalizable.
 - **Contactos**: multi‑cuenta (Google/local), importar/exportar (vCard/JSON), QR, anti-spam, deduplicación.
 - **Productividad**: notas con markdown, checklists, recordatorios, grabadora de voz, bloqueo biométrico.
 - **Seguridad**: gestor de contraseñas con cifrado Tink (sin sync obligatoria, opcional en la nube).
-- **Estilo de vida**: gestor de gastos, calendario menstrual, gestión académica, Pomodoro 25/5.
+- **Estilo de vida**: gestor de gastos, calendario menstrual y Pomodoro 25/5.
 - **Extras**: 10 mini‑juegos, lienzo de pintura, calendario de festivos (Nager.Date), QR, voz (STT/TTS).
 - **Personalización**: temas, paletas, fuentes, animaciones, widgets, atajos.
-- **Open source**: GPL v3, código en github.com/Moncada25/fun-phone.
+- **Experiencia enfocada**: onboarding simplificado, permisos en contexto y herramientas opcionales mediante presets.
 
 Consulta la tabla comparativa en `src/pages/features/index.astro` para ver por qué Fun Phone supera al marcador estándar.
 
@@ -45,7 +45,7 @@ Consulta la tabla comparativa en `src/pages/features/index.astro` para ver por q
 - `src/pages/index.astro` — Home con hero centrado, “Lo nuevo” (Notas y Password Manager) y carrusel con fullscreen.
 - `src/pages/features/index.astro` — Features completas y comparativa “Why Fun Phone beats the stock dialer”.
 - `src/pages/faq/index.astro` — FAQ bilingüe (incluye gestor de contraseñas).
-- `src/pages/privacy/index.astro` — Privacidad: 100% on‑device, permisos y controles. Sin Crashlytics.
+- `src/pages/privacy/index.astro` — Privacidad: almacenamiento local, servicios de red opcionales, permisos y controles.
 - `src/pages/roadmap/index.astro` — Roadmap (Now/Next/Later + Temas estratégicos).
 - `src/components/` — Navbar, Footer, LanguageToggle, FeatureBlock, ScreenshotCarousel (lightbox), etc.
 - `public/assets/` — Icono de la app (usado como favicon) y screenshots.
@@ -69,7 +69,7 @@ Notas de rutas
 
 ## 🔒 Privacidad
 
-- Web sin analítica por defecto. La app Fun Phone almacena datos localmente y no comparte con terceros.
+- Web sin analítica por defecto. La app mantiene localmente sus datos principales; la versión Play usa servicios de red documentados para funciones concretas.
 - Permisos (teléfono, contactos, historial) se piden solo al configurarla como app de Teléfono predeterminada. Todos son revocables en Android.
 
 ## 🧭 Roadmap y soporte
