@@ -6,7 +6,7 @@
 ![PWA](https://img.shields.io/badge/PWA-Ready-brightgreen)
 ![License](https://img.shields.io/badge/license-GPLv3-blue)
 
-Landing oficial, features y política de privacidad para **Fun Phone v3.17.0**. Sitio estático, bilingüe ES/EN, dark/light y optimizado para GitHub Pages.
+Landing oficial, features y política de privacidad para **Fun Phone v3.17.1**. Sitio estático, bilingüe ES/EN, dark/light y optimizado para GitHub Pages.
 
 La versión visible se obtiene de `src/data/release-manifest.json`. En despliegues disparados por
 el repositorio Android, `FUN_PHONE_RELEASE_MANIFEST_JSON` reemplaza ese fallback durante el build,
@@ -21,7 +21,7 @@ evitando copiar números de versión en los componentes Astro.
 - Bricolage Grotesque + Instrument Serif + JetBrains Mono
 - Editorial design language ("The Fun Phone Codex")
 
-## ✨ Qué destaca en la app (v3.17.0)
+## ✨ Qué destaca en la app (v3.17.1)
 
 - **Marcador**: T9 rápido, historial segmentado, Dual‑SIM, bloqueo de spam, contestación personalizable.
 - **Contactos**: multi‑cuenta (Google/local), importar/exportar (vCard/JSON), QR, anti-spam, deduplicación.
