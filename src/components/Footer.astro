@@ -1,4 +1,7 @@
 ---
+import { releaseBuildLabel, releaseLabel } from '../data/release';
+import { playStoreUrl } from '../data/play-store';
+
 const baseUrl = import.meta.env.BASE_URL;
 const year = new Date().getFullYear();
 
@@ -14,7 +17,7 @@ const sections = [
     title: { es: 'Legal', en: 'Legal' },
     items: [
       { es: 'Privacidad', en: 'Privacy', href: baseUrl + 'privacy/' },
-      { es: 'Google Play', en: 'Google Play', href: 'https://play.google.com/store/apps/details?id=com.bookverse.contacts', external: true },
+      { es: 'Google Play', en: 'Google Play', href: playStoreUrl('footer_link'), external: true },
     ]
   },
   {
@@ -73,7 +76,7 @@ const sections = [
             <span x-cloak x-show="lang==='en'">Built in Medellín · Distributed globally. No invasive ads, with documented network features and optional tools.</span>
           </p>
           <div class="mt-8 flex flex-wrap items-center gap-3">
-            <a href="https://play.google.com/store/apps/details?id=com.bookverse.contacts" target="_blank" rel="noopener" class="btn-primary group">
+            <a href={playStoreUrl('footer_cta')} target="_blank" rel="noopener" class="btn-primary group">
               <span x-cloak x-show="lang==='es'">Instalar en Google Play</span>
               <span x-cloak x-show="lang==='en'">Get it on Google Play</span>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="currentColor"><path d="M5 4l14 8-14 8V4z"/></svg>
@@ -83,7 +86,7 @@ const sections = [
 
         <div class="grid grid-cols-2 gap-6 self-end">
           <div class="border-l border-ink/15 pl-5">
-            <p class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em] text-ink-ghost">v3.17.0</p>
+            <p class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em] text-ink-ghost">{releaseLabel}</p>
             <p class="mt-1 font-display-condensed text-3xl font-extrabold tracking-tighter text-ink">2026</p>
             <p class="mt-1 text-xs text-ink-ghost">
               <span x-cloak x-show="lang==='es'">Última edición</span>
@@ -150,7 +153,7 @@ const sections = [
           </div>
           <div>
             <p class="font-display text-sm font-extrabold text-ink">Fun Phone</p>
-            <p class="mt-0.5 font-mono text-[0.65rem] uppercase tracking-wider text-ink-ghost">v3.17.0 · build 230</p>
+            <p class="mt-0.5 font-mono text-[0.65rem] uppercase tracking-wider text-ink-ghost">{releaseBuildLabel}</p>
           </div>
         </div>
         <p class="mt-4 text-xs text-ink-muted">

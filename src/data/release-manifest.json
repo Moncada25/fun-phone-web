@@ -1,0 +1,35 @@
+{
+  "versionName": "3.17.0",
+  "versionCode": 230,
+  "minSdk": 28,
+  "targetSdk": 37,
+  "distributions": {
+    "community": {
+      "applicationId": "com.bookverse.contacts.community",
+      "firebase": false
+    },
+    "play": {
+      "applicationId": "com.bookverse.contacts",
+      "firebase": true
+    }
+  },
+  "coreCapabilities": [
+    "dialer",
+    "contacts",
+    "favorites",
+    "call_history",
+    "limited_mode"
+  ],
+  "optionalTools": [
+    "notes",
+    "expenses",
+    "passwords",
+    "qr",
+    "voice",
+    "holidays",
+    "paint",
+    "games",
+    "pomodoro",
+    "wellness"
+  ]
+}

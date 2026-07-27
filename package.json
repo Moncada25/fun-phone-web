@@ -4,18 +4,22 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
+    "check:release": "node scripts/check-release-manifest.mjs",
+    "check:discovery": "node scripts/check-discovery.mjs",
+    "check:lighthouse": "node scripts/check-lighthouse.mjs",
     "build": "astro build",
     "preview": "astro preview",
     "start": "astro dev"
   },
   "dependencies": {
-    "astro": "^6.4.0"
+    "astro": "^7.1.4"
   },
   "devDependencies": {
-    "tailwindcss": "4.2.0",
-    "@tailwindcss/vite": "4.2.0"
+    "@tailwindcss/vite": "4.2.0",
+    "lighthouse": "^13.4.1",
+    "tailwindcss": "4.2.0"
   },
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=22.19.0"
   }
 }
