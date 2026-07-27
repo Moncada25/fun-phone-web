@@ -380,3 +380,8 @@
 }
 
 [x-cloak] { display: none !important; }
+
+html[data-lang="es"] [x-cloak][x-show="lang==='es'"],
+html[data-lang="en"] [x-cloak][x-show="lang==='en'"] {
+  display: revert !important;
+}

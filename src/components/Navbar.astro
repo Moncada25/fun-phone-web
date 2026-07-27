@@ -1,4 +1,7 @@
 ---
+import { releaseLabel } from '../data/release';
+import { playStoreUrl } from '../data/play-store';
+
 const baseUrl = import.meta.env.BASE_URL;
 const path = Astro.url.pathname;
 const isActive = (suffix: string) => {
@@ -41,7 +44,7 @@ const isActive = (suffix: string) => {
         </span>
         <div class="flex flex-col leading-none">
           <span class="font-display text-[0.95rem] font-extrabold tracking-tight">Fun Phone</span>
-          <span class="mt-0.5 hidden font-mono text-[0.6rem] font-medium uppercase tracking-[0.18em] text-ink-ghost sm:block">v3.17.0 · Android</span>
+          <span class="mt-0.5 hidden font-mono text-[0.6rem] font-medium uppercase tracking-[0.18em] text-ink-ghost sm:block">{releaseLabel} · Android</span>
         </div>
       </a>
 
@@ -133,7 +136,7 @@ const isActive = (suffix: string) => {
         </button>
 
         <a
-          href="https://play.google.com/store/apps/details?id=com.bookverse.contacts"
+          href={playStoreUrl('navbar_desktop')}
           target="_blank"
           rel="noopener"
           class="group hidden h-9 items-center gap-1.5 rounded-full bg-ink pl-3 pr-1.5 text-[0.8rem] font-bold text-paper transition-all hover:-translate-y-0.5 hover:bg-flame sm:flex"
@@ -244,7 +247,7 @@ const isActive = (suffix: string) => {
           <span x-cloak x-text="isDark ? (lang==='es' ? 'Claro' : 'Light') : (lang==='es' ? 'Oscuro' : 'Dark')"></span>
         </button>
       </div>
-      <a href="https://play.google.com/store/apps/details?id=com.bookverse.contacts" target="_blank" rel="noopener" x-on:click="closeMenu()" class="mt-3 flex items-center justify-center gap-2 rounded-full bg-ink py-3 text-sm font-bold text-paper hover:bg-flame">
+      <a href={playStoreUrl('navbar_mobile')} target="_blank" rel="noopener" x-on:click="closeMenu()" class="mt-3 flex items-center justify-center gap-2 rounded-full bg-ink py-3 text-sm font-bold text-paper hover:bg-flame">
         <span x-cloak x-show="lang==='es'">Instalar gratis</span><span x-cloak x-show="lang==='en'">Install free</span>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="currentColor"><path d="M5 4l14 8-14 8V4z"/></svg>
       </a>

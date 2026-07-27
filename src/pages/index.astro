@@ -2,15 +2,18 @@
 import Base from '../layouts/Base.astro';
 import ScreenshotCarousel from '../components/ScreenshotCarousel.astro';
 import ComparisonTable from '../components/ComparisonTable.astro';
+import { minimumAndroidLabel, releaseLabel, releaseMajorMinorLabel } from '../data/release';
+import { playStoreUrl } from '../data/play-store';
 
 const base = import.meta.env.BASE_URL;
-const heroImg = base + 'assets/screenshots/favorites.png?v=4.0.0';
+const heroImg = base + 'assets/screenshots/favorites.webp?v=4.0.0';
+const socialImg = base + 'assets/screenshots/favorites.png?v=4.0.0';
 
 const stats = [
   { num: '11+', label: { es: 'Herramientas opcionales', en: 'Optional tools' } },
   { num: '10', label: { es: 'Minijuegos clásicos', en: 'Classic mini-games' } },
   { num: 'T9', label: { es: 'Búsqueda rápida', en: 'Fast search' } },
-  { num: 'Android 9+', label: { es: 'Compatibilidad', en: 'Compatibility' } },
+  { num: minimumAndroidLabel, label: { es: 'Compatibilidad', en: 'Compatibility' } },
 ];
 
 const tools = [
@@ -97,7 +100,7 @@ const marqueeItems = [
 <Base
   title="Fun Phone — The Android Dialer that does more"
   description="A private, customizable Android dialer and contacts app with T9 search, clear permissions and optional tools."
-  ogImage={heroImg}
+  ogImage={socialImg}
   canonical="https://moncada25.github.io/fun-phone-web/"
 >
   <script type="application/ld+json" slot="head" set:html={JSON.stringify({
@@ -185,7 +188,7 @@ const marqueeItems = [
               <span x-cloak x-show="lang==='en'">T9 dialer, favorites, recents and contacts with clear permissions. Enable only the tools you want and keep your phone focused.</span>
             </p>
             <div class="flex flex-wrap items-center gap-3">
-              <a href="https://play.google.com/store/apps/details?id=com.bookverse.contacts" target="_blank" rel="noopener" class="btn-primary group">
+              <a href={playStoreUrl('home_hero')} target="_blank" rel="noopener" class="btn-primary group">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4" fill="currentColor">
                   <path d="M3.609 1.814 13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893 2.302 2.302-10.937 6.333 8.635-8.635zm3.199-1.4 2.545 1.474c.879.51.879 1.69 0 2.2l-2.545 1.474-2.626-2.262 2.626-2.262zM5.864 2.658 16.802 8.99l-2.302 2.302L5.864 2.658z"/>
                 </svg>
@@ -221,9 +224,9 @@ const marqueeItems = [
 
           <!-- Floating chip -->
           <div class="mt-8 inline-flex items-center gap-3 self-start border border-ink bg-ink px-4 py-2.5 text-paper" style="border-radius: 999px;">
-            <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em]">Android 9+</span>
+            <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em]">{minimumAndroidLabel}</span>
             <span class="h-3 w-px bg-paper/30"></span>
-            <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em] text-flame">v3.17.0</span>
+            <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em] text-flame">{releaseLabel}</span>
             <span class="h-3 w-px bg-paper/30"></span>
             <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em]">Play</span>
           </div>
@@ -245,7 +248,7 @@ const marqueeItems = [
               class="relative mx-auto w-full max-w-[480px] overflow-hidden border border-ink/15 bg-gradient-to-b from-paper-soft to-paper"
               style="border-radius: 36px; box-shadow: 0 30px 80px -30px rgba(10,10,10,0.4), 0 0 0 1px rgba(10,10,10,0.04);"
             >
-              <img src={heroImg} alt="Fun Phone app screenshot" class="block h-auto w-full" loading="eager" width="540" height="1080" />
+              <img src={heroImg} alt="Fun Phone app screenshot" class="block h-auto w-full" loading="eager" fetchpriority="high" width="540" height="960" />
             </div>
 
             <!-- Bottom labels -->
@@ -319,8 +322,8 @@ const marqueeItems = [
         <div class="mt-10 flex items-center justify-center gap-3 font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em] text-ink-ghost">
           <span class="h-px w-12 bg-ink/30"></span>
           <span>
-            <span x-cloak x-show="lang==='es'">— Fun Phone · v3.17 · Bookverse</span>
-            <span x-cloak x-show="lang==='en'">— Fun Phone · v3.17 · Bookverse</span>
+            <span x-cloak x-show="lang==='es'">— Fun Phone · {releaseMajorMinorLabel} · Bookverse</span>
+            <span x-cloak x-show="lang==='en'">— Fun Phone · {releaseMajorMinorLabel} · Bookverse</span>
           </span>
           <span class="h-px w-12 bg-ink/30"></span>
         </div>
@@ -505,7 +508,7 @@ const marqueeItems = [
             <span x-cloak x-show="lang==='en'">Less than five minutes to set Fun Phone as your default dialer, with every contact kept safe and local.</span>
           </p>
           <div class="flex flex-wrap items-center gap-3">
-            <a href="https://play.google.com/store/apps/details?id=com.bookverse.contacts" target="_blank" rel="noopener" class="group inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm font-bold text-paper transition-transform hover:-translate-y-0.5">
+            <a href={playStoreUrl('home_final_cta')} target="_blank" rel="noopener" class="group inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm font-bold text-paper transition-transform hover:-translate-y-0.5">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4" fill="currentColor"><path d="M3.609 1.814 13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893 2.302 2.302-10.937 6.333 8.635-8.635z"/></svg>
               <span x-cloak x-show="lang==='es'">Google Play</span>
               <span x-cloak x-show="lang==='en'">Google Play</span>

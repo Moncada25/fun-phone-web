@@ -1,16 +1,20 @@
 # Fun Phone: Your Private Dialer — Web
 
 [![Deploy to GitHub Pages](https://github.com/Moncada25/fun-phone-web/actions/workflows/deploy.yml/badge.svg)](https://github.com/Moncada25/fun-phone-web/actions/workflows/deploy.yml)
-![Astro](https://img.shields.io/badge/Astro-6.x-ff5d01?logo=astro&logoColor=white)
+![Astro](https://img.shields.io/badge/Astro-7.x-ff5d01?logo=astro&logoColor=white)
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4.x-38b2ac?logo=tailwindcss&logoColor=white)
 ![PWA](https://img.shields.io/badge/PWA-Ready-brightgreen)
 ![License](https://img.shields.io/badge/license-GPLv3-blue)
 
 Landing oficial, features y política de privacidad para **Fun Phone v3.17.0**. Sitio estático, bilingüe ES/EN, dark/light y optimizado para GitHub Pages.
 
+La versión visible se obtiene de `src/data/release-manifest.json`. En despliegues disparados por
+el repositorio Android, `FUN_PHONE_RELEASE_MANIFEST_JSON` reemplaza ese fallback durante el build,
+evitando copiar números de versión en los componentes Astro.
+
 ## 🚀 Stack
 
-- Astro 6 + TailwindCSS 4
+- Astro 7 + TailwindCSS 4
 - Salida 100% estática para GitHub Pages (base: `/fun-phone-web/`)
 - Dark/Light con auto-detección y toggle, sin flash
 - PWA (manifest + service worker)
@@ -53,10 +57,14 @@ Consulta la tabla comparativa en `src/pages/features/index.astro` para ver por q
 ## 🛠️ Desarrollo
 
 ```bash
+nvm use
 npm install
-npm run dev      # Astro dev server con HMR
-npm run build    # Compila a /dist (respeta BASE_URL)
-npm run preview  # Sirve /dist para ver rutas/base
+npm run dev               # Astro dev server con HMR
+npm run check:release     # Valida la metadata de la versión Android
+npm run build             # Compila a /dist (respeta BASE_URL)
+npm run check:discovery   # Valida SEO, URLs y atribución de instalación
+npm run check:lighthouse  # Aplica presupuestos de UX y Web Vitals
+npm run preview           # Sirve /dist para ver rutas/base
 ```
 
 Notas de rutas

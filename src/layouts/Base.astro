@@ -27,7 +27,10 @@ const {
 const base = import.meta.env.BASE_URL;
 const siteUrl = 'https://moncada25.github.io/fun-phone-web/';
 const canonicalUrl = canonical || siteUrl + Astro.url.pathname.replace(base, '');
-const heroImg = ogImage || (base + 'assets/screenshots/favorites.png');
+const heroImg = new URL(
+  ogImage || (base + 'assets/screenshots/favorites.png'),
+  siteUrl,
+).href;
 ---
 
 <!DOCTYPE html>
@@ -53,6 +56,7 @@ const heroImg = ogImage || (base + 'assets/screenshots/favorites.png');
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={heroImg} />
+    <meta property="og:image:alt" content="Fun Phone Android dialer and contacts app" />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:locale" content="es_ES" />
     <meta property="og:locale:alternate" content="en_US" />
@@ -60,13 +64,22 @@ const heroImg = ogImage || (base + 'assets/screenshots/favorites.png');
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={heroImg} />
+    <meta name="twitter:image:alt" content="Fun Phone Android dialer and contacts app" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&display=optional"
       rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&display=optional"
+        rel="stylesheet"
+      />
+    </noscript>
 
     <!-- Set theme class before paint -->
     <script is:inline>
