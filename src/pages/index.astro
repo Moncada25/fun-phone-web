@@ -2,8 +2,8 @@
 import Base from '../layouts/Base.astro';
 import ScreenshotCarousel from '../components/ScreenshotCarousel.astro';
 import ComparisonTable from '../components/ComparisonTable.astro';
-import { minimumAndroidLabel, releaseLabel, releaseMajorMinorLabel } from '../data/release';
 import { playStoreUrl } from '../data/play-store';
+import { productFacts } from '../data/site';
 
 const base = import.meta.env.BASE_URL;
 const heroImg = base + 'assets/screenshots/favorites.webp?v=4.0.0';
@@ -13,14 +13,14 @@ const stats = [
   { num: '11+', label: { es: 'Herramientas opcionales', en: 'Optional tools' } },
   { num: '10', label: { es: 'Minijuegos clásicos', en: 'Classic mini-games' } },
   { num: 'T9', label: { es: 'Búsqueda rápida', en: 'Fast search' } },
-  { num: minimumAndroidLabel, label: { es: 'Compatibilidad', en: 'Compatibility' } },
+  { num: productFacts.minimumAndroidLabel, label: { es: 'Compatibilidad', en: 'Compatibility' } },
 ];
 
 const tools = [
   {
     num: '01',
     title: { es: 'Marcador T9', en: 'T9 Dialer' },
-    desc: { es: 'Búsqueda instantánea, favoritos y Dual-SIM.', en: 'Instant search, favorites, and Dual-SIM.' },
+    desc: { es: 'T9, favoritos, Dual-SIM y controles de llamada fiables.', en: 'T9, favorites, Dual-SIM, and reliable call controls.' },
     color: 'flame',
   },
   {
@@ -67,8 +67,8 @@ const tools = [
   },
   {
     num: '09',
-    title: { es: 'Festivos', en: 'Holidays' },
-    desc: { es: 'API Nager.Date, países y años.', en: 'Nager.Date API, countries & years.' },
+    title: { es: 'Calendario', en: 'Calendar' },
+    desc: { es: 'Eventos locales y recordatorios.', en: 'Local events and reminders.' },
     color: 'flame',
   },
   {
@@ -93,7 +93,7 @@ const marqueeItems = [
   { es: 'Permisos claros', en: 'Clear permissions' },
   { es: 'Herramientas opcionales', en: 'Optional tools' },
   { es: 'Cifrado Tink', en: 'Tink encryption' },
-  { es: '★ 5.0 en Play Store', en: '★ 5.0 on Play Store' },
+  { es: 'Gratis en Google Play', en: 'Free on Google Play' },
 ];
 ---
 
@@ -103,7 +103,7 @@ const marqueeItems = [
   ogImage={socialImg}
   canonical="https://moncada25.github.io/fun-phone-web/"
 >
-  <script type="application/ld+json" slot="head" set:html={JSON.stringify({
+  <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "MobileApplication",
     "name": "Fun Phone: Dialer & Contacts",
@@ -152,8 +152,8 @@ const marqueeItems = [
               <span class="relative inline-flex h-2 w-2 rounded-full bg-flame"></span>
             </span>
             <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em] text-ink">
-              <span x-cloak x-show="lang==='es'">Gratis en Play Store · 5.0★</span>
-              <span x-cloak x-show="lang==='en'">Free on Play Store · 5.0★</span>
+              <span x-cloak x-show="lang==='es'">Gratis en Google Play</span>
+              <span x-cloak x-show="lang==='en'">Free on Google Play</span>
             </span>
           </div>
         </div>
@@ -224,9 +224,7 @@ const marqueeItems = [
 
           <!-- Floating chip -->
           <div class="mt-8 inline-flex items-center gap-3 self-start border border-ink bg-ink px-4 py-2.5 text-paper" style="border-radius: 999px;">
-            <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em]">{minimumAndroidLabel}</span>
-            <span class="h-3 w-px bg-paper/30"></span>
-            <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em] text-flame">{releaseLabel}</span>
+            <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em]">{productFacts.minimumAndroidLabel}</span>
             <span class="h-3 w-px bg-paper/30"></span>
             <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em]">Play</span>
           </div>
@@ -322,8 +320,7 @@ const marqueeItems = [
         <div class="mt-10 flex items-center justify-center gap-3 font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em] text-ink-ghost">
           <span class="h-px w-12 bg-ink/30"></span>
           <span>
-            <span x-cloak x-show="lang==='es'">— Fun Phone · {releaseMajorMinorLabel} · Bookverse</span>
-            <span x-cloak x-show="lang==='en'">— Fun Phone · {releaseMajorMinorLabel} · Bookverse</span>
+            <span>— Fun Phone · Bookverse</span>
           </span>
           <span class="h-px w-12 bg-ink/30"></span>
         </div>
@@ -446,8 +443,8 @@ const marqueeItems = [
             <span x-cloak x-show="lang==='en'">Real privacy</span>
           </h3>
           <p class="text-sm leading-relaxed text-ink-muted">
-            <span x-cloak x-show="lang==='es'">Tus datos principales se guardan localmente. Las funciones de red opcionales están documentadas y bajo tu control.</span>
-            <span x-cloak x-show="lang==='en'">Your core data is stored locally. Optional network features are documented and remain under your control.</span>
+            <span x-cloak x-show="lang==='es'">Tus datos principales se guardan localmente. Sin anuncios, analítica ni nube del desarrollador; red solo para festivos opcionales.</span>
+            <span x-cloak x-show="lang==='en'">Your core data is stored locally. No ads, analytics, or developer cloud; network access is limited to optional holidays.</span>
           </p>
         </article>
 

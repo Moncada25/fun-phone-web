@@ -2,7 +2,6 @@
 import Base from '../../layouts/Base.astro';
 import FAQBlock from '../../components/FAQBlock.astro';
 
-const base = import.meta.env.BASE_URL;
 const siteUrl = 'https://moncada25.github.io/fun-phone-web/faq/';
 
 const faqSchema = JSON.stringify({
@@ -11,7 +10,7 @@ const faqSchema = JSON.stringify({
     { '@type': 'Question', name: 'How do I set Fun Phone as default?', acceptedAnswer: { '@type': 'Answer', text: 'Go to Settings > Default apps > Phone and select Fun Phone.' } },
     { '@type': 'Question', name: 'What games are included?', acceptedAnswer: { '@type': 'Answer', text: '10 classic mini-games: Fun Bird, Snake, Minesweeper, 2048, Puzzle, Tic-Tac-Toe, Hangman, Breakout, Sudoku, Memory, plus a Paint Studio.' } },
     { '@type': 'Question', name: 'Does it have ads?', acceptedAnswer: { '@type': 'Answer', text: 'No. Fun Phone is completely ad-free.' } },
-    { '@type': 'Question', name: 'Which features use the network?', acceptedAnswer: { '@type': 'Answer', text: 'Optional Firebase photo links, holidays, previews, voice providers, and consented anonymous activation metrics may use the network.' } },
+    { '@type': 'Question', name: 'Does Fun Phone use the network?', acceptedAnswer: { '@type': 'Answer', text: 'Only the optional public-holidays tool connects directly to Nager.Date after an in-app disclosure and approval, sending the selected country and year over HTTPS.' } },
   ]
 });
 ---
@@ -21,7 +20,7 @@ const faqSchema = JSON.stringify({
   description="Frequently asked questions about Fun Phone: setup, privacy, permissions, games and support."
   canonical={siteUrl}
 >
-  <script type="application/ld+json" slot="head" set:html={faqSchema}></script>
+  <script is:inline type="application/ld+json" slot="head" set:html={faqSchema}></script>
 
   <!-- Hero -->
   <section class="relative border-b border-ink/15">

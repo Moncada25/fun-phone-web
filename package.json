@@ -4,20 +4,29 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "check:release": "node scripts/check-release-manifest.mjs",
+    "check": "astro check",
     "check:discovery": "node scripts/check-discovery.mjs",
     "check:lighthouse": "node scripts/check-lighthouse.mjs",
-    "build": "astro build",
+    "check:pwa": "node scripts/check-pwa.mjs",
+    "build:site": "astro build",
+    "build:pwa": "node scripts/generate-service-worker.mjs",
+    "build": "npm run build:site && npm run build:pwa",
     "preview": "astro preview",
     "start": "astro dev"
   },
   "dependencies": {
-    "astro": "^7.1.4"
+    "@astrojs/sitemap": "^3.7.3",
+    "alpinejs": "^3.16.2",
+    "astro": "^7.2.2"
   },
   "devDependencies": {
-    "@tailwindcss/vite": "4.2.0",
+    "@astrojs/check": "^0.9.10",
+    "@tailwindcss/vite": "^4.3.3",
     "lighthouse": "^13.4.1",
-    "tailwindcss": "4.2.0"
+    "tailwindcss": "^4.3.3",
+    "typescript": "^6.0.3",
+    "vite": "^8.2.1",
+    "workbox-build": "^7.4.1"
   },
   "engines": {
     "node": ">=22.19.0"
