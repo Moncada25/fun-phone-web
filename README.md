@@ -1,90 +1,72 @@
 # Fun Phone: Your Private Dialer — Web
 
 [![Deploy to GitHub Pages](https://github.com/Moncada25/fun-phone-web/actions/workflows/deploy.yml/badge.svg)](https://github.com/Moncada25/fun-phone-web/actions/workflows/deploy.yml)
-![Astro](https://img.shields.io/badge/Astro-7.x-ff5d01?logo=astro&logoColor=white)
-![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4.x-38b2ac?logo=tailwindcss&logoColor=white)
-![PWA](https://img.shields.io/badge/PWA-Ready-brightgreen)
+![Astro](https://img.shields.io/badge/Astro-7.2-ff5d01?logo=astro&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4.3-38b2ac?logo=tailwindcss&logoColor=white)
+![PWA](https://img.shields.io/badge/PWA-Offline-brightgreen)
 ![License](https://img.shields.io/badge/license-GPLv3-blue)
 
-Landing oficial, features y política de privacidad para **Fun Phone v3.17.1**. Sitio estático, bilingüe ES/EN, dark/light y optimizado para GitHub Pages.
+Landing oficial, funciones, preguntas frecuentes y política de privacidad de **Fun Phone**. El sitio
+es estático, bilingüe ES/EN, instalable como PWA y está optimizado para GitHub Pages.
 
-La versión visible se obtiene de `src/data/release-manifest.json`. En despliegues disparados por
-el repositorio Android, `FUN_PHONE_RELEASE_MANIFEST_JSON` reemplaza ese fallback durante el build,
-evitando copiar números de versión en los componentes Astro.
+La web evita mostrar un número de release Android para no adelantar builds aún no publicados. Los
+datos estables del producto se centralizan en `src/data/site.ts`.
 
-## 🚀 Stack
+## Stack
 
-- Astro 7 + TailwindCSS 4
-- Salida 100% estática para GitHub Pages (base: `/fun-phone-web/`)
-- Dark/Light con auto-detección y toggle, sin flash
-- PWA (manifest + service worker)
-- Bricolage Grotesque + Instrument Serif + JetBrains Mono
-- Editorial design language ("The Fun Phone Codex")
+- Astro 7.2 + Vite 8 + Tailwind CSS 4.3.
+- Alpine empaquetado localmente para idioma, tema y navegación móvil.
+- Salida estática bajo `/fun-phone-web/`.
+- Sitemap generado con la integración oficial de Astro.
+- PWA generada con Workbox: HTML, CSS, JavaScript y screenshots WebP disponibles offline.
+- Sin analítica en la web.
 
-## ✨ Qué destaca en la app (v3.17.1)
+## Producto representado
 
-- **Marcador**: T9 rápido, historial segmentado, Dual‑SIM, bloqueo de spam, contestación personalizable.
-- **Contactos**: multi‑cuenta (Google/local), importar/exportar (vCard/JSON), QR, anti-spam, deduplicación.
-- **Productividad**: notas con markdown, checklists, recordatorios, grabadora de voz, bloqueo biométrico.
-- **Seguridad**: gestor de contraseñas con cifrado Tink (sin sync obligatoria, opcional en la nube).
-- **Estilo de vida**: gestor de gastos, calendario menstrual y Pomodoro 25/5.
-- **Extras**: 10 mini‑juegos, lienzo de pintura, calendario de festivos (Nager.Date), QR, voz (STT/TTS).
-- **Personalización**: temas, paletas, fuentes, animaciones, widgets, atajos.
-- **Experiencia enfocada**: onboarding simplificado, permisos en contexto y herramientas opcionales mediante presets.
+- Marcador T9, favoritos, historial y contactos multi-cuenta.
+- Controles y notificaciones que permiten volver de forma fiable a una llamada activa.
+- Notas, recordatorios, grabaciones, vault con Tink, gastos, Pomodoro y bienestar.
+- QR, voz, calendario, festivos públicos, pintura y diez minijuegos.
+- Sin Firebase, anuncios, analítica, telemetría ni nube operada por el desarrollador.
+- Una única conexión directa opcional: Nager.Date recibe país/año después del aviso y autorización
+  dentro de la herramienta de festivos.
 
-Consulta la tabla comparativa en `src/pages/features/index.astro` para ver por qué Fun Phone supera al marcador estándar.
+## Páginas
 
-## 🖼️ Screenshots
+- `src/pages/index.astro` — landing principal.
+- `src/pages/features/index.astro` — catálogo y comparación de funciones.
+- `src/pages/faq/index.astro` — preguntas frecuentes ES/EN.
+- `src/pages/privacy/index.astro` — privacidad, flujos de datos y permisos.
+- `src/components/` — navegación, footer, carrusel, CTA y bloques compartidos.
+- `public/assets/` — logo y screenshots vigentes.
 
-| Marcador | Contactos | Historial |
-|---|---|---|
-| ![Dialer](public/assets/screenshots/dialer.png) | ![Contacts](public/assets/screenshots/contact_list.png) | ![History](public/assets/screenshots/history.png) |
-
-| QR | Extras | Ajustes |
-|---|---|---|
-| ![QR](public/assets/screenshots/qr_generator.png) | ![Extras](public/assets/screenshots/extras.png) | ![Settings](public/assets/screenshots/settings.png) |
-
-## 📁 Páginas clave
-
-- `src/pages/index.astro` — Home con hero centrado, “Lo nuevo” (Notas y Password Manager) y carrusel con fullscreen.
-- `src/pages/features/index.astro` — Features completas y comparativa “Why Fun Phone beats the stock dialer”.
-- `src/pages/faq/index.astro` — FAQ bilingüe (incluye gestor de contraseñas).
-- `src/pages/privacy/index.astro` — Privacidad: almacenamiento local, servicios de red opcionales, permisos y controles.
-- `src/pages/roadmap/index.astro` — Roadmap (Now/Next/Later + Temas estratégicos).
-- `src/components/` — Navbar, Footer, LanguageToggle, FeatureBlock, ScreenshotCarousel (lightbox), etc.
-- `public/assets/` — Icono de la app (usado como favicon) y screenshots.
-
-## 🛠️ Desarrollo
+## Desarrollo
 
 ```bash
 nvm use
-npm install
-npm run dev               # Astro dev server con HMR
-npm run check:release     # Valida la metadata de la versión Android
-npm run build             # Compila a /dist (respeta BASE_URL)
-npm run check:discovery   # Valida SEO, URLs y atribución de instalación
-npm run check:lighthouse  # Aplica presupuestos de UX y Web Vitals
-npm run preview           # Sirve /dist para ver rutas/base
+npm ci
+npm run dev
+npm run check
+npm run build
+npm run check:discovery
+npm run check:pwa
+npm run check:lighthouse
+npm run preview
 ```
 
-Notas de rutas
-- El sitio usa `import.meta.env.BASE_URL` y `astro.config.mjs` con base `/fun-phone-web/`. Verifica enlaces en `/privacy/`, `/features/`, `/faq/` y `/roadmap/` tras `npm run preview`.
+`npm run build` genera primero el sitio Astro y después `dist/service-worker.js`. No se debe editar
+el service worker generado manualmente.
 
-## 🌐 Deploy
+## Deploy
 
-- GitHub Pages con base `/fun-phone-web/` (ver `astro.config.mjs`).
-- Tras cambios en base o URLs externas, construir nuevamente: `npm run build`.
+GitHub Actions valida tipos, build, SEO/discovery, PWA y presupuestos Lighthouse antes de publicar
+en GitHub Pages. La configuración usa `site: https://moncada25.github.io` y
+`base: /fun-phone-web/`; todos los enlaces y registros del service worker deben respetar ese base.
 
-## 🔒 Privacidad
+## Privacidad y soporte
 
-- Web sin analítica por defecto. La app mantiene localmente sus datos principales; la versión Play usa servicios de red documentados para funciones concretas.
-- Permisos (teléfono, contactos, historial) se piden solo al configurarla como app de Teléfono predeterminada. Todos son revocables en Android.
+- Política: `/privacy/`.
+- Google Play: https://play.google.com/store/apps/details?id=com.bookverse.contacts
+- Soporte: santiago.moncada.dev@gmail.com
 
-## 🧭 Roadmap y soporte
-
-- Roadmap: `src/pages/roadmap/index.astro`
-- Contacto: santiago.moncada.dev@gmail.com
-- Ficha en Play Store: https://play.google.com/store/apps/details?id=com.bookverse.contacts
-
-—
 Desarrollado por Santiago Moncada · Bookverse
