@@ -1,11 +1,24 @@
 ---
-import { releaseBuildLabel, releaseLabel } from '../data/release';
 import { playStoreUrl } from '../data/play-store';
+import { productFacts } from '../data/site';
 
 const baseUrl = import.meta.env.BASE_URL;
 const year = new Date().getFullYear();
 
-const sections = [
+interface FooterItem {
+  es: string;
+  en: string;
+  href: string | null;
+  external?: boolean;
+  mono?: boolean;
+}
+
+interface FooterSection {
+  title: { es: string; en: string };
+  items: FooterItem[];
+}
+
+const sections: FooterSection[] = [
   {
     title: { es: 'Producto', en: 'Product' },
     items: [
@@ -72,8 +85,8 @@ const sections = [
             <span class="text-ink">.</span>
           </h2>
           <p class="mt-6 max-w-md text-pretty text-sm text-ink-muted md:text-base">
-            <span x-cloak x-show="lang==='es'">Construida en Medellín · Distribuida en el mundo. Sin anuncios invasivos, con funciones de red documentadas y herramientas opcionales.</span>
-            <span x-cloak x-show="lang==='en'">Built in Medellín · Distributed globally. No invasive ads, with documented network features and optional tools.</span>
+            <span x-cloak x-show="lang==='es'">Construida en Medellín · Sin anuncios, analítica ni nube del desarrollador. Red solo para festivos opcionales.</span>
+            <span x-cloak x-show="lang==='en'">Built in Medellín · No ads, analytics, or developer cloud. Network access is limited to optional holidays.</span>
           </p>
           <div class="mt-8 flex flex-wrap items-center gap-3">
             <a href={playStoreUrl('footer_cta')} target="_blank" rel="noopener" class="btn-primary group">
@@ -86,7 +99,7 @@ const sections = [
 
         <div class="grid grid-cols-2 gap-6 self-end">
           <div class="border-l border-ink/15 pl-5">
-            <p class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em] text-ink-ghost">{releaseLabel}</p>
+            <p class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em] text-ink-ghost">Android</p>
             <p class="mt-1 font-display-condensed text-3xl font-extrabold tracking-tighter text-ink">2026</p>
             <p class="mt-1 text-xs text-ink-ghost">
               <span x-cloak x-show="lang==='es'">Última edición</span>
@@ -153,7 +166,7 @@ const sections = [
           </div>
           <div>
             <p class="font-display text-sm font-extrabold text-ink">Fun Phone</p>
-            <p class="mt-0.5 font-mono text-[0.65rem] uppercase tracking-wider text-ink-ghost">{releaseBuildLabel}</p>
+            <p class="mt-0.5 font-mono text-[0.65rem] uppercase tracking-wider text-ink-ghost">{productFacts.minimumAndroidLabel}</p>
           </div>
         </div>
         <p class="mt-4 text-xs text-ink-muted">

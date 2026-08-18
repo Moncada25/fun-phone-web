@@ -13,7 +13,7 @@ const groups = [
     title: { es: 'Comunicación', en: 'Communication' },
     blurb: { es: 'Todo lo que necesitas para hablar, llamar y organizar tus conexiones.', en: 'Everything you need to talk, call and organize your connections.' },
     items: [
-      { title: { es: 'Marcador Avanzado', en: 'Advanced Dialer' }, bullets: ['Búsqueda T9 inteligente y marcado rápido.', 'Historial con filtros, favoritos y búsqueda.', 'Interfaz pro: retener, silenciar, altavoz.', 'Dual-SIM y enrutamiento inteligente.', 'Marcado por voz y sensor de proximidad.'], variant: 'light' },
+      { title: { es: 'Marcador Avanzado', en: 'Advanced Dialer' }, bullets: ['Búsqueda T9 inteligente y marcado rápido.', 'Historial con filtros, favoritos y búsqueda.', 'Controles accesibles: retener, silenciar y altavoz.', 'Notificaciones con retorno seguro a la llamada activa.', 'Dual-SIM, audio y sensor de proximidad.'], variant: 'light' },
       { title: { es: 'Privacidad Primero', en: 'Privacy First' }, bullets: ['Permisos granulares con explicaciones claras.', 'Almacenamiento local para datos principales.', 'Sin anuncios invasivos.', 'Red solo para funciones opcionales documentadas.'], variant: 'dark' },
     ]
   },
@@ -22,7 +22,7 @@ const groups = [
     blurb: { es: 'Gestiona tu agenda con herramientas que otros dialers ni imaginan.', en: 'Manage your address book with tools other dialers can\'t even imagine.' },
     items: [
       { title: { es: 'Gestión de Contactos', en: 'Contact Management' }, bullets: ['Importar/exportar JSON y vCard.', 'Escáner y generador QR.', 'Sync multi-cuenta (Google, local).', 'Búsqueda avanzada y filtrado.', 'Fusión y deduplicación.'], variant: 'light' },
-      { title: { es: 'Anti-spam', en: 'Anti-spam' }, bullets: ['Bloqueo de números y lista negra.', 'Reportar spam en una pulsación.', 'Filtros inteligentes de llamadas.'], variant: 'flame' },
+      { title: { es: 'Anti-spam', en: 'Anti-spam' }, bullets: ['Bloqueo y desbloqueo mediante Android.', 'Lista de números bloqueados.', 'Controles explícitos para evitar bloqueos accidentales.'], variant: 'flame' },
     ]
   },
   {
@@ -40,6 +40,7 @@ const groups = [
       { title: { es: 'Gestor de Contraseñas', en: 'Password Manager' }, bullets: ['Cifrado Tink en dispositivo.', 'Generador de contraseñas fuertes.', 'Protección biométrica/PIN.'], variant: 'flame' },
       { title: { es: 'Herramientas de Voz', en: 'Voice Tools' }, bullets: ['Dictado voz a texto.', 'TTS multi-idioma.', 'Compartir como texto o audio.'], variant: 'light' },
       { title: { es: 'Utilidades QR', en: 'QR Utilities' }, bullets: ['Escáner y generador QR.', 'Historial de escaneos.', 'Compartir contactos por QR.'], variant: 'dark' },
+      { title: { es: 'Festivos Públicos', en: 'Public Holidays' }, bullets: ['Consulta opcional a Nager.Date.', 'Aviso y autorización antes de usar la red.', 'Solo se envían el país y año elegidos.'], variant: 'light' },
     ]
   },
   {
@@ -134,7 +135,7 @@ const groups = [
             </p>
         </div>
         <div class:list={['grid gap-4', group.items.length === 2 ? 'md:grid-cols-2' : 'md:grid-cols-2 lg:grid-cols-3']}>
-          {group.items.map((item, idx) => (
+          {group.items.map((item) => (
             <FeatureBlock
               title={item.title.es}
               titleEn={item.title.en}
