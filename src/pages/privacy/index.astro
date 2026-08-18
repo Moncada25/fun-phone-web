@@ -1,311 +1,76 @@
 ---
 import Base from '../../layouts/Base.astro';
-import PrivacyBadge from '../../components/PrivacyBadge.astro';
 import PermissionsBlock from '../../components/PermissionsBlock.astro';
+import PrivacyBadge from '../../components/PrivacyBadge.astro';
 
-const base = import.meta.env.BASE_URL;
-const lastUpdated = { es: '24 jul 2026', en: 'July 24, 2026' };
-
-const sections = [
-  { id: 'about', es: 'Sobre la app', en: 'About' },
-  { id: 'data', es: 'Datos', en: 'Data' },
-  { id: 'purpose', es: 'Finalidad', en: 'Purpose' },
-  { id: 'storage', es: 'Almacenamiento', en: 'Storage' },
-  { id: 'sharing', es: 'Compartición', en: 'Sharing' },
-  { id: 'permissions', es: 'Permisos', en: 'Permissions' },
-  { id: 'controls', es: 'Controles', en: 'Controls' },
+const lastUpdated = { es: '17 ago 2026', en: 'August 17, 2026' };
+const rows = [
+  { es: 'Contactos, favoritos e historial', en: 'Contacts, favorites, and call history', controlEs: 'Se procesan en el dispositivo mediante los proveedores protegidos y permisos de Android.', controlEn: 'Processed on-device through Android protected providers and permissions.' },
+  { es: 'Notas, contraseñas y ajustes', en: 'Notes, passwords, and settings', controlEs: 'Se guardan localmente; secretos y bases sensibles se excluyen del backup y usan Android Keystore/Tink.', controlEn: 'Stored locally; secrets and sensitive databases are excluded from backup and use Android Keystore/Tink.' },
+  { es: 'Fotos y exportaciones', en: 'Photos and exports', controlEs: 'Se comparten como archivos content:// solo con la app elegida en Android Sharesheet.', controlEn: 'Shared as local content:// files only with the app selected in Android Sharesheet.' },
+  { es: 'Festivos públicos', en: 'Public holidays', controlEs: 'Tras un aviso y tu autorización, se envían país y año a date.nager.at por HTTPS; el servicio recibe IP y metadata técnica.', controlEn: 'After a disclosure and your approval, country and year are sent to date.nager.at over HTTPS; the service receives IP and technical metadata.' },
+  { es: 'Voz, enlaces y reseñas', en: 'Speech, links, and reviews', controlEs: 'Android entrega la acción al proveedor de voz, app externa o Google Play; Fun Phone no recibe audio ni contenido de reseñas.', controlEn: 'Android hands the action to the speech provider, external app, or Google Play; Fun Phone receives no audio or review content.' },
 ];
 ---
 
 <Base
   title="Privacy Policy — Fun Phone"
-  description="Fun Phone privacy policy: local storage, optional network services, permissions and the controls available to you."
+  description="Fun Phone is local-first, contains no ads or analytics, and uses the network only for an optional disclosed public-holidays lookup."
   canonical="https://moncada25.github.io/fun-phone-web/privacy/"
 >
-  <!-- Hero: flame accent strip + matching page bg so it adapts in dark mode -->
-  <section class="relative border-b border-ink/15 overflow-hidden">
-    <div class="container-editorial py-20 md:py-28">
-      <div class="mx-auto max-w-4xl text-center">
-        <h1 class="reveal text-balance font-display-condensed text-[3rem] font-extrabold leading-[0.92] tracking-tightest text-ink sm:text-[4.5rem] md:text-[6rem] lg:text-[7rem]">
-          <span x-cloak x-show="lang==='es'">Política de </span>
-          <span x-cloak x-show="lang==='en'">Privacy </span>
-          <span class="font-serif-italic text-flame">
-            <span x-cloak x-show="lang==='es'">privacidad</span>
-            <span x-cloak x-show="lang==='en'">policy</span>
-          </span>
-        </h1>
-        <p class="mt-6 max-w-2xl mx-auto text-pretty text-base text-ink-muted md:text-lg">
-          <span x-cloak x-show="lang==='es'">Honesta, breve y sin tecnicismos innecesarios. Lo que recogemos, lo que no, y cómo mantener el control.</span>
-          <span x-cloak x-show="lang==='en'">Honest, short, and free of unnecessary legalese. What we collect, what we don't, and how to stay in control.</span>
-        </p>
-        <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
-          <PrivacyBadge />
-          <span class="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-ink-ghost">
-            <span x-cloak x-show="lang==='es'">Actualizado: {lastUpdated.es}</span>
-            <span x-cloak x-show="lang==='en'">Updated: {lastUpdated.en}</span>
-          </span>
-        </div>
+  <section class="border-b border-ink/15">
+    <div class="container-editorial py-20 text-center md:py-28">
+      <p class="font-mono text-xs font-bold uppercase tracking-[0.18em] text-flame">Privacy by architecture</p>
+      <h1 class="mt-5 font-display-condensed text-6xl font-extrabold tracking-tightest md:text-8xl">
+        <span x-cloak x-show="lang==='es'">Tus datos permanecen </span>
+        <span x-cloak x-show="lang==='en'">Your data stays </span>
+        <span class="font-serif-italic text-flame">
+          <span x-cloak x-show="lang==='es'">contigo.</span>
+          <span x-cloak x-show="lang==='en'">with you.</span>
+        </span>
+      </h1>
+      <p class="mx-auto mt-6 max-w-2xl text-lg text-ink-muted">
+        <span x-cloak x-show="lang==='es'">Fun Phone no contiene Firebase, publicidad, analítica, telemetría, autenticación remota ni nube del desarrollador. La consulta opcional de festivos es su única conexión directa.</span>
+        <span x-cloak x-show="lang==='en'">Fun Phone contains no Firebase, ads, analytics, telemetry, remote authentication, or developer cloud. The optional holidays lookup is its only direct connection.</span>
+      </p>
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+        <PrivacyBadge />
+        <span class="font-mono text-xs uppercase tracking-[0.18em] text-ink-ghost">
+          <span x-cloak x-show="lang==='es'">Actualizado: {lastUpdated.es}</span>
+          <span x-cloak x-show="lang==='en'">Updated: {lastUpdated.en}</span>
+        </span>
       </div>
     </div>
   </section>
 
-  <!-- Big stats -->
-  <section class="border-b border-ink/15 py-10 md:py-14">
-    <div class="container-editorial">
-      <div class="grid grid-cols-2 gap-px overflow-hidden border border-ink/15 bg-ink/15 md:grid-cols-4" style="border-radius: 20px;">
-        <div class="bg-paper p-6 md:p-8">
-          <p class="font-display-condensed text-5xl font-extrabold leading-none tracking-tighter text-flame md:text-6xl">Local</p>
-          <p class="mt-3 text-xs font-semibold text-ink-muted">
-            <span x-cloak x-show="lang==='es'">Datos principales</span>
-            <span x-cloak x-show="lang==='en'">Core data</span>
-          </p>
-        </div>
-        <div class="bg-paper p-6 md:p-8">
-          <p class="font-display-condensed text-5xl font-extrabold leading-none tracking-tighter text-ink md:text-6xl">0</p>
-          <p class="mt-3 text-xs font-semibold text-ink-muted">
-            <span x-cloak x-show="lang==='es'">Anuncios</span>
-            <span x-cloak x-show="lang==='en'">Ads</span>
-          </p>
-        </div>
-        <div class="bg-paper p-6 md:p-8">
-          <p class="font-display-condensed text-5xl font-extrabold leading-none tracking-tighter text-ink md:text-6xl">Opt<span class="text-flame">-in</span></p>
-          <p class="mt-3 text-xs font-semibold text-ink-muted">
-            <span x-cloak x-show="lang==='es'">Métricas anónimas</span>
-            <span x-cloak x-show="lang==='en'">Anonymous metrics</span>
-          </p>
-        </div>
-        <div class="bg-paper p-6 md:p-8">
-          <p class="font-display-condensed text-5xl font-extrabold leading-none tracking-tighter text-ink md:text-6xl">Clear</p>
-          <p class="mt-3 text-xs font-semibold text-ink-muted">
-            <span x-cloak x-show="lang==='es'">Permisos</span>
-            <span x-cloak x-show="lang==='en'">Permissions</span>
-          </p>
-        </div>
+  <section class="container-editorial py-16 md:py-24">
+    <div class="mx-auto max-w-4xl">
+      <div class="grid gap-4 md:grid-cols-3">
+        <article class="rounded-2xl border border-ink/15 p-6"><p class="font-display-condensed text-5xl font-extrabold text-flame">0</p><p class="mt-2 font-semibold"><span x-cloak x-show="lang==='es'">Datos recopilados por el desarrollador</span><span x-cloak x-show="lang==='en'">Data collected by the developer</span></p></article>
+        <article class="rounded-2xl border border-ink/15 p-6"><p class="font-display-condensed text-5xl font-extrabold">0</p><p class="mt-2 font-semibold"><span x-cloak x-show="lang==='es'">SDKs de anuncios o analítica</span><span x-cloak x-show="lang==='en'">Ads or analytics SDKs</span></p></article>
+        <article class="rounded-2xl border border-ink/15 p-6"><p class="font-display-condensed text-5xl font-extrabold">1</p><p class="mt-2 font-semibold"><span x-cloak x-show="lang==='es'">Flujo de red directo y opcional</span><span x-cloak x-show="lang==='en'">Optional direct network flow</span></p></article>
       </div>
-    </div>
-  </section>
 
-  <!-- Body -->
-  <section class="py-16 md:py-24">
-    <div class="container-editorial">
-      <div class="grid lg:grid-cols-12 lg:gap-10">
-        <!-- Article -->
-        <article class="col-span-12 space-y-12 lg:col-span-8">
-          <!-- ABOUT -->
-          <section id="about">
-            <header class="mb-4">
-              <span class="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-ghost">
-                <span x-cloak x-show="lang==='es'">Sobre la app</span>
-                <span x-cloak x-show="lang==='en'">About</span>
-              </span>
-            </header>
-            <h2 class="text-balance font-display-condensed text-2xl font-extrabold leading-tight tracking-tightest text-ink md:text-3xl">
-              <span x-cloak x-show="lang==='es'">Sobre Fun Phone</span>
-              <span x-cloak x-show="lang==='en'">About Fun Phone</span>
-            </h2>
-            <p class="mt-4 max-w-2xl text-pretty text-sm leading-relaxed text-ink-muted md:text-base">
-              <em class="font-serif-italic text-flame">Fun Phone</em>
-              <span x-cloak x-show="lang==='es'"> es una app de marcador y contactos. Al configurarla como <b>app de Teléfono predeterminada</b>, puedes realizar, contestar y gestionar llamadas y contactos. Este release se distribuye por Google Play; el repositorio de código todavía no es público.</span>
-              <span x-cloak x-show="lang==='en'"> is a dialer and contacts app. When set as your <b>default Phone app</b>, it lets you place, receive, and manage calls and contacts. This release is distributed through Google Play; the source repository is not public yet.</span>
-            </p>
-          </section>
+      <h2 class="mt-16 font-display-condensed text-4xl font-extrabold"><span x-cloak x-show="lang==='es'">Cómo funciona cada flujo</span><span x-cloak x-show="lang==='en'">How each flow works</span></h2>
+      <div class="mt-7 divide-y divide-ink/10 border-y border-ink/15">
+        {rows.map((row) => (
+          <article class="grid gap-2 py-6 md:grid-cols-[.8fr_1.2fr] md:gap-8">
+            <h3 class="font-bold"><span x-cloak x-show="lang==='es'">{row.es}</span><span x-cloak x-show="lang==='en'">{row.en}</span></h3>
+            <p class="text-ink-muted"><span x-cloak x-show="lang==='es'">{row.controlEs}</span><span x-cloak x-show="lang==='en'">{row.controlEn}</span></p>
+          </article>
+        ))}
+      </div>
 
-          <!-- DATA -->
-          <section id="data">
-            <header class="mb-4">
-              <span class="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-ghost">
-                <span x-cloak x-show="lang==='es'">Datos</span>
-                <span x-cloak x-show="lang==='en'">Data</span>
-              </span>
-            </header>
-            <h2 class="text-balance font-display-condensed text-2xl font-extrabold leading-tight tracking-tightest text-ink md:text-3xl">
-              <span x-cloak x-show="lang==='es'">Datos que tratamos</span>
-              <span x-cloak x-show="lang==='en'">Data we process</span>
-            </h2>
-            <ul class="mt-5 space-y-3 text-sm text-ink-muted md:text-base">
-              {[
-                { name: 'Contacts', descEs: 'leer, crear, editar y eliminar.', descEn: 'read, create, edit, and delete.' },
-                { name: 'Call log', descEs: 'leer/escribir historial como app predeterminada.', descEn: 'read/write history as default app.' },
-                { name: 'Phone state', descEs: 'identificar línea activa y estado.', descEn: 'identify active line and state.' },
-                { name: 'Notes & Vault', descEs: 'almacenadas localmente, cifradas con Tink + Android Keystore.', descEn: 'stored locally, encrypted with Tink + Android Keystore.' },
-                { name: 'Expenses & cycle', descEs: 'locales, sin sincronización obligatoria.', descEn: 'local, with no mandatory sync.' },
-              ].map((item) => (
-                <li class="flex items-start gap-3 border-b border-ink/10 pb-3">
-                  <span class="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-flame"></span>
-                  <div>
-                    <p class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.18em] text-ink">{item.name}</p>
-                    <p class="mt-0.5 text-ink-muted">
-                      <span x-cloak x-show="lang==='es'">{item.descEs}</span>
-                      <span x-cloak x-show="lang==='en'">{item.descEn}</span>
-                    </p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </section>
+      <h2 class="mt-16 font-display-condensed text-4xl font-extrabold"><span x-cloak x-show="lang==='es'">Permisos bajo tu control</span><span x-cloak x-show="lang==='en'">Permissions under your control</span></h2>
+      <p class="mt-4 max-w-3xl leading-relaxed text-ink-muted">
+        <span x-cloak x-show="lang==='es'">Los permisos de llamadas y contactos respaldan el rol de teléfono. Cámara, micrófono y calendario se usan solo al activar sus herramientas. Internet y estado de red son permisos normales de Android reservados para la consulta de festivos.</span>
+        <span x-cloak x-show="lang==='en'">Call and contact permissions support the phone role. Camera, microphone, and calendar are used only when their tools are enabled. Internet and network state are normal Android permissions reserved for the holidays lookup.</span>
+      </p>
+      <div class="mt-7"><PermissionsBlock /></div>
 
-          <!-- PURPOSE -->
-          <section id="purpose">
-            <header class="mb-4">
-              <span class="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-ghost">
-                <span x-cloak x-show="lang==='es'">Finalidad</span>
-                <span x-cloak x-show="lang==='en'">Purpose</span>
-              </span>
-            </header>
-            <h2 class="text-balance font-display-condensed text-2xl font-extrabold leading-tight tracking-tightest text-ink md:text-3xl">
-              <span x-cloak x-show="lang==='es'">Para qué usamos los datos</span>
-              <span x-cloak x-show="lang==='en'">Why we use the data</span>
-            </h2>
-            <ul class="mt-5 space-y-2 text-sm text-ink-muted md:text-base">
-              {[
-                { es: 'Mostrar y gestionar llamadas recientes.', en: 'Display and manage recent calls.' },
-                { es: 'Realizar o contestar llamadas.', en: 'Place or answer calls.' },
-                { es: 'Sincronizar nombres con el historial.', en: 'Sync contact names with call history.' },
-                { es: 'Compartir fotos de contactos mediante enlace temporal.', en: 'Share contact photos via a temporary link.' },
-                { es: 'Consultar festivos, previews y proveedores de voz cuando activas esas funciones.', en: 'Fetch holidays, previews and voice providers when you activate those features.' },
-                { es: 'Medir activación de forma anónima solo después de tu consentimiento.', en: 'Measure anonymous activation only after your consent.' },
-              ].map((item) => (
-                <li class="flex items-start gap-3">
-                  <svg class="mt-1 h-3.5 w-3.5 flex-shrink-0 text-flame" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
-                  <span>
-                    <span x-cloak x-show="lang==='es'">{item.es}</span>
-                    <span x-cloak x-show="lang==='en'">{item.en}</span>
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </section>
-
-          <!-- STORAGE -->
-          <section id="storage">
-            <header class="mb-4">
-              <span class="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-ghost">
-                <span x-cloak x-show="lang==='es'">Almacenamiento</span>
-                <span x-cloak x-show="lang==='en'">Storage</span>
-              </span>
-            </header>
-            <h2 class="text-balance font-display-condensed text-2xl font-extrabold leading-tight tracking-tightest text-ink md:text-3xl">
-              <span x-cloak x-show="lang==='es'">Dónde viven los datos</span>
-              <span x-cloak x-show="lang==='en'">Where the data lives</span>
-            </h2>
-            <p class="mt-4 max-w-2xl text-pretty text-sm leading-relaxed text-ink-muted md:text-base">
-              <span x-cloak x-show="lang==='es'">Los contactos y llamadas usan los proveedores protegidos de Android; notas, bóveda, gastos y ajustes se guardan localmente. La versión Play incluye Firebase Auth, App Check y Storage para funciones concretas, y Analytics solo con consentimiento revocable. Festivos, previews y algunos proveedores de voz usan sus propios servicios cuando los activas.</span>
-              <span x-cloak x-show="lang==='en'">Contacts and calls use Android protected providers; notes, vault, expenses and settings are stored locally. The Play build includes Firebase Auth, App Check and Storage for specific features, and Analytics only with revocable consent. Holidays, previews and some voice providers use their own services when activated.</span>
-            </p>
-          </section>
-
-          <!-- SHARING -->
-          <section id="sharing">
-            <header class="mb-4">
-              <span class="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-ghost">
-                <span x-cloak x-show="lang==='es'">Compartición</span>
-                <span x-cloak x-show="lang==='en'">Sharing</span>
-              </span>
-            </header>
-            <h2 class="text-balance font-display-condensed text-2xl font-extrabold leading-tight tracking-tightest text-ink md:text-3xl">
-              <span x-cloak x-show="lang==='es'">Quién ve qué</span>
-              <span x-cloak x-show="lang==='en'">Who sees what</span>
-            </h2>
-            <p class="mt-4 max-w-2xl text-pretty text-sm leading-relaxed text-ink-muted md:text-base">
-              <span x-cloak x-show="lang==='es'">No vendemos datos ni construimos perfiles publicitarios. Algunas funciones envían los datos mínimos necesarios a sus proveedores —por ejemplo, una foto que eliges compartir o el país/año para consultar festivos— y las métricas de activación requieren consentimiento. La ficha Data Safety de Play debe coincidir con esta conducta antes de publicar.</span>
-              <span x-cloak x-show="lang==='en'">We do not sell data or build advertising profiles. Some features send the minimum required data to their providers—for example, a photo you choose to share or country/year for a holiday lookup—and activation metrics require consent. The Play Data Safety form must match this behavior before publication.</span>
-            </p>
-          </section>
-
-          <!-- PERMISSIONS -->
-          <section id="permissions">
-            <header class="mb-4">
-              <span class="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-ghost">
-                <span x-cloak x-show="lang==='es'">Permisos</span>
-                <span x-cloak x-show="lang==='en'">Permissions</span>
-              </span>
-            </header>
-            <h2 class="text-balance font-display-condensed text-2xl font-extrabold leading-tight tracking-tightest text-ink md:text-3xl">
-              <span x-cloak x-show="lang==='es'">Permisos y por qué</span>
-              <span x-cloak x-show="lang==='en'">Permissions & why</span>
-            </h2>
-            <div class="mt-5">
-              <PermissionsBlock />
-            </div>
-          </section>
-
-          <!-- CONTROLS -->
-          <section id="controls">
-            <header class="mb-4">
-              <span class="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-ghost">
-                <span x-cloak x-show="lang==='es'">Controles</span>
-                <span x-cloak x-show="lang==='en'">Controls</span>
-              </span>
-            </header>
-            <h2 class="text-balance font-display-condensed text-2xl font-extrabold leading-tight tracking-tightest text-ink md:text-3xl">
-              <span x-cloak x-show="lang==='es'">Lo que siempre puedes hacer</span>
-              <span x-cloak x-show="lang==='en'">What you can always do</span>
-            </h2>
-            <ul class="mt-5 space-y-2 text-sm text-ink-muted md:text-base">
-              {[
-                { es: 'Revocar permisos: Ajustes → Apps → Fun Phone → Permisos.', en: 'Revoke permissions: Settings → Apps → Fun Phone → Permissions.' },
-                { es: 'Quitar como predeterminado: Ajustes → Apps predeterminadas.', en: 'Remove as default: Settings → Default apps.' },
-                { es: 'Eliminar datos: gestiona el historial o desinstala.', en: 'Delete data: manage call log or uninstall.' },
-                { es: 'Auditar el código: github.com/Moncada25/fun-phone (GPL v3).', en: 'Audit the code: github.com/Moncada25/fun-phone (GPL v3).' },
-                { es: 'Compilar tu propia build desde el código fuente.', en: 'Compile your own build from the source code.' },
-              ].map((item) => (
-                <li class="flex items-start gap-3">
-                  <svg class="mt-1 h-3.5 w-3.5 flex-shrink-0 text-flame" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
-                  <span>
-                    <span x-cloak x-show="lang==='es'">{item.es}</span>
-                    <span x-cloak x-show="lang==='en'">{item.en}</span>
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </section>
-        </article>
-
-        <!-- Aside -->
-        <aside class="col-span-12 lg:col-span-4">
-          <div class="sticky top-24 space-y-6">
-            <nav class="border border-ink/15 bg-paper p-6" style="border-radius: 20px;">
-              <p class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-ink-ghost">
-                <span x-cloak x-show="lang==='es'">En esta página</span>
-                <span x-cloak x-show="lang==='en'">On this page</span>
-              </p>
-              <ul class="mt-4 space-y-1">
-                {sections.map((s, i) => (
-                  <li>
-                    <a href={`#${s.id}`} class="group flex items-center justify-between rounded-lg px-2.5 py-1.5 text-sm text-ink-muted transition hover:bg-ink/5 hover:text-ink">
-                      <span>
-                        <span x-cloak x-show="lang==='es'">{s.es}</span>
-                        <span x-cloak x-show="lang==='en'">{s.en}</span>
-                      </span>
-                      <span class="font-mono text-[0.65rem] text-ink-ghost transition group-hover:text-flame">{(i + 1).toString().padStart(2, '0')}</span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-
-            <div class="border border-flame/30 bg-flame/5 p-6" style="border-radius: 20px;">
-              <p class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-flame">
-                <span x-cloak x-show="lang==='es'">Dudas</span>
-                <span x-cloak x-show="lang==='en'">Questions</span>
-              </p>
-              <p class="mt-3 text-sm text-ink-muted">
-                <span x-cloak x-show="lang==='es'">Escríbenos a </span>
-                <span x-cloak x-show="lang==='en'">Drop us a line: </span>
-                <a href="mailto:santiago.moncada.dev@gmail.com" class="font-mono text-xs font-bold text-flame underline underline-offset-4">
-                  santiago.moncada.dev@gmail.com
-                </a>
-              </p>
-              <p class="mt-3 text-xs text-ink-muted">
-                <span x-cloak x-show="lang==='es'">O revisa el código en </span>
-                <span x-cloak x-show="lang==='en'">Or read the code at </span>
-                <a href="https://github.com/Moncada25/fun-phone" target="_blank" rel="noopener" class="font-mono text-xs font-bold text-flame underline underline-offset-4">
-                  github.com/Moncada25/fun-phone
-                </a>
-              </p>
-            </div>
-          </div>
-        </aside>
+      <div class="mt-14 rounded-3xl bg-ink p-8 text-paper md:p-10">
+        <h2 class="font-display-condensed text-4xl font-extrabold"><span x-cloak x-show="lang==='es'">Tus controles</span><span x-cloak x-show="lang==='en'">Your controls</span></h2>
+        <p class="mt-4 max-w-2xl leading-relaxed text-paper/75"><span x-cloak x-show="lang==='es'">Puedes rechazar la conexión de festivos, revocar permisos, borrar contenido, limpiar los datos de la app o desinstalarla. El desarrollador no conserva un registro remoto que deba eliminar.</span><span x-cloak x-show="lang==='en'">You can decline the holidays connection, revoke permissions, delete content, clear app data, or uninstall. The developer keeps no remote user record that needs deletion.</span></p>
       </div>
     </div>
   </section>

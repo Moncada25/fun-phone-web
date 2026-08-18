@@ -27,6 +27,14 @@ const groups = [
       { name: 'RECORD_AUDIO', purpose: { es: 'Notas de voz y dictado', en: 'Voice notes & dictation' } },
       { name: 'READ_CALENDAR', purpose: { es: 'Festivos y eventos', en: 'Holidays & events' } },
     ]
+  },
+  {
+    title: { es: 'Red opcional', en: 'Optional network' },
+    description: { es: 'Permisos normales de Android; reservados para festivos tras tu autorización.', en: 'Normal Android permissions; reserved for holidays after your approval.' },
+    perms: [
+      { name: 'INTERNET', purpose: { es: 'Consultar país/año en Nager.Date', en: 'Fetch country/year from Nager.Date' } },
+      { name: 'ACCESS_NETWORK_STATE', purpose: { es: 'Evitar consultas cuando no hay conexión', en: 'Avoid requests while offline' } },
+    ]
   }
 ];
 ---

@@ -80,14 +80,18 @@ for (const href of hrefs) {
   }
 }
 
-const sitemap = await readFile(path.join(distRoot, 'sitemap.xml'), 'utf8');
+const sitemapIndex = await readFile(path.join(distRoot, 'sitemap-index.xml'), 'utf8');
+if (!sitemapIndex.includes(`<loc>${siteUrl}sitemap-0.xml</loc>`)) {
+  throw new Error('Sitemap index does not reference the generated page sitemap.');
+}
+const sitemap = await readFile(path.join(distRoot, 'sitemap-0.xml'), 'utf8');
 for (const expectedUrl of pages.values()) {
   if (!sitemap.includes(`<loc>${expectedUrl}</loc>`)) {
     throw new Error(`Sitemap is missing ${expectedUrl}.`);
   }
 }
 const robots = await readFile(path.join(distRoot, 'robots.txt'), 'utf8');
-if (!robots.includes(`Sitemap: ${siteUrl}sitemap.xml`)) {
+if (!robots.includes(`Sitemap: ${siteUrl}sitemap-index.xml`)) {
   throw new Error('robots.txt does not reference the production sitemap.');
 }
 
