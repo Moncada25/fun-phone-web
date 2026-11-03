@@ -28,6 +28,17 @@ if (iconBuffer.readUInt32BE(16) !== 512 || iconBuffer.readUInt32BE(20) !== 512) 
 }
 
 const serviceWorker = await readFile(await requireFile('service-worker.js'), 'utf8');
+const campaign = JSON.parse(await readFile(path.join(repoRoot, 'src/data/store-screenshots.json'), 'utf8'));
+for (const language of ['es', 'en']) {
+  for (const slide of campaign) {
+    const asset = `assets/store-v2/${language}/${slide.id}.webp`;
+    await requireFile(asset);
+    if (!serviceWorker.includes(asset)) throw new Error(`Campaign image is unavailable offline: ${asset}`);
+  }
+}
+if (serviceWorker.includes('assets/screenshots/')) {
+  throw new Error('Archived screenshots must not be downloaded into the current PWA cache.');
+}
 for (const expectedAsset of ['index.html', 'features/index.html', 'privacy/index.html', 'faq/index.html']) {
   if (!serviceWorker.includes(expectedAsset)) {
     throw new Error(`Service worker does not precache ${expectedAsset}.`);

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fun Phone — Campaign Studio</title>
+  <style>
+    @font-face{font-family:Display;font-weight:200 800;src:url('/fonts/display.woff2')}@font-face{font-family:Mono;font-weight:100 800;src:url('/fonts/mono.woff2')}
+    *{box-sizing:border-box}html,body{margin:0;width:1080px;height:1920px;overflow:hidden}body{font-family:Display,Arial,sans-serif;color:#242326;background:#F3F0EB}
+    .poster{position:relative;width:1080px;height:1920px;overflow:hidden;background:#F1EEEA}
+    .poster.ribbon{background:#E9E6E1 url('/artwork/connection-ribbon.png') center/cover no-repeat}
+    .poster.paper{background:#F1EEEA}.poster.peach{background:#F2C9AF}.poster.coral{background:#F2724D}.poster.graphite{background:#19191C;color:#F8F4EE}
+    .ambient{position:absolute;right:-310px;top:900px;width:780px;height:780px;border:100px solid rgba(255,255,255,.13);border-radius:50%}
+    .paper .ambient,.peach .ambient{border-color:rgba(255,255,255,.32)}.graphite .ambient{border-color:rgba(242,114,77,.12)}.ribbon .ambient{display:none}
+    header{position:absolute;z-index:2;left:72px;right:72px;top:42px;height:43px;display:flex;justify-content:space-between;align-items:center}
+    .brand{font-size:27px;font-weight:800;letter-spacing:-1.2px;display:flex;align-items:center;gap:12px}.brand-mark{width:27px;height:27px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    .category{font-family:Mono,monospace;font-size:18px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase}
+    .copy{position:absolute;z-index:2;left:72px;right:72px;top:112px}.copy h1{font-size:99px;font-weight:800;line-height:.98;letter-spacing:-5px;margin:0}.copy h1 span{display:block;white-space:nowrap}.copy p{font-size:29px;line-height:1.3;letter-spacing:-.65px;margin:20px 0 0;font-weight:500}
+    .screen{position:absolute;left:181px;top:392px;width:718px;padding:5px;border-radius:55px;background:#29292B;overflow:hidden;box-shadow:0 36px 70px -16px rgba(21,20,24,.28),0 6px 16px rgba(21,20,24,.12)}
+    .screen img{width:100%;height:auto;display:block;border-radius:49px}.graphite .screen{background:#6B6B70;box-shadow:0 50px 80px -20px rgba(0,0,0,.5)}
+    .screen.secondary{left:32px;top:460px;width:640px;background:#A8A8AE;box-shadow:0 30px 65px -15px rgba(21,20,24,.25)}
+    .paired .screen.primary{left:416px;top:368px;width:640px}
+    .index{position:absolute;bottom:28px;left:72px;font:500 17px Mono,monospace;letter-spacing:2px}
+    .feature{width:1024px;height:500px;background:#F2724D;color:#262225}.feature header{left:68px;right:68px;top:36px}.feature .copy{left:68px;right:auto;top:133px}.feature .copy h1{font-size:69px;letter-spacing:-3.5px;line-height:1.02}.feature .copy p{font-size:22px;margin-top:22px}.feature .screen{left:626px;top:94px;width:277px;padding:3px;border-radius:28px}.feature .screen img{border-radius:24px}.feature .screen.secondary{left:555px;top:192px;width:244px;border-color:#85858A;z-index:0}.feature .screen.primary{z-index:1}.feature .ambient{width:620px;height:620px;right:-145px;top:75px;border-width:72px}.feature .category,.feature .index{display:none}
+  </style>
+</head>
+<body>
+  <main id="poster" class="poster">
+    <div class="ambient" aria-hidden="true"></div>
+    <header><div class="brand"><svg class="brand-mark" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 5.5C3 4.12 4.12 3 5.5 3h2.18c.66 0 1.24.42 1.45 1.04l.74 2.21a1.5 1.5 0 01-.36 1.51l-1.27 1.27a14 14 0 006.18 6.18l1.27-1.27a1.5 1.5 0 011.51-.36l2.21.74A1.5 1.5 0 0121 15.78v2.18A2.5 2.5 0 0118.5 20.5C10 20.5 3.5 14 3.5 5.5z"/></svg>Fun Phone</div><span class="category"></span></header>
+    <div class="copy"><h1></h1><p></p></div>
+    <figure class="screen secondary" hidden><img alt="" /></figure>
+    <figure class="screen primary" style="margin:0"><img alt="" /></figure>
+    <span class="index"></span>
+  </main>
+  <script>
+    const campaign = CAMPAIGN_DATA;
+    const query = new URLSearchParams(location.search);
+    const lang = ['es','en'].includes(query.get('lang')) ? query.get('lang') : 'es';
+    const isFeature = query.has('feature');
+    const slide = campaign.slides[Number(query.get('slide') || 0)];
+    const poster = document.querySelector('#poster');
+    document.documentElement.lang = lang;
+    if (isFeature) {
+      document.documentElement.style.width='1024px';document.documentElement.style.height='500px';document.body.style.width='1024px';document.body.style.height='500px';
+      poster.className='poster feature';
+    } else poster.className='poster '+slide.style+(slide.paired?' paired':'');
+    document.querySelector('.category').textContent=slide.label[lang];
+    const lines=isFeature ? campaign.slides[0].headline[lang] : slide.headline[lang];
+    for(const text of lines){const line=document.createElement('span');line.textContent=text;document.querySelector('h1').appendChild(line);}
+    document.querySelector('.copy p').textContent=isFeature ? (lang==='es'?'Privacidad. Personalización. Conexión.':'Private. Personal. Connected.') : slide.subtitle[lang];
+    const image=document.querySelector('.primary img');image.src='/raw/'+lang+'/'+(isFeature?'favorites':slide.scene)+'.png';image.alt=slide.alt[lang];
+    const paired=isFeature?'contacts':slide.paired;
+    if(paired){const secondary=document.querySelector('.secondary');secondary.hidden=false;secondary.style.margin='0';secondary.querySelector('img').src='/raw/'+lang+'/'+paired+'.png';}
+    document.querySelector('.index').textContent=String(Number(query.get('slide')||0)+1).padStart(2,'0')+' / 08';
+    window.STORE_READY=Promise.all([document.fonts.ready,...[...document.images].filter(i=>i.src).map(i=>i.decode())]);
+  </script>
+</body>
+</html>

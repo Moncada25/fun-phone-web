@@ -29,7 +29,7 @@ const base = import.meta.env.BASE_URL;
 const siteUrl = Astro.site ?? new URL('https://moncada25.github.io');
 const canonicalUrl = canonical ? new URL(canonical, siteUrl).href : new URL(Astro.url.pathname, siteUrl).href;
 const heroImg = new URL(
-  ogImage || (base + 'assets/screenshots/favorites.png'),
+  ogImage || (base + 'assets/store-v2/en/feature-graphic.jpg'),
   siteUrl,
 ).href;
 ---

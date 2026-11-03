@@ -40,6 +40,29 @@ datos estables del producto se centralizan en `src/data/site.ts`.
 - `src/components/` — navegación, footer, carrusel, CTA y bloques compartidos.
 - `public/assets/` — logo y screenshots vigentes.
 
+## Campaña visual para web y Google Play
+
+Ocho composiciones en español y ocho en inglés comparten capturas nativas actuales, tipografía
+Bricolage y una paleta de coral, papel y grafito. Se capturaron en el Moto/API 35 con nombres,
+notas, cuentas e importes ficticios dentro del paquete benchmark aislado. El hero y la página
+de funciones muestran esas mismas capturas sin texto promocional superpuesto.
+
+- Fuente canónica y JPEGs para Play: `../fun-phone/screenshots/store-v2/`.
+- Composición editable: `tools/store-mockups/studio.html`; copy y alt text en el `campaign.json`
+  canónico, sincronizados a `src/data/store-screenshots.json` durante la exportación.
+- WebP vigentes: `public/assets/store-v2/{es,en}/`; capturas sin composición en `ui/`.
+- Fondo abstracto creado con `image_gen`; prompt íntegro en
+  `../fun-phone/screenshots/store-v2/artwork/prompt.txt`. La interfaz proviene de Compose.
+- `npm run render:store` usa Chrome local, Puppeteer y Sharp para regenerar los 16 masters
+  1080×1920, dos feature graphics 1024×500, WebP y láminas `overview-es.jpg`/`overview-en.jpg`.
+  Puede recibir otra fuente con `npm run render:store -- /ruta/store-v2`.
+
+El carrusel conserva proporción 9:16, cambia imagen y etiquetas con ES/EN y ofrece ampliación
+mediante diálogo accesible. Se comprobó a 390 y 1440 px, con teclado, Escape y retorno del foco;
+sin JavaScript mantiene la primera composición y su texto. La PWA precarga ambas series y las
+capturas actuales. Los archivos antiguos de `public/assets/screenshots/` quedan archivados,
+sin referencias en las páginas ni precarga offline. Exportar o compilar no publica en Play ni web.
+
 ## Desarrollo
 
 ```bash
@@ -91,10 +114,10 @@ comprimida como GitHub Pages:
 
 | Ruta | Rendimiento | Accesibilidad | LCP | CLS | TBT |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| Inicio | 99 | 100 | 2,102 s | 0 | 5 ms |
-| Funciones | 99 | 100 | 2,105 s | 0 | 6 ms |
-| Privacidad | 100 | 100 | 1,371 s | 0 | 14 ms |
-| FAQ | 100 | 100 | 1,729 s | 0 | 0 ms |
+| Inicio | 98 | 100 | 2,253 s | 0 | 10 ms |
+| Funciones | 99 | 100 | 1,803 s | 0 | 4 ms |
+| Privacidad | 99 | 100 | 1,802 s | 0 | 14 ms |
+| FAQ | 99 | 100 | 1,877 s | 0 | 0 ms |
 
 `check:lighthouse` exige rendimiento ≥90, accesibilidad ≥95, ausencia de fallos automáticos de
 contraste, LCP ≤2,5 s, CLS ≤0,1 y TBT ≤200 ms. Son medidas de laboratorio, no métricas de campo.
@@ -114,6 +137,6 @@ HTML estático con imágenes controladas en el repositorio y no publica un optim
 subidas. Esa revisión de configuración no demuestra ausencia de todo riesgo de build: el upgrade
 a 7.4.5 elimina igualmente la versión vulnerable del lockfile.
 
-`npm audit --omit=dev` no encuentra avisos en las dependencias de producción. Las capturas nuevas
-de Ajustes claro y AMOLED proceden del Moto API 35 con datos sintéticos en el paquete benchmark;
-la PWA conserva también estas imágenes y las fuentes locales al navegar sin conexión.
+`npm audit --omit=dev` no encuentra avisos en las dependencias de producción. La campaña visual
+actual conserva capturas del Moto API 35 con datos sintéticos en el paquete benchmark; la PWA
+conserva también estas imágenes y las fuentes locales al navegar sin conexión.

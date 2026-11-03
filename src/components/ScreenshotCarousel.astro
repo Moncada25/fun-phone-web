@@ -1,17 +1,13 @@
 ---
-const basePath = import.meta.env.BASE_URL + 'assets/screenshots/';
-
-const screenshots = [
-  { src: `${basePath}favorites.webp`, alt: 'Fun Phone Favorites', caption: { es: 'Favoritos · Conexiones que importan', en: 'Favorites · The connections that matter' }, col: { es: 'Pantalla principal', en: 'Main screen' }, num: '01' },
-  { src: `${basePath}tools1.webp`, alt: 'Fun Phone Tools Hub', caption: { es: 'Herramientas opcionales · Activa solo las que quieras', en: 'Optional tools · Enable only what you want' }, col: { es: 'Hub', en: 'Hub' }, num: '02' },
-  { src: `${basePath}tools2.webp`, alt: 'Fun Phone Password Manager', caption: { es: 'Vault · Cifrado local + PIN/biometría', en: 'Vault · Local encryption + PIN/biometrics' }, col: { es: 'Seguridad', en: 'Security' }, num: '03' },
-  { src: `${basePath}tools3.webp`, alt: 'Fun Phone Cycle Tracker', caption: { es: 'Calendario menstrual · Predicciones privadas', en: 'Cycle tracker · Private predictions' }, col: { es: 'Bienestar', en: 'Wellness' }, num: '04' },
-  { src: `${basePath}settings-dark-upgrade.png`, alt: 'Fun Phone Dark Mode', caption: { es: 'Personalización · Modo oscuro y acentos', en: 'Personalization · Dark mode & accents' }, col: { es: 'Tema', en: 'Theme' }, num: '05' },
-  { src: `${basePath}games.webp`, alt: 'Fun Phone Games', caption: { es: '10 juegos · Snake, 2048, Sudoku…', en: '10 games · Snake, 2048, Sudoku…' }, col: { es: 'Juegos', en: 'Games' }, num: '06' },
-  { src: `${basePath}notes.webp`, alt: 'Fun Phone Notes', caption: { es: 'Notas · Recordatorios y checklists', en: 'Notes · Reminders & checklists' }, col: { es: 'Productividad', en: 'Productivity' }, num: '07' },
-  { src: `${basePath}details.webp`, alt: 'Fun Phone Contact Details', caption: { es: 'Detalle de contacto · Completo y editable', en: 'Contact detail · Complete & editable' }, col: { es: 'Contactos', en: 'Contacts' }, num: '08' },
-  { src: `${basePath}settings-light-upgrade.png`, alt: 'Fun Phone Light Settings', caption: { es: 'Ajustes · Superficies claras y contraste', en: 'Settings · Light surfaces and contrast' }, col: { es: 'Tema claro', en: 'Light theme' }, num: '09' },
-];
+import campaign from '../data/store-screenshots.json';
+const basePath = import.meta.env.BASE_URL + 'assets/store-v2/';
+const screenshots = campaign.map((slide, index) => ({
+  src: { es: `${basePath}es/${slide.id}.webp`, en: `${basePath}en/${slide.id}.webp` },
+  alt: slide.alt,
+  caption: slide.subtitle,
+  col: slide.label,
+  num: String(index + 1).padStart(2, '0'),
+}));
 
 const carouselData = JSON.stringify(screenshots);
 ---
@@ -58,12 +54,12 @@ const carouselData = JSON.stringify(screenshots);
             <span class="inline-flex items-center gap-2 font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-flame">
               <span x-text="screens[currentIndex].num"></span>
               <span class="h-px w-6 bg-flame"></span>
-              <span x-cloak x-show="lang==='es'" x-text="screens[currentIndex].col.es"></span>
-              <span x-cloak x-show="lang==='en'" x-text="screens[currentIndex].col.en"></span>
+              <span x-cloak x-show="lang==='es'" x-text="screens[currentIndex].col.es">{screenshots[0].col.es}</span>
+              <span x-cloak x-show="lang==='en'" x-text="screens[currentIndex].col.en">{screenshots[0].col.en}</span>
             </span>
             <p class="mt-4 max-w-md text-balance font-display-condensed text-2xl font-bold leading-tight tracking-tight md:text-3xl">
-              <span x-cloak x-show="lang==='es'" x-text="screens[currentIndex].caption.es"></span>
-              <span x-cloak x-show="lang==='en'" x-text="screens[currentIndex].caption.en"></span>
+              <span x-cloak x-show="lang==='es'" x-text="screens[currentIndex].caption.es">{screenshots[0].caption.es}</span>
+              <span x-cloak x-show="lang==='en'" x-text="screens[currentIndex].caption.en">{screenshots[0].caption.en}</span>
             </p>
           </div>
 
@@ -75,9 +71,10 @@ const carouselData = JSON.stringify(screenshots);
                 x-on:click="scrollTo(i)"
                 class="h-12 w-9 overflow-hidden border transition-all"
                 :class="currentIndex === i ? 'border-flame ring-2 ring-flame/30' : 'border-ink/15 opacity-60 hover:opacity-100'"
-                :aria-label="`Screenshot ${i + 1}`"
+                :aria-label="lang === 'es' ? `Captura ${i + 1}: ${s.col.es}` : `Screenshot ${i + 1}: ${s.col.en}`"
+                :aria-pressed="currentIndex === i"
               >
-                <img :src="s.src" :alt="s.alt" class="h-full w-full object-cover" loading="lazy" />
+                <img :src="s.src[lang]" :alt="s.alt[lang]" class="h-full w-full object-cover" loading="lazy" />
               </button>
             </template>
           </div>
@@ -104,10 +101,13 @@ const carouselData = JSON.stringify(screenshots);
           class="group relative block w-full overflow-hidden border border-ink/15 bg-paper-soft"
           style="border-radius: 28px; box-shadow: 0 30px 60px -30px rgba(10,10,10,0.25);"
         >
-          <div class="relative aspect-[9/16] w-full md:aspect-[4/5]">
+          <div class="relative aspect-[9/16] w-full">
             <img
-              :src="screens[currentIndex].src"
-              :alt="screens[currentIndex].alt"
+              src={screenshots[0].src.es}
+              alt={screenshots[0].alt.es}
+              width="1080" height="1920"
+              :src="screens[currentIndex].src[lang]"
+              :alt="screens[currentIndex].alt[lang]"
               class="absolute inset-0 h-full w-full object-contain transition-transform duration-700 group-hover:scale-[1.02]"
               loading="lazy"
             />
@@ -139,7 +139,7 @@ const carouselData = JSON.stringify(screenshots);
       <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
     </button>
     <figure class="max-h-[88vh] max-w-[92vw]">
-      <img :src="screens[currentIndex].src" :alt="screens[currentIndex].alt" class="max-h-[80vh] w-auto rounded-2xl object-contain" />
+      <img :src="screens[currentIndex].src[lang]" :alt="screens[currentIndex].alt[lang]" class="max-h-[80vh] w-auto rounded-2xl object-contain" />
       <figcaption class="mt-3 text-center font-mono text-xs uppercase tracking-[0.18em] text-paper/70">
         <span class="text-flame" x-text="screens[currentIndex].num"></span>
         · <span x-text="screens[currentIndex].col[lang]"></span>
