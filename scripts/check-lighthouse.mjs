@@ -1,6 +1,6 @@
 import { createReadStream } from 'node:fs';
 import { createGzip } from 'node:zlib';
-import { stat } from 'node:fs/promises';
+import { mkdir, stat, writeFile } from 'node:fs/promises';
 import { createServer } from 'node:http';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -9,6 +9,7 @@ import { launch } from 'chrome-launcher';
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const distRoot = path.join(repoRoot, 'dist');
+const reportRoot = path.join(repoRoot, '.lighthouse-reports', new Date().toISOString().replaceAll(':', '-'));
 const basePath = '/fun-phone-web/';
 const routes = ['', 'features/', 'privacy/', 'faq/'];
 const categoryBudgets = {
@@ -25,6 +26,7 @@ const metricBudgets = {
 const mimeTypes = {
   '.css': 'text/css; charset=utf-8',
   '.html': 'text/html; charset=utf-8',
+  '.jpg': 'image/jpeg',
   '.js': 'text/javascript; charset=utf-8',
   '.json': 'application/json; charset=utf-8',
   '.png': 'image/png',
@@ -66,6 +68,7 @@ const server = createServer(async (request, response) => {
   else stream.pipe(response);
 });
 
+await mkdir(reportRoot, { recursive: true });
 await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
 const address = server.address();
 const serverPort = typeof address === 'object' && address ? address.port : 0;
@@ -81,14 +84,20 @@ try {
       const result = await lighthouse(url, {
         port: chrome.port,
         logLevel: 'error',
-        output: 'json',
+        output: ['json', 'html'],
         onlyCategories: Object.keys(categoryBudgets),
       });
       if (!result) throw new Error(`Lighthouse returned no result for ${route || 'home'}.`);
+      if (!Array.isArray(result.report)) throw new Error('Lighthouse did not return both JSON and HTML reports.');
+      const reportName = `${route.replaceAll('/', '') || 'home'}-${run + 1}`;
+      await Promise.all([
+        writeFile(path.join(reportRoot, `${reportName}.json`), result.report[0]),
+        writeFile(path.join(reportRoot, `${reportName}.html`), result.report[1]),
+      ]);
       samples.push(result.lhr);
     }
     const median = (values) => [...values].sort((a, b) => a - b)[1];
-    const result = { lhr: samples[1] };
+    const representative = [...samples].sort((a, b) => a.audits['largest-contentful-paint'].numericValue - b.audits['largest-contentful-paint'].numericValue)[1];
     const failures = [];
     for (const [category, minimumScore] of Object.entries(categoryBudgets)) {
       const score = median(samples.map((sample) => sample.categories[category]?.score ?? 0));
@@ -103,8 +112,20 @@ try {
       }
     }
     if (samples.some((sample) => sample.audits['color-contrast']?.score === 0)) failures.push('color-contrast audit failed');
+
+    const scores = Object.entries(categoryBudgets)
+      .map(([category]) => `${category}=${median(samples.map((sample) => sample.categories[category].score)).toFixed(2)}`)
+      .join(' ');
+    console.log(`${route || 'home'} (median of 3): ${scores} LCP=${median(samples.map((sample) => sample.audits['largest-contentful-paint'].numericValue)).toFixed(0)}ms CLS=${median(samples.map((sample) => sample.audits['cumulative-layout-shift'].numericValue)).toFixed(3)} TBT=${median(samples.map((sample) => sample.audits['total-blocking-time'].numericValue)).toFixed(0)}ms`);
+
     if (failures.length > 0) {
-      const accessibilityFailures = Object.values(result.lhr.audits)
+      console.error('LCP diagnostics:', JSON.stringify(samples.map((sample) => ({
+        lcp: sample.audits['largest-contentful-paint'].numericValue,
+        fcp: sample.audits['first-contentful-paint'].numericValue,
+        details: sample.audits['lcp-breakdown-insight']?.details,
+      })), null, 2));
+      console.error(`Full Lighthouse reports: ${path.relative(repoRoot, reportRoot)}`);
+      const accessibilityFailures = Object.values(representative.audits)
         .filter((audit) =>
           audit.scoreDisplayMode === 'binary'
           && audit.score !== null
@@ -122,7 +143,7 @@ try {
           JSON.stringify(accessibilityFailures, null, 2),
         );
       }
-      const layoutShiftItems = result.lhr.audits['layout-shifts']?.details?.items;
+      const layoutShiftItems = representative.audits['layout-shifts']?.details?.items;
       if (Array.isArray(layoutShiftItems) && layoutShiftItems.length > 0) {
         console.error(
           `Largest layout shifts for ${route || 'home'}:`,
@@ -131,11 +152,6 @@ try {
       }
       throw new Error(`${route || 'home'} failed Lighthouse budgets: ${failures.join(', ')}`);
     }
-
-    const scores = Object.entries(categoryBudgets)
-      .map(([category]) => `${category}=${median(samples.map((sample) => sample.categories[category].score)).toFixed(2)}`)
-      .join(' ');
-    console.log(`${route || 'home'} (median of 3): ${scores} LCP=${median(samples.map((sample) => sample.audits['largest-contentful-paint'].numericValue)).toFixed(0)}ms CLS=${median(samples.map((sample) => sample.audits['cumulative-layout-shift'].numericValue)).toFixed(3)} TBT=${median(samples.map((sample) => sample.audits['total-blocking-time'].numericValue)).toFixed(0)}ms`);
   }
 } finally {
   await chrome.kill();
@@ -143,3 +159,4 @@ try {
 }
 
 console.log('Lighthouse category and Web Vitals budgets passed.');
+console.log(`Reports saved to ${path.relative(repoRoot, reportRoot)}.`);
