@@ -4,6 +4,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   output: 'static',
+  build: { inlineStylesheets: 'always' },
   site: 'https://moncada25.github.io',
   base: '/fun-phone-web/',
   trailingSlash: 'always',
