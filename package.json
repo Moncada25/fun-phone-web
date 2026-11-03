@@ -13,7 +13,8 @@
     "build": "npm run build:site && npm run build:pwa",
     "preview": "astro preview",
     "start": "astro dev",
-    "check:security": "npm audit --audit-level=high"
+    "check:security": "npm audit --audit-level=high",
+    "render:store": "node scripts/render-store-assets.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
@@ -30,7 +31,9 @@
     "tailwindcss": "^4.3.3",
     "typescript": "^6.0.3",
     "vite": "^8.3.5",
-    "workbox-build": "^7.4.1"
+    "workbox-build": "^7.4.1",
+    "puppeteer-core": "25.16.0",
+    "sharp": "0.35.5"
   },
   "engines": {
     "node": ">=22.23.4"

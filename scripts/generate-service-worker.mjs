@@ -1,9 +1,4 @@
-import { readdir } from 'node:fs/promises';
 import { generateSW } from 'workbox-build';
-
-const legacyPngs = (await readdir('dist/assets/screenshots'))
-  .filter((name) => name.endsWith('.png') && !name.endsWith('-upgrade.png'))
-  .map((name) => `assets/screenshots/${name}`);
 
 const { count, size, warnings } = await generateSW({
   cacheId: 'fun-phone-web',
@@ -12,11 +7,11 @@ const { count, size, warnings } = await generateSW({
   directoryIndex: 'index.html',
   globDirectory: 'dist',
   globIgnores: [
-    ...legacyPngs,
+    'assets/screenshots/**',
     'service-worker.js',
   ],
   globPatterns: [
-    '**/*.{html,css,js,webmanifest,webp,svg,woff2,png}',
+    '**/*.{html,css,js,webmanifest,webp,svg,woff2,png,jpg}',
     'licenses/*.txt',
   ],
   inlineWorkboxRuntime: true,

@@ -6,8 +6,9 @@ import { playStoreUrl } from '../data/play-store';
 import { productFacts } from '../data/site';
 
 const base = import.meta.env.BASE_URL;
-const heroImg = base + 'assets/screenshots/favorites.webp';
-const socialImg = base + 'assets/screenshots/favorites.png';
+const heroBase = base + 'assets/store-v2/ui/';
+const heroImg = heroBase + 'en/favorites.webp';
+const socialImg = base + 'assets/store-v2/en/feature-graphic.jpg';
 
 const stats = [
   { num: '11+', label: { es: 'Herramientas opcionales', en: 'Optional tools' } },
@@ -246,7 +247,7 @@ const marqueeItems = [
               class="relative mx-auto w-full max-w-[480px] overflow-hidden border border-ink/15 bg-gradient-to-b from-paper-soft to-paper"
               style="border-radius: 36px; box-shadow: 0 30px 80px -30px rgba(10,10,10,0.4), 0 0 0 1px rgba(10,10,10,0.04);"
             >
-              <img src={heroImg} alt="Fun Phone app screenshot" class="block h-auto w-full" loading="eager" fetchpriority="high" width="540" height="960" />
+              <img src={heroImg} x-bind:src={`${JSON.stringify(heroBase)} + lang + '/favorites.webp'`} alt="Fun Phone favorites" :alt="lang === 'es' ? 'Favoritos actuales de Fun Phone con contactos ficticios' : 'Current Fun Phone favorites with fictional contacts'" class="block h-auto w-full" loading="eager" fetchpriority="high" width="720" height="1600" />
             </div>
 
             <!-- Bottom labels -->
