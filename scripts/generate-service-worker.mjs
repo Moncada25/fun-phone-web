@@ -7,12 +7,12 @@ const { count, size, warnings } = await generateSW({
   directoryIndex: 'index.html',
   globDirectory: 'dist',
   globIgnores: [
-    'assets/screenshots/*.png',
+    'assets/screenshots/**',
     'service-worker.js',
   ],
   globPatterns: [
-    '**/*.{html,css,js,webmanifest,webp,svg}',
-    'assets/logo.png',
+    '**/*.{html,css,js,webmanifest,webp,svg,woff2,png,jpg}',
+    'licenses/*.txt',
   ],
   inlineWorkboxRuntime: true,
   maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,

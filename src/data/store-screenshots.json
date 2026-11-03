@@ -1,0 +1,219 @@
+[
+  {
+    "id": "01-favorites",
+    "scene": "favorites",
+    "style": "ribbon",
+    "headline": {
+      "es": [
+        "Tu teléfono.",
+        "A tu manera."
+      ],
+      "en": [
+        "Your phone.",
+        "Your way."
+      ]
+    },
+    "subtitle": {
+      "es": "Tus personas, siempre cerca.",
+      "en": "Keep your people close."
+    },
+    "label": {
+      "es": "Favoritos",
+      "en": "Favorites"
+    },
+    "alt": {
+      "es": "Favoritos de Fun Phone con seis contactos ficticios e ilustraciones de perfil.",
+      "en": "Fun Phone favorites with six fictional contacts and profile illustrations."
+    }
+  },
+  {
+    "id": "02-contacts",
+    "scene": "contacts",
+    "style": "coral",
+    "headline": {
+      "es": [
+        "Conecta con",
+        "lo importante."
+      ],
+      "en": [
+        "Your people.",
+        "All together."
+      ]
+    },
+    "subtitle": {
+      "es": "Contactos claros, conexiones más simples.",
+      "en": "Clear contacts. Easier connections."
+    },
+    "label": {
+      "es": "Contactos",
+      "en": "Contacts"
+    },
+    "alt": {
+      "es": "Lista de contactos ficticios en el tema oscuro de Fun Phone.",
+      "en": "Fictional contacts in Fun Phone's dark theme."
+    }
+  },
+  {
+    "id": "03-dialer",
+    "scene": "dialer",
+    "style": "graphite",
+    "headline": {
+      "es": [
+        "Encuentra.",
+        "Marca. Conecta."
+      ],
+      "en": [
+        "Find.",
+        "Dial. Connect."
+      ]
+    },
+    "subtitle": {
+      "es": "Una búsqueda T9. Un toque más cerca.",
+      "en": "T9 search. One tap closer."
+    },
+    "label": {
+      "es": "Marcador T9",
+      "en": "T9 dialer"
+    },
+    "alt": {
+      "es": "Marcador T9 de Fun Phone con teclado y búsqueda de un contacto ficticio.",
+      "en": "Fun Phone T9 dialer with keypad and a fictional contact search."
+    }
+  },
+  {
+    "id": "04-notes",
+    "scene": "notes",
+    "style": "paper",
+    "headline": {
+      "es": [
+        "Más espacio",
+        "para tus ideas."
+      ],
+      "en": [
+        "More room",
+        "for your ideas."
+      ]
+    },
+    "subtitle": {
+      "es": "Notas y listas para lo que viene.",
+      "en": "Notes and lists for what's next."
+    },
+    "label": {
+      "es": "Notas y listas",
+      "en": "Notes and lists"
+    },
+    "alt": {
+      "es": "Notas y una checklist de ejemplo en la interfaz actual de Fun Phone.",
+      "en": "Sample notes and a checklist in the current Fun Phone interface."
+    }
+  },
+  {
+    "id": "05-vault",
+    "scene": "vault",
+    "style": "graphite",
+    "headline": {
+      "es": [
+        "Lo privado",
+        "se queda contigo."
+      ],
+      "en": [
+        "Your secrets",
+        "stay yours."
+      ]
+    },
+    "subtitle": {
+      "es": "Bóveda local. PIN o biometría.",
+      "en": "Local vault. PIN or biometrics."
+    },
+    "label": {
+      "es": "Bóveda local",
+      "en": "Local vault"
+    },
+    "alt": {
+      "es": "Bóveda de Fun Phone en modo oscuro con cuentas ficticias y contraseñas ocultas.",
+      "en": "Fun Phone dark vault with fictional accounts and masked passwords."
+    }
+  },
+  {
+    "id": "06-expenses",
+    "scene": "expenses",
+    "style": "peach",
+    "headline": {
+      "es": [
+        "Tus gastos.",
+        "Más claros."
+      ],
+      "en": [
+        "Your money.",
+        "Made clearer."
+      ]
+    },
+    "subtitle": {
+      "es": "Ingresos, gastos y presupuesto a la vista.",
+      "en": "Income, spending and budgets at a glance."
+    },
+    "label": {
+      "es": "Gastos",
+      "en": "Expenses"
+    },
+    "alt": {
+      "es": "Resumen de gastos de Fun Phone con importes y categorías de ejemplo.",
+      "en": "Fun Phone expense overview with sample amounts and categories."
+    }
+  },
+  {
+    "id": "07-tools",
+    "scene": "tools",
+    "style": "coral",
+    "headline": {
+      "es": [
+        "Un espacio.",
+        "Más posibilidades."
+      ],
+      "en": [
+        "One space.",
+        "More possibilities."
+      ]
+    },
+    "subtitle": {
+      "es": "Activa las herramientas que van contigo.",
+      "en": "Choose the tools that fit your day."
+    },
+    "label": {
+      "es": "Herramientas",
+      "en": "Tools"
+    },
+    "alt": {
+      "es": "Herramientas opcionales de Fun Phone, con notas, gastos, voz y otras utilidades.",
+      "en": "Fun Phone optional tools including notes, expenses, voice and other utilities."
+    }
+  },
+  {
+    "id": "08-personalization",
+    "scene": "settings",
+    "style": "ribbon",
+    "paired": "settings-dark",
+    "headline": {
+      "es": [
+        "El estilo",
+        "también es tuyo."
+      ],
+      "en": [
+        "Make it",
+        "feel like you."
+      ]
+    },
+    "subtitle": {
+      "es": "Temas, colores y fuentes a tu gusto.",
+      "en": "Themes, colors and fonts. Your choice."
+    },
+    "label": {
+      "es": "Personalización",
+      "en": "Personalization"
+    },
+    "alt": {
+      "es": "Ajustes de Fun Phone en claro y AMOLED, con superficies neutrales de mayor contraste.",
+      "en": "Fun Phone light and AMOLED settings with higher contrast neutral surfaces."
+    }
+  }
+]

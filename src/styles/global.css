@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./fonts.css";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -18,14 +19,14 @@
 
 @layer base {
   :root {
-    --paper: #F4EEE2;
-    --paper-dark: #0A0908;
-    --paper-soft: #EDE5D5;
-    --paper-edge: #D9CFB8;
-    --ink: #0A0A0A;
-    --ink-muted: #3A3A3A;
-    --ink-ghost: #6E6A60;
-    --flame: #FF4D1A;
+    --paper: #F3F3F4;
+    --paper-dark: #09090B;
+    --paper-soft: #FFFFFF;
+    --paper-edge: #CBCBD0;
+    --ink: #161618;
+    --ink-muted: #444448;
+    --ink-ghost: #626269;
+    --flame: #B93815;
     --cobalt: #1B3CFF;
   }
 
@@ -38,18 +39,19 @@
   }
 
   html.dark {
-    --paper: #0A0908;
-    --paper-soft: #15110E;
-    --paper-edge: #2A241C;
-    --ink: #F4EEE2;
-    --ink-muted: #BFB8A8;
-    --ink-ghost: #6E6A60;
+    --paper: #09090B;
+    --paper-soft: #2C2C2E;
+    --paper-edge: #505055;
+    --ink: #F3F3F4;
+    --ink-muted: #C4C4CC;
+    --ink-ghost: #A1A1AA;
+    --flame: #FF8052;
   }
 
   body {
     background: var(--paper);
     color: var(--ink);
-    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    font-family: "Bricolage Grotesque Variable", system-ui, sans-serif;
     font-optical-sizing: auto;
     overflow-x: hidden;
   }
@@ -64,20 +66,20 @@
   }
 
   .font-display {
-    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    font-family: "Bricolage Grotesque Variable", system-ui, sans-serif;
     font-optical-sizing: auto;
     font-variation-settings: "opsz" 28, "wdth" 100;
   }
 
   .font-display-tight {
-    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    font-family: "Bricolage Grotesque Variable", system-ui, sans-serif;
     font-optical-sizing: auto;
     font-variation-settings: "opsz" 14, "wdth" 95;
     letter-spacing: -0.04em;
   }
 
   .font-display-condensed {
-    font-family: "Bricolage Grotesque", system-ui, sans-serif;
+    font-family: "Bricolage Grotesque Variable", system-ui, sans-serif;
     font-optical-sizing: auto;
     font-variation-settings: "opsz" 14, "wdth" 80;
     letter-spacing: -0.03em;
@@ -90,7 +92,7 @@
   }
 
   .font-mono {
-    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-family: "JetBrains Mono Variable", ui-monospace, monospace;
     font-feature-settings: "ss01", "ss02";
   }
 }
@@ -170,12 +172,12 @@
     mix-blend-mode: overlay;
   }
 
-  .reveal {
+  .reveal.reveal-pending {
     opacity: 0;
     transform: translateY(24px);
   }
 
-  .reveal.in {
+  .reveal.reveal-pending.in {
     animation: rise 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
   }
 
@@ -186,7 +188,7 @@
     padding: 0.4rem 0.75rem;
     border: 1px solid var(--ink);
     border-radius: 999px;
-    font-family: "JetBrains Mono", monospace;
+    font-family: "JetBrains Mono Variable", monospace;
     font-size: 0.6875rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -214,7 +216,7 @@
     padding: 0.95rem 1.5rem;
     background: var(--ink);
     color: var(--paper);
-    font-family: "Bricolage Grotesque", sans-serif;
+    font-family: "Bricolage Grotesque Variable", sans-serif;
     font-weight: 700;
     font-size: 0.95rem;
     letter-spacing: -0.01em;
@@ -239,7 +241,7 @@
     padding: 0.95rem 1.5rem;
     background: transparent;
     color: var(--ink);
-    font-family: "Bricolage Grotesque", sans-serif;
+    font-family: "Bricolage Grotesque Variable", sans-serif;
     font-weight: 600;
     font-size: 0.95rem;
     border: 1px solid var(--ink);
@@ -259,7 +261,7 @@
   }
 
   .tag-number {
-    font-family: "JetBrains Mono", monospace;
+    font-family: "JetBrains Mono Variable", monospace;
     font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: 0.1em;
@@ -384,4 +386,16 @@
 html[data-lang="es"] [x-cloak][x-show="lang==='es'"],
 html[data-lang="en"] [x-cloak][x-show="lang==='en'"] {
   display: revert !important;
+}
+
+/* Keep essential content visible when scripting or optional storage is unavailable. */
+:focus-visible { outline: 3px solid var(--flame); outline-offset: 4px; }
+button, [role="button"] { min-width: 44px; min-height: 44px; }
+dialog:not([open]) { display: none; }
+.screenshot-dialog { --paper: #F4F4F5; --ink: #09090B; border: 0; margin: 0; max-width: none; max-height: none; width: 100vw; height: 100dvh; }
+.screenshot-dialog::backdrop { background: #09090B; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .reveal, .reveal.reveal-pending { opacity: 1; transform: none; }
 }

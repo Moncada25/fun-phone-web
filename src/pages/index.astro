@@ -6,8 +6,9 @@ import { playStoreUrl } from '../data/play-store';
 import { productFacts } from '../data/site';
 
 const base = import.meta.env.BASE_URL;
-const heroImg = base + 'assets/screenshots/favorites.webp?v=4.0.0';
-const socialImg = base + 'assets/screenshots/favorites.png?v=4.0.0';
+const heroBase = base + 'assets/store-v2/ui/';
+const heroImg = heroBase + 'en/favorites.webp';
+const socialImg = base + 'assets/store-v2/en/feature-graphic.jpg';
 
 const stats = [
   { num: '11+', label: { es: 'Herramientas opcionales', en: 'Optional tools' } },
@@ -38,7 +39,7 @@ const tools = [
   {
     num: '04',
     title: { es: 'Vault', en: 'Vault' },
-    desc: { es: 'Cifrado Tink, biometría y generador.', en: 'Tink encryption, biometrics & generator.' },
+    desc: { es: 'Cifrado local, PIN/biometría y generador.', en: 'Local encryption, PIN/biometrics & generator.' },
     color: 'flame',
   },
   {
@@ -92,7 +93,7 @@ const marqueeItems = [
   { es: 'Sin anuncios', en: 'Ad-free' },
   { es: 'Permisos claros', en: 'Clear permissions' },
   { es: 'Herramientas opcionales', en: 'Optional tools' },
-  { es: 'Cifrado Tink', en: 'Tink encryption' },
+  { es: 'Cifrado local', en: 'Local encryption' },
   { es: 'Gratis en Google Play', en: 'Free on Google Play' },
 ];
 ---
@@ -246,7 +247,7 @@ const marqueeItems = [
               class="relative mx-auto w-full max-w-[480px] overflow-hidden border border-ink/15 bg-gradient-to-b from-paper-soft to-paper"
               style="border-radius: 36px; box-shadow: 0 30px 80px -30px rgba(10,10,10,0.4), 0 0 0 1px rgba(10,10,10,0.04);"
             >
-              <img src={heroImg} alt="Fun Phone app screenshot" class="block h-auto w-full" loading="eager" fetchpriority="high" width="540" height="960" />
+              <img src={heroImg} x-bind:src={`${JSON.stringify(heroBase)} + lang + '/favorites.webp'`} alt="Fun Phone favorites" :alt="lang === 'es' ? 'Favoritos actuales de Fun Phone con contactos ficticios' : 'Current Fun Phone favorites with fictional contacts'" class="block h-auto w-full" loading="eager" fetchpriority="high" width="720" height="1600" />
             </div>
 
             <!-- Bottom labels -->
@@ -278,9 +279,9 @@ const marqueeItems = [
       <div class="grid grid-cols-2 gap-px overflow-hidden border border-ink/15 bg-ink/15 md:grid-cols-4" style="border-radius: 20px;">
         {stats.map((stat, i) => (
           <div class="group relative flex flex-col gap-2 bg-paper p-6 transition-colors hover:bg-flame md:p-8">
-            <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.2em] text-ink-ghost transition-colors group-hover:text-paper/80">{(i + 1).toString().padStart(2, '0')}</span>
+            <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.2em] text-ink-ghost transition-colors group-hover:text-paper">{(i + 1).toString().padStart(2, '0')}</span>
             <span class="font-display-condensed text-5xl font-extrabold leading-none tracking-tighter text-ink transition-colors group-hover:text-paper md:text-6xl">{stat.num}</span>
-            <span class="mt-1 text-xs font-semibold text-ink-muted transition-colors group-hover:text-paper/85">
+            <span class="mt-1 text-xs font-semibold text-ink-muted transition-colors group-hover:text-paper">
               <span x-cloak x-show="lang==='es'">{stat.label.es}</span>
               <span x-cloak x-show="lang==='en'">{stat.label.en}</span>
             </span>
@@ -443,8 +444,8 @@ const marqueeItems = [
             <span x-cloak x-show="lang==='en'">Real privacy</span>
           </h3>
           <p class="text-sm leading-relaxed text-ink-muted">
-            <span x-cloak x-show="lang==='es'">Tus datos principales se guardan localmente. Sin anuncios, analítica ni nube del desarrollador; red solo para festivos opcionales.</span>
-            <span x-cloak x-show="lang==='en'">Your core data is stored locally. No ads, analytics, or developer cloud; network access is limited to optional holidays.</span>
+            <span x-cloak x-show="lang==='es'">Tus datos principales se guardan localmente. Sin anuncios, analítica ni nube del desarrollador; red opcional para festivos y el preview social/web que solicites.</span>
+            <span x-cloak x-show="lang==='en'">Your core data is stored locally. No ads, analytics, or developer cloud; optional network access for holidays and social/web previews you request.</span>
           </p>
         </article>
 
@@ -458,7 +459,7 @@ const marqueeItems = [
             <span x-cloak x-show="lang==='es'">Permisos claros</span>
             <span x-cloak x-show="lang==='en'">Clear permissions</span>
           </h3>
-          <p class="text-sm leading-relaxed text-paper/75 group-hover:text-paper/90">
+          <p class="text-sm leading-relaxed text-paper/75 group-hover:text-paper">
             <span x-cloak x-show="lang==='es'">Estado del teléfono explica qué falta, por qué importa y cómo resolverlo sin pedir permisos en bloque.</span>
             <span x-cloak x-show="lang==='en'">Phone Status explains what is missing, why it matters and how to fix it without blanket permission requests.</span>
           </p>
@@ -500,7 +501,7 @@ const marqueeItems = [
           </h2>
         </div>
         <div class="col-span-12 flex flex-col justify-end gap-5 md:col-span-4">
-          <p class="text-pretty text-base leading-relaxed text-paper/85 md:text-lg">
+          <p class="text-pretty text-base leading-relaxed text-paper md:text-lg">
             <span x-cloak x-show="lang==='es'">Menos de cinco minutos para tener Fun Phone funcionando como app de teléfono predeterminada, con todos tus contactos a salvo.</span>
             <span x-cloak x-show="lang==='en'">Less than five minutes to set Fun Phone as your default dialer, with every contact kept safe and local.</span>
           </p>
