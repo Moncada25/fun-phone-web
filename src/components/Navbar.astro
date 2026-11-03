@@ -18,7 +18,7 @@ const isActive = (suffix: string) => {
   :class="scrolled ? 'translate-y-1' : 'translate-y-0'"
 >
   <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[999] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-paper">
-    Saltar al contenido
+    <span x-cloak x-show="lang==='es'">Saltar al contenido</span><span x-cloak x-show="lang==='en'">Skip to content</span>
   </a>
 
   <div class="container-editorial">
@@ -31,7 +31,7 @@ const isActive = (suffix: string) => {
       <a
         href={baseUrl}
         class="group flex items-center gap-2.5 outline-none"
-        aria-label="Fun Phone home"
+        aria-label="Inicio de Fun Phone" :aria-label="lang === 'es' ? 'Inicio de Fun Phone' : 'Fun Phone home'"
       >
         <span class="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-ink text-paper">
           <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
@@ -113,7 +113,7 @@ const isActive = (suffix: string) => {
           type="button"
           x-on:click="toggleLanguage()"
           class="hidden h-9 items-center gap-1 rounded-full border border-ink/15 px-2.5 font-mono text-[0.7rem] font-bold tracking-wider text-ink-muted transition-colors hover:border-ink/40 hover:text-ink sm:flex"
-          aria-label="Cambiar idioma"
+          aria-label="Cambiar idioma" :aria-label="lang === 'es' ? 'Cambiar idioma' : 'Change language'"
         >
           <span x-cloak x-text="(lang || 'es').toUpperCase()"></span>
           <span class="text-ink-ghost">/</span>
@@ -156,7 +156,7 @@ const isActive = (suffix: string) => {
           class="flex h-9 w-9 items-center justify-center rounded-full border border-ink/15 text-ink-muted transition-colors hover:border-ink/40 hover:text-ink md:hidden"
           :aria-expanded="menuOpen.toString()"
           aria-controls="mobile-menu"
-          aria-label="Menú"
+          aria-label="Menú" :aria-label="lang === 'es' ? 'Menú' : 'Menu'"
         >
           <svg x-cloak x-show="!menuOpen" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h12M4 17h16"/></svg>
           <svg x-cloak x-show="menuOpen" x-cloak class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M6 18L18 6"/></svg>
@@ -259,9 +259,9 @@ const isActive = (suffix: string) => {
   function navbarComponent() {
     return {
       menuOpen: false,
-      lang: localStorage.getItem('lang') || (navigator.language && navigator.language.startsWith('es') ? 'es' : 'en'),
+      lang: document.documentElement.dataset.lang || 'es',
       isDark: (() => {
-        const s = localStorage.getItem('darkMode');
+        const s = window.funPhonePreferences.read('darkMode');
         if (s !== null) return s === 'true';
         return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
       })(),
@@ -275,7 +275,7 @@ const isActive = (suffix: string) => {
           this.scrolled = window.scrollY > 24;
         }, { passive: true });
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-          if (localStorage.getItem('darkMode') === null) {
+          if (window.funPhonePreferences.read('darkMode') === null) {
             this.isDark = e.matches;
             this.applyTheme();
           }
@@ -300,14 +300,14 @@ const isActive = (suffix: string) => {
         this.applyLang();
       },
       applyLang() {
-        localStorage.setItem('lang', this.lang);
+        window.funPhonePreferences.write('lang', this.lang);
         document.documentElement.setAttribute('data-lang', this.lang);
         document.documentElement.lang = this.lang;
         window.dispatchEvent(new CustomEvent('lang', { detail: this.lang }));
       },
       toggleTheme() {
         this.isDark = !this.isDark;
-        localStorage.setItem('darkMode', String(this.isDark));
+        window.funPhonePreferences.write('darkMode', String(this.isDark));
         this.applyTheme();
       },
       applyTheme() {

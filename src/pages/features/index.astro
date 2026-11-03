@@ -6,66 +6,66 @@ import { playStoreUrl } from '../../data/play-store';
 
 const base = import.meta.env.BASE_URL;
 const ssBase = base + 'assets/screenshots/';
-const v = '?v=4.0.0';
+const v = '';
 
 const groups = [
   {
     title: { es: 'Comunicación', en: 'Communication' },
     blurb: { es: 'Todo lo que necesitas para hablar, llamar y organizar tus conexiones.', en: 'Everything you need to talk, call and organize your connections.' },
     items: [
-      { title: { es: 'Marcador Avanzado', en: 'Advanced Dialer' }, bullets: ['Búsqueda T9 inteligente y marcado rápido.', 'Historial con filtros, favoritos y búsqueda.', 'Controles accesibles: retener, silenciar y altavoz.', 'Notificaciones con retorno seguro a la llamada activa.', 'Dual-SIM, audio y sensor de proximidad.'], variant: 'light' },
-      { title: { es: 'Privacidad Primero', en: 'Privacy First' }, bullets: ['Permisos granulares con explicaciones claras.', 'Almacenamiento local para datos principales.', 'Sin anuncios invasivos.', 'Red solo para funciones opcionales documentadas.'], variant: 'dark' },
+      { title: { es: 'Marcador Avanzado', en: 'Advanced Dialer' }, bullets: ['Búsqueda T9 inteligente y marcado rápido.', 'Historial con filtros, favoritos y búsqueda.', 'Controles accesibles: retener, silenciar y altavoz.', 'Notificaciones con retorno seguro a la llamada activa.', 'Dual-SIM, audio y sensor de proximidad.'], bulletsEn: ["Smart T9 search and speed dial.", "Call history with filters, favorites, and search.", "Accessible hold, mute, and speaker controls.", "Notifications that return to the active call.", "Dual SIM, audio routing, and proximity sensor."], variant: 'light' },
+      { title: { es: 'Privacidad Primero', en: 'Privacy First' }, bullets: ['Permisos granulares con explicaciones claras.', 'Almacenamiento local para datos principales.', 'Sin anuncios invasivos.', 'Red solo para funciones opcionales documentadas.'], bulletsEn: ["Granular permissions with clear explanations.", "Local storage for core app data.", "No intrusive ads.", "Network only for documented optional features."], variant: 'dark' },
     ]
   },
   {
     title: { es: 'Contactos', en: 'Contacts' },
     blurb: { es: 'Gestiona tu agenda con herramientas que otros dialers ni imaginan.', en: 'Manage your address book with tools other dialers can\'t even imagine.' },
     items: [
-      { title: { es: 'Gestión de Contactos', en: 'Contact Management' }, bullets: ['Importar/exportar JSON y vCard.', 'Escáner y generador QR.', 'Sync multi-cuenta (Google, local).', 'Búsqueda avanzada y filtrado.', 'Fusión y deduplicación.'], variant: 'light' },
-      { title: { es: 'Anti-spam', en: 'Anti-spam' }, bullets: ['Bloqueo y desbloqueo mediante Android.', 'Lista de números bloqueados.', 'Controles explícitos para evitar bloqueos accidentales.'], variant: 'flame' },
+      { title: { es: 'Gestión de Contactos', en: 'Contact Management' }, bullets: ['Importar/exportar JSON y vCard.', 'Escáner y generador QR.', 'Sync multi-cuenta (Google, local).', 'Búsqueda avanzada y filtrado.', 'Fusión y deduplicación.'], bulletsEn: ["JSON and vCard import/export.", "QR scanner and generator.", "Google and device accounts managed by Android.", "Advanced search and filtering.", "Merge and deduplicate contacts."], variant: 'light' },
+      { title: { es: 'Anti-spam', en: 'Anti-spam' }, bullets: ['Bloqueo y desbloqueo mediante Android.', 'Lista de números bloqueados.', 'Controles explícitos para evitar bloqueos accidentales.'], bulletsEn: ["Block and unblock using Android.", "Blocked-number list.", "Explicit controls to prevent accidental blocking."], variant: 'flame' },
     ]
   },
   {
     title: { es: 'Productividad', en: 'Productivity' },
     blurb: { es: 'Notas, tareas y recordatorios en un único espacio privado.', en: 'Notes, tasks and reminders in a single private space.' },
     items: [
-      { title: { es: 'Suite Completa', en: 'Full Suite' }, bullets: ['Notas, checklists y voz.', 'Recordatorios con alarmas.', 'Grabador de voz integrado.', 'Bloqueo biométrico de notas.'], variant: 'light' },
-      { title: { es: 'Dashboard de Métricas', en: 'Metrics Dashboard' }, bullets: ['Estadísticas de llamadas.', 'Duración, tendencias y ratios.', 'Contactos más frecuentes.', 'Todo procesado localmente.'], variant: 'dark' },
+      { title: { es: 'Suite Completa', en: 'Full Suite' }, bullets: ['Notas, checklists y voz.', 'Recordatorios con alarmas.', 'Grabador de voz integrado.', 'Bloqueo biométrico/PIN de notas.'], bulletsEn: ["Notes, checklists, and voice.", "Reminders with alarms.", "Integrated voice recorder.", "Biometric/PIN note lock."], variant: 'light' },
+      { title: { es: 'Dashboard de Métricas', en: 'Metrics Dashboard' }, bullets: ['Estadísticas de llamadas.', 'Duración, tendencias y ratios.', 'Contactos más frecuentes.', 'Todo procesado localmente.'], bulletsEn: ["Call statistics.", "Duration, trends, and ratios.", "Most frequent contacts.", "Everything processed locally."], variant: 'dark' },
     ]
   },
   {
     title: { es: 'Seguridad y utilidades', en: 'Security & utilities' },
     blurb: { es: 'Tus secretos, cifrados en tu dispositivo. Punto.', en: 'Your secrets, encrypted on your device. Period.' },
     items: [
-      { title: { es: 'Gestor de Contraseñas', en: 'Password Manager' }, bullets: ['Cifrado Tink en dispositivo.', 'Generador de contraseñas fuertes.', 'Protección biométrica/PIN.'], variant: 'flame' },
-      { title: { es: 'Herramientas de Voz', en: 'Voice Tools' }, bullets: ['Dictado voz a texto.', 'TTS multi-idioma.', 'Compartir como texto o audio.'], variant: 'light' },
-      { title: { es: 'Utilidades QR', en: 'QR Utilities' }, bullets: ['Escáner y generador QR.', 'Historial de escaneos.', 'Compartir contactos por QR.'], variant: 'dark' },
-      { title: { es: 'Festivos Públicos', en: 'Public Holidays' }, bullets: ['Consulta opcional a Nager.Date.', 'Aviso y autorización antes de usar la red.', 'Solo se envían el país y año elegidos.'], variant: 'light' },
+      { title: { es: 'Gestor de Contraseñas', en: 'Password Manager' }, bullets: ['Cifrado local autenticado.', 'Generador de contraseñas fuertes.', 'Protección biométrica/PIN.'], bulletsEn: ["Authenticated local encryption.", "Strong password generator.", "Biometric/PIN protection."], variant: 'flame' },
+      { title: { es: 'Herramientas de Voz', en: 'Voice Tools' }, bullets: ['Dictado voz a texto.', 'TTS multi-idioma.', 'Compartir como texto o audio.'], bulletsEn: ["Speech-to-text dictation.", "Multilingual text-to-speech.", "Share text or audio."], variant: 'light' },
+      { title: { es: 'Utilidades QR', en: 'QR Utilities' }, bullets: ['Escáner y generador QR.', 'Historial de escaneos.', 'Compartir contactos por QR.'], bulletsEn: ["QR scanner and generator.", "Scan history.", "Share contacts by QR."], variant: 'dark' },
+      { title: { es: 'Festivos Públicos', en: 'Public Holidays' }, bullets: ['Consulta opcional a Nager.Date.', 'Aviso y autorización antes de usar la red.', 'Solo país y año como datos de consulta.'], bulletsEn: ["Optional Nager.Date lookup.", "Disclosure and approval before network access.", "Only country and year as query data."], variant: 'light' },
     ]
   },
   {
     title: { es: 'Estilo de vida y finanzas', en: 'Lifestyle & finances' },
-    blurb: { es: 'Bienestar y dinero bajo el mismo techo cifrado.', en: 'Wellness and money under the same encrypted roof.' },
+    blurb: { es: 'Bienestar y dinero guardados de forma privada en tu dispositivo.', en: 'Wellness and money stored privately on your device.' },
     items: [
-      { title: { es: 'Gestor de Gastos', en: 'Expense Manager' }, bullets: ['Ingresos y gastos por categoría.', 'Presupuestos mensuales.', 'Balance y estadísticas en tiempo real.'], variant: 'light' },
-      { title: { es: 'Calendario Menstrual', en: 'Menstrual Calendar' }, bullets: ['Seguimiento con predicciones.', 'Fases: menstrual, folicular, ovulación, lútea.', 'Datos 100% privados en dispositivo.'], variant: 'flame' },
+      { title: { es: 'Gestor de Gastos', en: 'Expense Manager' }, bullets: ['Ingresos y gastos por categoría.', 'Presupuestos mensuales.', 'Balance y estadísticas en tiempo real.'], bulletsEn: ["Income and expenses by category.", "Monthly budgets.", "Live balance and statistics."], variant: 'light' },
+      { title: { es: 'Calendario Menstrual', en: 'Menstrual Calendar' }, bullets: ['Seguimiento con predicciones.', 'Fases: menstrual, folicular, ovulación, lútea.', 'Datos 100% privados en dispositivo.'], bulletsEn: ["Tracking with predictions.", "Menstrual, follicular, ovulation, and luteal phases.", "Private data stored on your device."], variant: 'flame' },
     ]
   },
   {
     title: { es: 'Enfoque', en: 'Focus' },
     blurb: { es: 'Activa solo lo que encaja con tu día.', en: 'Enable only what fits your day.' },
     items: [
-      { title: { es: 'Pomodoro', en: 'Pomodoro' }, bullets: ['Técnica 25/5 configurable.', 'Sonidos y notificaciones.', 'Funciona en segundo plano.'], variant: 'dark' },
-      { title: { es: 'Herramientas a tu medida', en: 'Tools your way' }, bullets: ['Presets durante el onboarding.', 'Interruptor general y controles individuales.', 'El menú no aparece vacío.'], variant: 'flame' },
+      { title: { es: 'Pomodoro', en: 'Pomodoro' }, bullets: ['Técnica 25/5 configurable.', 'Sonidos y notificaciones.', 'Funciona en segundo plano.'], bulletsEn: ["Customizable 25/5 technique.", "Sounds and notifications.", "Runs in the background."], variant: 'dark' },
+      { title: { es: 'Herramientas a tu medida', en: 'Tools your way' }, bullets: ['Presets durante el onboarding.', 'Interruptor general y controles individuales.', 'El menú no aparece vacío.'], bulletsEn: ["Presets during onboarding.", "Master switch and individual controls.", "The menu never appears empty."], variant: 'flame' },
     ]
   },
   {
     title: { es: 'Entretenimiento', en: 'Entertainment' },
     blurb: { es: 'Ríete un rato. Sin micropagos, sin trampas.', en: 'Laugh for a while. No microtransactions, no tricks.' },
     items: [
-      { title: { es: '10 Minijuegos', en: '10 Mini-Games' }, bullets: ['Fun Bird, Snake, Buscaminas, 2048.', 'Puzzle, Tres en raya, Ahorcado.', 'Breakout, Sudoku, Memory.'], variant: 'dark' },
-      { title: { es: 'Estudio de Pintura', en: 'Paint Studio' }, bullets: ['Pinceles expresivos.', 'Importar y exportar obras.', 'Compartir en galería y redes.'], variant: 'light' },
-      { title: { es: 'Personalización Total', en: 'Full Customization' }, bullets: ['Temas, colores y fuentes.', 'Animaciones, transiciones y widgets.', 'Modo claro/oscuro automático.'], variant: 'flame' },
+      { title: { es: '10 Minijuegos', en: '10 Mini-Games' }, bullets: ['Fun Bird, Snake, Buscaminas, 2048.', 'Puzzle, Tres en raya, Ahorcado.', 'Breakout, Sudoku, Memory.'], bulletsEn: ["Fun Bird, Snake, Minesweeper, 2048.", "Puzzle, Tic-Tac-Toe, Hangman.", "Breakout, Sudoku, Memory."], variant: 'dark' },
+      { title: { es: 'Estudio de Pintura', en: 'Paint Studio' }, bullets: ['Pinceles expresivos.', 'Importar y exportar obras.', 'Compartir en galería y redes.'], bulletsEn: ["Expressive brushes.", "Import and export artwork.", "Share to your gallery and social apps."], variant: 'light' },
+      { title: { es: 'Personalización Total', en: 'Full Customization' }, bullets: ['Temas, colores y fuentes.', 'Animaciones, transiciones y widgets.', 'Modo claro/oscuro automático.'], bulletsEn: ["Themes, colors, and fonts.", "Animations, transitions, and widgets.", "Automatic light/dark mode."], variant: 'flame' },
     ]
   },
 ];
@@ -140,6 +140,7 @@ const groups = [
               title={item.title.es}
               titleEn={item.title.en}
               bullets={item.bullets}
+              bulletsEn={item.bulletsEn}
               variant={item.variant as any}
             />
           ))}

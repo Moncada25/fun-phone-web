@@ -17,7 +17,7 @@ import { playStoreUrl } from '../data/play-store';
       type="button"
       x-on:click="dismissed = true"
       class="absolute -right-2 -top-7 z-10 flex h-7 w-7 items-center justify-center rounded-full border border-ink/20 bg-paper text-ink shadow-sm"
-      aria-label="Cerrar"
+      aria-label="Cerrar" :aria-label="lang === 'es' ? 'Cerrar' : 'Close'"
     >
       <svg class="h-2.5 w-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3" stroke-linecap="round">
         <path d="M6 6l12 12M6 18L18 6"/>
@@ -28,7 +28,7 @@ import { playStoreUrl } from '../data/play-store';
       target="_blank"
       rel="noopener"
       class="group flex h-14 w-14 items-center justify-center rounded-full bg-ink text-paper shadow-2xl transition-all hover:scale-105 hover:bg-flame"
-      aria-label="Instalar Fun Phone"
+      aria-label="Instalar Fun Phone" :aria-label="lang === 'es' ? 'Instalar Fun Phone' : 'Install Fun Phone'"
     >
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5" fill="currentColor">
         <path d="M5 4l14 8-14 8V4z"/>

@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import displayFont from '@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2?url';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import StickyCTA from '../components/StickyCTA.astro';
@@ -36,7 +37,8 @@ const heroImg = new URL(
 <!DOCTYPE html>
 <html
   lang="es"
-  x-data="{ lang: localStorage.getItem('lang') || (navigator.language && navigator.language.startsWith('es') ? 'es' : 'en') }"
+  data-lang="es"
+  x-data="{ lang: document.documentElement.dataset.lang || 'es' }"
   x-bind:lang="lang"
   @lang.window="lang = $event.detail"
   class="scroll-smooth"
@@ -44,8 +46,8 @@ const heroImg = new URL(
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="theme-color" content="#F4EEE2" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#0A0908" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#F3F3F4" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#09090B" media="(prefers-color-scheme: dark)" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="robots" content="index, follow" />
@@ -53,6 +55,8 @@ const heroImg = new URL(
     <link rel="manifest" href={base + 'site.webmanifest'} />
     <link rel="icon" type="image/png" href={base + 'assets/logo.png'} />
     <link rel="apple-touch-icon" href={base + 'assets/logo.png'} />
+
+    <link rel="preload" href={displayFont} as="font" type="font/woff2" crossorigin />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -70,34 +74,20 @@ const heroImg = new URL(
     <meta name="twitter:image" content={heroImg} />
     <meta name="twitter:image:alt" content="Fun Phone Android dialer and contacts app" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&display=optional"
-      rel="stylesheet"
-      media="print"
-      onload="this.media='all'"
-    />
-    <noscript>
-      <link
-        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&display=optional"
-        rel="stylesheet"
-      />
-    </noscript>
-
     <!-- Set theme class before paint -->
     <script is:inline>
       (function () {
-        try {
-          const saved = localStorage.getItem('darkMode');
-          const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-          const isDark = saved !== null ? saved === 'true' : prefersDark;
-          document.documentElement.classList.toggle('dark', isDark);
-          document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';
-          const lang = localStorage.getItem('lang') || (navigator.language && navigator.language.startsWith('es') ? 'es' : 'en');
-          document.documentElement.setAttribute('data-lang', lang);
-          document.documentElement.lang = lang;
-        } catch (_) {}
+        const read = (name) => { try { return localStorage.getItem(name); } catch (_) { return null; } };
+        const write = (name, value) => { try { localStorage.setItem(name, value); } catch (_) { /* optional preference */ } };
+        window.funPhonePreferences = { read, write };
+        const saved = read('darkMode');
+        const isDark = saved !== null ? saved === 'true' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const savedLang = read('lang');
+        const lang = ['es', 'en'].includes(savedLang) ? savedLang : (navigator.language?.startsWith('es') ? 'es' : 'en');
+        document.documentElement.classList.toggle('dark', isDark);
+        document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';
+        document.documentElement.dataset.lang = lang;
+        document.documentElement.lang = lang;
       })();
     </script>
 
@@ -123,7 +113,9 @@ const heroImg = new URL(
     <script is:inline define:vars={{ base }}>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register(`${base}service-worker.js`, { scope: base });
+          const register = () => navigator.serviceWorker.register(`${base}service-worker.js`, { scope: base }).catch(() => { /* available on the next online visit */ });
+          if ('requestIdleCallback' in window) window.requestIdleCallback(register, { timeout: 5000 });
+          else setTimeout(register, 500);
         });
       }
     </script>
@@ -132,7 +124,7 @@ const heroImg = new URL(
       // Reveal-on-scroll observer (lightweight, no deps)
       (function () {
         if (typeof window === 'undefined') return;
-        if (!('IntersectionObserver' in window)) {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
           document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
           return;
         }
@@ -144,7 +136,10 @@ const heroImg = new URL(
             }
           });
         }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
-        document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+        document.querySelectorAll('.reveal').forEach(function (el) {
+          if (el.getBoundingClientRect().top >= window.innerHeight) el.classList.add('reveal-pending');
+          io.observe(el);
+        });
       })();
     </script>
   </body>
