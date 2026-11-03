@@ -3,19 +3,20 @@ import Base from '../../layouts/Base.astro';
 import PermissionsBlock from '../../components/PermissionsBlock.astro';
 import PrivacyBadge from '../../components/PrivacyBadge.astro';
 
-const lastUpdated = { es: '17 ago 2026', en: 'August 17, 2026' };
+const lastUpdated = { es: '3 nov 2026', en: 'November 3, 2026' };
 const rows = [
   { es: 'Contactos, favoritos e historial', en: 'Contacts, favorites, and call history', controlEs: 'Se procesan en el dispositivo mediante los proveedores protegidos y permisos de Android.', controlEn: 'Processed on-device through Android protected providers and permissions.' },
-  { es: 'Notas, contraseñas y ajustes', en: 'Notes, passwords, and settings', controlEs: 'Se guardan localmente; secretos y bases sensibles se excluyen del backup y usan Android Keystore/Tink.', controlEn: 'Stored locally; secrets and sensitive databases are excluded from backup and use Android Keystore/Tink.' },
+  { es: 'Notas, contraseñas y ajustes', en: 'Notes, passwords, and settings', controlEs: 'Se guardan en el almacenamiento privado de la app. El vault y sus borradores usan cifrado con Android Keystore y compatibilidad Tink; el backup cloud está desactivado.', controlEn: 'Stored in private app storage. The vault and its drafts use Android Keystore encryption with Tink compatibility; cloud backup is disabled.' },
   { es: 'Fotos y exportaciones', en: 'Photos and exports', controlEs: 'Se comparten como archivos content:// solo con la app elegida en Android Sharesheet.', controlEn: 'Shared as local content:// files only with the app selected in Android Sharesheet.' },
   { es: 'Festivos públicos', en: 'Public holidays', controlEs: 'Tras un aviso y tu autorización, se envían país y año a date.nager.at por HTTPS; el servicio recibe IP y metadata técnica.', controlEn: 'After a disclosure and your approval, country and year are sent to date.nager.at over HTTPS; the service receives IP and technical metadata.' },
-  { es: 'Voz, enlaces y reseñas', en: 'Speech, links, and reviews', controlEs: 'Android entrega la acción al proveedor de voz, app externa o Google Play; Fun Phone no recibe audio ni contenido de reseñas.', controlEn: 'Android hands the action to the speech provider, external app, or Google Play; Fun Phone receives no audio or review content.' },
+  { es: 'Preview social y web', en: 'Social and web preview', controlEs: 'Al abrir el preview, la red seleccionada o el sitio HTTPS recibe la URL, IP, cookies y metadatos de la solicitud bajo su propia política. No se adjuntan contactos, llamadas ni bases de datos.', controlEn: 'When you open the preview, the selected network or HTTPS site receives the URL, IP, cookies, and request metadata under its own policy. No contacts, calls, or app databases are attached.' },
+  { es: 'Voz, enlaces y reseñas', en: 'Speech, links, and reviews', controlEs: 'Android entrega la acción al proveedor de voz, app externa o Google Play; El desarrollador no recibe audio ni contenido de reseñas.', controlEn: 'Android hands the action to the speech provider, external app, or Google Play; The developer receives no audio or review content.' },
 ];
 ---
 
 <Base
   title="Privacy Policy — Fun Phone"
-  description="Fun Phone is local-first, contains no ads or analytics, and uses the network only for an optional disclosed public-holidays lookup."
+  description="Fun Phone is local-first, contains no ads or analytics, with optional disclosed public-holidays lookup and user-requested HTTPS social/web previews."
   canonical="https://moncada25.github.io/fun-phone-web/privacy/"
 >
   <section class="border-b border-ink/15">
@@ -30,8 +31,8 @@ const rows = [
         </span>
       </h1>
       <p class="mx-auto mt-6 max-w-2xl text-lg text-ink-muted">
-        <span x-cloak x-show="lang==='es'">Fun Phone no contiene Firebase, publicidad, analítica, telemetría, autenticación remota ni nube del desarrollador. La consulta opcional de festivos es su única conexión directa.</span>
-        <span x-cloak x-show="lang==='en'">Fun Phone contains no Firebase, ads, analytics, telemetry, remote authentication, or developer cloud. The optional holidays lookup is its only direct connection.</span>
+        <span x-cloak x-show="lang==='es'">Fun Phone no contiene Firebase, publicidad, analítica, telemetría, autenticación remota ni nube del desarrollador. Las únicas conexiones directas son la consulta opcional de festivos y el preview social/web que abres explícitamente.</span>
+        <span x-cloak x-show="lang==='en'">Fun Phone contains no Firebase, ads, analytics, telemetry, remote authentication, or developer cloud. Its only direct connections are optional public-holidays lookup and social/web previews you explicitly open.</span>
       </p>
       <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
         <PrivacyBadge />
@@ -63,8 +64,8 @@ const rows = [
 
       <h2 class="mt-16 font-display-condensed text-4xl font-extrabold"><span x-cloak x-show="lang==='es'">Permisos bajo tu control</span><span x-cloak x-show="lang==='en'">Permissions under your control</span></h2>
       <p class="mt-4 max-w-3xl leading-relaxed text-ink-muted">
-        <span x-cloak x-show="lang==='es'">Los permisos de llamadas y contactos respaldan el rol de teléfono. Cámara, micrófono y calendario se usan solo al activar sus herramientas. Internet y estado de red son permisos normales de Android reservados para la consulta de festivos.</span>
-        <span x-cloak x-show="lang==='en'">Call and contact permissions support the phone role. Camera, microphone, and calendar are used only when their tools are enabled. Internet and network state are normal Android permissions reserved for the holidays lookup.</span>
+        <span x-cloak x-show="lang==='es'">Los permisos de llamadas y contactos respaldan el rol de teléfono. Cámara, micrófono y calendario se usan solo al activar sus herramientas. Internet y estado de red son permisos normales de Android usados para festivos opcionales y el preview social/web solicitado.</span>
+        <span x-cloak x-show="lang==='en'">Call and contact permissions support the phone role. Camera, microphone, and calendar are used only when their tools are enabled. Internet and network state are normal Android permissions used for optional holidays and user-requested social/web previews.</span>
       </p>
       <div class="mt-7"><PermissionsBlock /></div>
 

@@ -1,7 +1,7 @@
 # Fun Phone: Your Private Dialer — Web
 
 [![Deploy to GitHub Pages](https://github.com/Moncada25/fun-phone-web/actions/workflows/deploy.yml/badge.svg)](https://github.com/Moncada25/fun-phone-web/actions/workflows/deploy.yml)
-![Astro](https://img.shields.io/badge/Astro-7.2-ff5d01?logo=astro&logoColor=white)
+![Astro](https://img.shields.io/badge/Astro-7.4-ff5d01?logo=astro&logoColor=white)
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4.3-38b2ac?logo=tailwindcss&logoColor=white)
 ![PWA](https://img.shields.io/badge/PWA-Offline-brightgreen)
 ![License](https://img.shields.io/badge/license-GPLv3-blue)
@@ -14,7 +14,7 @@ datos estables del producto se centralizan en `src/data/site.ts`.
 
 ## Stack
 
-- Astro 7.2 + Vite 8 + Tailwind CSS 4.3.
+- Astro 7.4 + Vite 8 + Tailwind CSS 4.3.
 - Alpine empaquetado localmente para idioma, tema y navegación móvil.
 - Salida estática bajo `/fun-phone-web/`.
 - Sitemap generado con la integración oficial de Astro.
@@ -28,8 +28,8 @@ datos estables del producto se centralizan en `src/data/site.ts`.
 - Notas, recordatorios, grabaciones, vault con Tink, gastos, Pomodoro y bienestar.
 - QR, voz, calendario, festivos públicos, pintura y diez minijuegos.
 - Sin Firebase, anuncios, analítica, telemetría ni nube operada por el desarrollador.
-- Una única conexión directa opcional: Nager.Date recibe país/año después del aviso y autorización
-  dentro de la herramienta de festivos.
+- Dos conexiones directas opcionales en Android: festivos autorizados a Nager.Date y el preview social/web solicitado. Los sitios del preview reciben URL, IP, cookies y metadatos bajo su propia política.
+- Fuentes WOFF2 locales, con licencias en `public/licenses/`; sin Google Fonts en runtime.
 
 ## Páginas
 
@@ -70,3 +70,50 @@ en GitHub Pages. La configuración usa `site: https://moncada25.github.io` y
 - Soporte: santiago.moncada.dev@gmail.com
 
 Desarrollado por Santiago Moncada · Bookverse
+
+## Upgrade verificado — 2026-11-03
+
+La iteración conserva Astro estático, ES/EN, GitHub Pages y la PWA. Usa superficies neutrales,
+fuentes WOFF2 locales con licencias, controles localizados, un lightbox con diálogo nativo y foco
+contenido, preferencias tolerantes a almacenamiento bloqueado, movimiento reducido y contenido
+visible sin JavaScript. Las cuatro rutas, el cambio de idioma, teclado/Escape/retorno de foco,
+modo sin JavaScript, almacenamiento bloqueado y navegación offline se comprobaron con Playwright.
+El preview Android social/web y las reglas reales de backup figuran en privacidad y FAQ.
+Una actualización desde un service worker anterior simulado activó el worker generado, mantuvo
+el idioma guardado y permitió abrir `/faq/` offline. No equivale a validar cada instalación PWA
+existente en producción.
+La comprobación adicional con axe-core recorrió las cuatro páginas en claro/oscuro y ES/EN,
+mostrando también los bloques revelados por scroll y dos tarjetas en hover: 24 inspecciones sin
+fallos automáticos de contraste ni desbordamiento horizontal a 390 px.
+
+Lighthouse móvil sobre el build local, mediana de tres ejecuciones por página, con transferencia
+comprimida como GitHub Pages:
+
+| Ruta | Rendimiento | Accesibilidad | LCP | CLS | TBT |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Inicio | 99 | 100 | 2,102 s | 0 | 5 ms |
+| Funciones | 99 | 100 | 2,105 s | 0 | 6 ms |
+| Privacidad | 100 | 100 | 1,371 s | 0 | 14 ms |
+| FAQ | 100 | 100 | 1,729 s | 0 | 0 ms |
+
+`check:lighthouse` exige rendimiento ≥90, accesibilidad ≥95, ausencia de fallos automáticos de
+contraste, LCP ≤2,5 s, CLS ≤0,1 y TBT ≤200 ms. Son medidas de laboratorio, no métricas de campo.
+
+`npm run check:security` bloquea nuevas vulnerabilidades altas/críticas. Astro y Vite están
+actualizados dentro de sus versiones mayores, y no quedan altas/críticas en el árbol completo.
+Persisten nueve avisos de herramientas de build (dos bajos, siete moderados) en la cadena de
+Workbox: deepmerge, glob/minimatch y dependientes. No forman parte del JavaScript del sitio estático;
+sus entradas son código y patrones locales controlados. Se documentan como riesgo de build pendiente
+de actualización compatible, conservando Workbox 7; no se usa `audit fix --force` ni se fuerzan
+majors de transitivas con APIs incompatibles. El Node mínimo, `.nvmrc` y CI están alineados en 22.23.4,
+requerido por la versión actual de Astro.
+
+El [aviso crítico de AVIF en Astro](https://github.com/withastro/astro/security/advisories/GHSA-26w7-cxv4-gfx2)
+requiere que Astro procese una imagen AVIF no confiable; se corrigió desde 7.2.8. Este sitio genera
+HTML estático con imágenes controladas en el repositorio y no publica un optimizador ni acepta
+subidas. Esa revisión de configuración no demuestra ausencia de todo riesgo de build: el upgrade
+a 7.4.5 elimina igualmente la versión vulnerable del lockfile.
+
+`npm audit --omit=dev` no encuentra avisos en las dependencias de producción. Las capturas nuevas
+de Ajustes claro y AMOLED proceden del Moto API 35 con datos sintéticos en el paquete benchmark;
+la PWA conserva también estas imágenes y las fuentes locales al navegar sin conexión.

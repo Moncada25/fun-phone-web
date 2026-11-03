@@ -12,12 +12,16 @@
     "build:pwa": "node scripts/generate-service-worker.mjs",
     "build": "npm run build:site && npm run build:pwa",
     "preview": "astro preview",
-    "start": "astro dev"
+    "start": "astro dev",
+    "check:security": "npm audit --audit-level=high"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
+    "@fontsource-variable/bricolage-grotesque": "^5.3.0",
+    "@fontsource-variable/jetbrains-mono": "^5.3.0",
+    "@fontsource/instrument-serif": "^5.3.0",
     "alpinejs": "^3.16.2",
-    "astro": "^7.2.2"
+    "astro": "^7.4.5"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
@@ -25,10 +29,10 @@
     "lighthouse": "^13.4.1",
     "tailwindcss": "^4.3.3",
     "typescript": "^6.0.3",
-    "vite": "^8.2.1",
+    "vite": "^8.3.5",
     "workbox-build": "^7.4.1"
   },
   "engines": {
-    "node": ">=22.19.0"
+    "node": ">=22.23.4"
   }
 }

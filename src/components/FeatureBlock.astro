@@ -3,11 +3,11 @@ export interface Props {
   title: string;
   titleEn?: string;
   bullets: string[];
-  bulletsEn?: string[];
+  bulletsEn: string[];
   variant?: 'light' | 'dark' | 'flame';
 }
 
-const { title, titleEn = title, bullets, bulletsEn = bullets, variant = 'light' } = Astro.props;
+const { title, titleEn = title, bullets, bulletsEn, variant = 'light' } = Astro.props;
 ---
 
 <article
@@ -43,7 +43,7 @@ const { title, titleEn = title, bullets, bulletsEn = bullets, variant = 'light' 
         'mt-5 flex-1 space-y-2.5 text-sm leading-relaxed',
         variant === 'light' && 'text-ink-muted',
         variant === 'dark' && 'text-paper/75',
-        variant === 'flame' && 'text-paper/85',
+        variant === 'flame' && 'text-paper',
       ]}
     >
       {bullets.map((b, i) => (
@@ -58,7 +58,7 @@ const { title, titleEn = title, bullets, bulletsEn = bullets, variant = 'light' 
           ></span>
           <span>
             <span x-cloak x-show="lang==='es'">{b}</span>
-            <span x-cloak x-show="lang==='en'">{bulletsEn[i] ?? b}</span>
+            <span x-cloak x-show="lang==='en'">{bulletsEn[i]}</span>
           </span>
         </li>
       ))}
