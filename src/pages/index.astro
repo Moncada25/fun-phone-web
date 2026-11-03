@@ -99,6 +99,7 @@ const marqueeItems = [
 ---
 
 <Base
+  preloadSerifFont
   title="Fun Phone — The Android Dialer that does more"
   description="A private, customizable Android dialer and contacts app with T9 search, clear permissions and optional tools."
   ogImage={socialImg}
@@ -247,7 +248,8 @@ const marqueeItems = [
               class="relative mx-auto w-full max-w-[480px] overflow-hidden border border-ink/15 bg-gradient-to-b from-paper-soft to-paper"
               style="border-radius: 36px; box-shadow: 0 30px 80px -30px rgba(10,10,10,0.4), 0 0 0 1px rgba(10,10,10,0.04);"
             >
-              <img src={heroImg} x-bind:src={`${JSON.stringify(heroBase)} + lang + '/favorites.webp'`} alt="Fun Phone favorites" :alt="lang === 'es' ? 'Favoritos actuales de Fun Phone con contactos ficticios' : 'Current Fun Phone favorites with fictional contacts'" class="block h-auto w-full" loading="eager" fetchpriority="high" width="720" height="1600" />
+              <!-- Below the initial mobile viewport; prioritize the heading fonts. -->
+              <img src={heroImg} x-bind:src={`${JSON.stringify(heroBase)} + lang + '/favorites.webp'`} alt="Fun Phone favorites" :alt="lang === 'es' ? 'Favoritos actuales de Fun Phone con contactos ficticios' : 'Current Fun Phone favorites with fictional contacts'" class="block h-auto w-full" loading="lazy" decoding="async" fetchpriority="low" width="720" height="1600" />
             </div>
 
             <!-- Bottom labels -->
