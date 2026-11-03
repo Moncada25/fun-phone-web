@@ -23,7 +23,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v7
         with:
-          node-version: 22.23.4
+          node-version: 24.22.2
           cache: npm
       - name: Setup Pages
         uses: actions/configure-pages@v6
@@ -40,7 +40,17 @@ jobs:
       - name: Verify PWA artifacts and offline precache
         run: npm run check:pwa
       - name: Enforce Lighthouse and Web Vitals budgets
+        id: lighthouse
         run: npm run check:lighthouse
+      - name: Upload Lighthouse diagnostics
+        if: ${{ failure() && steps.lighthouse.outcome == 'failure' }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: lighthouse-${{ github.run_id }}-${{ github.run_attempt }}
+          path: .lighthouse-reports/
+          include-hidden-files: true
+          retention-days: 7
+          if-no-files-found: warn
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
         with:

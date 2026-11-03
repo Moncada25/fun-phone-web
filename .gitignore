@@ -24,6 +24,7 @@ lerna-debug.log*
 
 # Coverage
 coverage/
+.lighthouse-reports/
 
 # OS / Editor junk
 .DS_Store

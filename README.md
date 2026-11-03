@@ -114,18 +114,29 @@ La comprobación adicional con axe-core recorrió las cuatro páginas en claro/o
 mostrando también los bloques revelados por scroll y dos tarjetas en hover: 24 inspecciones sin
 fallos automáticos de contraste ni desbordamiento horizontal a 390 px.
 
-Lighthouse móvil sobre el build local, mediana de tres ejecuciones por página, con transferencia
+Lighthouse móvil sobre el build local, mediana de tres ejecuciones por página, con Node 24.22.2 y transferencia
 comprimida como GitHub Pages:
 
 | Ruta | Rendimiento | Accesibilidad | LCP | CLS | TBT |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| Inicio | 98 | 100 | 2,253 s | 0 | 10 ms |
-| Funciones | 99 | 100 | 1,803 s | 0 | 4 ms |
-| Privacidad | 99 | 100 | 1,802 s | 0 | 14 ms |
-| FAQ | 99 | 100 | 1,877 s | 0 | 0 ms |
+| Inicio | 100 | 100 | 1,577 s | 0 | 22 ms |
+| Funciones | 99 | 100 | 2,102 s | 0 | 0 ms |
+| Privacidad | 100 | 100 | 1,652 s | 0 | 0 ms |
+| FAQ | 99 | 100 | 2,101 s | 0 | 0 ms |
 
 `check:lighthouse` exige rendimiento ≥90, accesibilidad ≥95, ausencia de fallos automáticos de
 contraste, LCP ≤2,5 s, CLS ≤0,1 y TBT ≤200 ms. Son medidas de laboratorio, no métricas de campo.
+
+El run de CI `41730604445` bloqueó el despliegue por un LCP de inicio de 2,928 s. La traza local
+identificó el texto del titular como elemento LCP; una captura situada debajo del primer viewport
+competía con las fuentes mediante una petición de prioridad alta. El inicio ahora precarga la
+fuente serif del titular y carga esa captura con `loading="lazy"`, prioridad baja y decodificación
+asíncrona, conservando sus dimensiones. La precarga serif se activa solo en el inicio.
+
+Cada comprobación guarda los tres informes JSON y HTML de cada ruta en
+`.lighthouse-reports/<fecha-hora>/`. Si falla el paso de Lighthouse, CI conserva esos informes
+durante siete días en el artifact `lighthouse-<run>-<attempt>`, junto con el elemento LCP y su
+desglose en el log. Se mantienen los presupuestos y la mediana de tres mediciones.
 
 `npm run check:security` bloquea nuevas vulnerabilidades altas/críticas. Astro y Vite están
 actualizados dentro de sus versiones mayores, y no quedan altas/críticas en el árbol completo.
@@ -133,8 +144,10 @@ Persisten nueve avisos de herramientas de build (dos bajos, siete moderados) en 
 Workbox: deepmerge, glob/minimatch y dependientes. No forman parte del JavaScript del sitio estático;
 sus entradas son código y patrones locales controlados. Se documentan como riesgo de build pendiente
 de actualización compatible, conservando Workbox 7; no se usa `audit fix --force` ni se fuerzan
-majors de transitivas con APIs incompatibles. El Node mínimo, `.nvmrc` y CI están alineados en 22.23.4,
-requerido por la versión actual de Astro.
+majors de transitivas con APIs incompatibles. El proyecto usa Node 24 LTS (24.22.2 o posterior dentro de 24.x); `.nvmrc` y CI fijan 24.22.2,
+alineados con el entorno local. Esta rama incluye los parches de seguridad del 21 de octubre,
+publicados en 24.22.1 y heredados por 24.22.2.
+[Referencia oficial de Node.js](https://nodejs.org/en/blog/vulnerability/october-2026-security-releases).
 
 El [aviso crítico de AVIF en Astro](https://github.com/withastro/astro/security/advisories/GHSA-26w7-cxv4-gfx2)
 requiere que Astro procese una imagen AVIF no confiable; se corrigió desde 7.2.8. Este sitio genera

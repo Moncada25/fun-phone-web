@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import displayFont from '@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2?url';
+import titleSerifFont from '@fontsource/instrument-serif/files/instrument-serif-latin-400-italic.woff2?url';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import StickyCTA from '../components/StickyCTA.astro';
@@ -13,6 +14,7 @@ export interface Props {
   bodyClass?: string;
   noSticky?: boolean;
   noChrome?: boolean;
+  preloadSerifFont?: boolean;
 }
 
 const {
@@ -23,6 +25,7 @@ const {
   bodyClass = '',
   noSticky = false,
   noChrome = false,
+  preloadSerifFont = false,
 } = Astro.props;
 
 const base = import.meta.env.BASE_URL;
@@ -57,6 +60,7 @@ const heroImg = new URL(
     <link rel="apple-touch-icon" href={base + 'assets/logo.png'} />
 
     <link rel="preload" href={displayFont} as="font" type="font/woff2" crossorigin />
+    {preloadSerifFont && <link rel="preload" href={titleSerifFont} as="font" type="font/woff2" crossorigin />}
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
