@@ -42,8 +42,9 @@ datos estables del producto se centralizan en `src/data/site.ts`.
 
 ## Campaña visual para web y Google Play
 
-Ocho composiciones en español y ocho en inglés comparten capturas nativas actuales, tipografía
-Bricolage y una paleta de coral, papel y grafito. Se capturaron en el Moto/API 35 con nombres,
+La campaña para Play cubre español, inglés, alemán, francés y portugués de Brasil, con ocho
+composiciones por idioma. La web utiliza las series ES/EN. Comparten capturas nativas actuales,
+tipografía Bricolage y una paleta de coral, papel y grafito. Se capturaron en el Moto/API 35 con nombres,
 notas, cuentas e importes ficticios dentro del paquete benchmark aislado. El hero y la página
 de funciones muestran esas mismas capturas sin texto promocional superpuesto.
 
@@ -53,9 +54,13 @@ de funciones muestran esas mismas capturas sin texto promocional superpuesto.
 - WebP vigentes: `public/assets/store-v2/{es,en}/`; capturas sin composición en `ui/`.
 - Fondo abstracto creado con `image_gen`; prompt íntegro en
   `../fun-phone/screenshots/store-v2/artwork/prompt.txt`. La interfaz proviene de Compose.
-- `npm run render:store` usa Chrome local, Puppeteer y Sharp para regenerar los 16 masters
-  1080×1920, dos feature graphics 1024×500, WebP y láminas `overview-es.jpg`/`overview-en.jpg`.
+- `npm run render:store` usa Chrome local, Puppeteer y Sharp para regenerar los 40 masters
+  1080×1920, cinco feature graphics 1024×500 y cinco láminas `overview-{idioma}.jpg`.
+  Solo genera WebP y capturas sin composición para los idiomas de `export.webLocales` (ES/EN).
   Puede recibir otra fuente con `npm run render:store -- /ruta/store-v2`.
+- `npm run render:store -- --locales=de,fr,pt` renueva solo esos idiomas de Play y conserva los
+  demás archivos de imagen. Los textos de Play están en `../fun-phone/play-listing/`, con
+  metadatos completos para `en-US`, `es-419`, `de-DE`, `fr-FR` y `pt-BR`.
 
 El carrusel conserva proporción 9:16, cambia imagen y etiquetas con ES/EN y ofrece ampliación
 mediante diálogo accesible. Se comprobó a 390 y 1440 px, con teclado, Escape y retorno del foco;

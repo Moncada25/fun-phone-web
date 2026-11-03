@@ -36,7 +36,8 @@
   <script>
     const campaign = CAMPAIGN_DATA;
     const query = new URLSearchParams(location.search);
-    const lang = ['es','en'].includes(query.get('lang')) ? query.get('lang') : 'es';
+    const lang = query.get('lang') || campaign.export.locales[0];
+    if (!campaign.export.locales.includes(lang)) throw new Error('Unsupported campaign locale');
     const isFeature = query.has('feature');
     const slide = campaign.slides[Number(query.get('slide') || 0)];
     const poster = document.querySelector('#poster');
@@ -44,11 +45,13 @@
     if (isFeature) {
       document.documentElement.style.width='1024px';document.documentElement.style.height='500px';document.body.style.width='1024px';document.body.style.height='500px';
       poster.className='poster feature';
+      document.querySelector('.copy').style.width='460px';
+      if(campaign.feature.headlineSize[lang]) document.querySelector('h1').style.fontSize=campaign.feature.headlineSize[lang]+'px';
     } else poster.className='poster '+slide.style+(slide.paired?' paired':'');
     document.querySelector('.category').textContent=slide.label[lang];
     const lines=isFeature ? campaign.slides[0].headline[lang] : slide.headline[lang];
     for(const text of lines){const line=document.createElement('span');line.textContent=text;document.querySelector('h1').appendChild(line);}
-    document.querySelector('.copy p').textContent=isFeature ? (lang==='es'?'Privacidad. Personalización. Conexión.':'Private. Personal. Connected.') : slide.subtitle[lang];
+    document.querySelector('.copy p').textContent=isFeature ? campaign.feature.subtitle[lang] : slide.subtitle[lang];
     const image=document.querySelector('.primary img');image.src='/raw/'+lang+'/'+(isFeature?'favorites':slide.scene)+'.png';image.alt=slide.alt[lang];
     const paired=isFeature?'contacts':slide.paired;
     if(paired){const secondary=document.querySelector('.secondary');secondary.hidden=false;secondary.style.margin='0';secondary.querySelector('img').src='/raw/'+lang+'/'+paired+'.png';}
