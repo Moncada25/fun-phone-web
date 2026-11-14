@@ -9,23 +9,22 @@ import sharp from 'sharp';
 
 const repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
-const source = path.resolve(args.find(arg => !arg.startsWith('--')) || path.join(repo, '../fun-phone/screenshots/store-v2'));
+const source = path.resolve(args.find(arg => !arg.startsWith('--')) || path.join(repo, '../fun-phone/screenshots/store-v3'));
 const campaign = JSON.parse(await readFile(path.join(source, 'campaign.json'), 'utf8'));
 const requestedLocales = args.find(arg => arg.startsWith('--locales='))?.slice('--locales='.length).split(',');
 const locales = requestedLocales || campaign.export.locales;
 if (!locales.length || locales.some(lang => !campaign.export.locales.includes(lang))) throw new Error('Choose supported campaign locales with --locales=de,fr,pt.');
 const webLocales = campaign.export.webLocales;
-const webAssets = path.join(repo, 'public/assets/store-v2');
+const webAssets = path.join(repo, 'public/assets/store-v3');
 const studio = (await readFile(path.join(repo, 'tools/store-mockups/studio.html'), 'utf8')).replace('CAMPAIGN_DATA', JSON.stringify(campaign).replaceAll('<', '\\u003c'));
 const fonts = {
   '/fonts/display.woff2': path.join(repo, 'node_modules/@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2'),
   '/fonts/mono.woff2': path.join(repo, 'node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2'),
 };
 for (const lang of locales) {
-  for (const slide of campaign.slides) {
-    await stat(path.join(source, 'raw', lang, `${slide.scene}.png`));
-    if (slide.paired) await stat(path.join(source, 'raw', lang, `${slide.paired}.png`));
-  }
+  const scenes = new Set([...campaign.feature.scenes, ...Object.values(campaign.export.webUi)]);
+  for (const slide of campaign.slides) for (const scene of [slide.scene, slide.paired, ...(slide.trio || [])]) if (scene) scenes.add(scene);
+  for (const scene of scenes) await stat(path.join(source, 'raw', lang, `${scene}.png`));
   await mkdir(path.join(source, lang), { recursive: true });
   if (webLocales.includes(lang)) await mkdir(path.join(webAssets, lang), { recursive: true });
 }
@@ -65,9 +64,11 @@ try {
       const bounds = await page.evaluate(() => {
         const h = document.querySelector('.copy h1');
         const text = document.querySelector('.copy');
-        return { overflow: h.scrollWidth > h.clientWidth, textBottom: text.getBoundingClientRect().bottom };
+        const p = text.querySelector('p');
+        const top = Math.min(...[...document.querySelectorAll('.screen:not([hidden])')].map(node => node.getBoundingClientRect().top));
+        return { overflow: h.scrollWidth > h.clientWidth || p.scrollWidth > p.clientWidth, textBottom: text.getBoundingClientRect().bottom, screenTop: top };
       });
-      if (bounds.overflow || bounds.textBottom > 384) throw new Error(`Headline exceeds the 20% safe area: ${lang}/${slide.id}`);
+      if (bounds.overflow || bounds.textBottom > 384 || bounds.screenTop < bounds.textBottom + 16) throw new Error(`Headline exceeds the 20% safe area: ${lang}/${slide.id}`);
       const master = path.join(source, lang, `${slide.id}.jpg`);
       await page.screenshot({ path: master, type: 'jpeg', quality: 98 });
       if (webLocales.includes(lang)) {
@@ -95,8 +96,8 @@ try {
     await sharp(graphic).webp({ quality: 92, effort: 6 }).toFile(path.join(webAssets, lang, 'feature-graphic.webp'));
     // Small authentic UI assets let the web hero show the app without nesting an old marketing poster.
     await mkdir(path.join(webAssets, 'ui', lang), { recursive: true });
-    for (const scene of ['favorites', 'contacts', 'tools', 'settings', 'settings-dark']) {
-      await sharp(path.join(source, 'raw', lang, `${scene}.png`)).webp({ quality: 92, effort: 6 }).toFile(path.join(webAssets, 'ui', lang, `${scene}.webp`));
+    for (const [name, scene] of Object.entries(campaign.export.webUi)) {
+      await sharp(path.join(source, 'raw', lang, `${scene}.png`)).resize({ width: 720 }).webp({ quality: 92, effort: 6 }).toFile(path.join(webAssets, 'ui', lang, `${name}.webp`));
     }
   }
   const webSlides = campaign.slides.map(slide => ({

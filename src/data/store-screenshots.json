@@ -1,155 +1,209 @@
 [
   {
-    "id": "01-favorites",
-    "scene": "favorites",
-    "style": "ribbon",
+    "id": "01-dialer",
+    "scene": "dialer",
+    "layout": "full",
+    "theme": {
+      "bg": [
+        "#2B95F0",
+        "#0F56B3"
+      ],
+      "ink": "#FFFFFF",
+      "glow": "#8CC8FF"
+    },
+    "appearance": "MODERN · light · blue",
     "headline": {
       "es": [
-        "Tu teléfono.",
-        "A tu manera."
+        "Marca mejor.",
+        "Llama más rápido."
       ],
       "en": [
-        "Your phone.",
-        "Your way."
+        "Dial smarter.",
+        "Call faster."
       ]
     },
     "subtitle": {
-      "es": "Tus personas, siempre cerca.",
-      "en": "Keep your people close."
+      "es": "Nombre y prefijo del país mientras escribes.",
+      "en": "See the name and country code as you type."
+    },
+    "label": {
+      "es": "Teclado",
+      "en": "Dialer"
+    },
+    "alt": {
+      "es": "Marcador de Fun Phone con teclas grandes, prefijo del país y el contacto ficticio coincidente.",
+      "en": "Fun Phone dialer with large keys, the country calling code and the matching fictional contact."
+    }
+  },
+  {
+    "id": "02-favorites",
+    "scene": "favorites",
+    "layout": "full",
+    "theme": {
+      "bg": [
+        "#4A1230",
+        "#16050D"
+      ],
+      "ink": "#FFFFFF",
+      "glow": "#E0457F"
+    },
+    "appearance": "MODERN · dark (AMOLED) · pink",
+    "headline": {
+      "es": [
+        "Tu gente.",
+        "A un toque."
+      ],
+      "en": [
+        "Your people.",
+        "One tap away."
+      ]
+    },
+    "subtitle": {
+      "es": "Favoritos con rostro, siempre a la vista.",
+      "en": "Favorites with a face, always up front."
     },
     "label": {
       "es": "Favoritos",
       "en": "Favorites"
     },
     "alt": {
-      "es": "Favoritos de Fun Phone con seis contactos ficticios e ilustraciones de perfil.",
-      "en": "Fun Phone favorites with six fictional contacts and profile illustrations."
+      "es": "Favoritos de Fun Phone en modo oscuro con seis contactos ficticios ilustrados.",
+      "en": "Fun Phone favorites in dark mode with six illustrated fictional contacts."
     }
   },
   {
-    "id": "02-contacts",
-    "scene": "contacts",
-    "style": "coral",
+    "id": "03-calls",
+    "scene": "call",
+    "layout": "full",
+    "theme": {
+      "bg": [
+        "#8E66DB",
+        "#472C8C"
+      ],
+      "ink": "#FFFFFF",
+      "glow": "#C9B0FF"
+    },
+    "appearance": "MODERN · dark (dim) · purple",
     "headline": {
       "es": [
-        "Conecta con",
-        "lo importante."
+        "Contesta, rechaza",
+        "o responde."
       ],
       "en": [
-        "Your people.",
-        "All together."
+        "Answer, decline",
+        "or reply."
       ]
     },
     "subtitle": {
-      "es": "Contactos claros, conexiones más simples.",
-      "en": "Clear contacts. Easier connections."
+      "es": "Envía un mensaje rápido si no puedes atender.",
+      "en": "Send a quick message when you can't pick up."
     },
     "label": {
-      "es": "Contactos",
-      "en": "Contacts"
+      "es": "Llamadas",
+      "en": "Calls"
     },
     "alt": {
-      "es": "Lista de contactos ficticios en el tema oscuro de Fun Phone.",
-      "en": "Fictional contacts in Fun Phone's dark theme."
-    }
-  },
-  {
-    "id": "03-dialer",
-    "scene": "dialer",
-    "style": "graphite",
-    "headline": {
-      "es": [
-        "Encuentra.",
-        "Marca. Conecta."
-      ],
-      "en": [
-        "Find.",
-        "Dial. Connect."
-      ]
-    },
-    "subtitle": {
-      "es": "Una búsqueda T9. Un toque más cerca.",
-      "en": "T9 search. One tap closer."
-    },
-    "label": {
-      "es": "Marcador T9",
-      "en": "T9 dialer"
-    },
-    "alt": {
-      "es": "Marcador T9 de Fun Phone con teclado y búsqueda de un contacto ficticio.",
-      "en": "Fun Phone T9 dialer with keypad and a fictional contact search."
+      "es": "Llamada entrante ficticia en Fun Phone con las opciones de contestar, rechazar o responder con un mensaje.",
+      "en": "Fictional incoming call in Fun Phone with answer, reject and reply-with-message options."
     }
   },
   {
     "id": "04-notes",
     "scene": "notes",
-    "style": "paper",
+    "layout": "bleed",
+    "theme": {
+      "bg": [
+        "#FFF3DF",
+        "#FFD08A"
+      ],
+      "ink": "#2A1A06",
+      "glow": "#FFFFFF"
+    },
+    "appearance": "RETRO · light · orange",
     "headline": {
       "es": [
-        "Más espacio",
-        "para tus ideas."
+        "Notas siempre",
+        "en orden."
       ],
       "en": [
-        "More room",
-        "for your ideas."
+        "Notes that",
+        "stay organized."
       ]
     },
     "subtitle": {
-      "es": "Notas y listas para lo que viene.",
-      "en": "Notes and lists for what's next."
+      "es": "Etiquetas, listas y recordatorios que se repiten.",
+      "en": "Tags, checklists and repeating reminders."
     },
     "label": {
-      "es": "Notas y listas",
-      "en": "Notes and lists"
+      "es": "Notas",
+      "en": "Notes"
     },
     "alt": {
-      "es": "Notas y una checklist de ejemplo en la interfaz actual de Fun Phone.",
-      "en": "Sample notes and a checklist in the current Fun Phone interface."
+      "es": "Notas de Fun Phone en estilo Retro con etiquetas de colores, una lista y un recordatorio semanal.",
+      "en": "Fun Phone notes in the Retro style with colored tags, a checklist and a weekly reminder."
     }
   },
   {
     "id": "05-vault",
     "scene": "vault",
-    "style": "graphite",
+    "layout": "bleed",
+    "theme": {
+      "bg": [
+        "#1C3A26",
+        "#08120B"
+      ],
+      "ink": "#FFFFFF",
+      "glow": "#43A047"
+    },
+    "appearance": "MINIMAL · dark (gray) · green",
     "headline": {
       "es": [
-        "Lo privado",
-        "se queda contigo."
+        "Contraseñas y",
+        "códigos 2FA."
       ],
       "en": [
-        "Your secrets",
-        "stay yours."
+        "Passwords and",
+        "2-step codes."
       ]
     },
     "subtitle": {
-      "es": "Bóveda local. PIN o biometría.",
-      "en": "Local vault. PIN or biometrics."
+      "es": "Una bóveda cifrada que no sale de tu teléfono.",
+      "en": "An encrypted vault that stays on your phone."
     },
     "label": {
-      "es": "Bóveda local",
-      "en": "Local vault"
+      "es": "Bóveda",
+      "en": "Vault"
     },
     "alt": {
-      "es": "Bóveda de Fun Phone en modo oscuro con cuentas ficticias y contraseñas ocultas.",
-      "en": "Fun Phone dark vault with fictional accounts and masked passwords."
+      "es": "Bóveda de contraseñas de Fun Phone con cuentas ficticias y un código temporal de dos pasos.",
+      "en": "Fun Phone password vault with fictional accounts and a time-based two-step code."
     }
   },
   {
     "id": "06-expenses",
     "scene": "expenses",
-    "style": "peach",
+    "layout": "bleed",
+    "theme": {
+      "bg": [
+        "#E9F7F4",
+        "#AEDFD7"
+      ],
+      "ink": "#062B27",
+      "glow": "#FFFFFF"
+    },
+    "appearance": "MINIMAL · light · teal",
     "headline": {
       "es": [
-        "Tus gastos.",
-        "Más claros."
+        "Tu año",
+        "en números."
       ],
       "en": [
-        "Your money.",
-        "Made clearer."
+        "Your year",
+        "in numbers."
       ]
     },
     "subtitle": {
-      "es": "Ingresos, gastos y presupuesto a la vista.",
+      "es": "Ingresos, gastos y presupuestos de un vistazo.",
       "en": "Income, spending and budgets at a glance."
     },
     "label": {
@@ -157,63 +211,113 @@
       "en": "Expenses"
     },
     "alt": {
-      "es": "Resumen de gastos de Fun Phone con importes y categorías de ejemplo.",
-      "en": "Fun Phone expense overview with sample amounts and categories."
+      "es": "Resumen anual de gastos de Fun Phone con importes ficticios y totales por mes.",
+      "en": "Fun Phone yearly expense summary with fictional amounts and monthly totals."
     }
   },
   {
     "id": "07-tools",
     "scene": "tools",
-    "style": "coral",
+    "layout": "pair",
+    "theme": {
+      "bg": [
+        "#FFC233",
+        "#F59300"
+      ],
+      "ink": "#2A1B00",
+      "glow": "#FFE9A8"
+    },
+    "appearance": "RETRO · dark (AMOLED) · amber",
     "headline": {
       "es": [
-        "Un espacio.",
-        "Más posibilidades."
+        "Herramientas y",
+        "juegos incluidos."
       ],
       "en": [
-        "One space.",
-        "More possibilities."
+        "Tools and games",
+        "built in."
       ]
     },
     "subtitle": {
-      "es": "Activa las herramientas que van contigo.",
-      "en": "Choose the tools that fit your day."
+      "es": "QR, voz, calendario, dibujo y minijuegos.",
+      "en": "QR, voice, calendar, paint and mini games."
     },
     "label": {
       "es": "Herramientas",
       "en": "Tools"
     },
     "alt": {
-      "es": "Herramientas opcionales de Fun Phone, con notas, gastos, voz y otras utilidades.",
-      "en": "Fun Phone optional tools including notes, expenses, voice and other utilities."
-    }
+      "es": "Lista de herramientas de Fun Phone junto a la galería de minijuegos, en estilo Retro oscuro.",
+      "en": "Fun Phone tools list next to the mini games gallery, in the dark Retro style."
+    },
+    "paired": "games"
   },
   {
-    "id": "08-personalization",
-    "scene": "settings",
-    "style": "ribbon",
-    "paired": "settings-dark",
+    "id": "08-styles",
+    "scene": "style-modern",
+    "layout": "trio",
+    "theme": {
+      "bg": [
+        "#F4F1EC",
+        "#E4DED4"
+      ],
+      "ink": "#1D1B19",
+      "glow": "#FFFFFF"
+    },
+    "appearance": "MODERN light blue · MINIMAL dark purple · RETRO light red",
     "headline": {
       "es": [
-        "El estilo",
-        "también es tuyo."
+        "Tres estilos.",
+        "Todos tuyos."
       ],
       "en": [
-        "Make it",
-        "feel like you."
+        "Three styles.",
+        "All yours."
       ]
     },
     "subtitle": {
-      "es": "Temas, colores y fuentes a tu gusto.",
-      "en": "Themes, colors and fonts. Your choice."
+      "es": "Moderno, Minimalista o Retro, en claro u oscuro.",
+      "en": "Modern, Minimal or Retro, in light or dark."
     },
     "label": {
       "es": "Personalización",
       "en": "Personalization"
     },
     "alt": {
-      "es": "Ajustes de Fun Phone en claro y AMOLED, con superficies neutrales de mayor contraste.",
-      "en": "Fun Phone light and AMOLED settings with higher contrast neutral surfaces."
+      "es": "La misma lista de contactos ficticios de Fun Phone en los estilos Moderno, Minimalista y Retro.",
+      "en": "The same fictional Fun Phone contact list in the Modern, Minimal and Retro styles."
+    },
+    "trio": [
+      "style-minimal",
+      "style-modern",
+      "style-retro"
+    ],
+    "captions": {
+      "es": [
+        "Minimalista",
+        "Moderno",
+        "Retro"
+      ],
+      "en": [
+        "Minimal",
+        "Modern",
+        "Retro"
+      ],
+      "de": [
+        "Minimalistisch",
+        "Modern",
+        "Retro"
+      ],
+      "fr": [
+        "Minimaliste",
+        "Moderne",
+        "Rétro"
+      ],
+      "pt": [
+        "Minimalista",
+        "Moderno",
+        "Retrô"
+      ]
     }
   }
 ]

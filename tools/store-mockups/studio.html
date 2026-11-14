@@ -3,35 +3,40 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Fun Phone — Campaign Studio</title>
+  <title>Fun Phone — Campaign Studio v3</title>
   <style>
     @font-face{font-family:Display;font-weight:200 800;src:url('/fonts/display.woff2')}@font-face{font-family:Mono;font-weight:100 800;src:url('/fonts/mono.woff2')}
-    *{box-sizing:border-box}html,body{margin:0;width:1080px;height:1920px;overflow:hidden}body{font-family:Display,Arial,sans-serif;color:#242326;background:#F3F0EB}
-    .poster{position:relative;width:1080px;height:1920px;overflow:hidden;background:#F1EEEA}
-    .poster.ribbon{background:#E9E6E1 url('/artwork/connection-ribbon.png') center/cover no-repeat}
-    .poster.paper{background:#F1EEEA}.poster.peach{background:#F2C9AF}.poster.coral{background:#F2724D}.poster.graphite{background:#19191C;color:#F8F4EE}
-    .ambient{position:absolute;right:-310px;top:900px;width:780px;height:780px;border:100px solid rgba(255,255,255,.13);border-radius:50%}
-    .paper .ambient,.peach .ambient{border-color:rgba(255,255,255,.32)}.graphite .ambient{border-color:rgba(242,114,77,.12)}.ribbon .ambient{display:none}
-    header{position:absolute;z-index:2;left:72px;right:72px;top:42px;height:43px;display:flex;justify-content:space-between;align-items:center}
-    .brand{font-size:27px;font-weight:800;letter-spacing:-1.2px;display:flex;align-items:center;gap:12px}.brand-mark{width:27px;height:27px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-    .category{font-family:Mono,monospace;font-size:18px;font-weight:500;letter-spacing:1.8px;text-transform:uppercase}
-    .copy{position:absolute;z-index:2;left:72px;right:72px;top:112px}.copy h1{font-size:99px;font-weight:800;line-height:.98;letter-spacing:-5px;margin:0}.copy h1 span{display:block;white-space:nowrap}.copy p{font-size:29px;line-height:1.3;letter-spacing:-.65px;margin:20px 0 0;font-weight:500}
-    .screen{position:absolute;left:181px;top:392px;width:718px;padding:5px;border-radius:55px;background:#29292B;overflow:hidden;box-shadow:0 36px 70px -16px rgba(21,20,24,.28),0 6px 16px rgba(21,20,24,.12)}
-    .screen img{width:100%;height:auto;display:block;border-radius:49px}.graphite .screen{background:#6B6B70;box-shadow:0 50px 80px -20px rgba(0,0,0,.5)}
-    .screen.secondary{left:32px;top:460px;width:640px;background:#A8A8AE;box-shadow:0 30px 65px -15px rgba(21,20,24,.25)}
-    .paired .screen.primary{left:416px;top:368px;width:640px}
-    .index{position:absolute;bottom:28px;left:72px;font:500 17px Mono,monospace;letter-spacing:2px}
-    .feature{width:1024px;height:500px;background:#F2724D;color:#262225}.feature header{left:68px;right:68px;top:36px}.feature .copy{left:68px;right:auto;top:133px}.feature .copy h1{font-size:69px;letter-spacing:-3.5px;line-height:1.02}.feature .copy p{font-size:22px;margin-top:22px}.feature .screen{left:626px;top:94px;width:277px;padding:3px;border-radius:28px}.feature .screen img{border-radius:24px}.feature .screen.secondary{left:555px;top:192px;width:244px;border-color:#85858A;z-index:0}.feature .screen.primary{z-index:1}.feature .ambient{width:620px;height:620px;right:-145px;top:75px;border-width:72px}.feature .category,.feature .index{display:none}
+    *{box-sizing:border-box}html,body{margin:0;width:1080px;height:1920px;overflow:hidden}body{font-family:Display,Arial,sans-serif}
+    .poster{position:relative;width:1080px;height:1920px;overflow:hidden;color:var(--ink);background:linear-gradient(165deg,var(--bg0),var(--bg1))}
+    .glow{position:absolute;left:50%;top:1180px;width:1500px;height:1500px;margin:-750px 0 0 -750px;border-radius:50%;background:radial-gradient(circle,var(--glow) 0,transparent 62%);opacity:.34}
+    .ring{position:absolute;right:-330px;top:820px;width:820px;height:820px;border:96px solid var(--ink);border-radius:50%;opacity:.055}
+    .ring.small{right:auto;left:-210px;top:1500px;width:520px;height:520px;border-width:64px}
+    header{position:absolute;z-index:3;left:72px;right:72px;top:46px;height:40px;display:flex;justify-content:space-between;align-items:center}
+    .brand{font-size:27px;font-weight:800;letter-spacing:-1.1px;display:flex;align-items:center;gap:12px}.brand-mark{width:27px;height:27px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+    .category{font-family:Mono,monospace;font-size:18px;font-weight:600;letter-spacing:1.8px;text-transform:uppercase;opacity:.82}
+    .copy{position:absolute;z-index:3;left:72px;right:72px;top:112px}.copy h1{font-size:96px;font-weight:800;line-height:.99;letter-spacing:-4.6px;margin:0}.copy h1 span{display:block;white-space:nowrap}
+    .copy p{font-size:34px;line-height:1.25;letter-spacing:-.8px;margin:18px 0 0;font-weight:500;opacity:.9;white-space:nowrap}
+    .screen{position:absolute;margin:0;padding:8px;border-radius:64px;background:#0F0F12;box-shadow:0 0 0 2px rgba(255,255,255,.16),0 44px 80px -18px rgba(8,8,16,.5),0 10px 22px rgba(8,8,16,.2)}
+    .screen img{width:100%;height:auto;display:block;border-radius:56px}
+    .full .primary{left:195px;top:400px;width:690px}
+    .bleed .primary{left:130px;top:400px;width:820px;padding:9px;border-radius:74px}.bleed .primary img{border-radius:65px}
+    .pair .primary{left:416px;top:416px;width:640px;z-index:2}.pair .secondary{left:24px;top:566px;width:576px;z-index:1}
+    .trio .primary{left:284px;top:426px;width:512px;z-index:2}.trio .secondary,.trio .tertiary{top:740px;width:452px;padding:6px;border-radius:50px;z-index:1}.trio .secondary img,.trio .tertiary img{border-radius:44px}
+    .trio .secondary{left:-70px;transform:rotate(-6deg)}.trio .tertiary{left:698px;transform:rotate(6deg)}
+    .trio .screen figcaption{position:absolute;left:0;right:0;bottom:-64px;text-align:center;font:700 26px Mono,monospace;letter-spacing:2.4px;text-transform:uppercase;color:var(--ink)}
+    .feature{width:1024px;height:500px}.feature header{left:60px;right:60px;top:38px}.feature .copy{left:60px;right:auto;top:150px;width:520px}.feature .copy h1{font-size:68px;letter-spacing:-3.2px;line-height:1.02}.feature .copy p{font-size:22px;margin-top:22px;white-space:normal;text-wrap:balance;max-width:470px}
+    .feature .screen{padding:4px;border-radius:34px}.feature .screen img{border-radius:30px}.feature .primary{left:742px;top:58px;width:252px;z-index:2}.feature .secondary{left:604px;top:150px;width:226px;z-index:1}
+    .feature .glow{left:800px;top:260px;width:900px;height:900px;margin:-450px 0 0 -450px}.feature .ring{right:-190px;top:-150px;width:560px;height:560px;border-width:70px}.feature .ring.small,.feature .category{display:none}
   </style>
 </head>
 <body>
   <main id="poster" class="poster">
-    <div class="ambient" aria-hidden="true"></div>
+    <div class="glow" aria-hidden="true"></div><div class="ring" aria-hidden="true"></div><div class="ring small" aria-hidden="true"></div>
     <header><div class="brand"><svg class="brand-mark" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 5.5C3 4.12 4.12 3 5.5 3h2.18c.66 0 1.24.42 1.45 1.04l.74 2.21a1.5 1.5 0 01-.36 1.51l-1.27 1.27a14 14 0 006.18 6.18l1.27-1.27a1.5 1.5 0 011.51-.36l2.21.74A1.5 1.5 0 0121 15.78v2.18A2.5 2.5 0 0118.5 20.5C10 20.5 3.5 14 3.5 5.5z"/></svg>Fun Phone</div><span class="category"></span></header>
     <div class="copy"><h1></h1><p></p></div>
-    <figure class="screen secondary" hidden><img alt="" /></figure>
-    <figure class="screen primary" style="margin:0"><img alt="" /></figure>
-    <span class="index"></span>
+    <figure class="screen secondary" hidden><img alt="" /><figcaption></figcaption></figure>
+    <figure class="screen tertiary" hidden><img alt="" /><figcaption></figcaption></figure>
+    <figure class="screen primary"><img alt="" /><figcaption></figcaption></figure>
   </main>
   <script>
     const campaign = CAMPAIGN_DATA;
@@ -41,22 +46,27 @@
     const isFeature = query.has('feature');
     const slide = campaign.slides[Number(query.get('slide') || 0)];
     const poster = document.querySelector('#poster');
+    const theme = isFeature ? campaign.feature.theme : slide.theme;
     document.documentElement.lang = lang;
+    poster.style.setProperty('--bg0', theme.bg[0]);poster.style.setProperty('--bg1', theme.bg[1]);poster.style.setProperty('--ink', theme.ink);poster.style.setProperty('--glow', theme.glow);
     if (isFeature) {
-      document.documentElement.style.width='1024px';document.documentElement.style.height='500px';document.body.style.width='1024px';document.body.style.height='500px';
+      for (const node of [document.documentElement, document.body]) { node.style.width='1024px'; node.style.height='500px'; }
       poster.className='poster feature';
-      document.querySelector('.copy').style.width='460px';
-      if(campaign.feature.headlineSize[lang]) document.querySelector('h1').style.fontSize=campaign.feature.headlineSize[lang]+'px';
-    } else poster.className='poster '+slide.style+(slide.paired?' paired':'');
+    } else poster.className='poster '+slide.layout;
     document.querySelector('.category').textContent=slide.label[lang];
-    const lines=isFeature ? campaign.slides[0].headline[lang] : slide.headline[lang];
-    for(const text of lines){const line=document.createElement('span');line.textContent=text;document.querySelector('h1').appendChild(line);}
-    document.querySelector('.copy p').textContent=isFeature ? campaign.feature.subtitle[lang] : slide.subtitle[lang];
-    const image=document.querySelector('.primary img');image.src='/raw/'+lang+'/'+(isFeature?'favorites':slide.scene)+'.png';image.alt=slide.alt[lang];
-    const paired=isFeature?'contacts':slide.paired;
-    if(paired){const secondary=document.querySelector('.secondary');secondary.hidden=false;secondary.style.margin='0';secondary.querySelector('img').src='/raw/'+lang+'/'+paired+'.png';}
-    document.querySelector('.index').textContent=String(Number(query.get('slide')||0)+1).padStart(2,'0')+' / 08';
-    window.STORE_READY=Promise.all([document.fonts.ready,...[...document.images].filter(i=>i.src).map(i=>i.decode())]);
+    const h1=document.querySelector('h1');
+    for(const text of (isFeature ? campaign.slides[0] : slide).headline[lang]){const line=document.createElement('span');line.textContent=text;h1.appendChild(line);}
+    const subtitle=document.querySelector('.copy p');
+    subtitle.textContent=isFeature ? campaign.feature.subtitle[lang] : slide.subtitle[lang];
+    const show=(selector,scene,caption)=>{const figure=document.querySelector(selector);figure.hidden=false;figure.querySelector('img').src='/raw/'+lang+'/'+scene+'.png';figure.querySelector('figcaption').textContent=caption||'';};
+    const captions=(slide.captions||{})[lang]||[];
+    if(isFeature){show('.primary',campaign.feature.scenes[0]);show('.secondary',campaign.feature.scenes[1]);}
+    else if(slide.trio){show('.secondary',slide.trio[0],captions[0]);show('.primary',slide.trio[1],captions[1]);show('.tertiary',slide.trio[2],captions[2]);}
+    else{show('.primary',slide.scene);if(slide.paired)show('.secondary',slide.paired);}
+    document.querySelector('.primary img').alt=slide.alt[lang];
+    // Longer languages shrink the headline and subtitle instead of overflowing the safe area.
+    const fit=(node,minimum)=>{let size=parseFloat(getComputedStyle(node).fontSize);while(node.scrollWidth>node.clientWidth&&size>minimum){size-=1;node.style.fontSize=size+'px';if(node===h1)node.style.letterSpacing=(-size*.048)+'px';}};
+    window.STORE_READY=Promise.all([document.fonts.ready,...[...document.images].filter(i=>i.src).map(i=>i.decode())]).then(()=>{fit(h1,isFeature?44:66);if(!isFeature)fit(subtitle,22);});
   </script>
 </body>
 </html>

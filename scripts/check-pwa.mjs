@@ -31,7 +31,7 @@ const serviceWorker = await readFile(await requireFile('service-worker.js'), 'ut
 const campaign = JSON.parse(await readFile(path.join(repoRoot, 'src/data/store-screenshots.json'), 'utf8'));
 for (const language of ['es', 'en']) {
   for (const slide of campaign) {
-    const asset = `assets/store-v2/${language}/${slide.id}.webp`;
+    const asset = `assets/store-v3/${language}/${slide.id}.webp`;
     await requireFile(asset);
     if (!serviceWorker.includes(asset)) throw new Error(`Campaign image is unavailable offline: ${asset}`);
   }

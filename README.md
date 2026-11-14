@@ -42,22 +42,24 @@ datos estables del producto se centralizan en `src/data/site.ts`.
 
 ## Campaña visual para web y Google Play
 
-La campaña para Play cubre español, inglés, alemán, francés y portugués de Brasil, con ocho
+La campaña v3 para Play cubre español, inglés, alemán, francés y portugués de Brasil, con ocho
 composiciones por idioma. La web utiliza las series ES/EN. Comparten capturas nativas actuales,
-tipografía Bricolage y una paleta de coral, papel y grafito. Se capturaron en el Moto/API 35 con nombres,
-notas, cuentas e importes ficticios dentro del paquete benchmark aislado. El hero y la página
-de funciones muestran esas mismas capturas sin texto promocional superpuesto.
+tipografía Bricolage y un fondo por imagen que acompaña al tema mostrado: cada composición enseña
+un estilo (Moderno, Minimalista, Retro), un modo claro u oscuro y un color de acento distintos.
+Se capturaron en el emulador Pixel 9 Pro con nombres, notas, cuentas e importes ficticios dentro
+del paquete benchmark aislado. El hero y la página de funciones muestran esas mismas capturas sin
+texto promocional superpuesto.
 
-- Fuente canónica y JPEGs para Play: `../fun-phone/screenshots/store-v2/`.
-- Composición editable: `tools/store-mockups/studio.html`; copy y alt text en el `campaign.json`
-  canónico, sincronizados a `src/data/store-screenshots.json` durante la exportación.
-- WebP vigentes: `public/assets/store-v2/{es,en}/`; capturas sin composición en `ui/`.
-- Fondo abstracto creado con `image_gen`; prompt íntegro en
-  `../fun-phone/screenshots/store-v2/artwork/prompt.txt`. La interfaz proviene de Compose.
+- Fuente canónica y JPEGs para Play: `../fun-phone/screenshots/store-v3/`.
+- Composición editable: `tools/store-mockups/studio.html`; copy, alt text, capturas y tema de
+  cada imagen en el `campaign.json` canónico, sincronizados a `src/data/store-screenshots.json`
+  durante la exportación.
+- WebP vigentes: `public/assets/store-v3/{es,en}/`; capturas sin composición (720 px) en `ui/`.
+- Los fondos son degradados CSS deterministas; no hay arte generado. La interfaz proviene de Compose.
 - `npm run render:store` usa Chrome local, Puppeteer y Sharp para regenerar los 40 masters
   1080×1920, cinco feature graphics 1024×500 y cinco láminas `overview-{idioma}.jpg`.
   Solo genera WebP y capturas sin composición para los idiomas de `export.webLocales` (ES/EN).
-  Puede recibir otra fuente con `npm run render:store -- /ruta/store-v2`.
+  Puede recibir otra fuente con `npm run render:store -- /ruta/store-v3`.
 - `npm run render:store -- --locales=de,fr,pt` renueva solo esos idiomas de Play y conserva los
   demás archivos de imagen. Los textos de Play están en `../fun-phone/play-listing/`, con
   metadatos completos para `en-US`, `es-419`, `de-DE`, `fr-FR` y `pt-BR`.
