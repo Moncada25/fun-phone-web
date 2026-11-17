@@ -1,33 +1,32 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for AI coding assistants working in this repository. The full contributor guide is
+[AGENTS.md](AGENTS.md); this file only highlights what is easy to get wrong.
 
-## Project Overview
+## Project
 
-Marketing/landing site for **Fun Phone: Dialer & Contacts**, an Android app. Static site deployed to GitHub Pages at `https://moncada25.github.io/fun-phone-web/`.
+Landing site for **Fun Phone**, a private, open-source Android dialer
+([app repository](https://github.com/Moncada25/fun-phone)). Static Astro site deployed to GitHub
+Pages at `https://moncada25.github.io/fun-phone-web/`.
 
 ## Commands
 
-- `npm run dev` — local dev server with hot reload
-- `npm run build` — static build to `dist/`
-- `npm run preview` — serve built output locally (use to verify before pushing)
-- No test framework is configured; manual QA via `npm run preview`
+- `npm run dev` — dev server
+- `npm run check` — Astro and TypeScript checks
+- `npm run build` — static build plus the Workbox service worker
+- `npm run check:discovery`, `npm run check:pwa`, `npm run check:lighthouse` — the CI gates
+- `npm run preview` — serve `dist/` locally
 
-## Architecture
+## Stack and conventions
 
-- **Framework**: Astro 4 (static output) + Tailwind CSS 3 + Alpine.js (loaded via CDN)
-- **Routing**: File-based via `src/pages/`. Nested folders (`features/`, `faq/`, `privacy/`, `roadmap/`) produce trailing-slash routes (`trailingSlash: 'always'` in astro config)
-- **Base path**: `/fun-phone-web/` — all internal links must use `import.meta.env.BASE_URL` prefix. Hardcoded paths will break on GitHub Pages
-- **Bilingual (ES/EN)**: Handled client-side with Alpine.js `x-show="lang==='es'"` / `x-show="lang==='en'"` toggles. Language preference persists in `localStorage`. Every user-visible string needs both language variants inline
-- **Dark mode**: Class-based (`darkMode: 'class'` in Tailwind config). Theme state synced via `localStorage('darkMode')` with system-preference fallback. A pre-render script in `<head>` prevents flash
-- **State management**: Alpine.js `x-data` components — `pageState()` on `<html>` for page-level lang, `navbarComponent()` for navbar state (menu, scroll, theme, language). Components communicate via `CustomEvent('lang')`
-- **Typography**: Outfit (display/headings) + DM Sans (body) loaded from Google Fonts
-- **Design system**: "Liquid Glass" aesthetic — mesh gradients, glassmorphism cards, accent blue `#0066e0` + electric cyan `#00d4ff`, midnight dark `#0a0e27`
-
-## Key Conventions
-
-- Design tokens live in `tailwind.config.cjs` (colors, fonts, animations, gradients). Extend there before adding one-off styles
-- Components are `.astro` files in `src/components/`; pages in `src/pages/`
-- Static assets go in `public/` (served verbatim at base path)
-- Two-space indentation; PascalCase for component files; camelCase for JS identifiers
-- Deployment is automatic: push to `main` triggers the GitHub Actions workflow (`.github/workflows/deploy.yml`)
+- Astro 7 (static output), Tailwind CSS 4 (CSS-first `@theme` in `src/styles/global.css`, no
+  `tailwind.config.*`), Alpine.js bundled locally, Workbox PWA.
+- Base path `/fun-phone-web/`: build internal URLs with `import.meta.env.BASE_URL`.
+- Bilingual ES/EN on the client: every visible string needs both variants, using
+  `<span x-cloak x-show="lang==='es'">…</span><span x-cloak x-show="lang==='en'">…</span>`.
+- Dark mode is class-based (`html.dark`); colors come from CSS variables (`--ink`, `--paper`,
+  `--flame`, `--surface`). Use `.band-dark` for sections that stay dark in both themes.
+- Product copy lives in `src/data/` (`features.ts`, `faq.ts`, `site.ts`). Check every claim
+  against the app repository (README, PLAY_STORE_LISTING, PRIVACY) before changing it.
+- Google Play links must use `playStoreUrl(content)` so each CTA carries an install referrer.
+- Pushing to `main` deploys automatically through `.github/workflows/deploy.yml`.

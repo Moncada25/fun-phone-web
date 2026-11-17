@@ -1,115 +1,96 @@
 ---
 import Base from '../../layouts/Base.astro';
 import FAQBlock from '../../components/FAQBlock.astro';
+import Icon from '../../components/Icon.astro';
+import InstallButtons from '../../components/InstallButtons.astro';
+import { allFaqs } from '../../data/faq';
+import { discussionsUrl, issuesUrl, supportEmail } from '../../data/site';
 
 const siteUrl = 'https://moncada25.github.io/fun-phone-web/faq/';
 
 const faqSchema = JSON.stringify({
-  '@context': 'https://schema.org', '@type': 'FAQPage',
-  mainEntity: [
-    { '@type': 'Question', name: 'How do I set Fun Phone as default?', acceptedAnswer: { '@type': 'Answer', text: 'Go to Settings > Default apps > Phone and select Fun Phone.' } },
-    { '@type': 'Question', name: 'What games are included?', acceptedAnswer: { '@type': 'Answer', text: '10 classic mini-games: Fun Bird, Snake, Minesweeper, 2048, Puzzle, Tic-Tac-Toe, Hangman, Breakout, Sudoku, Memory, plus a Paint Studio.' } },
-    { '@type': 'Question', name: 'Does it have ads?', acceptedAnswer: { '@type': 'Answer', text: 'No. Fun Phone is completely ad-free.' } },
-    { '@type': 'Question', name: 'Is the source code public?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. Fun Phone is open source under GPL-3.0 at https://github.com/Moncada25/fun-phone. Each GitHub release includes a community APK without Google libraries that works with Obtainium.' } },
-    { '@type': 'Question', name: 'Does Fun Phone use the network?', acceptedAnswer: { '@type': 'Answer', text: 'Optional public holidays sends country and year to Nager.Date after approval. The social/web preview loads the selected network or HTTPS URL when requested; the site receives IP, cookies and request metadata. No app contacts or calls are attached.' } },
-  ]
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: allFaqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.q.en,
+    acceptedAnswer: { '@type': 'Answer', text: faq.a.en },
+  })),
 });
+
+const help = [
+  { icon: 'code' as const, href: issuesUrl, external: true, title: { es: 'Reportar un error', en: 'Report a bug' }, desc: { es: 'Issues en GitHub', en: 'GitHub Issues' } },
+  { icon: 'users' as const, href: discussionsUrl, external: true, title: { es: 'Proponer una idea', en: 'Suggest an idea' }, desc: { es: 'Discussions en GitHub', en: 'GitHub Discussions' } },
+  { icon: 'note' as const, href: `mailto:${supportEmail}`, external: false, title: { es: 'Escribir al soporte', en: 'Email support' }, desc: { es: supportEmail, en: supportEmail } },
+];
 ---
 
 <Base
   title="FAQ — Fun Phone"
-  description="Frequently asked questions about Fun Phone: setup, privacy, permissions, games and support."
+  description="Answers about Fun Phone: setup as default dialer, Google Play vs the GitHub APK, Obtainium updates, privacy, permissions, games and support."
   canonical={siteUrl}
 >
   <script is:inline type="application/ld+json" slot="head" set:html={faqSchema}></script>
 
-  <!-- Hero -->
-  <section class="relative border-b border-ink/15">
-    <div class="container-editorial py-20 md:py-28">
-      <div class="mx-auto max-w-4xl text-center">
-        <h1 class="reveal text-balance font-display-condensed text-[3rem] font-extrabold leading-[0.92] tracking-tightest text-ink sm:text-[4.5rem] md:text-[6rem] lg:text-[7rem]">
-          <span x-cloak x-show="lang==='es'">Preguntas </span>
-          <span x-cloak x-show="lang==='en'">Frequently </span>
-          <span class="font-serif-italic text-flame">
-            <span x-cloak x-show="lang==='es'">frecuentes</span>
-            <span x-cloak x-show="lang==='en'">asked</span>
-          </span>
-        </h1>
-        <p class="mt-6 max-w-2xl mx-auto text-pretty text-base text-ink-muted md:text-lg">
-          <span x-cloak x-show="lang==='es'">Las preguntas más comunes sobre Fun Phone, respondidas sin rodeos. Si no encuentras lo que buscas, escríbenos.</span>
-          <span x-cloak x-show="lang==='en'">The most common questions about Fun Phone, answered without the fluff. If you don't find what you're looking for, drop us a line.</span>
-        </p>
-      </div>
+  <section class="relative overflow-hidden">
+    <div class="hero-glow pointer-events-none absolute inset-0" aria-hidden="true"></div>
+    <div class="container-editorial relative pb-14 pt-12 text-center md:pb-16 md:pt-20">
+      <p class="eyebrow">FAQ</p>
+      <h1 class="mx-auto mt-5 max-w-4xl text-balance font-display-condensed text-[2.75rem] font-extrabold leading-[0.95] tracking-tightest text-ink sm:text-[4rem] md:text-[5rem]">
+        <span x-cloak x-show="lang==='es'">Preguntas </span>
+        <span x-cloak x-show="lang==='en'">Frequently asked </span>
+        <span class="font-serif-italic font-normal text-flame">
+          <span x-cloak x-show="lang==='es'">frecuentes</span>
+          <span x-cloak x-show="lang==='en'">questions</span>
+        </span>
+      </h1>
+      <p class="mx-auto mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-ink-muted">
+        <span x-cloak x-show="lang==='es'">Instalación, código abierto, privacidad y funciones. ¿No encuentras tu respuesta? Escríbenos.</span>
+        <span x-cloak x-show="lang==='en'">Setup, open source, privacy and features. Can't find your answer? Get in touch.</span>
+      </p>
     </div>
   </section>
 
-  <!-- Quick cards -->
-  <section class="border-b border-ink/15 py-12">
-    <div class="container-editorial">
-      <div class="grid gap-3 md:grid-cols-3">
-        <article class="group flex flex-col gap-3 border border-ink/15 bg-paper p-6 transition-colors hover:border-ink" style="border-radius: 18px;">
-          <div class="flex items-center justify-end">
-            <span class="flex h-7 w-7 items-center justify-center rounded-full bg-ink/5 text-ink transition-transform group-hover:rotate-[20deg] group-hover:bg-flame group-hover:text-paper">
-              <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-            </span>
-          </div>
-          <h2 class="font-display-condensed text-xl font-extrabold tracking-tightest text-ink">
-            <span x-cloak x-show="lang==='es'">Primeros pasos</span>
-            <span x-cloak x-show="lang==='en'">Getting started</span>
-          </h2>
-          <p class="text-xs leading-relaxed text-ink-muted">
-            <span x-cloak x-show="lang==='es'">Ajustes → Apps predeterminadas → Teléfono → Fun Phone.</span>
-            <span x-cloak x-show="lang==='en'">Settings → Default apps → Phone → Fun Phone.</span>
-          </p>
-        </article>
-        <article class="group flex flex-col gap-3 border border-ink/15 bg-paper p-6 transition-colors hover:border-ink" style="border-radius: 18px;">
-          <div class="flex items-center justify-end">
-            <span class="flex h-7 w-7 items-center justify-center rounded-full bg-ink/5 text-ink transition-transform group-hover:rotate-[20deg] group-hover:bg-flame group-hover:text-paper">
-              <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-            </span>
-          </div>
-          <h2 class="font-display-condensed text-xl font-extrabold tracking-tightest text-ink">
-            <span x-cloak x-show="lang==='es'">Soporte</span>
-            <span x-cloak x-show="lang==='en'">Support</span>
-          </h2>
-          <p class="text-xs leading-relaxed text-ink-muted">
-            <a href="mailto:santiago.moncada.dev@gmail.com" class="underline-link text-ink">santiago.moncada.dev@gmail.com</a>
-          </p>
-        </article>
-        <article class="group flex flex-col gap-3 border border-ink/15 bg-paper p-6 transition-colors hover:border-ink" style="border-radius: 18px;">
-          <div class="flex items-center justify-end">
-            <span class="flex h-7 w-7 items-center justify-center rounded-full bg-ink/5 text-ink transition-transform group-hover:rotate-[20deg] group-hover:bg-flame group-hover:text-paper">
-              <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-            </span>
-          </div>
-          <h2 class="font-display-condensed text-xl font-extrabold tracking-tightest text-ink">
-            <span x-cloak x-show="lang==='es'">Idioma</span>
-            <span x-cloak x-show="lang==='en'">Language</span>
-          </h2>
-          <p class="text-xs leading-relaxed text-ink-muted">
-            <span x-cloak x-show="lang==='es'">Cambia desde la barra superior, o en Ajustes → Idioma dentro de la app.</span>
-            <span x-cloak x-show="lang==='en'">Switch from the top bar, or in Settings → Language inside the app.</span>
-          </p>
-        </article>
-      </div>
+  <section class="container-editorial pb-8">
+    <div class="mx-auto max-w-3xl">
+      <FAQBlock />
     </div>
   </section>
 
-  <!-- FAQ list -->
-  <section class="py-16 md:py-24">
+  <section class="section">
     <div class="container-editorial">
-      <div class="mx-auto max-w-3xl text-center">
-        <h2 class="text-balance font-display-condensed text-[2.25rem] font-extrabold leading-[0.95] tracking-tightest text-ink md:text-[3rem]">
-          <span x-cloak x-show="lang==='es'">Doce respuestas </span>
-          <span x-cloak x-show="lang==='en'">Twelve answers </span>
-          <span class="font-serif-italic text-flame">
-            <span x-cloak x-show="lang==='es'">honestas.</span>
-            <span x-cloak x-show="lang==='en'">that are honest.</span>
-          </span>
+      <div class="mx-auto max-w-5xl">
+        <h2 class="section-title text-center text-ink">
+          <span x-cloak x-show="lang==='es'">¿Necesitas ayuda?</span>
+          <span x-cloak x-show="lang==='en'">Need help?</span>
         </h2>
-      </div>
-      <div class="mt-10">
-        <FAQBlock />
+        <div class="mt-10 grid gap-4 md:grid-cols-3">
+          {help.map((item) => (
+            <a
+              href={item.href}
+              target={item.external ? '_blank' : undefined}
+              rel={item.external ? 'noopener' : undefined}
+              class="card group flex items-center gap-4 p-6 transition-colors hover:border-ink/30"
+            >
+              <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-flame/10 text-flame">
+                <Icon name={item.icon} class="h-5 w-5" />
+              </span>
+              <span class="min-w-0">
+                <span class="block font-bold text-ink group-hover:text-flame">
+                  <span x-cloak x-show="lang==='es'">{item.title.es}</span>
+                  <span x-cloak x-show="lang==='en'">{item.title.en}</span>
+                </span>
+                <span class="block truncate text-sm text-ink-muted">
+                  <span x-cloak x-show="lang==='es'">{item.desc.es}</span>
+                  <span x-cloak x-show="lang==='en'">{item.desc.en}</span>
+                </span>
+              </span>
+            </a>
+          ))}
+        </div>
+        <div class="mt-14 flex justify-center">
+          <InstallButtons content="faq_cta" />
+        </div>
       </div>
     </div>
   </section>

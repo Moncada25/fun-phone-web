@@ -42,8 +42,7 @@ const groups = [
 <div class="space-y-3">
   {groups.map((group, idx) => (
     <details
-      class:list={['group relative overflow-hidden border border-ink/15 bg-paper transition-all duration-300 open:border-ink', idx === 0 ? 'open' : '']}
-      style="border-radius: 16px;"
+      class="card group relative overflow-hidden transition-colors open:border-ink/30" open={idx === 0}
     >
       <summary class="flex cursor-pointer items-center justify-between gap-4 px-5 py-4 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-flame focus-visible:ring-offset-2 focus-visible:ring-offset-paper">
         <div class="flex items-center gap-4">

@@ -1,215 +1,347 @@
 ---
 import Base from '../../layouts/Base.astro';
-import FeatureBlock from '../../components/FeatureBlock.astro';
-import ComparisonTable from '../../components/ComparisonTable.astro';
-import { playStoreUrl } from '../../data/play-store';
+import Icon from '../../components/Icon.astro';
+import InstallButtons from '../../components/InstallButtons.astro';
+import LocalizedImage from '../../components/LocalizedImage.astro';
+import { coreFeatures, customization, gameNames, toolFeatures } from '../../data/features';
+import { productFacts } from '../../data/site';
 
 const base = import.meta.env.BASE_URL;
-const ssBase = base + 'assets/store-v3/ui/';
 
-const groups = [
-  {
-    title: { es: 'Comunicación', en: 'Communication' },
-    blurb: { es: 'Todo lo que necesitas para hablar, llamar y organizar tus conexiones.', en: 'Everything you need to talk, call and organize your connections.' },
-    items: [
-      { title: { es: 'Marcador Avanzado', en: 'Advanced Dialer' }, bullets: ['Búsqueda T9 inteligente y marcado rápido.', 'Historial con filtros, favoritos y búsqueda.', 'Controles accesibles: retener, silenciar y altavoz.', 'Notificaciones con retorno seguro a la llamada activa.', 'Dual-SIM, audio y sensor de proximidad.'], bulletsEn: ["Smart T9 search and speed dial.", "Call history with filters, favorites, and search.", "Accessible hold, mute, and speaker controls.", "Notifications that return to the active call.", "Dual SIM, audio routing, and proximity sensor."], variant: 'light' },
-      { title: { es: 'Privacidad Primero', en: 'Privacy First' }, bullets: ['Permisos granulares con explicaciones claras.', 'Almacenamiento local para datos principales.', 'Sin anuncios invasivos.', 'Red solo para funciones opcionales documentadas.'], bulletsEn: ["Granular permissions with clear explanations.", "Local storage for core app data.", "No intrusive ads.", "Network only for documented optional features."], variant: 'dark' },
-    ]
+type Bullets = { es: string[]; en: string[] };
+
+const coreDetails: Record<string, Bullets> = {
+  dialer: {
+    es: ['Búsqueda T9 en nombres y números', 'Bandera y prefijo del país mientras marcas', 'Si un solo contacto coincide, aparece listo para llamar', 'Dual-SIM según el dispositivo y el operador'],
+    en: ['T9 search across names and numbers', 'Country flag and code as you dial', 'When a single contact matches, it is ready to call', 'Dual SIM depending on device and carrier'],
   },
-  {
-    title: { es: 'Contactos', en: 'Contacts' },
-    blurb: { es: 'Gestiona tu agenda con herramientas que otros dialers ni imaginan.', en: 'Manage your address book with tools other dialers can\'t even imagine.' },
-    items: [
-      { title: { es: 'Gestión de Contactos', en: 'Contact Management' }, bullets: ['Importar/exportar JSON y vCard.', 'Escáner y generador QR.', 'Sync multi-cuenta (Google, local).', 'Búsqueda avanzada y filtrado.', 'Fusión y deduplicación.'], bulletsEn: ["JSON and vCard import/export.", "QR scanner and generator.", "Google and device accounts managed by Android.", "Advanced search and filtering.", "Merge and deduplicate contacts."], variant: 'light' },
-      { title: { es: 'Anti-spam', en: 'Anti-spam' }, bullets: ['Bloqueo y desbloqueo mediante Android.', 'Lista de números bloqueados.', 'Controles explícitos para evitar bloqueos accidentales.'], bulletsEn: ["Block and unblock using Android.", "Blocked-number list.", "Explicit controls to prevent accidental blocking."], variant: 'flame' },
-    ]
+  contacts: {
+    es: ['Favoritos y widget para la pantalla de inicio', 'Cuentas de Google o del dispositivo, gestionadas por Android', 'Importa y exporta vCard o JSON', 'Encuentra y combina duplicados', 'Comparte contactos por QR o como archivo'],
+    en: ['Favorites and a home-screen widget', 'Google or device accounts, managed by Android', 'vCard and JSON import and export', 'Find and merge duplicates', 'Share contacts by QR or as a file'],
   },
-  {
-    title: { es: 'Productividad', en: 'Productivity' },
-    blurb: { es: 'Notas, tareas y recordatorios en un único espacio privado.', en: 'Notes, tasks and reminders in a single private space.' },
-    items: [
-      { title: { es: 'Suite Completa', en: 'Full Suite' }, bullets: ['Notas, checklists y voz.', 'Recordatorios con alarmas.', 'Grabador de voz integrado.', 'Bloqueo biométrico/PIN de notas.'], bulletsEn: ["Notes, checklists, and voice.", "Reminders with alarms.", "Integrated voice recorder.", "Biometric/PIN note lock."], variant: 'light' },
-      { title: { es: 'Dashboard de Métricas', en: 'Metrics Dashboard' }, bullets: ['Estadísticas de llamadas.', 'Duración, tendencias y ratios.', 'Contactos más frecuentes.', 'Todo procesado localmente.'], bulletsEn: ["Call statistics.", "Duration, trends, and ratios.", "Most frequent contacts.", "Everything processed locally."], variant: 'dark' },
-    ]
+  calls: {
+    es: ['Contesta, rechaza o responde con un mensaje', 'Retener, silenciar, altavoz, teclado y Bluetooth', 'Recientes, perdidas y búsqueda en el historial', 'Filtro de spam con el filtrado de llamadas de Android', 'Estado del dispositivo para revisar permisos y el rol de marcador'],
+    en: ['Answer, decline or reply with a message', 'Hold, mute, speaker, keypad and Bluetooth', 'Recents, missed calls and history search', 'Spam filter built on Android call screening', 'Device Status to review permissions and the dialer role'],
   },
-  {
-    title: { es: 'Seguridad y utilidades', en: 'Security & utilities' },
-    blurb: { es: 'Tus secretos, cifrados en tu dispositivo. Punto.', en: 'Your secrets, encrypted on your device. Period.' },
-    items: [
-      { title: { es: 'Gestor de Contraseñas', en: 'Password Manager' }, bullets: ['Cifrado local autenticado.', 'Generador de contraseñas fuertes.', 'Protección biométrica/PIN.'], bulletsEn: ["Authenticated local encryption.", "Strong password generator.", "Biometric/PIN protection."], variant: 'flame' },
-      { title: { es: 'Herramientas de Voz', en: 'Voice Tools' }, bullets: ['Dictado voz a texto.', 'TTS multi-idioma.', 'Compartir como texto o audio.'], bulletsEn: ["Speech-to-text dictation.", "Multilingual text-to-speech.", "Share text or audio."], variant: 'light' },
-      { title: { es: 'Utilidades QR', en: 'QR Utilities' }, bullets: ['Escáner y generador QR.', 'Historial de escaneos.', 'Compartir contactos por QR.'], bulletsEn: ["QR scanner and generator.", "Scan history.", "Share contacts by QR."], variant: 'dark' },
-      { title: { es: 'Festivos Públicos', en: 'Public Holidays' }, bullets: ['Consulta opcional a Nager.Date.', 'Aviso y autorización antes de usar la red.', 'Solo país y año como datos de consulta.'], bulletsEn: ["Optional Nager.Date lookup.", "Disclosure and approval before network access.", "Only country and year as query data."], variant: 'light' },
-    ]
+};
+
+const toolDetails: Record<string, Bullets> = {
+  notes: {
+    es: ['Texto enriquecido y checklists', 'Recordatorios con alarma', 'Notas de audio', 'Bloqueo con PIN o biometría'],
+    en: ['Rich text and checklists', 'Reminders with alarms', 'Audio notes', 'PIN or biometric lock'],
   },
-  {
-    title: { es: 'Estilo de vida y finanzas', en: 'Lifestyle & finances' },
-    blurb: { es: 'Bienestar y dinero guardados de forma privada en tu dispositivo.', en: 'Wellness and money stored privately on your device.' },
-    items: [
-      { title: { es: 'Gestor de Gastos', en: 'Expense Manager' }, bullets: ['Ingresos y gastos por categoría.', 'Presupuestos mensuales.', 'Balance y estadísticas en tiempo real.'], bulletsEn: ["Income and expenses by category.", "Monthly budgets.", "Live balance and statistics."], variant: 'light' },
-      { title: { es: 'Calendario Menstrual', en: 'Menstrual Calendar' }, bullets: ['Seguimiento con predicciones.', 'Fases: menstrual, folicular, ovulación, lútea.', 'Datos 100% privados en dispositivo.'], bulletsEn: ["Tracking with predictions.", "Menstrual, follicular, ovulation, and luteal phases.", "Private data stored on your device."], variant: 'flame' },
-    ]
+  vault: {
+    es: ['Cifrado local con Android Keystore', 'Desbloqueo con PIN o biometría', 'Generador de contraseñas', 'Códigos de verificación en dos pasos', 'Servicio de autocompletado de Android'],
+    en: ['Local encryption with Android Keystore', 'Unlock with PIN or biometrics', 'Password generator', 'Two-step verification codes', 'Android autofill service'],
   },
-  {
-    title: { es: 'Enfoque', en: 'Focus' },
-    blurb: { es: 'Activa solo lo que encaja con tu día.', en: 'Enable only what fits your day.' },
-    items: [
-      { title: { es: 'Pomodoro', en: 'Pomodoro' }, bullets: ['Técnica 25/5 configurable.', 'Sonidos y notificaciones.', 'Funciona en segundo plano.'], bulletsEn: ["Customizable 25/5 technique.", "Sounds and notifications.", "Runs in the background."], variant: 'dark' },
-      { title: { es: 'Herramientas a tu medida', en: 'Tools your way' }, bullets: ['Presets durante el onboarding.', 'Interruptor general y controles individuales.', 'El menú no aparece vacío.'], bulletsEn: ["Presets during onboarding.", "Master switch and individual controls.", "The menu never appears empty."], variant: 'flame' },
-    ]
+  expenses: {
+    es: ['Gastos fijos y variables', 'Categorías y presupuestos', 'Estadísticas en el dispositivo', 'Importación y exportación'],
+    en: ['Fixed and variable expenses', 'Categories and budgets', 'On-device statistics', 'Import and export'],
   },
-  {
-    title: { es: 'Entretenimiento', en: 'Entertainment' },
-    blurb: { es: 'Ríete un rato. Sin micropagos, sin trampas.', en: 'Laugh for a while. No microtransactions, no tricks.' },
-    items: [
-      { title: { es: '10 Minijuegos', en: '10 Mini-Games' }, bullets: ['Fun Bird, Snake, Buscaminas, 2048.', 'Puzzle, Tres en raya, Ahorcado.', 'Breakout, Sudoku, Memory.'], bulletsEn: ["Fun Bird, Snake, Minesweeper, 2048.", "Puzzle, Tic-Tac-Toe, Hangman.", "Breakout, Sudoku, Memory."], variant: 'dark' },
-      { title: { es: 'Estudio de Pintura', en: 'Paint Studio' }, bullets: ['Pinceles expresivos.', 'Importar y exportar obras.', 'Compartir en galería y redes.'], bulletsEn: ["Expressive brushes.", "Import and export artwork.", "Share to your gallery and social apps."], variant: 'light' },
-      { title: { es: 'Personalización Total', en: 'Full Customization' }, bullets: ['Temas, colores y fuentes.', 'Animaciones, transiciones y widgets.', 'Modo claro/oscuro automático.'], bulletsEn: ["Themes, colors, and fonts.", "Animations, transitions, and widgets.", "Automatic light/dark mode."], variant: 'flame' },
-    ]
+  qr: {
+    es: ['Escáner con zoom, enfoque y linterna', 'Lectura desde la galería', 'Generador de códigos', 'Contactos en QR'],
+    en: ['Scanner with zoom, focus and flashlight', 'Read codes from your gallery', 'Code generator', 'Contacts as QR codes'],
   },
+  voice: {
+    es: ['Dictado de voz a texto', 'Lectura en voz alta con selector de voz', 'Usa el proveedor de voz de Android'],
+    en: ['Speech-to-text dictation', 'Text-to-speech with a voice picker', 'Uses your Android speech provider'],
+  },
+  calendar: {
+    es: ['Cumpleaños de tus contactos', 'Eventos de los calendarios de Android', 'Festivos públicos opcionales (Nager.Date)'],
+    en: ['Your contacts’ birthdays', 'Events from your Android calendars', 'Optional public holidays (Nager.Date)'],
+  },
+  pomodoro: {
+    es: ['Ciclos 25/5 configurables', 'Sonidos y notificaciones', 'Sigue en segundo plano'],
+    en: ['Configurable 25/5 cycles', 'Sounds and notifications', 'Keeps running in the background'],
+  },
+  wellbeing: {
+    es: ['Calendario de ciclo con predicciones', 'Fases del ciclo', 'Datos solo en tu dispositivo'],
+    en: ['Cycle calendar with predictions', 'Cycle phases', 'Data stays on your device'],
+  },
+  paint: {
+    es: ['Lápiz, borrador, desenfoque, texto y formas', 'Importa imágenes', 'Exporta y comparte'],
+    en: ['Pencil, eraser, blur, text and shapes', 'Import images', 'Export and share'],
+  },
+  games: {
+    es: [gameNames.es, 'Estadísticas y récords por juego', 'Sin micropagos'],
+    en: [gameNames.en, 'Stats and records for each game', 'No in-app purchases'],
+  },
+};
+
+const extras = [
+  { icon: 'globe' as const, es: `${productFacts.supportedAppLanguages} idiomas: español, inglés, portugués, francés y alemán`, en: `${productFacts.supportedAppLanguages} languages: English, Spanish, Portuguese, French and German` },
+  { icon: 'sliders' as const, es: 'Presets al empezar y un interruptor para cada herramienta', en: 'Presets on first launch and a switch for every tool' },
+  { icon: 'device' as const, es: 'Widget de favoritos y atajos de la app', en: 'Favorites widget and app shortcuts' },
+  { icon: 'refresh' as const, es: 'Papelera para recuperar lo que borras', en: 'A recycle bin to restore what you delete' },
+];
+
+const jump = [
+  { href: '#calls', es: 'Llamadas y contactos', en: 'Calls and contacts' },
+  { href: '#tools', es: 'Herramientas', en: 'Tools' },
+  { href: '#style', es: 'Personalización', en: 'Personalization' },
+  { href: '#more', es: 'Y más', en: 'And more' },
 ];
 ---
 
 <Base
   title="Features — Fun Phone"
-  description="Explore all Fun Phone features: advanced dialer, smart contacts, productivity suite, password manager, expense tracker, games and more."
+  description="Every Fun Phone feature: a T9 dialer, contacts and favorites, spam filtering, notes, an encrypted vault with autofill, expenses, QR, voice, calendar, Pomodoro, paint and 10 mini games."
   canonical="https://moncada25.github.io/fun-phone-web/features/"
 >
   <!-- Hero -->
-  <section class="relative border-b border-ink/15">
-    <div class="container-editorial py-20 md:py-28">
-      <div class="mx-auto max-w-4xl text-center">
-        <h1 class="reveal text-balance font-display-condensed text-[3rem] font-extrabold leading-[0.92] tracking-tightest text-ink sm:text-[4.5rem] md:text-[6rem] lg:text-[7rem]">
-            <span x-cloak x-show="lang==='es'">Funciones que </span>
-            <span x-cloak x-show="lang==='en'">Features that </span>
-            <span class="font-serif-italic text-flame">
-              <span x-cloak x-show="lang==='es'">transforman</span>
-              <span x-cloak x-show="lang==='en'">transform</span>
-            </span>
-            <span x-cloak x-show="lang==='es'"> tu teléfono</span>
-            <span x-cloak x-show="lang==='en'"> your phone</span>
-            <span x-cloak x-show="lang==='es'"> en algo más.</span>
-            <span x-cloak x-show="lang==='en'"> into something more.</span>
-          </h1>
-          <p class="mt-6 max-w-2xl mx-auto text-pretty text-base text-ink-muted md:text-lg">
-            <span x-cloak x-show="lang==='es'">Una taxonomía honesta de lo que hace Fun Phone. Sin funciones fantasma, sin promesas vacías.</span>
-            <span x-cloak x-show="lang==='en'">An honest taxonomy of what Fun Phone actually does. No ghost features, no empty promises.</span>
-          </p>
-      </div>
+  <section class="relative overflow-hidden">
+    <div class="hero-glow pointer-events-none absolute inset-0" aria-hidden="true"></div>
+    <div class="container-editorial relative pb-16 pt-12 text-center md:pb-20 md:pt-20">
+      <p class="eyebrow">
+        <span x-cloak x-show="lang==='es'">Funciones</span>
+        <span x-cloak x-show="lang==='en'">Features</span>
+      </p>
+      <h1 class="mx-auto mt-5 max-w-4xl text-balance font-display-condensed text-[2.75rem] font-extrabold leading-[0.95] tracking-tightest text-ink sm:text-[4rem] md:text-[5rem]">
+        <span x-cloak x-show="lang==='es'">Todo lo que hace </span>
+        <span x-cloak x-show="lang==='en'">Everything </span>
+        <span class="font-serif-italic font-normal text-flame">Fun Phone</span>
+        <span x-cloak x-show="lang==='en'"> does</span><span>.</span>
+      </h1>
+      <p class="mx-auto mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-ink-muted">
+        <span x-cloak x-show="lang==='es'">Un marcador completo y, si las quieres, diez herramientas más. Las capacidades de llamada dependen de tu dispositivo y de tu versión de Android.</span>
+        <span x-cloak x-show="lang==='en'">A complete dialer and, if you want them, ten more tools. Calling capabilities depend on your device and Android version.</span>
+      </p>
+      <nav class="mt-9 flex flex-wrap justify-center gap-2" aria-label="Secciones" :aria-label="lang === 'es' ? 'Secciones' : 'Sections'">
+        {jump.map((item) => (
+          <a href={item.href} class="rounded-full border border-ink/15 bg-surface px-4 py-2 text-sm font-semibold text-ink transition-colors hover:border-ink/40">
+            <span x-cloak x-show="lang==='es'">{item.es}</span>
+            <span x-cloak x-show="lang==='en'">{item.en}</span>
+          </a>
+        ))}
+      </nav>
     </div>
   </section>
 
-  <!-- Screenshot break 01 -->
-  <section class="border-b border-ink/15 py-12 md:py-16">
+  <!-- Calls and contacts -->
+  <section id="calls" class="section scroll-mt-28 border-t border-ink/10">
     <div class="container-editorial">
-      <div class="grid grid-cols-12 items-end gap-6">
-        <div class="col-span-12 md:col-span-5">
-          <p class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.2em] text-ink-ghost">Fig. 02</p>
-          <p class="mt-2 font-display-condensed text-3xl font-extrabold leading-tight tracking-tightest text-ink">
-            <span x-cloak x-show="lang==='es'">Favoritos. Sin enredos.</span>
-            <span x-cloak x-show="lang==='en'">Favorites. Without the mess.</span>
-          </p>
-        </div>
-        <div class="col-span-12 md:col-span-7">
-          <div class="overflow-hidden border border-ink/15" style="border-radius: 24px;">
-            <img src={ssBase + 'en/contacts.webp'} x-bind:src={`${JSON.stringify(ssBase)} + lang + '/contacts.webp'`} alt="Fun Phone contacts" :alt="lang === 'es' ? 'Contactos actuales de Fun Phone con datos ficticios' : 'Current Fun Phone contacts with fictional data'" class="block h-auto w-full" loading="lazy" width="720" height="1607" />
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Feature groups -->
-  {groups.map((group) => (
-    <section class="relative border-b border-ink/15 py-16 md:py-24">
-      <div class="container-editorial">
-        <div class="mb-10 mx-auto max-w-3xl text-center">
-            <h2 class="text-balance font-display-condensed text-[2.25rem] font-extrabold leading-[0.95] tracking-tightest text-ink md:text-[3rem]">
-              <span x-cloak x-show="lang==='es'">{group.title.es}</span>
-              <span x-cloak x-show="lang==='en'">{group.title.en}</span>
-            </h2>
-            <p class="mt-3 max-w-xl mx-auto text-pretty text-sm text-ink-muted md:text-base">
-              <span x-cloak x-show="lang==='es'">{group.blurb.es}</span>
-              <span x-cloak x-show="lang==='en'">{group.blurb.en}</span>
-            </p>
-        </div>
-        <div class:list={['grid gap-4', group.items.length === 2 ? 'md:grid-cols-2' : 'md:grid-cols-2 lg:grid-cols-3']}>
-          {group.items.map((item) => (
-            <FeatureBlock
-              title={item.title.es}
-              titleEn={item.title.en}
-              bullets={item.bullets}
-              bulletsEn={item.bulletsEn}
-              variant={item.variant as any}
-            />
-          ))}
-        </div>
-      </div>
-    </section>
-  ))}
-
-  <!-- Screenshot break 02 -->
-  <section class="border-b border-ink/15 py-12 md:py-16">
-    <div class="container-editorial">
-      <div class="grid grid-cols-12 items-end gap-6">
-        <div class="col-span-12 md:col-span-7 order-2 md:order-1">
-          <div class="overflow-hidden border border-ink/15" style="border-radius: 24px;">
-            <img src={ssBase + 'en/tools.webp'} x-bind:src={`${JSON.stringify(ssBase)} + lang + '/tools.webp'`} alt="Fun Phone tools" :alt="lang === 'es' ? 'Herramientas opcionales de Fun Phone' : 'Fun Phone optional tools'" class="block h-auto w-full" loading="lazy" width="720" height="1607" />
-          </div>
-        </div>
-        <div class="col-span-12 md:col-span-5 order-1 md:order-2 md:text-right">
-          <p class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.2em] text-ink-ghost">Fig. 03</p>
-          <p class="mt-2 font-display-condensed text-3xl font-extrabold leading-tight tracking-tightest text-ink">
-            <span x-cloak x-show="lang==='es'">El hub. Quince atajos.</span>
-            <span x-cloak x-show="lang==='en'">The hub. Fifteen shortcuts.</span>
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Comparison -->
-  <section class="border-t border-ink/15 py-20 md:py-28">
-    <div class="container-editorial">
-      <div class="mb-12 mx-auto max-w-4xl text-center">
-          <h2 class="text-balance font-display-condensed text-[2.5rem] font-extrabold leading-[0.96] tracking-tightest text-ink md:text-[4rem]">
-            <span x-cloak x-show="lang==='es'">El marcador de fábrica, </span>
-            <span x-cloak x-show="lang==='en'">The stock dialer, </span>
-            <span class="font-serif-italic text-flame">
-              <span x-cloak x-show="lang==='es'">en números.</span>
-              <span x-cloak x-show="lang==='en'">by the numbers.</span>
-            </span>
-          </h2>
-      </div>
-      <ComparisonTable />
-    </div>
-  </section>
-
-  <!-- Final CTA -->
-  <section class="border-b border-ink/15 py-20 md:py-28">
-    <div class="container-editorial">
-      <div class="mx-auto max-w-3xl text-center">
-        <h2 class="mt-6 text-balance font-display-condensed text-[2.5rem] font-extrabold leading-[0.95] tracking-tightest text-ink md:text-[4rem]">
-          <span x-cloak x-show="lang==='es'">¿Listo para </span>
-          <span x-cloak x-show="lang==='en'">Ready to </span>
-          <span class="font-serif-italic text-flame">
-            <span x-cloak x-show="lang==='es'">probarlo</span>
-            <span x-cloak x-show="lang==='en'">try it</span>
-          </span>
-          <span x-cloak x-show="lang==='es'">?</span>
-          <span x-cloak x-show="lang==='en'">?</span>
+      <div class="max-w-3xl">
+        <p class="eyebrow">
+          <span x-cloak x-show="lang==='es'">Llamadas y contactos</span>
+          <span x-cloak x-show="lang==='en'">Calls and contacts</span>
+        </p>
+        <h2 class="section-title mt-4 text-ink">
+          <span x-cloak x-show="lang==='es'">Lo primero, siempre.</span>
+          <span x-cloak x-show="lang==='en'">Always first.</span>
         </h2>
-        <div class="mt-10 flex flex-wrap justify-center gap-3">
-          <a href={playStoreUrl('features_final_cta')} target="_blank" rel="noopener" class="btn-primary group">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4" fill="currentColor"><path d="M3.609 1.814 13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893 2.302 2.302-10.937 6.333 8.635-8.635z"/></svg>
-            <span x-cloak x-show="lang==='es'">Instalar gratis</span>
-            <span x-cloak x-show="lang==='en'">Install free</span>
-          </a>
-          <a href={base + 'faq/'} class="btn-ghost">
-            <span x-cloak x-show="lang==='es'">Preguntas frecuentes</span>
-            <span x-cloak x-show="lang==='en'">Read the FAQ</span>
-          </a>
+      </div>
+
+      <div class="mt-14 space-y-6">
+        {coreFeatures.map((feature, i) => (
+          <article class:list={['card reveal grid items-center gap-8 overflow-hidden p-7 md:gap-14 md:p-12', i % 2 === 1 ? 'md:grid-cols-[0.8fr_1.2fr]' : 'md:grid-cols-[1.2fr_0.8fr]']}>
+            <div class:list={[i % 2 === 1 && 'md:order-2']}>
+              <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-flame/10 text-flame">
+                <Icon name={feature.icon} class="h-6 w-6" />
+              </span>
+              <h3 class="mt-6 font-display-condensed text-3xl font-extrabold tracking-tight text-ink md:text-4xl">
+                <span x-cloak x-show="lang==='es'">{feature.title.es}</span>
+                <span x-cloak x-show="lang==='en'">{feature.title.en}</span>
+              </h3>
+              <p class="mt-3 max-w-lg text-lg leading-relaxed text-ink-muted">
+                <span x-cloak x-show="lang==='es'">{feature.desc.es}</span>
+                <span x-cloak x-show="lang==='en'">{feature.desc.en}</span>
+              </p>
+              <ul class="mt-7 grid gap-3 sm:grid-cols-2">
+                {coreDetails[feature.id].es.map((point, j) => (
+                  <li class="flex items-start gap-2.5 text-[0.95rem] text-ink">
+                    <Icon name="check" class="mt-0.5 h-4 w-4 shrink-0 text-flame" strokeWidth={2.4} />
+                    <span>
+                      <span x-cloak x-show="lang==='es'">{point}</span>
+                      <span x-cloak x-show="lang==='en'">{coreDetails[feature.id].en[j]}</span>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div class:list={['mx-auto w-full max-w-[280px]', i % 2 === 1 && 'md:order-1']}>
+              <div class="phone-frame">
+                <LocalizedImage
+                  src={`assets/store-v3/ui/{lang}/${feature.screen}.webp`}
+                  alt={{ es: `Pantalla de ${feature.title.es} en Fun Phone`, en: `Fun Phone ${feature.title.en} screen` }}
+                  width={720}
+                  height={1607}
+                />
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Tools -->
+  <section id="tools" class="section scroll-mt-28 border-t border-ink/10 bg-surface/60">
+    <div class="container-editorial">
+      <div class="grid gap-6 lg:grid-cols-2 lg:items-end">
+        <div>
+          <p class="eyebrow">
+            <span x-cloak x-show="lang==='es'">Herramientas opcionales</span>
+            <span x-cloak x-show="lang==='en'">Optional tools</span>
+          </p>
+          <h2 class="section-title mt-4 text-ink">
+            <span x-cloak x-show="lang==='es'">Diez herramientas. Tú decides cuáles.</span>
+            <span x-cloak x-show="lang==='en'">Ten tools. You pick which.</span>
+          </h2>
         </div>
+        <p class="max-w-xl text-pretty text-lg leading-relaxed text-ink-muted lg:justify-self-end">
+          <span x-cloak x-show="lang==='es'">Todas guardan sus datos en el teléfono. Actívalas durante la configuración o más tarde desde Ajustes.</span>
+          <span x-cloak x-show="lang==='en'">All of them keep their data on your phone. Turn them on during setup or later in Settings.</span>
+        </p>
+      </div>
+
+      <div class="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {toolFeatures.map((tool) => (
+          <article id={tool.id} class="card reveal flex scroll-mt-28 flex-col p-7">
+            <div class="flex items-center gap-4">
+              <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-ink text-paper">
+                <Icon name={tool.icon} class="h-5 w-5" />
+              </span>
+              <h3 class="font-display text-xl font-bold text-ink">
+                <span x-cloak x-show="lang==='es'">{tool.title.es}</span>
+                <span x-cloak x-show="lang==='en'">{tool.title.en}</span>
+              </h3>
+            </div>
+            <p class="mt-4 text-[0.95rem] leading-relaxed text-ink-muted">
+              <span x-cloak x-show="lang==='es'">{tool.desc.es}</span>
+              <span x-cloak x-show="lang==='en'">{tool.desc.en}</span>
+            </p>
+            <ul class="mt-5 space-y-2 border-t border-ink/10 pt-5">
+              {toolDetails[tool.id].es.map((point, j) => (
+                <li class="flex items-start gap-2.5 text-sm text-ink">
+                  <Icon name="check" class="mt-0.5 h-4 w-4 shrink-0 text-flame" strokeWidth={2.4} />
+                  <span>
+                    <span x-cloak x-show="lang==='es'">{point}</span>
+                    <span x-cloak x-show="lang==='en'">{toolDetails[tool.id].en[j]}</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))}
+
+        <article class="card reveal flex flex-col justify-between overflow-hidden p-7 md:col-span-2">
+          <div class="grid items-center gap-6 sm:grid-cols-2">
+            <div>
+              <h3 class="font-display text-xl font-bold text-ink">
+                <span x-cloak x-show="lang==='es'">Todas en un solo lugar</span>
+                <span x-cloak x-show="lang==='en'">All in one place</span>
+              </h3>
+              <p class="mt-3 text-[0.95rem] leading-relaxed text-ink-muted">
+                <span x-cloak x-show="lang==='es'">El menú de herramientas reúne lo que activaste, sin instalar otra app para cada tarea.</span>
+                <span x-cloak x-show="lang==='en'">The tools menu gathers what you turned on, without installing another app for each task.</span>
+              </p>
+            </div>
+            <div class="mx-auto h-64 w-full max-w-[240px] overflow-hidden">
+              <div class="phone-frame">
+                <LocalizedImage
+                  src="assets/store-v3/ui/{lang}/tools.webp"
+                  alt={{ es: 'Menú de herramientas de Fun Phone', en: 'Fun Phone tools menu' }}
+                  width={720}
+                  height={1607}
+                />
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Personalization -->
+  <section id="style" class="section scroll-mt-28 border-t border-ink/10">
+    <div class="container-editorial grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+      <div>
+        <p class="eyebrow">
+          <span x-cloak x-show="lang==='es'">Personalización y accesibilidad</span>
+          <span x-cloak x-show="lang==='en'">Personalization and accessibility</span>
+        </p>
+        <h2 class="section-title mt-4 text-ink">
+          <span x-cloak x-show="lang==='es'">{customization.title.es}.</span>
+          <span x-cloak x-show="lang==='en'">{customization.title.en}.</span>
+        </h2>
+        <p class="mt-5 max-w-lg text-pretty text-lg leading-relaxed text-ink-muted">
+          <span x-cloak x-show="lang==='es'">{customization.desc.es} Las vistas compactas y de texto grande se adaptan a cada pantalla.</span>
+          <span x-cloak x-show="lang==='en'">{customization.desc.en} Compact and large-text layouts adapt to every screen.</span>
+        </p>
+        <ul class="mt-8 grid gap-3 sm:grid-cols-2">
+          {customization.points?.es.map((point, i) => (
+            <li class="card flex items-center gap-3 px-4 py-3.5 text-sm font-semibold text-ink">
+              <Icon name="check" class="h-4 w-4 shrink-0 text-flame" strokeWidth={2.4} />
+              <span>
+                <span x-cloak x-show="lang==='es'">{point}</span>
+                <span x-cloak x-show="lang==='en'">{customization.points?.en[i]}</span>
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="grid grid-cols-2 gap-4 sm:gap-6">
+        <div class="phone-frame mt-10">
+          <LocalizedImage
+            src="assets/store-v3/ui/{lang}/settings.webp"
+            alt={{ es: 'Ajustes de Fun Phone en modo claro', en: 'Fun Phone settings in light mode' }}
+            width={720}
+            height={1607}
+          />
+        </div>
+        <div class="phone-frame">
+          <LocalizedImage
+            src="assets/store-v3/ui/{lang}/settings-dark.webp"
+            alt={{ es: 'Ajustes de Fun Phone en modo oscuro', en: 'Fun Phone settings in dark mode' }}
+            width={720}
+            height={1607}
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- More -->
+  <section id="more" class="section scroll-mt-28 border-t border-ink/10 bg-surface/60">
+    <div class="container-editorial">
+      <p class="eyebrow">
+        <span x-cloak x-show="lang==='es'">Y más</span>
+        <span x-cloak x-show="lang==='en'">And more</span>
+      </p>
+      <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {extras.map((extra) => (
+          <div class="card flex items-start gap-4 p-6">
+            <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-flame/10 text-flame">
+              <Icon name={extra.icon} class="h-5 w-5" />
+            </span>
+            <p class="text-[0.95rem] font-semibold leading-snug text-ink">
+              <span x-cloak x-show="lang==='es'">{extra.es}</span>
+              <span x-cloak x-show="lang==='en'">{extra.en}</span>
+            </p>
+          </div>
+        ))}
+      </div>
+      <p class="mt-10 max-w-3xl text-pretty leading-relaxed text-ink-muted">
+        <span x-cloak x-show="lang==='es'">¿Te preocupa la privacidad? Revisa los permisos, las dos conexiones opcionales y cómo se guardan tus datos en la </span>
+        <span x-cloak x-show="lang==='en'">Curious about privacy? See the permissions, the two optional connections and how your data is stored in the </span>
+        <a href={base + 'privacy/'} class="font-semibold text-ink underline underline-offset-4 hover:text-flame">
+          <span x-cloak x-show="lang==='es'">política de privacidad</span>
+          <span x-cloak x-show="lang==='en'">privacy policy</span>
+        </a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="container-editorial pt-20 md:pt-28">
+    <div class="band-dark relative overflow-hidden rounded-[2rem] bg-ink px-7 py-14 text-paper md:px-14 md:py-16">
+      <div class="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-flame/30 blur-3xl" aria-hidden="true"></div>
+      <div class="relative grid gap-8 lg:grid-cols-[1.2fr_1fr] lg:items-center">
+        <h2 class="section-title">
+          <span x-cloak x-show="lang==='es'">¿Listo para probarla?</span>
+          <span x-cloak x-show="lang==='en'">Ready to try it?</span>
+        </h2>
+        <InstallButtons content="features_final_cta" inverted class="lg:justify-end" />
       </div>
     </div>
   </section>

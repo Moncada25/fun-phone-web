@@ -25,7 +25,7 @@ const {
   bodyClass = '',
   noSticky = false,
   noChrome = false,
-  preloadSerifFont = false,
+  preloadSerifFont = true,
 } = Astro.props;
 
 const base = import.meta.env.BASE_URL;
@@ -56,8 +56,8 @@ const heroImg = new URL(
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href={canonicalUrl} />
     <link rel="manifest" href={base + 'site.webmanifest'} />
-    <link rel="icon" type="image/png" href={base + 'assets/logo.png'} />
-    <link rel="apple-touch-icon" href={base + 'assets/logo.png'} />
+    <link rel="icon" type="image/png" sizes="96x96" href={base + 'assets/logo-96.png'} />
+    <link rel="apple-touch-icon" href={base + 'assets/logo-180.png'} />
 
     <link rel="preload" href={displayFont} as="font" type="font/woff2" crossorigin />
     {preloadSerifFont && <link rel="preload" href={titleSerifFont} as="font" type="font/woff2" crossorigin />}

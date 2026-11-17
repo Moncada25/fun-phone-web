@@ -1,52 +1,35 @@
 ---
-const faqs = [
-  { id: 'default-app', qEs: '¿Cómo la configuro como app predeterminada?', qEn: 'How do I set it as my default phone app?', aEs: 'Ve a Ajustes → Apps predeterminadas → Teléfono y selecciona Fun Phone.', aEn: 'Go to Settings → Default apps → Phone and select Fun Phone.' },
-  { id: 'games', qEs: '¿Qué juegos incluye?', qEn: 'What games are included?', aEs: 'Fun Phone incluye 10 minijuegos clásicos: Fun Bird, Snake, Buscaminas, 2048, Puzzle, Tres en raya, Ahorcado, Breakout, Sudoku y Memory. Además un estudio de pintura.', aEn: 'Fun Phone includes 10 classic mini-games: Fun Bird, Snake, Minesweeper, 2048, Puzzle, Tic-Tac-Toe, Hangman, Breakout, Sudoku, and Memory. Plus a Paint Studio.' },
-  { id: 'notes', qEs: '¿Puedo tomar notas durante llamadas?', qEn: 'Can I take notes during calls?', aEs: 'Sí, puedes crear notas rápidas y recordatorios asociados a llamadas desde la Suite de Productividad.', aEn: 'Yes, you can create quick notes and call reminders from the Productivity Suite.' },
-  { id: 'passwords', qEs: '¿Incluye gestor de contraseñas?', qEn: 'Does it include a password manager?', aEs: 'Sí. Usa cifrado local autenticado, almacena todo en el dispositivo y protege el acceso con biometría o PIN.', aEn: 'Yes. It uses authenticated local encryption, stores everything on your device, and protects access with biometrics or PIN.' },
-  { id: 'customization', qEs: '¿Cómo personalizo la app?', qEn: 'How can I customize the app?', aEs: 'En Ajustes → Personalización puedes cambiar temas, colores, fuentes, animaciones y modo oscuro.', aEn: 'Go to Settings → Personalization to change themes, colors, fonts, animations, and dark mode.' },
-  { id: 'ads', qEs: '¿Tiene anuncios?', qEn: 'Does it have ads?', aEs: 'No. Fun Phone no contiene publicidad ni SDKs de anuncios.', aEn: 'No. Fun Phone contains no advertising or ad SDKs.' },
-  { id: 'permissions', qEs: '¿Qué permisos solicita?', qEn: 'What permissions does it request?', aEs: 'Solo los necesarios para llamadas, contactos y funciones opcionales. Puedes revocarlos en Ajustes → Apps → Fun Phone.', aEn: 'Only those needed for calls, contacts, and optional features. Revoke anytime in Settings → Apps → Fun Phone.' },
-  { id: 'export', qEs: '¿Cómo exporto mis contactos?', qEn: 'How do I export my contacts?', aEs: 'Desde Ajustes puedes importar o exportar contactos como JSON/vCard. La sincronización de cuentas la gestiona Android, no una nube de Fun Phone.', aEn: 'Import or export contacts as JSON/vCard from Settings. Android manages account synchronization; Fun Phone operates no cloud.' },
-  { id: 'support', qEs: '¿Cómo contacto soporte?', qEn: 'How do I reach support?', aEs: 'Escribe a santiago.moncada.dev@gmail.com o desde la sección Contacto en la app.', aEn: 'Email santiago.moncada.dev@gmail.com or use the in-app Contact section.' },
-  { id: 'data-sharing', qEs: '¿Fun Phone usa Internet?', qEn: 'Does Fun Phone use the Internet?', aEs: 'Hay dos conexiones directas opcionales: festivos envía país y año a Nager.Date tras tu autorización; el preview social/web carga la red o URL HTTPS que solicitas. El sitio recibe IP, cookies y metadatos bajo su política. No adjuntamos contactos, llamadas ni eventos.', aEn: 'There are two optional direct connections: holidays sends country and year to Nager.Date after approval; the social/web preview loads the network or HTTPS URL you request. The site receives IP, cookies, and request metadata under its policy. We attach no contacts, calls, or events.' },
-  { id: 'dual-sim', qEs: '¿Soporta Dual-SIM?', qEn: 'Does it support Dual-SIM?', aEs: 'Sí, en dispositivos y versiones de Android compatibles. Las capacidades disponibles dependen del fabricante y del operador.', aEn: 'Yes, on compatible devices and Android versions. Available capabilities depend on the manufacturer and carrier.' },
-  { id: 'languages', qEs: '¿Idiomas soportados?', qEn: 'Supported languages?', aEs: 'Español, inglés, portugués, francés y alemán.', aEn: 'Spanish, English, Portuguese, French, and German.' },
-  { id: 'source', qEs: '¿Está publicado el código fuente?', qEn: 'Is the source code public?', aEs: 'Sí. Fun Phone es código abierto bajo GPL-3.0 en github.com/Moncada25/fun-phone. Además de Google Play, cada release de GitHub incluye un APK "community" sin librerías de Google que puedes instalar y mantener actualizado con Obtainium. Se instala junto a la versión de Play y no comparten datos.', aEn: 'Yes. Fun Phone is open source under GPL-3.0 at github.com/Moncada25/fun-phone. Besides Google Play, every GitHub release includes a "community" APK without Google libraries that you can install and keep updated with Obtainium. It installs next to the Play version and they do not share data.' },
-  { id: 'pomodoro', qEs: '¿Tiene Pomodoro?', qEn: 'Is there a Pomodoro?', aEs: 'Sí. Timer configurable 25/5 con sonidos, notificaciones y soporte para segundo plano. Ideal para estudiar o trabajar.', aEn: 'Yes. Configurable 25/5 timer with sounds, notifications and background support. Ideal for study or work sessions.' },
-  { id: 'cloud', qEs: '¿Sincroniza con la nube?', qEn: 'Does it sync to the cloud?', aEs: 'Fun Phone no opera una nube ni una cuenta remota. Los datos se guardan localmente. El backup cloud está desactivado; Android puede transferir datos entre dispositivos mediante su transporte local autorizado.', aEn: 'Fun Phone operates no cloud or remote account. Data is stored locally. Cloud backup is disabled; Android may transfer data between devices using its authorized local transport.' },
-];
+import { faqGroups } from '../data/faq';
 ---
 
-<div class="space-y-3">
-  {faqs.map((faq, i) => (
-    <details
-      class:list={['group relative overflow-hidden border border-ink/15 bg-paper transition-all duration-300 open:border-ink open:shadow-[0_2px_0_0_var(--ink)]']}
-      style="border-radius: 16px;"
-      id={`faq-${faq.id}`}
-    >
-      <summary
-        class="flex cursor-pointer items-center justify-between gap-4 px-5 py-4 text-sm font-semibold text-ink select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-flame focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
-      >
-        <span class="flex items-center gap-4">
-          <span class="font-mono text-[0.65rem] font-bold text-ink">{(i + 1).toString().padStart(2, '0')}</span>
-          <span class="text-pretty">
-            <span x-cloak x-show="lang==='es'">{faq.qEs}</span>
-            <span x-cloak x-show="lang==='en'">{faq.qEn}</span>
-          </span>
-        </span>
-        <span class="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full border border-ink/15 text-ink-muted transition-all duration-300 group-open:rotate-45 group-open:border-flame group-open:bg-flame group-open:text-paper">
-          <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 5v14M5 12h14"/>
-          </svg>
-        </span>
-      </summary>
-      <div class="border-t border-ink/10 px-5 py-4 text-sm leading-relaxed text-ink-muted">
-        <p class="text-pretty">
-          <span x-cloak x-show="lang==='es'">{faq.aEs}</span>
-          <span x-cloak x-show="lang==='en'">{faq.aEn}</span>
-        </p>
+<div class="space-y-14">
+  {faqGroups.map((group) => (
+    <section>
+      <h2 class="font-display-condensed text-2xl font-extrabold tracking-tight text-ink md:text-3xl">
+        <span x-cloak x-show="lang==='es'">{group.title.es}</span>
+        <span x-cloak x-show="lang==='en'">{group.title.en}</span>
+      </h2>
+      <div class="mt-5 space-y-3">
+        {group.items.map((faq) => (
+          <details class="card group overflow-hidden transition-colors open:border-ink/30" id={`faq-${faq.id}`}>
+            <summary class="flex cursor-pointer select-none items-center justify-between gap-4 px-5 py-4 text-[0.98rem] font-semibold text-ink md:px-6 md:py-5">
+              <span class="text-pretty">
+                <span x-cloak x-show="lang==='es'">{faq.q.es}</span>
+                <span x-cloak x-show="lang==='en'">{faq.q.en}</span>
+              </span>
+              <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-ink/15 text-ink-muted transition-transform duration-300 group-open:rotate-45 group-open:border-flame group-open:bg-flame group-open:text-paper">
+                <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+              </span>
+            </summary>
+            <div class="px-5 pb-5 leading-relaxed text-ink-muted md:px-6">
+              <p class="text-pretty">
+                <span x-cloak x-show="lang==='es'">{faq.a.es}</span>
+                <span x-cloak x-show="lang==='en'">{faq.a.en}</span>
+              </p>
+            </div>
+          </details>
+        ))}
       </div>
-    </details>
+    </section>
   ))}
 </div>

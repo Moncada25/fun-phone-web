@@ -1,0 +1,33 @@
+---
+// Renders one image per language and shows the one that matches the page language.
+// Hidden lazy images are not downloaded, so each visitor fetches a single file.
+export interface Props {
+  /** Path with a `{lang}` placeholder, relative to the site base. */
+  src: string;
+  alt: { es: string; en: string };
+  width: number;
+  height: number;
+  class?: string;
+  loading?: 'lazy' | 'eager';
+  fetchpriority?: 'high' | 'low' | 'auto';
+}
+
+const { src, alt, width, height, class: className = '', loading = 'lazy', fetchpriority = 'auto' } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const langs = ['es', 'en'] as const;
+---
+
+{langs.map((lang) => (
+  <img
+    src={base + src.replace('{lang}', lang)}
+    alt={alt[lang]}
+    width={width}
+    height={height}
+    class={className}
+    loading={loading}
+    fetchpriority={fetchpriority}
+    decoding="async"
+    x-cloak
+    x-show={`lang==='${lang}'`}
+  />
+))}

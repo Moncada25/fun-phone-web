@@ -1,6 +1,7 @@
 ---
-import { productFacts } from '../data/site';
+import Icon from './Icon.astro';
 import { playStoreUrl } from '../data/play-store';
+import { sourceRepoUrl } from '../data/site';
 
 const baseUrl = import.meta.env.BASE_URL;
 const path = Astro.url.pathname;
@@ -9,13 +10,19 @@ const isActive = (suffix: string) => {
   if (suffix === '') return cleanPath === '/' || cleanPath === '';
   return cleanPath === `/${suffix}` || cleanPath.startsWith(`/${suffix}/`);
 };
+
+const links = [
+  { suffix: '', es: 'Inicio', en: 'Home' },
+  { suffix: 'features', es: 'Funciones', en: 'Features' },
+  { suffix: 'faq', es: 'Preguntas', en: 'FAQ' },
+  { suffix: 'privacy', es: 'Privacidad', en: 'Privacy' },
+];
 ---
 
 <header
-  class="fixed top-3 left-0 right-0 z-50 transition-all duration-500 sm:top-4"
+  class="fixed left-0 right-0 top-3 z-50 sm:top-4"
   x-data="navbarComponent()"
   x-init="init()"
-  :class="scrolled ? 'translate-y-1' : 'translate-y-0'"
 >
   <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[999] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-paper">
     <span x-cloak x-show="lang==='es'">Saltar al contenido</span><span x-cloak x-show="lang==='en'">Skip to content</span>
@@ -23,143 +30,85 @@ const isActive = (suffix: string) => {
 
   <div class="container-editorial">
     <div
-      class="relative grid grid-cols-[1fr_auto] items-center gap-3 border border-ink/25 bg-paper/75 px-3 py-2.5 shadow-[0_2px_0_0_rgba(10,10,10,0.04)] backdrop-blur-2xl backdrop-saturate-150 transition-all duration-500 sm:gap-6 sm:px-5 md:grid-cols-[1fr_auto_1fr]"
-      :class="scrolled ? 'border-ink/40 bg-paper/85 shadow-[0_8px_24px_-8px_rgba(10,10,10,0.18)]' : 'border-ink/20 bg-paper/70'"
-      style="border-radius: 999px;"
+      class="relative grid grid-cols-[1fr_auto] items-center gap-3 rounded-full border bg-paper/80 py-2 pl-2.5 pr-2 backdrop-blur-xl backdrop-saturate-150 transition-all duration-300 sm:gap-6 md:grid-cols-[1fr_auto_1fr]"
+      :class="scrolled ? 'border-ink/15 shadow-[0_10px_30px_-12px_rgba(10,10,14,0.25)]' : 'border-ink/10'"
     >
-      <!-- LEFT: logo -->
       <a
         href={baseUrl}
-        class="group flex items-center gap-2.5 outline-none"
+        class="flex items-center gap-2.5 rounded-full pr-2"
         aria-label="Inicio de Fun Phone" :aria-label="lang === 'es' ? 'Inicio de Fun Phone' : 'Fun Phone home'"
       >
-        <span class="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-ink text-paper">
-          <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 5.5C3 4.12 4.12 3 5.5 3h2.18c.66 0 1.24.42 1.45 1.04l.74 2.21a1.5 1.5 0 01-.36 1.51l-1.27 1.27a14 14 0 006.18 6.18l1.27-1.27a1.5 1.5 0 011.51-.36l2.21.74A1.5 1.5 0 0121 15.78v2.18A2.5 2.5 0 0118.5 20.5C10 20.5 3.5 14 3.5 5.5z"/>
-          </svg>
-          <span class="absolute inset-0 bg-flame opacity-0 transition-opacity duration-300 group-hover:opacity-100"></span>
-          <svg viewBox="0 0 24 24" class="absolute h-5 w-5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 5.5C3 4.12 4.12 3 5.5 3h2.18c.66 0 1.24.42 1.45 1.04l.74 2.21a1.5 1.5 0 01-.36 1.51l-1.27 1.27a14 14 0 006.18 6.18l1.27-1.27a1.5 1.5 0 011.51-.36l2.21.74A1.5 1.5 0 0121 15.78v2.18A2.5 2.5 0 0118.5 20.5C10 20.5 3.5 14 3.5 5.5z"/>
-          </svg>
-        </span>
-        <div class="flex flex-col leading-none">
-          <span class="font-display text-[0.95rem] font-extrabold tracking-tight">Fun Phone</span>
-          <span class="mt-0.5 hidden font-mono text-[0.6rem] font-medium uppercase tracking-[0.18em] text-ink-ghost sm:block">{productFacts.minimumAndroidLabel}</span>
-        </div>
+        <img src={baseUrl + 'assets/logo-96.png'} width="36" height="36" alt="" class="h-9 w-9 rounded-xl border border-ink/10 bg-white p-1" />
+        <span class="font-display text-[1rem] font-extrabold tracking-tight text-ink">Fun Phone</span>
       </a>
 
-      <!-- CENTER: nav -->
-      <nav class="hidden items-center gap-0.5 md:flex" aria-label="Principal">
-        <a
-          href={baseUrl}
-          class:list={[
-            'group relative flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[0.8rem] font-semibold transition-colors',
-            isActive('') ? 'text-paper' : 'text-ink-muted hover:text-paper'
-          ]}
-        >
-          <span
-            class="absolute inset-0 -z-10 rounded-full bg-ink transition-all duration-300"
-            class:list={[isActive('') ? 'scale-100 opacity-100' : 'scale-90 opacity-0 group-hover:scale-100 group-hover:opacity-100']}
-          ></span>
-          <span x-cloak x-show="lang==='es'">Inicio</span>
-          <span x-cloak x-show="lang==='en'">Home</span>
-        </a>
-        <a
-          href={baseUrl + 'features/'}
-          class:list={[
-            'group relative flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[0.8rem] font-semibold transition-colors',
-            isActive('features') ? 'text-paper' : 'text-ink-muted hover:text-paper'
-          ]}
-        >
-          <span
-            class="absolute inset-0 -z-10 rounded-full bg-ink transition-all duration-300"
-            class:list={[isActive('features') ? 'scale-100 opacity-100' : 'scale-90 opacity-0 group-hover:scale-100 group-hover:opacity-100']}
-          ></span>
-          <span x-cloak x-show="lang==='es'">Funciones</span>
-          <span x-cloak x-show="lang==='en'">Features</span>
-        </a>
-        <a
-          href={baseUrl + 'faq/'}
-          class:list={[
-            'group relative flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[0.8rem] font-semibold transition-colors',
-            isActive('faq') ? 'text-paper' : 'text-ink-muted hover:text-paper'
-          ]}
-        >
-          <span
-            class="absolute inset-0 -z-10 rounded-full bg-ink transition-all duration-300"
-            class:list={[isActive('faq') ? 'scale-100 opacity-100' : 'scale-90 opacity-0 group-hover:scale-100 group-hover:opacity-100']}
-          ></span>
-          FAQ
-        </a>
-        <a
-          href={baseUrl + 'privacy/'}
-          class:list={[
-            'group relative flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[0.8rem] font-semibold transition-colors',
-            isActive('privacy') ? 'text-paper' : 'text-ink-muted hover:text-paper'
-          ]}
-        >
-          <span
-            class="absolute inset-0 -z-10 rounded-full bg-ink transition-all duration-300"
-            class:list={[isActive('privacy') ? 'scale-100 opacity-100' : 'scale-90 opacity-0 group-hover:scale-100 group-hover:opacity-100']}
-          ></span>
-          <span x-cloak x-show="lang==='es'">Privacidad</span>
-          <span x-cloak x-show="lang==='en'">Privacy</span>
-        </a>
+      <nav class="hidden items-center gap-1 md:flex" aria-label="Principal" :aria-label="lang === 'es' ? 'Principal' : 'Main'">
+        {links.map((link) => (
+          <a
+            href={baseUrl + (link.suffix ? `${link.suffix}/` : '')}
+            aria-current={isActive(link.suffix) ? 'page' : undefined}
+            class:list={[
+              'rounded-full px-3.5 py-2 text-[0.85rem] font-semibold transition-colors',
+              isActive(link.suffix) ? 'bg-ink text-paper' : 'text-ink-muted hover:bg-ink/5 hover:text-ink',
+            ]}
+          >
+            <span x-cloak x-show="lang==='es'">{link.es}</span>
+            <span x-cloak x-show="lang==='en'">{link.en}</span>
+          </a>
+        ))}
       </nav>
 
-      <!-- RIGHT: actions -->
-      <div class="col-start-2 flex items-center justify-end gap-1.5 md:col-start-3">
+      <div class="col-start-2 flex items-center justify-end gap-1 md:col-start-3">
+        <a
+          href={sourceRepoUrl}
+          target="_blank"
+          rel="noopener"
+          class="hidden h-10 w-10 items-center justify-center rounded-full text-ink-muted transition-colors hover:bg-ink/5 hover:text-ink sm:flex"
+          aria-label="Código fuente en GitHub" :aria-label="lang === 'es' ? 'Código fuente en GitHub' : 'Source code on GitHub'"
+        >
+          <Icon name="github" class="h-[1.15rem] w-[1.15rem]" />
+        </a>
+
         <button
           type="button"
           x-on:click="toggleLanguage()"
-          class="hidden h-9 items-center gap-1 rounded-full border border-ink/15 px-2.5 font-mono text-[0.7rem] font-bold tracking-wider text-ink-muted transition-colors hover:border-ink/40 hover:text-ink sm:flex"
-          aria-label="Cambiar idioma" :aria-label="lang === 'es' ? 'Cambiar idioma' : 'Change language'"
+          class="hidden h-10 items-center rounded-full px-3 font-mono text-[0.72rem] font-bold tracking-wider text-ink-muted transition-colors hover:bg-ink/5 hover:text-ink sm:flex"
+          aria-label="Cambiar idioma" :aria-label="lang === 'es' ? 'Switch to English' : 'Cambiar a español'"
         >
-          <span x-cloak x-text="(lang || 'es').toUpperCase()"></span>
-          <span class="text-ink-ghost">/</span>
-          <span x-cloak class="text-ink-ghost" x-text="(lang === 'es' ? 'EN' : 'ES')"></span>
+          <span x-cloak x-text="lang === 'es' ? 'EN' : 'ES'">EN</span>
         </button>
 
         <button
           type="button"
           x-on:click="toggleTheme()"
-          class="flex h-9 w-9 items-center justify-center rounded-full border border-ink/15 text-ink-muted transition-all hover:border-ink/40 hover:text-ink"
-          :aria-label="isDark ? 'Modo claro' : 'Modo oscuro'"
+          class="flex h-10 w-10 items-center justify-center rounded-full text-ink-muted transition-colors hover:bg-ink/5 hover:text-ink"
+          aria-label="Cambiar tema" :aria-label="isDark ? (lang === 'es' ? 'Modo claro' : 'Light mode') : (lang === 'es' ? 'Modo oscuro' : 'Dark mode')"
         >
-          <svg x-cloak x-show="!isDark" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
-          </svg>
-          <svg x-cloak x-show="isDark" x-cloak xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="4"/>
-            <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/>
-          </svg>
+          <svg x-cloak x-show="!isDark" class="h-[1.1rem] w-[1.1rem]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+          <svg x-cloak x-show="isDark" class="h-[1.1rem] w-[1.1rem]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/></svg>
         </button>
 
         <a
           href={playStoreUrl('navbar_desktop')}
           target="_blank"
           rel="noopener"
-          class="group hidden h-9 items-center gap-1.5 rounded-full bg-ink pl-3 pr-1.5 text-[0.8rem] font-bold text-paper transition-all hover:-translate-y-0.5 hover:bg-flame sm:flex"
+          class="ml-1 hidden h-10 items-center gap-2 rounded-full bg-ink px-4 text-[0.85rem] font-bold text-paper transition-colors hover:bg-flame sm:flex"
         >
+          <Icon name="play" class="h-4 w-4" />
           <span x-cloak x-show="lang==='es'">Instalar</span>
           <span x-cloak x-show="lang==='en'">Install</span>
-          <span class="flex h-6 w-6 items-center justify-center rounded-full bg-paper text-ink transition-transform group-hover:rotate-[20deg]">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="currentColor">
-              <path d="M5 4l14 8-14 8V4z"/>
-            </svg>
-          </span>
         </a>
 
         <button
           type="button"
           x-on:click="toggleMenu()"
-          class="flex h-9 w-9 items-center justify-center rounded-full border border-ink/15 text-ink-muted transition-colors hover:border-ink/40 hover:text-ink md:hidden"
+          class="flex h-10 w-10 items-center justify-center rounded-full text-ink transition-colors hover:bg-ink/5 md:hidden"
           :aria-expanded="menuOpen.toString()"
           aria-controls="mobile-menu"
           aria-label="Menú" :aria-label="lang === 'es' ? 'Menú' : 'Menu'"
         >
-          <svg x-cloak x-show="!menuOpen" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h12M4 17h16"/></svg>
-          <svg x-cloak x-show="menuOpen" x-cloak class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M6 18L18 6"/></svg>
+          <svg x-show="!menuOpen" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+          <svg x-cloak x-show="menuOpen" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M6 18L18 6"/></svg>
         </button>
       </div>
     </div>
@@ -167,89 +116,48 @@ const isActive = (suffix: string) => {
 
   <!-- Mobile menu -->
   <div
+    id="mobile-menu"
     x-cloak x-show="menuOpen"
-    x-cloak
-    x-transition:enter="transition duration-300 ease-out"
-    x-transition:enter-start="opacity-0"
-    x-transition:enter-end="opacity-100"
-    x-transition:leave="transition duration-200 ease-in"
-    x-transition:leave-start="opacity-100"
-    x-transition:leave-end="opacity-0"
+    x-transition.opacity.duration.200ms
     class="fixed inset-0 z-40 md:hidden"
     @keydown.escape.window="menuOpen && closeMenu()"
   >
-    <div class="absolute inset-0" @click="closeMenu()"></div>
+    <div class="absolute inset-0 bg-ink/20 backdrop-blur-sm" @click="closeMenu()"></div>
     <div
-      class="absolute left-1/2 top-20 w-[min(360px,calc(100vw-1.5rem))] max-h-[calc(100vh-1.5rem)] -translate-x-1/2 overflow-y-auto origin-top border border-ink/15 bg-paper p-5 shadow-2xl"
-      style="border-radius: 24px;"
-      x-transition:enter="transition duration-300 ease-out"
-      x-transition:enter-start="opacity-0 scale-95 -translate-y-2"
-      x-transition:enter-end="opacity-100 scale-100 translate-y-0"
-      x-transition:leave="transition duration-200 ease-in"
-      x-transition:leave-start="opacity-100 scale-100"
-      x-transition:leave-end="opacity-0 scale-95"
+      class="absolute left-1/2 top-[4.75rem] max-h-[calc(100dvh-6rem)] w-[min(420px,calc(100vw-1.5rem))] -translate-x-1/2 overflow-y-auto rounded-3xl border border-ink/10 bg-paper p-3 shadow-2xl"
       @click.stop
     >
-      <div class="border-b border-ink/10 pb-3">
-        <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em] text-ink-ghost">Menú</span>
-      </div>
-      <nav class="mt-4 flex flex-col gap-1">
-        <a
-          href={baseUrl}
-          x-on:click="closeMenu()"
-          class:list={[
-            'flex items-center gap-3 rounded-2xl px-4 py-3 text-base font-bold transition',
-            isActive('') ? 'text-flame' : 'text-ink hover:bg-ink/5'
-          ]}
-        >
-          <span class:list={['h-2 w-2 rounded-full transition', isActive('') ? 'bg-flame' : 'bg-transparent']}></span>
-          <span><span x-cloak x-show="lang==='es'">Inicio</span><span x-cloak x-show="lang==='en'">Home</span></span>
-        </a>
-        <a
-          href={baseUrl + 'features/'}
-          x-on:click="closeMenu()"
-          class:list={[
-            'flex items-center gap-3 rounded-2xl px-4 py-3 text-base font-bold transition',
-            isActive('features') ? 'text-flame' : 'text-ink hover:bg-ink/5'
-          ]}
-        >
-          <span class:list={['h-2 w-2 rounded-full transition', isActive('features') ? 'bg-flame' : 'bg-transparent']}></span>
-          <span><span x-cloak x-show="lang==='es'">Funciones</span><span x-cloak x-show="lang==='en'">Features</span></span>
-        </a>
-        <a
-          href={baseUrl + 'faq/'}
-          x-on:click="closeMenu()"
-          class:list={[
-            'flex items-center gap-3 rounded-2xl px-4 py-3 text-base font-bold transition',
-            isActive('faq') ? 'text-flame' : 'text-ink hover:bg-ink/5'
-          ]}
-        >
-          <span class:list={['h-2 w-2 rounded-full transition', isActive('faq') ? 'bg-flame' : 'bg-transparent']}></span>
-          <span><span x-cloak x-show="lang==='es'">FAQ</span><span x-cloak x-show="lang==='en'">FAQ</span></span>
-        </a>
-        <a
-          href={baseUrl + 'privacy/'}
-          x-on:click="closeMenu()"
-          class:list={[
-            'flex items-center gap-3 rounded-2xl px-4 py-3 text-base font-bold transition',
-            isActive('privacy') ? 'text-flame' : 'text-ink hover:bg-ink/5'
-          ]}
-        >
-          <span class:list={['h-2 w-2 rounded-full transition', isActive('privacy') ? 'bg-flame' : 'bg-transparent']}></span>
-          <span><span x-cloak x-show="lang==='es'">Privacidad</span><span x-cloak x-show="lang==='en'">Privacy</span></span>
+      <nav class="flex flex-col" :aria-label="lang === 'es' ? 'Principal' : 'Main'">
+        {links.map((link) => (
+          <a
+            href={baseUrl + (link.suffix ? `${link.suffix}/` : '')}
+            x-on:click="closeMenu()"
+            aria-current={isActive(link.suffix) ? 'page' : undefined}
+            class:list={[
+              'flex items-center justify-between rounded-2xl px-4 py-3.5 text-base font-bold transition-colors',
+              isActive(link.suffix) ? 'bg-ink/5 text-ink' : 'text-ink hover:bg-ink/5',
+            ]}
+          >
+            <span><span x-cloak x-show="lang==='es'">{link.es}</span><span x-cloak x-show="lang==='en'">{link.en}</span></span>
+            {isActive(link.suffix) && <span class="h-2 w-2 rounded-full bg-flame"></span>}
+          </a>
+        ))}
+        <a href={sourceRepoUrl} target="_blank" rel="noopener" class="flex items-center justify-between rounded-2xl px-4 py-3.5 text-base font-bold text-ink hover:bg-ink/5">
+          <span><span x-cloak x-show="lang==='es'">Código fuente</span><span x-cloak x-show="lang==='en'">Source code</span></span>
+          <Icon name="github" class="h-5 w-5 text-ink-muted" />
         </a>
       </nav>
-      <div class="mt-4 flex gap-2">
-        <button x-on:click="toggleLanguage(); closeMenu();" class="flex-1 rounded-full border border-ink/15 py-2.5 font-mono text-xs font-bold uppercase tracking-wider text-ink-muted">
-          <span x-cloak x-text="lang === 'es' ? 'ES · Español' : 'EN · English'"></span>
+      <div class="mt-2 grid grid-cols-2 gap-2 border-t border-ink/10 pt-3">
+        <button type="button" x-on:click="toggleLanguage()" class="rounded-2xl border border-ink/10 py-3 text-sm font-semibold text-ink">
+          <span x-cloak x-text="lang === 'es' ? 'English' : 'Español'">English</span>
         </button>
-        <button x-on:click="toggleTheme(); closeMenu();" class="flex-1 rounded-full border border-ink/15 py-2.5 font-mono text-xs font-bold uppercase tracking-wider text-ink-muted">
-          <span x-cloak x-text="isDark ? (lang==='es' ? 'Claro' : 'Light') : (lang==='es' ? 'Oscuro' : 'Dark')"></span>
+        <button type="button" x-on:click="toggleTheme()" class="rounded-2xl border border-ink/10 py-3 text-sm font-semibold text-ink">
+          <span x-cloak x-text="isDark ? (lang==='es' ? 'Tema claro' : 'Light theme') : (lang==='es' ? 'Tema oscuro' : 'Dark theme')"></span>
         </button>
       </div>
-      <a href={playStoreUrl('navbar_mobile')} target="_blank" rel="noopener" x-on:click="closeMenu()" class="mt-3 flex items-center justify-center gap-2 rounded-full bg-ink py-3 text-sm font-bold text-paper hover:bg-flame">
-        <span x-cloak x-show="lang==='es'">Instalar gratis</span><span x-cloak x-show="lang==='en'">Install free</span>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="currentColor"><path d="M5 4l14 8-14 8V4z"/></svg>
+      <a href={playStoreUrl('navbar_mobile')} target="_blank" rel="noopener" x-on:click="closeMenu()" class="mt-2 flex items-center justify-center gap-2 rounded-2xl bg-ink py-3.5 text-sm font-bold text-paper hover:bg-flame">
+        <Icon name="play" class="h-4 w-4" />
+        <span x-cloak x-show="lang==='es'">Instalar desde Google Play</span><span x-cloak x-show="lang==='en'">Install from Google Play</span>
       </a>
     </div>
   </div>

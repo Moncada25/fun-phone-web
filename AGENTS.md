@@ -8,7 +8,7 @@
 
 ## Project Structure & Module Organization
 - `src/pages/` holds route-level Astro pages; nested folders (`faq/`, `features/`, `privacy/`) map to trailing-slash routes per `trailingSlash: 'always'`.
-- `src/components/` contains reusable UI blocks such as `Navbar.astro`, `StickyCTA.astro`, and `LanguageToggle.astro`.
+- `src/components/` contains reusable UI blocks such as `Navbar.astro`, `InstallButtons.astro`, and `LocalizedImage.astro`; product copy lives in `src/data/`.
 - `src/styles/global.css` is the single Tailwind entry point: it declares `@import "tailwindcss"`, the `@custom-variant dark` rule, and the `@theme` token block. Add design tokens there before adding ad-hoc CSS.
 - `public/` stores static assets served verbatim (e.g., `public/assets/logo.png`); update images here.
 - `astro.config.mjs` sets the GitHub Pages origin plus `/fun-phone-web/` base. Tailwind is wired through `vite.plugins`; the official sitemap is wired through `integrations`.
@@ -24,7 +24,7 @@
 
 ## Coding Style & Naming Conventions
 - Use two-space indentation in `.astro` markup and embedded scripts; keep attributes single-line unless readability suffers.
-- Name components and pages in PascalCase (`FAQBlock.astro`, `LanguageToggle.astro`); IDs, event handlers, and helper scripts use camelCase.
+- Name components and pages in PascalCase (`FAQBlock.astro`, `InstallButtons.astro`); IDs, event handlers, and helper scripts use camelCase.
 - Favor Tailwind utilities; for project-specific tokens, extend `@theme` in `src/styles/global.css` instead of creating a JS config file.
 
 ## Testing Guidelines

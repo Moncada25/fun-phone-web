@@ -1,108 +1,122 @@
 ---
 import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import InstallButtons from '../components/InstallButtons.astro';
+import LocalizedImage from '../components/LocalizedImage.astro';
 import ScreenshotCarousel from '../components/ScreenshotCarousel.astro';
-import ComparisonTable from '../components/ComparisonTable.astro';
 import { playStoreUrl } from '../data/play-store';
-import { latestReleaseUrl, productFacts, sourceRepoUrl } from '../data/site';
+import { coreFeatures, customization, toolFeatures } from '../data/features';
+import { latestReleaseUrl, obtainiumUrl, productFacts, sourceRepoUrl } from '../data/site';
 
 const base = import.meta.env.BASE_URL;
-const heroBase = base + 'assets/store-v3/ui/';
-const heroImg = heroBase + 'en/favorites.webp';
 const socialImg = base + 'assets/store-v3/en/feature-graphic.jpg';
 
-const stats = [
-  { num: '11+', label: { es: 'Herramientas opcionales', en: 'Optional tools' } },
-  { num: '10', label: { es: 'Minijuegos clásicos', en: 'Classic mini-games' } },
-  { num: 'T9', label: { es: 'Búsqueda rápida', en: 'Fast search' } },
-  { num: productFacts.minimumAndroidLabel, label: { es: 'Compatibilidad', en: 'Compatibility' } },
+const trust = [
+  { es: 'Gratis', en: 'Free' },
+  { es: productFacts.minimumAndroidLabel, en: productFacts.minimumAndroidLabel },
+  { es: 'Sin anuncios ni analítica', en: 'No ads or analytics' },
+  { es: `Código abierto ${productFacts.license}`, en: `Open source ${productFacts.license}` },
 ];
 
-const tools = [
+const facts = [
+  { num: '0', label: { es: 'Anuncios, analítica o rastreadores', en: 'Ads, analytics or trackers' } },
+  { num: '2', label: { es: 'Conexiones de red, ambas opcionales', en: 'Network connections, both optional' } },
+  { num: String(productFacts.supportedAppLanguages), label: { es: 'Idiomas en la app', en: 'App languages' } },
+  { num: String(productFacts.miniGames), label: { es: 'Minijuegos incluidos', en: 'Built-in mini games' } },
+];
+
+const privacyPoints = [
   {
-    num: '01',
-    title: { es: 'Marcador T9', en: 'T9 Dialer' },
-    desc: { es: 'T9, favoritos, Dual-SIM y controles de llamada fiables.', en: 'T9, favorites, Dual-SIM, and reliable call controls.' },
-    color: 'flame',
+    icon: 'device' as const,
+    title: { es: 'Tus datos se quedan en el teléfono', en: 'Your data stays on your phone' },
+    desc: {
+      es: 'Contactos, llamadas, notas, contraseñas y gastos se guardan y procesan en tu dispositivo. El respaldo en la nube está desactivado.',
+      en: 'Contacts, calls, notes, passwords and expenses are stored and processed on your device. Cloud backup is turned off.',
+    },
   },
   {
-    num: '02',
-    title: { es: 'Contactos Pro', en: 'Pro Contacts' },
-    desc: { es: 'QR, importación vCard/JSON, anti-spam.', en: 'QR, vCard/JSON import, anti-spam.' },
-    color: 'ink',
+    icon: 'eyeOff' as const,
+    title: { es: 'Nada que te rastree', en: 'Nothing that tracks you' },
+    desc: {
+      es: 'Sin Firebase, anuncios, analítica, telemetría ni cuenta en la nube. El desarrollador no recibe tus datos.',
+      en: 'No Firebase, ads, analytics, telemetry or cloud account. The developer never receives your data.',
+    },
   },
   {
-    num: '03',
-    title: { es: 'Notas', en: 'Notes' },
-    desc: { es: 'Markdown, checklists, audio y recordatorios.', en: 'Markdown, checklists, audio & reminders.' },
-    color: 'ink',
-  },
-  {
-    num: '04',
-    title: { es: 'Vault', en: 'Vault' },
-    desc: { es: 'Cifrado local, PIN/biometría y generador.', en: 'Local encryption, PIN/biometrics & generator.' },
-    color: 'flame',
-  },
-  {
-    num: '05',
-    title: { es: 'Gastos', en: 'Expenses' },
-    desc: { es: 'Categorías, presupuestos y análisis.', en: 'Categories, budgets & analytics.' },
-    color: 'ink',
-  },
-  {
-    num: '06',
-    title: { es: 'Ciclo', en: 'Cycle' },
-    desc: { es: 'Predicciones y bienestar privado.', en: 'Predictions & private wellness.' },
-    color: 'ink',
-  },
-  {
-    num: '07',
-    title: { es: 'Pomodoro', en: 'Pomodoro' },
-    desc: { es: '25/5, configurable, en segundo plano.', en: '25/5, customizable, runs in background.' },
-    color: 'ink',
-  },
-  {
-    num: '08',
-    title: { es: 'Voz + QR', en: 'Voice + QR' },
-    desc: { es: 'STT, TTS, escáner y generador.', en: 'STT, TTS, scanner & generator.' },
-    color: 'ink',
-  },
-  {
-    num: '09',
-    title: { es: 'Calendario', en: 'Calendar' },
-    desc: { es: 'Eventos locales y recordatorios.', en: 'Local events and reminders.' },
-    color: 'flame',
-  },
-  {
-    num: '10',
-    title: { es: 'Juegos', en: 'Games' },
-    desc: { es: 'Snake, 2048, Sudoku, Memory y más.', en: 'Snake, 2048, Sudoku, Memory & more.' },
-    color: 'ink',
-  },
-  {
-    num: '11',
-    title: { es: 'Pintura', en: 'Paint' },
-    desc: { es: 'Pinceles expresivos, exportar y compartir.', en: 'Expressive brushes, export & share.' },
-    color: 'ink',
+    icon: 'globe' as const,
+    title: { es: 'Red solo cuando tú lo pides', en: 'Network only when you ask' },
+    desc: {
+      es: 'Solo dos funciones opcionales usan internet: los festivos (Nager.Date, tras tu aprobación) y la vista previa web o social que abres.',
+      en: 'Only two optional features go online: public holidays (Nager.Date, after your approval) and the web or social preview you open.',
+    },
   },
 ];
 
-const marqueeItems = [
-  { es: 'Fun Phone', en: 'Fun Phone', accent: true },
-  { es: 'Marcador T9', en: 'T9 dialer' },
-  { es: 'Contactos primero', en: 'Contacts first' },
-  { es: 'Sin anuncios', en: 'Ad-free' },
-  { es: 'Permisos claros', en: 'Clear permissions' },
-  { es: 'Herramientas opcionales', en: 'Optional tools' },
-  { es: 'Cifrado local', en: 'Local encryption' },
-  { es: 'Código abierto', en: 'Open source', accent: true },
-  { es: 'Gratis en Google Play', en: 'Free on Google Play' },
+const installOptions = [
+  {
+    icon: 'play' as const,
+    title: { es: 'Google Play', en: 'Google Play' },
+    tag: { es: 'Recomendado', en: 'Recommended' },
+    desc: {
+      es: 'La forma más sencilla: instalación en un toque y actualizaciones automáticas.',
+      en: 'The easiest way: one-tap install and automatic updates.',
+    },
+    href: playStoreUrl('home_install_options'),
+    cta: { es: 'Abrir Google Play', en: 'Open Google Play' },
+  },
+  {
+    icon: 'github' as const,
+    title: { es: 'APK en GitHub', en: 'APK on GitHub' },
+    tag: { es: 'Sin Google', en: 'Google-free' },
+    desc: {
+      es: 'Cada versión publica un APK firmado de la edición community, compilado sin librerías de Google.',
+      en: 'Every release ships a signed community APK, built without Google libraries.',
+    },
+    href: latestReleaseUrl,
+    cta: { es: 'Ver la última versión', en: 'See the latest release' },
+  },
+  {
+    icon: 'refresh' as const,
+    title: { es: 'Obtainium', en: 'Obtainium' },
+    tag: { es: 'Actualizaciones', en: 'Updates' },
+    desc: {
+      es: 'Añade la URL del repositorio en Obtainium y recibe cada nueva versión de GitHub automáticamente.',
+      en: 'Add the repository URL to Obtainium and get every new GitHub release automatically.',
+    },
+    href: obtainiumUrl,
+    cta: { es: 'Conocer Obtainium', en: 'Get Obtainium' },
+  },
+];
+
+const faqTeaser = [
+  {
+    q: { es: '¿Puede reemplazar mi app de teléfono?', en: 'Can it replace my phone app?' },
+    a: {
+      es: 'Sí. Tras instalarla, abre Estado del dispositivo en la app para conceder permisos y elegir Fun Phone como marcador predeterminado.',
+      en: 'Yes. After installing, open Device Status in the app to grant permissions and choose Fun Phone as your default dialer.',
+    },
+  },
+  {
+    q: { es: '¿Es gratis? ¿Tiene anuncios?', en: 'Is it free? Does it have ads?' },
+    a: {
+      es: 'Es gratis, sin anuncios, sin micropagos y sin SDKs de analítica.',
+      en: 'It is free, with no ads, no in-app purchases and no analytics SDKs.',
+    },
+  },
+  {
+    q: { es: '¿Play o GitHub?', en: 'Play or GitHub?' },
+    a: {
+      es: 'Ofrecen las mismas funciones. Play se actualiza solo; el APK de GitHub no lleva librerías de Google. Pueden convivir, pero no comparten datos.',
+      en: 'They offer the same features. Play updates itself; the GitHub APK has no Google libraries. They can live side by side but do not share data.',
+    },
+  },
 ];
 ---
 
 <Base
   preloadSerifFont
-  title="Fun Phone — The Android Dialer that does more"
-  description="A private, customizable Android dialer and contacts app with T9 search, clear permissions and optional tools."
+  title="Fun Phone — Private, open-source Android dialer and contacts"
+  description="Fun Phone is a private, open-source Android dialer and contacts app with T9 search, an encrypted vault, notes, expenses and games. No ads or analytics. Get it on Google Play or GitHub."
   ogImage={socialImg}
   canonical="https://moncada25.github.io/fun-phone-web/"
 >
@@ -110,439 +124,429 @@ const marqueeItems = [
     "@context": "https://schema.org",
     "@type": "MobileApplication",
     "name": "Fun Phone: Dialer & Contacts",
-    "operatingSystem": "Android",
+    "operatingSystem": "Android 10+",
     "applicationCategory": "CommunicationApplication",
-    "inLanguage": ["es", "en"],
+    "inLanguage": ["es", "en", "pt", "fr", "de"],
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
     "downloadUrl": "https://play.google.com/store/apps/details?id=com.bookverse.contacts",
     "license": "https://www.gnu.org/licenses/gpl-3.0.html",
+    "isAccessibleForFree": true,
+    "codeRepository": sourceRepoUrl,
     "sameAs": [sourceRepoUrl],
     "author": { "@type": "Organization", "name": "Bookverse" },
     "privacyPolicy": "https://moncada25.github.io/fun-phone-web/privacy/"
   })}></script>
 
-  <!-- ======================== -->
-  <!-- HERO MARQUEE -->
-  <!-- ======================== -->
-  <section class="relative border-b border-ink/15 overflow-hidden">
-    <div class="marquee-track py-5">
-      {[0, 1].map(() => (
-        <div class="flex shrink-0 items-center gap-8 pr-8 font-display-condensed text-[1.5rem] font-extrabold uppercase leading-none tracking-tightest md:text-[2rem]">
-          {marqueeItems.map((item) => (
-            <Fragment>
-              <span class:list={[item.accent ? 'text-flame' : 'text-ink']} x-cloak x-show={`lang==='es'`}>{item.es}</span>
-              <span class:list={[item.accent ? 'text-flame' : 'text-ink']} x-cloak x-show={`lang==='en'`}>{item.en}</span>
-              <span class="text-flame">✱</span>
-            </Fragment>
+  <!-- HERO -->
+  <section class="relative overflow-hidden">
+    <div class="hero-glow pointer-events-none absolute inset-0" aria-hidden="true"></div>
+    <div class="container-editorial relative grid items-center gap-14 pb-20 pt-10 md:pt-16 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10 lg:pb-28">
+      <div>
+        <a href={sourceRepoUrl} target="_blank" rel="noopener" class="group inline-flex items-center gap-2 rounded-full border border-ink/15 bg-surface py-1.5 pl-1.5 pr-3.5 text-[0.8rem] font-semibold text-ink transition-colors hover:border-ink/40">
+          <span class="rounded-full bg-flame px-2 py-0.5 font-mono text-[0.62rem] font-bold uppercase tracking-[0.12em] text-paper">
+            <span x-cloak x-show="lang==='es'">Nuevo</span><span x-cloak x-show="lang==='en'">New</span>
+          </span>
+          <span x-cloak x-show="lang==='es'">Ahora es código abierto</span>
+          <span x-cloak x-show="lang==='en'">Now open source</span>
+          <Icon name="arrow" class="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+        </a>
+
+        <h1 class="mt-7 text-balance font-display-condensed text-[2.9rem] font-extrabold leading-[0.95] tracking-tightest text-ink sm:text-[4rem] lg:text-[4.75rem] xl:text-[5.5rem]">
+          <span x-cloak x-show="lang==='es'">El marcador privado </span>
+          <span x-cloak x-show="lang==='en'">The private dialer </span>
+          <span class="font-serif-italic font-normal text-flame">
+            <span x-cloak x-show="lang==='es'">que hace más.</span>
+            <span x-cloak x-show="lang==='en'">that does more.</span>
+          </span>
+        </h1>
+
+        <p class="mt-6 max-w-xl text-pretty text-lg leading-relaxed text-ink-muted md:text-xl">
+          <span x-cloak x-show="lang==='es'">Llamadas y contactos primero. Cuando quieras más, activa notas, una bóveda cifrada, gastos, QR y juegos. Sin anuncios, sin analítica y con el código a la vista.</span>
+          <span x-cloak x-show="lang==='en'">Calls and contacts come first. When you want more, turn on notes, an encrypted vault, expenses, QR tools and games. No ads, no analytics, and the code is out in the open.</span>
+        </p>
+
+        <InstallButtons content="home_hero" class="mt-9" />
+
+        <ul class="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-sm font-medium text-ink-muted">
+          {trust.map((item) => (
+            <li class="inline-flex items-center gap-1.5">
+              <Icon name="check" class="h-4 w-4 text-flame" strokeWidth={2.4} />
+              <span x-cloak x-show="lang==='es'">{item.es}</span>
+              <span x-cloak x-show="lang==='en'">{item.en}</span>
+            </li>
           ))}
-          <span class="font-serif-italic text-flame lowercase">local-first</span>
-          <span class="text-flame">✱</span>
+        </ul>
+      </div>
+
+      <div class="relative mx-auto w-full max-w-[420px] lg:max-w-[460px]">
+        <div class="absolute -right-4 top-10 hidden w-[62%] rotate-6 opacity-90 sm:block lg:-right-10" aria-hidden="true">
+          <div class="phone-frame">
+            <LocalizedImage src="assets/store-v3/ui/{lang}/favorites.webp" alt={{ es: '', en: '' }} width={720} height={1607} fetchpriority="low" />
+          </div>
+        </div>
+        <div class="phone-frame relative mx-auto w-[78%] sm:mx-0 sm:-rotate-2">
+          <LocalizedImage
+            src="assets/store-v3/ui/{lang}/dialer.webp"
+            alt={{ es: 'Marcador de Fun Phone con búsqueda T9 y prefijo del país', en: 'Fun Phone dialer with T9 search and the country code' }}
+            width={720}
+            height={1607}
+            fetchpriority="low"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FACTS -->
+  <section class="border-y border-ink/10 bg-surface">
+    <div class="container-editorial grid grid-cols-2 divide-ink/10 md:grid-cols-4 md:divide-x">
+      {facts.map((fact) => (
+        <div class="px-2 py-8 md:px-8 md:py-10">
+          <p class="font-display-condensed text-5xl font-extrabold leading-none tracking-tighter text-ink md:text-6xl">{fact.num}</p>
+          <p class="mt-2 text-sm font-medium text-ink-muted">
+            <span x-cloak x-show="lang==='es'">{fact.label.es}</span>
+            <span x-cloak x-show="lang==='en'">{fact.label.en}</span>
+          </p>
         </div>
       ))}
     </div>
   </section>
 
-  <!-- ======================== -->
-  <!-- HERO -->
-  <!-- ======================== -->
-  <section class="relative overflow-hidden">
-    <div class="container-editorial relative pb-24 pt-12 md:pb-32 md:pt-20">
-      <!-- Editorial grid -->
-      <div class="grid grid-cols-12 gap-6 md:gap-10">
-        <!-- LEFT META -->
-        <div class="col-span-12 flex flex-col gap-4 md:col-span-3 reveal">
-          <div class="mt-4 flex items-center gap-2">
-            <span class="flex h-2 w-2">
-              <span class="absolute inline-flex h-2 w-2 animate-ping rounded-full bg-flame opacity-75"></span>
-              <span class="relative inline-flex h-2 w-2 rounded-full bg-flame"></span>
-            </span>
-            <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em] text-ink">
-              <span x-cloak x-show="lang==='es'">Gratis en Google Play</span>
-              <span x-cloak x-show="lang==='en'">Free on Google Play</span>
-            </span>
-          </div>
-          <a href={sourceRepoUrl} target="_blank" rel="noopener" class="self-start font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em] text-ink-muted underline-link">
-            <span x-cloak x-show="lang==='es'">Código abierto · {productFacts.license}</span>
-            <span x-cloak x-show="lang==='en'">Open source · {productFacts.license}</span>
-            <span>↗</span>
-          </a>
-        </div>
-
-        <!-- CENTER HEADLINE -->
-        <div class="col-span-12 md:col-span-9">
-          <h1 class="reveal text-balance font-display-condensed text-[3rem] font-extrabold leading-[0.92] tracking-tightest text-ink sm:text-[4.5rem] md:text-[6.5rem] lg:text-[7.5rem]">
-            <span class="block">
-              <span x-cloak x-show="lang==='es'">Tu teléfono,</span>
-              <span x-cloak x-show="lang==='en'">Your phone,</span>
-            </span>
-            <span class="block">
-              <span x-cloak x-show="lang==='es'">a tu </span>
-              <span x-cloak x-show="lang==='en'">your </span>
-              <span class="font-serif-italic text-flame">
-                <span x-cloak x-show="lang==='es'">manera.</span>
-                <span x-cloak x-show="lang==='en'">way.</span>
-              </span>
-            </span>
-            <span class="block">
-              <span x-cloak x-show="lang==='es'">Llamadas y contactos primero.</span>
-              <span x-cloak x-show="lang==='en'">Calls and contacts first.</span>
-            </span>
-          </h1>
-        </div>
-
-        <!-- SUBHEAD + CTA ROW -->
-        <div class="col-span-12 md:col-start-4 md:col-span-9 reveal">
-          <div class="grid gap-8 md:grid-cols-2 md:items-end">
-            <p class="max-w-md text-pretty text-base leading-relaxed text-ink-muted md:text-lg">
-              <span x-cloak x-show="lang==='es'">Marcador T9, favoritos, recientes y contactos con permisos claros. Activa solo las herramientas que quieras y mantén el teléfono enfocado.</span>
-              <span x-cloak x-show="lang==='en'">T9 dialer, favorites, recents and contacts with clear permissions. Enable only the tools you want and keep your phone focused.</span>
-            </p>
-            <div class="flex flex-wrap items-center gap-3">
-              <a href={playStoreUrl('home_hero')} target="_blank" rel="noopener" class="btn-primary group">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4" fill="currentColor">
-                  <path d="M3.609 1.814 13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893 2.302 2.302-10.937 6.333 8.635-8.635zm3.199-1.4 2.545 1.474c.879.51.879 1.69 0 2.2l-2.545 1.474-2.626-2.262 2.626-2.262zM5.864 2.658 16.802 8.99l-2.302 2.302L5.864 2.658z"/>
-                </svg>
-                <span x-cloak x-show="lang==='es'">Instalar gratis</span>
-                <span x-cloak x-show="lang==='en'">Install free</span>
-                <span class="ml-1 flex h-5 w-5 items-center justify-center rounded-full bg-paper/20 font-mono text-[0.6rem]">↗</span>
-              </a>
-              <a href={sourceRepoUrl} target="_blank" rel="noopener" class="font-mono text-xs font-bold uppercase tracking-[0.18em] text-ink-muted underline-link">
-                <span x-cloak x-show="lang==='es'">Ver el código</span>
-                <span x-cloak x-show="lang==='en'">View source</span>
-                <span>↗</span>
-              </a>
-              <a href={base + 'features/'} class="font-mono text-xs font-bold uppercase tracking-[0.18em] text-ink-muted underline-link">
-                <span x-cloak x-show="lang==='es'">Ver funciones</span>
-                <span x-cloak x-show="lang==='en'">See features</span>
-                <span>→</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- HERO IMAGE STAGE -->
-      <div class="mt-16 grid grid-cols-12 gap-6 md:mt-24 md:gap-10">
-        <!-- Caption block -->
-        <div class="col-span-12 flex flex-col justify-end md:col-span-4 reveal">
-          <div class="border-t border-ink/20 pt-4">
-            <p class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.2em] text-ink-ghost">Fig. 01</p>
-            <p class="mt-2 font-display text-base font-bold text-ink">
-              <span x-cloak x-show="lang==='es'">La pantalla de Favoritos, recién salida del estudio.</span>
-              <span x-cloak x-show="lang==='en'">The Favorites screen, fresh from the studio.</span>
-            </p>
-            <p class="mt-1 text-xs text-ink-muted">
-              <span x-cloak x-show="lang==='es'">Atajos a las personas que más importan. Sin pestañas escondidas, sin bloatware.</span>
-              <span x-cloak x-show="lang==='en'">Shortcuts to the people who matter. No hidden tabs, no bloatware.</span>
-            </p>
-          </div>
-
-          <!-- Floating chip -->
-          <div class="mt-8 inline-flex items-center gap-3 self-start border border-ink bg-ink px-4 py-2.5 text-paper" style="border-radius: 999px;">
-            <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em]">{productFacts.minimumAndroidLabel}</span>
-            <span class="h-3 w-px bg-paper/30"></span>
-            <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em]">Play</span>
-            <span class="h-3 w-px bg-paper/30"></span>
-            <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em]">{productFacts.license}</span>
-          </div>
-        </div>
-
-        <!-- Phone stage -->
-        <div class="col-span-12 md:col-span-8 reveal">
-          <div class="relative">
-            <!-- Annotation labels (decorative) -->
-            <div class="absolute -left-2 top-12 hidden -rotate-12 md:block">
-              <span class="font-serif-italic text-2xl text-flame">your people</span>
-              <svg class="ml-12 -mt-2 h-10 w-24" viewBox="0 0 100 40" fill="none">
-                <path d="M5 35 Q 30 5, 90 20" stroke="#FF4D1A" stroke-width="1.5" stroke-linecap="round" fill="none" class="scribble-arrow"/>
-                <path d="M88 16 L 92 21 L 86 23" stroke="#FF4D1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-              </svg>
-            </div>
-
-            <div
-              class="relative mx-auto w-full max-w-[480px] overflow-hidden border border-ink/15 bg-gradient-to-b from-paper-soft to-paper"
-              style="border-radius: 36px; box-shadow: 0 30px 80px -30px rgba(10,10,10,0.4), 0 0 0 1px rgba(10,10,10,0.04);"
-            >
-              <!-- Below the initial mobile viewport; prioritize the heading fonts. -->
-              <img src={heroImg} x-bind:src={`${JSON.stringify(heroBase)} + lang + '/favorites.webp'`} alt="Fun Phone favorites" :alt="lang === 'es' ? 'Favoritos actuales de Fun Phone con contactos ficticios' : 'Current Fun Phone favorites with fictional contacts'" class="block h-auto w-full" loading="lazy" decoding="async" fetchpriority="low" width="720" height="1607" />
-            </div>
-
-            <!-- Bottom labels -->
-            <div class="absolute -right-2 bottom-8 hidden rotate-6 md:block">
-              <span class="font-serif-italic text-xl text-ink">local-first. clearly controlled.</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Decorative ticker line -->
-    <div class="hairline-b border-ink/15"></div>
-  </section>
-
-  <!-- ======================== -->
-  <!-- STATS BAR -->
-  <!-- ======================== -->
-  <section class="border-b border-ink/15 py-10 md:py-14">
+  <!-- CORE -->
+  <section class="section" id="core">
     <div class="container-editorial">
-      <div class="mb-6 flex items-center gap-3">
-        <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.2em] text-ink-ghost">
-          <span x-cloak x-show="lang==='es'">Cifras</span>
-          <span x-cloak x-show="lang==='en'">By the numbers</span>
-        </span>
-        <span class="h-px flex-1 bg-ink/15"></span>
-        <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.2em] text-ink-ghost">2026</span>
+      <div class="max-w-3xl">
+        <p class="eyebrow">
+          <span x-cloak x-show="lang==='es'">Lo esencial</span>
+          <span x-cloak x-show="lang==='en'">The essentials</span>
+        </p>
+        <h2 class="section-title mt-4 text-ink">
+          <span x-cloak x-show="lang==='es'">Un marcador completo que puede reemplazar al de tu teléfono.</span>
+          <span x-cloak x-show="lang==='en'">A complete dialer that can replace the one on your phone.</span>
+        </h2>
       </div>
-      <div class="grid grid-cols-2 gap-px overflow-hidden border border-ink/15 bg-ink/15 md:grid-cols-4" style="border-radius: 20px;">
-        {stats.map((stat, i) => (
-          <div class="group relative flex flex-col gap-2 bg-paper p-6 transition-colors hover:bg-flame md:p-8">
-            <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.2em] text-ink-ghost transition-colors group-hover:text-paper">{(i + 1).toString().padStart(2, '0')}</span>
-            <span class="font-display-condensed text-5xl font-extrabold leading-none tracking-tighter text-ink transition-colors group-hover:text-paper md:text-6xl">{stat.num}</span>
-            <span class="mt-1 text-xs font-semibold text-ink-muted transition-colors group-hover:text-paper">
-              <span x-cloak x-show="lang==='es'">{stat.label.es}</span>
-              <span x-cloak x-show="lang==='en'">{stat.label.en}</span>
-            </span>
-          </div>
+
+      <div class="mt-14 grid gap-5 md:grid-cols-3">
+        {coreFeatures.map((feature) => (
+          <article class="card reveal flex flex-col overflow-hidden">
+            <div class="p-7 pb-0">
+              <span class="flex h-11 w-11 items-center justify-center rounded-2xl bg-flame/10 text-flame">
+                <Icon name={feature.icon} class="h-5 w-5" />
+              </span>
+              <h3 class="mt-5 font-display-condensed text-2xl font-extrabold tracking-tight text-ink">
+                <span x-cloak x-show="lang==='es'">{feature.title.es}</span>
+                <span x-cloak x-show="lang==='en'">{feature.title.en}</span>
+              </h3>
+              <p class="mt-2 text-[0.95rem] leading-relaxed text-ink-muted">
+                <span x-cloak x-show="lang==='es'">{feature.desc.es}</span>
+                <span x-cloak x-show="lang==='en'">{feature.desc.en}</span>
+              </p>
+              <ul class="mt-5 space-y-2 text-sm text-ink">
+                {feature.points?.es.map((point, i) => (
+                  <li class="flex items-start gap-2">
+                    <Icon name="check" class="mt-0.5 h-4 w-4 shrink-0 text-flame" strokeWidth={2.4} />
+                    <span>
+                      <span x-cloak x-show="lang==='es'">{point}</span>
+                      <span x-cloak x-show="lang==='en'">{feature.points?.en[i]}</span>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div class="relative mt-8 h-72 overflow-hidden px-10 md:h-80">
+              <div class="phone-frame mx-auto max-w-[260px] rounded-b-none pb-0">
+                <LocalizedImage
+                  src={`assets/store-v3/ui/{lang}/${feature.screen}.webp`}
+                  alt={{ es: `Pantalla de ${feature.title.es} en Fun Phone`, en: `Fun Phone ${feature.title.en} screen` }}
+                  width={720}
+                  height={1607}
+                  class="rounded-b-none"
+                />
+              </div>
+            </div>
+          </article>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- ======================== -->
-  <!-- MANIFESTO QUOTE -->
-  <!-- ======================== -->
-  <section class="relative py-20 md:py-32">
+  <!-- TOOLS -->
+  <section class="section border-t border-ink/10 bg-surface/60" id="tools">
     <div class="container-editorial">
-      <div class="mx-auto max-w-5xl text-center reveal">
-        <p class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em] text-flame">
-          <span x-cloak x-show="lang==='es'">Manifiesto</span>
-          <span x-cloak x-show="lang==='en'">Manifesto</span>
-        </p>
-        <blockquote class="mt-8 text-balance font-display-condensed text-[2.5rem] font-extrabold leading-[0.96] tracking-tightest text-ink md:text-[4rem] lg:text-[5rem]">
-          <span x-cloak x-show="lang==='es'">Una app de teléfono </span>
-          <span x-cloak x-show="lang==='en'">A phone app </span>
-          <span class="font-serif-italic text-flame">
-            <span x-cloak x-show="lang==='es'">enfocada</span>
-            <span x-cloak x-show="lang==='en'">focused</span>
-          </span>
-          <span x-cloak x-show="lang==='es'"> en las personas,</span>
-          <span x-cloak x-show="lang==='en'"> on people,</span>
-          <br />
-          <span x-cloak x-show="lang==='es'">que respeta tu batería </span>
-          <span x-cloak x-show="lang==='en'">that respects your battery </span>
-          <span class="font-serif-italic text-ink">
-            <span x-cloak x-show="lang==='es'">y tu tiempo.</span>
-            <span x-cloak x-show="lang==='en'">and your time.</span>
-          </span>
-        </blockquote>
-        <div class="mt-10 flex items-center justify-center gap-3 font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em] text-ink-ghost">
-          <span class="h-px w-12 bg-ink/30"></span>
-          <span>
-            <span>— Fun Phone · Bookverse</span>
-          </span>
-          <span class="h-px w-12 bg-ink/30"></span>
+      <div class="grid gap-6 lg:grid-cols-[1fr_1fr] lg:items-end">
+        <div>
+          <p class="eyebrow">
+            <span x-cloak x-show="lang==='es'">Herramientas opcionales</span>
+            <span x-cloak x-show="lang==='en'">Optional tools</span>
+          </p>
+          <h2 class="section-title mt-4 text-ink">
+            <span x-cloak x-show="lang==='es'">Todo lo demás, solo si lo activas.</span>
+            <span x-cloak x-show="lang==='en'">Everything else, only if you turn it on.</span>
+          </h2>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ======================== -->
-  <!-- TOOLS GRID -->
-  <!-- ======================== -->
-  <section class="relative border-y border-ink/15 bg-paper-soft/40 py-20 md:py-28">
-    <div class="container-editorial">
-      <div class="mb-12 mx-auto max-w-4xl text-center">
-        <h2 class="text-balance font-display-condensed text-[2.5rem] font-extrabold leading-[0.96] tracking-tightest text-ink md:text-[3.5rem] lg:text-[4.5rem]">
-          <span x-cloak x-show="lang==='es'">Herramientas cuando </span>
-          <span x-cloak x-show="lang==='en'">Tools when </span>
-          <span class="font-serif-italic text-flame">
-            <span x-cloak x-show="lang==='es'">tú las eliges.</span>
-            <span x-cloak x-show="lang==='en'">you choose them.</span>
-          </span>
-        </h2>
-        <p class="mt-4 max-w-2xl mx-auto text-pretty text-base text-ink-muted">
-          <span x-cloak x-show="lang==='es'">Todo lo esencial para llamar, organizar, jugar y crear — sin cambiar de app cada cinco minutos.</span>
-          <span x-cloak x-show="lang==='en'">Everything you need to call, organize, play and create — without bouncing between five different apps.</span>
+        <p class="max-w-xl text-pretty text-lg leading-relaxed text-ink-muted lg:justify-self-end">
+          <span x-cloak x-show="lang==='es'">Elige un preset al empezar o enciende cada herramienta por separado. Lo que no uses no aparece, y el marcador sigue siendo lo primero.</span>
+          <span x-cloak x-show="lang==='en'">Pick a preset when you start or switch each tool on by itself. What you don't use stays out of sight, and the dialer always comes first.</span>
         </p>
       </div>
 
-      <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {tools.map((tool) => (
-          <article
-            class:list={[
-              'group relative flex flex-col gap-4 border bg-paper p-6 transition-all duration-500 hover:-translate-y-1',
-              tool.color === 'flame' ? 'border-ink hover:border-flame' : 'border-ink/15 hover:border-ink',
-            ]}
-            style="border-radius: 18px;"
-          >
-            <header class="flex items-center justify-between">
-              <span class:list={['font-mono text-[0.7rem] font-bold uppercase tracking-[0.2em]', tool.color === 'flame' ? 'text-flame' : 'text-ink-ghost']}>{tool.num}</span>
-              <span class:list={['flex h-7 w-7 items-center justify-center rounded-full transition-all duration-500 group-hover:rotate-45', tool.color === 'flame' ? 'bg-flame text-paper' : 'bg-ink/5 text-ink group-hover:bg-ink group-hover:text-paper']}>
-                <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M5 12h14M13 5l7 7-7 7"/>
-                </svg>
-              </span>
-            </header>
+      <div class="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+        {toolFeatures.map((tool) => (
+          <article class="card reveal flex items-start gap-4 p-5 transition-colors hover:border-ink/30 sm:flex-col sm:gap-3 sm:p-6">
+            <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-ink text-paper">
+              <Icon name={tool.icon} class="h-[1.15rem] w-[1.15rem]" />
+            </span>
             <div>
-              <h3 class="font-display-condensed text-2xl font-extrabold leading-tight tracking-tightest text-ink">
-                <span x-cloak x-show="lang==='es'">{tool.title.es}</span>
-                <span x-cloak x-show="lang==='en'">{tool.title.en}</span>
-              </h3>
-              <p class="mt-2 text-sm leading-relaxed text-ink-muted">
-                <span x-cloak x-show="lang==='es'">{tool.desc.es}</span>
-                <span x-cloak x-show="lang==='en'">{tool.desc.en}</span>
-              </p>
+            <h3 class="font-display text-lg font-bold leading-tight text-ink sm:mt-1">
+              <span x-cloak x-show="lang==='es'">{tool.title.es}</span>
+              <span x-cloak x-show="lang==='en'">{tool.title.en}</span>
+            </h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-ink-muted sm:mt-3">
+              <span x-cloak x-show="lang==='es'">{tool.desc.es}</span>
+              <span x-cloak x-show="lang==='en'">{tool.desc.en}</span>
+            </p>
             </div>
-            <div class:list={['mt-auto h-px transition-all duration-500 group-hover:w-full', tool.color === 'flame' ? 'w-12 bg-flame' : 'w-12 bg-ink/20 group-hover:bg-ink']}></div>
           </article>
         ))}
       </div>
 
-      <div class="mt-12 text-center">
-        <a href={base + 'features/'} class="inline-flex items-center gap-2 border-b-2 border-ink pb-1 font-display text-base font-bold text-ink transition-colors hover:border-flame hover:text-flame">
-          <span x-cloak x-show="lang==='es'">Ver el índice completo</span>
-          <span x-cloak x-show="lang==='en'">See the full index</span>
-          <span>→</span>
+      <div class="mt-10">
+        <a href={base + 'features/'} class="group inline-flex items-center gap-2 font-semibold text-ink underline-offset-4 hover:text-flame hover:underline">
+          <span x-cloak x-show="lang==='es'">Ver todas las funciones</span>
+          <span x-cloak x-show="lang==='en'">See every feature</span>
+          <Icon name="arrow" class="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
         </a>
       </div>
     </div>
   </section>
 
-  <!-- ======================== -->
-  <!-- SCREENSHOTS -->
-  <!-- ======================== -->
-  <section class="relative py-20 md:py-32">
+  <!-- CUSTOMIZATION -->
+  <section class="section" id="style">
+    <div class="container-editorial grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+      <div class="order-2 lg:order-1">
+        <div class="mx-auto max-w-[400px] overflow-hidden rounded-[2rem] border border-ink/10 shadow-[0_40px_80px_-40px_rgba(10,10,14,0.45)]">
+          <LocalizedImage
+            src="assets/store-v3/{lang}/08-styles.webp"
+            alt={{ es: 'Tres estilos de Fun Phone: Moderno, Minimalista y Retro', en: 'Three Fun Phone styles: Modern, Minimalist and Retro' }}
+            width={1080}
+            height={1920}
+            class="block h-auto w-full"
+          />
+        </div>
+      </div>
+      <div class="order-1 lg:order-2">
+        <p class="eyebrow">
+          <span x-cloak x-show="lang==='es'">Personalización</span>
+          <span x-cloak x-show="lang==='en'">Personalization</span>
+        </p>
+        <h2 class="section-title mt-4 text-ink">
+          <span x-cloak x-show="lang==='es'">{customization.title.es}.</span>
+          <span x-cloak x-show="lang==='en'">{customization.title.en}.</span>
+        </h2>
+        <p class="mt-5 max-w-lg text-pretty text-lg leading-relaxed text-ink-muted">
+          <span x-cloak x-show="lang==='es'">{customization.desc.es}</span>
+          <span x-cloak x-show="lang==='en'">{customization.desc.en}</span>
+        </p>
+        <ul class="mt-8 grid gap-3 sm:grid-cols-2">
+          {customization.points?.es.map((point, i) => (
+            <li class="card flex items-center gap-3 px-4 py-3.5 text-sm font-semibold text-ink">
+              <Icon name="check" class="h-4 w-4 shrink-0 text-flame" strokeWidth={2.4} />
+              <span>
+                <span x-cloak x-show="lang==='es'">{point}</span>
+                <span x-cloak x-show="lang==='en'">{customization.points?.en[i]}</span>
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="section border-t border-ink/10" id="gallery">
     <div class="container-editorial">
       <ScreenshotCarousel />
     </div>
   </section>
 
-  <!-- ======================== -->
-  <!-- COMPARISON -->
-  <!-- ======================== -->
-  <section class="relative border-y border-ink/15 py-20 md:py-28">
+  <!-- PRIVACY -->
+  <section class="section band-dark bg-ink text-paper" id="privacy">
     <div class="container-editorial">
-      <div class="mb-12 mx-auto max-w-4xl text-center">
-        <h2 class="text-balance font-display-condensed text-[2.5rem] font-extrabold leading-[0.96] tracking-tightest text-ink md:text-[3.5rem] lg:text-[4.5rem]">
-          <span x-cloak x-show="lang==='es'">Tu marcador </span>
-          <span x-cloak x-show="lang==='en'">Your stock dialer </span>
-          <span class="font-serif-italic text-flame">
-            <span x-cloak x-show="lang==='es'">solo marca.</span>
-            <span x-cloak x-show="lang==='en'">just dials.</span>
-          </span>
-          <br />
-          <span x-cloak x-show="lang==='es'">Fun Phone </span>
-          <span x-cloak x-show="lang==='en'">Fun Phone </span>
-          <span class="font-serif-italic text-ink">
-            <span x-cloak x-show="lang==='es'">hace mucho más.</span>
-            <span x-cloak x-show="lang==='en'">does so much more.</span>
-          </span>
-        </h2>
-      </div>
-
-      <ComparisonTable />
-    </div>
-  </section>
-
-  <!-- ======================== -->
-  <!-- BENEFITS / TRIO -->
-  <!-- ======================== -->
-  <section class="relative py-20 md:py-32">
-    <div class="container-editorial">
-      <div class="grid gap-3 md:grid-cols-3">
-        <article class="group relative flex flex-col gap-4 border border-ink/15 bg-paper p-7 transition-all duration-500 hover:-translate-y-1 hover:border-ink" style="border-radius: 22px;">
-          <div class="flex items-center justify-between">
-            <span class="flex h-10 w-10 items-center justify-center rounded-full border border-flame text-flame transition-transform duration-500 group-hover:rotate-[20deg]">
-              <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 11V7a3 3 0 116 0v4M5 11h14v10H5z"/></svg>
-            </span>
-          </div>
-          <h3 class="font-display-condensed text-2xl font-extrabold leading-tight tracking-tightest text-ink">
-            <span x-cloak x-show="lang==='es'">Privacidad real</span>
-            <span x-cloak x-show="lang==='en'">Real privacy</span>
-          </h3>
-          <p class="text-sm leading-relaxed text-ink-muted">
-            <span x-cloak x-show="lang==='es'">Tus datos principales se guardan localmente. Sin anuncios, analítica ni nube del desarrollador; red opcional para festivos y el preview social/web que solicites.</span>
-            <span x-cloak x-show="lang==='en'">Your core data is stored locally. No ads, analytics, or developer cloud; optional network access for holidays and social/web previews you request.</span>
+      <div class="grid gap-6 lg:grid-cols-2 lg:items-end">
+        <div>
+          <p class="eyebrow">
+            <span x-cloak x-show="lang==='es'">Privacidad</span>
+            <span x-cloak x-show="lang==='en'">Privacy</span>
           </p>
-        </article>
-
-        <article class="group relative flex flex-col gap-4 border border-ink bg-ink p-7 text-paper transition-all duration-500 hover:-translate-y-1 hover:bg-flame hover:border-flame" style="border-radius: 22px;">
-          <div class="flex items-center justify-end">
-            <span class="flex h-10 w-10 items-center justify-center rounded-full border border-flame text-flame transition-transform duration-500 group-hover:rotate-[20deg] group-hover:border-paper group-hover:text-paper">
-              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .5C5.4.5 0 5.9 0 12.5c0 5.3 3.4 9.8 8.2 11.4.6.1.8-.3.8-.6v-2.1c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.9 1.3 1.9 1.3 1.1 1.9 2.9 1.4 3.6 1 .1-.8.4-1.4.8-1.7-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2 1-.3 2-.4 3-.4s2 .1 3 .4c2.3-1.6 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.7-5.5 6 .4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.8-1.6 8.2-6.1 8.2-11.4C24 5.9 18.6.5 12 .5z"/></svg>
-            </span>
-          </div>
-          <h3 class="font-display-condensed text-2xl font-extrabold leading-tight tracking-tightest">
-            <span x-cloak x-show="lang==='es'">Código abierto</span>
-            <span x-cloak x-show="lang==='en'">Open source</span>
-          </h3>
-          <p class="text-sm leading-relaxed text-paper/75 group-hover:text-paper">
-            <span x-cloak x-show="lang==='es'">Código GPL-3.0 en GitHub: revisa qué hace cada permiso o instala el APK sin librerías de Google con Obtainium.</span>
-            <span x-cloak x-show="lang==='en'">GPL-3.0 code on GitHub: check what every permission does, or install the APK without Google libraries through Obtainium.</span>
-          </p>
-          <a href={sourceRepoUrl} target="_blank" rel="noopener" class="mt-auto self-start font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em] text-paper underline-link">
-            <span x-cloak x-show="lang==='es'">Ver en GitHub</span>
-            <span x-cloak x-show="lang==='en'">View on GitHub</span>
-            <span>↗</span>
-          </a>
-        </article>
-
-        <article class="group relative flex flex-col gap-4 border border-ink/15 bg-paper p-7 transition-all duration-500 hover:-translate-y-1 hover:border-ink" style="border-radius: 22px;">
-          <div class="flex items-center justify-end">
-            <span class="flex h-10 w-10 items-center justify-center rounded-full border border-flame text-flame transition-transform duration-500 group-hover:rotate-[20deg]">
-              <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16.862 3.487a2.25 2.25 0 113.182 3.182L7.5 19.213l-4.5 1.5 1.5-4.5 12.362-12.726z"/></svg>
-            </span>
-          </div>
-          <h3 class="font-display-condensed text-2xl font-extrabold leading-tight tracking-tightest text-ink">
-            <span x-cloak x-show="lang==='es'">A tu medida</span>
-            <span x-cloak x-show="lang==='en'">Made for you</span>
-          </h3>
-          <p class="text-sm leading-relaxed text-ink-muted">
-            <span x-cloak x-show="lang==='es'">Personaliza temas, colores, fuentes, animaciones y widgets. Modo claro y oscuro. Bilingüe ES/EN.</span>
-            <span x-cloak x-show="lang==='en'">Customize themes, colors, fonts, animations & widgets. Light and dark mode. Bilingual ES/EN.</span>
-          </p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ======================== -->
-  <!-- FINAL CTA -->
-  <!-- ======================== -->
-  <section class="relative overflow-hidden border-t border-ink/15 bg-flame py-24 text-paper md:py-32">
-    <div class="container-editorial relative">
-      <div class="grid grid-cols-12 gap-6">
-        <div class="col-span-12 md:col-span-8">
-          <h2 class="text-balance font-display-condensed text-[3rem] font-extrabold leading-[0.92] tracking-tightest md:text-[5rem] lg:text-[6.5rem]">
-            <span x-cloak x-show="lang==='es'">Instala. Audita. </span>
-            <span x-cloak x-show="lang==='en'">Install. Audit. </span>
-            <span class="font-serif-italic">
-              <span x-cloak x-show="lang==='es'">Listo.</span>
-              <span x-cloak x-show="lang==='en'">Done.</span>
-            </span>
+          <h2 class="section-title mt-4">
+            <span x-cloak x-show="lang==='es'">Privada por diseño, no por promesa.</span>
+            <span x-cloak x-show="lang==='en'">Private by design, not by promise.</span>
           </h2>
         </div>
-        <div class="col-span-12 flex flex-col justify-end gap-5 md:col-span-4">
-          <p class="text-pretty text-base leading-relaxed text-paper md:text-lg">
-            <span x-cloak x-show="lang==='es'">Menos de cinco minutos para tener Fun Phone funcionando como app de teléfono predeterminada, con todos tus contactos a salvo.</span>
-            <span x-cloak x-show="lang==='en'">Less than five minutes to set Fun Phone as your default dialer, with every contact kept safe and local.</span>
-          </p>
-          <div class="flex flex-wrap items-center gap-3">
-            <a href={playStoreUrl('home_final_cta')} target="_blank" rel="noopener" class="group inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm font-bold text-paper transition-transform hover:-translate-y-0.5">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4" fill="currentColor"><path d="M3.609 1.814 13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893 2.302 2.302-10.937 6.333 8.635-8.635z"/></svg>
-              <span x-cloak x-show="lang==='es'">Google Play</span>
-              <span x-cloak x-show="lang==='en'">Google Play</span>
-            </a>
-            <a href={latestReleaseUrl} target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full border border-paper/30 px-6 py-3.5 text-sm font-bold text-paper transition hover:bg-paper/10">
-              <span x-cloak x-show="lang==='es'">APK en GitHub</span>
-              <span x-cloak x-show="lang==='en'">APK on GitHub</span>
-            </a>
-            <a href={base + 'privacy/'} class="inline-flex items-center gap-2 rounded-full border border-paper/30 px-6 py-3.5 text-sm font-bold text-paper transition hover:bg-paper/10">
-              <span x-cloak x-show="lang==='es'">Política de privacidad</span>
-              <span x-cloak x-show="lang==='en'">Privacy policy</span>
-            </a>
+        <p class="max-w-xl text-pretty text-lg leading-relaxed text-paper/70 lg:justify-self-end">
+          <span x-cloak x-show="lang==='es'">El código es público, así que puedes comprobar qué hace cada permiso y cada conexión.</span>
+          <span x-cloak x-show="lang==='en'">The code is public, so you can check what every permission and every connection does.</span>
+        </p>
+      </div>
+      <div class="mt-14 grid gap-4 md:grid-cols-3">
+        {privacyPoints.map((point) => (
+          <article class="reveal rounded-3xl border border-paper/15 p-7">
+            <span class="flex h-11 w-11 items-center justify-center rounded-2xl bg-paper/10 text-flame">
+              <Icon name={point.icon} class="h-5 w-5" />
+            </span>
+            <h3 class="mt-5 font-display text-xl font-bold leading-snug">
+              <span x-cloak x-show="lang==='es'">{point.title.es}</span>
+              <span x-cloak x-show="lang==='en'">{point.title.en}</span>
+            </h3>
+            <p class="mt-3 text-[0.95rem] leading-relaxed text-paper/70">
+              <span x-cloak x-show="lang==='es'">{point.desc.es}</span>
+              <span x-cloak x-show="lang==='en'">{point.desc.en}</span>
+            </p>
+          </article>
+        ))}
+      </div>
+      <div class="mt-10 flex flex-wrap gap-x-8 gap-y-3 text-sm font-semibold">
+        <a href={base + 'privacy/'} class="group inline-flex items-center gap-2 text-paper hover:text-flame">
+          <span x-cloak x-show="lang==='es'">Leer la política de privacidad</span>
+          <span x-cloak x-show="lang==='en'">Read the privacy policy</span>
+          <Icon name="arrow" class="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+        </a>
+        <a href={sourceRepoUrl} target="_blank" rel="noopener" class="group inline-flex items-center gap-2 text-paper hover:text-flame">
+          <span x-cloak x-show="lang==='es'">Revisar el código</span>
+          <span x-cloak x-show="lang==='en'">Review the code</span>
+          <Icon name="external" class="h-4 w-4" />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- OPEN SOURCE / INSTALL OPTIONS -->
+  <section class="section" id="install">
+    <div class="container-editorial">
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="eyebrow">
+          <span x-cloak x-show="lang==='es'">Código abierto · {productFacts.license}</span>
+          <span x-cloak x-show="lang==='en'">Open source · {productFacts.license}</span>
+        </p>
+        <h2 class="section-title mt-4 text-ink">
+          <span x-cloak x-show="lang==='es'">Instálala como prefieras.</span>
+          <span x-cloak x-show="lang==='en'">Install it your way.</span>
+        </h2>
+        <p class="mx-auto mt-5 max-w-2xl text-pretty text-lg leading-relaxed text-ink-muted">
+          <span x-cloak x-show="lang==='es'">Fun Phone es software libre. Descárgala de Google Play o instala el APK de GitHub y mantenlo al día con Obtainium.</span>
+          <span x-cloak x-show="lang==='en'">Fun Phone is free software. Get it from Google Play, or install the GitHub APK and keep it up to date with Obtainium.</span>
+        </p>
+      </div>
+
+      <div class="mt-14 grid gap-5 md:grid-cols-3">
+        {installOptions.map((option, i) => (
+          <a
+            href={option.href}
+            target="_blank"
+            rel="noopener"
+            class:list={['card group reveal flex flex-col p-7 transition-all hover:-translate-y-1 hover:border-ink/40', i === 0 && 'ring-2 ring-flame/60']}
+          >
+            <div class="flex items-center justify-between">
+              <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-ink text-paper">
+                <Icon name={option.icon} class="h-6 w-6" />
+              </span>
+              <span class:list={['rounded-full px-2.5 py-1 font-mono text-[0.62rem] font-bold uppercase tracking-[0.12em]', i === 0 ? 'bg-flame text-paper' : 'bg-ink/5 text-ink-muted']}>
+                <span x-cloak x-show="lang==='es'">{option.tag.es}</span>
+                <span x-cloak x-show="lang==='en'">{option.tag.en}</span>
+              </span>
+            </div>
+            <h3 class="mt-6 font-display-condensed text-2xl font-extrabold tracking-tight text-ink">
+              <span x-cloak x-show="lang==='es'">{option.title.es}</span>
+              <span x-cloak x-show="lang==='en'">{option.title.en}</span>
+            </h3>
+            <p class="mt-2 flex-1 text-[0.95rem] leading-relaxed text-ink-muted">
+              <span x-cloak x-show="lang==='es'">{option.desc.es}</span>
+              <span x-cloak x-show="lang==='en'">{option.desc.en}</span>
+            </p>
+            <span class="mt-6 inline-flex items-center gap-2 text-sm font-bold text-ink group-hover:text-flame">
+              <span x-cloak x-show="lang==='es'">{option.cta.es}</span>
+              <span x-cloak x-show="lang==='en'">{option.cta.en}</span>
+              <Icon name="external" class="h-4 w-4" />
+            </span>
+          </a>
+        ))}
+      </div>
+
+      <div class="card mt-5 flex flex-col items-start gap-5 p-7 md:flex-row md:items-center md:justify-between">
+        <div class="flex items-start gap-4">
+          <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-flame/10 text-flame">
+            <Icon name="code" class="h-6 w-6" />
+          </span>
+          <div>
+            <h3 class="font-display text-lg font-bold text-ink">
+              <span x-cloak x-show="lang==='es'">¿Quieres ayudar?</span>
+              <span x-cloak x-show="lang==='en'">Want to help?</span>
+            </h3>
+            <p class="mt-1 max-w-2xl text-[0.95rem] leading-relaxed text-ink-muted">
+              <span x-cloak x-show="lang==='es'">Reporta errores, propone ideas o envía un pull request. Kotlin, Jetpack Compose y Material 3.</span>
+              <span x-cloak x-show="lang==='en'">Report bugs, suggest ideas or send a pull request. Kotlin, Jetpack Compose and Material 3.</span>
+            </p>
           </div>
         </div>
+        <a href={sourceRepoUrl} target="_blank" rel="noopener" class="btn-outline shrink-0">
+          <Icon name="github" class="h-5 w-5" />
+          <span class="font-bold">
+            <span x-cloak x-show="lang==='es'">Ver en GitHub</span>
+            <span x-cloak x-show="lang==='en'">View on GitHub</span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ TEASER -->
+  <section class="section border-t border-ink/10 bg-surface/60" id="faq">
+    <div class="container-editorial grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+      <div>
+        <p class="eyebrow">FAQ</p>
+        <h2 class="section-title mt-4 text-ink">
+          <span x-cloak x-show="lang==='es'">Preguntas rápidas.</span>
+          <span x-cloak x-show="lang==='en'">Quick answers.</span>
+        </h2>
+        <a href={base + 'faq/'} class="group mt-8 inline-flex items-center gap-2 font-semibold text-ink hover:text-flame">
+          <span x-cloak x-show="lang==='es'">Todas las preguntas</span>
+          <span x-cloak x-show="lang==='en'">All questions</span>
+          <Icon name="arrow" class="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+        </a>
+      </div>
+      <div class="divide-y divide-ink/10 border-y border-ink/10">
+        {faqTeaser.map((item) => (
+          <div class="py-6">
+            <h3 class="font-display text-lg font-bold text-ink">
+              <span x-cloak x-show="lang==='es'">{item.q.es}</span>
+              <span x-cloak x-show="lang==='en'">{item.q.en}</span>
+            </h3>
+            <p class="mt-2 leading-relaxed text-ink-muted">
+              <span x-cloak x-show="lang==='es'">{item.a.es}</span>
+              <span x-cloak x-show="lang==='en'">{item.a.en}</span>
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="container-editorial pb-6 pt-20 md:pt-28">
+    <div class="band-dark relative overflow-hidden rounded-[2rem] bg-ink px-7 py-14 text-paper md:px-14 md:py-20">
+      <div class="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-flame/30 blur-3xl" aria-hidden="true"></div>
+      <div class="relative grid gap-10 lg:grid-cols-[1.2fr_1fr] lg:items-end">
+        <div>
+          <h2 class="section-title">
+            <span x-cloak x-show="lang==='es'">Prueba Fun Phone hoy.</span>
+            <span x-cloak x-show="lang==='en'">Try Fun Phone today.</span>
+          </h2>
+          <p class="mt-5 max-w-xl text-pretty text-lg leading-relaxed text-paper/70">
+            <span x-cloak x-show="lang==='es'">Gratis, sin anuncios y en cinco idiomas: español, inglés, portugués, francés y alemán. Para {productFacts.minimumAndroidLabel}.</span>
+            <span x-cloak x-show="lang==='en'">Free, ad-free and in five languages: English, Spanish, Portuguese, French and German. For {productFacts.minimumAndroidLabel}.</span>
+          </p>
+        </div>
+        <InstallButtons content="home_final_cta" inverted class="lg:justify-end" />
       </div>
     </div>
   </section>

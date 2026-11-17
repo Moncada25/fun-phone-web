@@ -1,6 +1,16 @@
 ---
+import Icon from './Icon.astro';
 import { playStoreUrl } from '../data/play-store';
-import { productFacts, sourceRepoUrl } from '../data/site';
+import {
+  discussionsUrl,
+  issuesUrl,
+  latestReleaseUrl,
+  licenseUrl,
+  obtainiumUrl,
+  productFacts,
+  sourceRepoUrl,
+  supportEmail,
+} from '../data/site';
 
 const baseUrl = import.meta.env.BASE_URL;
 const year = new Date().getFullYear();
@@ -24,162 +34,103 @@ const sections: FooterSection[] = [
     items: [
       { es: 'Funciones', en: 'Features', href: baseUrl + 'features/' },
       { es: 'Preguntas frecuentes', en: 'FAQ', href: baseUrl + 'faq/' },
-    ]
+      { es: 'Privacidad', en: 'Privacy', href: baseUrl + 'privacy/' },
+    ],
   },
   {
-    title: { es: 'Legal', en: 'Legal' },
+    title: { es: 'Descargar', en: 'Download' },
     items: [
-      { es: 'Privacidad', en: 'Privacy', href: baseUrl + 'privacy/' },
       { es: 'Google Play', en: 'Google Play', href: playStoreUrl('footer_link'), external: true },
-      { es: 'Código fuente (GPL-3.0)', en: 'Source code (GPL-3.0)', href: sourceRepoUrl, external: true },
-    ]
+      { es: 'APK en GitHub', en: 'APK on GitHub', href: latestReleaseUrl, external: true },
+      { es: 'Obtainium', en: 'Obtainium', href: obtainiumUrl, external: true },
+    ],
+  },
+  {
+    title: { es: 'Código abierto', en: 'Open source' },
+    items: [
+      { es: 'Código fuente', en: 'Source code', href: sourceRepoUrl, external: true },
+      { es: 'Reportar un error', en: 'Report a bug', href: issuesUrl, external: true },
+      { es: 'Discusiones', en: 'Discussions', href: discussionsUrl, external: true },
+      { es: `Licencia ${productFacts.license}`, en: `${productFacts.license} license`, href: licenseUrl, external: true },
+    ],
   },
   {
     title: { es: 'Contacto', en: 'Contact' },
     items: [
-      { es: 'santiago.moncada.dev@gmail.com', en: 'santiago.moncada.dev@gmail.com', href: 'mailto:santiago.moncada.dev@gmail.com', mono: true },
+      { es: supportEmail, en: supportEmail, href: `mailto:${supportEmail}`, mono: true },
       { es: 'Medellín, Colombia', en: 'Medellín, Colombia', href: null },
-    ]
-  }
+    ],
+  },
 ];
 ---
 
-<footer class="relative mt-24 border-t border-ink/15 bg-paper">
-  <!-- Top marquee -->
-  <div class="overflow-hidden border-b border-ink/15 py-6">
-    <div class="marquee-track">
-      {Array.from({ length: 8 }).map(() => (
-        <div class="flex shrink-0 items-center gap-8 pr-8 font-display text-[2.5rem] font-extrabold leading-none tracking-tighter md:text-[4rem]">
-          <span class="text-ink">Fun Phone</span>
-          <span class="text-flame">★</span>
-          <span class="font-serif-italic text-flame">local-first</span>
-          <span class="text-ink">·</span>
-          <span class="text-ink">permisos claros</span>
-          <span class="text-flame">★</span>
-          <span class="font-serif-italic text-ink">zero ads</span>
-          <span class="text-ink">·</span>
-          <span class="text-ink">cero BS</span>
-          <span class="text-flame">★</span>
-        </div>
-      ))}
-    </div>
-  </div>
-
+<footer class="relative mt-20 border-t border-ink/10 bg-surface/60">
   <div class="container-editorial py-16 md:py-20">
-    <!-- Masthead row -->
-      <div class="grid gap-12 border-b border-ink/15 pb-12 lg:grid-cols-[1.5fr_1fr]">
-        <div>
-          <p class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.18em] text-ink-ghost">
-            <span x-cloak x-show="lang==='es'">Fun Phone · The Codeword</span>
-            <span x-cloak x-show="lang==='en'">Fun Phone · The Codeword</span>
-          </p>
-          <h2 class="mt-4 max-w-xl text-balance font-display-condensed text-[2.5rem] font-extrabold leading-[0.92] tracking-tightest md:text-[3.5rem]">
-            <span class="text-ink">
-              <span x-cloak x-show="lang==='es'">Una app de teléfono </span>
-              <span x-cloak x-show="lang==='en'">A phone app </span>
+    <div class="grid gap-12 lg:grid-cols-[1.1fr_2fr]">
+      <div>
+        <a href={baseUrl} class="inline-flex items-center gap-3">
+          <img src={baseUrl + 'assets/logo-96.png'} width="44" height="44" alt="" class="h-11 w-11 rounded-2xl border border-ink/10 bg-white p-1.5" loading="lazy" />
+          <span class="font-display text-xl font-extrabold tracking-tight text-ink">Fun Phone</span>
+        </a>
+        <p class="mt-5 max-w-sm text-pretty text-sm leading-relaxed text-ink-muted">
+          <span x-cloak x-show="lang==='es'">Marcador y contactos privados para Android, con herramientas opcionales. Sin anuncios, sin analítica y de código abierto.</span>
+          <span x-cloak x-show="lang==='en'">A private dialer and contacts app for Android, with optional tools. No ads, no analytics, and open source.</span>
+        </p>
+        <a href={playStoreUrl('footer_cta')} target="_blank" rel="noopener" class="btn-store mt-7">
+          <Icon name="play" class="h-5 w-5 shrink-0" />
+          <span class="flex flex-col text-left">
+            <span class="text-[0.65rem] font-medium opacity-80">
+              <span x-cloak x-show="lang==='es'">Disponible en</span>
+              <span x-cloak x-show="lang==='en'">Get it on</span>
             </span>
-            <span class="font-serif-italic text-flame">
-              <span x-cloak x-show="lang==='es'">hecha a mano</span>
-              <span x-cloak x-show="lang==='en'">hand-crafted</span>
-            </span>
-            <span class="text-ink">.</span>
-          </h2>
-          <p class="mt-6 max-w-md text-pretty text-sm text-ink-muted md:text-base">
-            <span x-cloak x-show="lang==='es'">Construida en Medellín · Sin anuncios, analítica ni nube del desarrollador. Red opcional para festivos y el preview social/web solicitado.</span>
-            <span x-cloak x-show="lang==='en'">Built in Medellín · No ads, analytics, or developer cloud. Optional network access for holidays and user-requested social/web previews.</span>
-          </p>
-          <div class="mt-8 flex flex-wrap items-center gap-3">
-            <a href={playStoreUrl('footer_cta')} target="_blank" rel="noopener" class="btn-primary group">
-              <span x-cloak x-show="lang==='es'">Instalar en Google Play</span>
-              <span x-cloak x-show="lang==='en'">Get it on Google Play</span>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="currentColor"><path d="M5 4l14 8-14 8V4z"/></svg>
-            </a>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-6 self-end">
-          <div class="border-l border-ink/15 pl-5">
-            <p class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em] text-ink-ghost">Android</p>
-            <p class="mt-1 font-display-condensed text-3xl font-extrabold tracking-tighter text-ink">2026</p>
-            <p class="mt-1 text-xs text-ink-ghost">
-              <span x-cloak x-show="lang==='es'">Última edición</span>
-              <span x-cloak x-show="lang==='en'">Latest edition</span>
-            </p>
-          </div>
-          <div class="border-l border-ink/15 pl-5">
-            <p class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em] text-ink-ghost">
-              <span x-cloak x-show="lang==='es'">Datos</span>
-              <span x-cloak x-show="lang==='en'">Data</span>
-            </p>
-            <p class="mt-1 font-display-condensed text-3xl font-extrabold tracking-tighter text-flame">Local</p>
-            <p class="mt-1 text-xs text-ink-ghost">
-              <span x-cloak x-show="lang==='es'">Datos principales</span>
-              <span x-cloak x-show="lang==='en'">Core data</span>
-            </p>
-          </div>
-        </div>
+            <span class="text-base font-bold tracking-tight">Google Play</span>
+          </span>
+        </a>
       </div>
 
-    <!-- Columns -->
-    <div class="grid gap-10 py-12 sm:grid-cols-2 md:grid-cols-4">
-      {sections.map((col) => (
-        <div>
-          <h3 class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.18em] text-ink-ghost">
-            <span x-cloak x-show={`lang==='es'`}>{col.title.es}</span>
-            <span x-cloak x-show={`lang==='en'`}>{col.title.en}</span>
-          </h3>
-          <ul class="mt-5 space-y-3">
-            {col.items.map((item) => (
-              <li>
-                <a
-                  href={item.href}
-                  target={item.external ? '_blank' : undefined}
-                  rel={item.external ? 'noopener' : undefined}
-                  class:list={[
-                    'group inline-flex items-center gap-1.5 transition-colors hover:text-flame',
-                    item.mono ? 'font-mono text-xs text-ink-muted' : 'text-sm font-semibold text-ink'
-                  ]}
-                >
-                  <span x-cloak x-show={`lang==='es'`}>{item.es}</span>
-                  <span x-cloak x-show={`lang==='en'`}>{item.en}</span>
-                  {item.external && (
-                    <svg class="h-3 w-3 opacity-50 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M7 17L17 7M7 7h10v10"/>
-                    </svg>
+      <div class="grid grid-cols-2 gap-10 md:grid-cols-[1fr_1fr_1fr_1.5fr]">
+        {sections.map((col, i) => (
+          <div class:list={[i === sections.length - 1 && 'col-span-2 md:col-span-1']}>
+            <h2 class="font-mono text-[0.68rem] font-bold uppercase tracking-[0.16em] text-ink-ghost">
+              <span x-cloak x-show={`lang==='es'`}>{col.title.es}</span>
+              <span x-cloak x-show={`lang==='en'`}>{col.title.en}</span>
+            </h2>
+            <ul class="mt-5 space-y-3">
+              {col.items.map((item) => (
+                <li>
+                  {item.href ? (
+                    <a
+                      href={item.href}
+                      target={item.external ? '_blank' : undefined}
+                      rel={item.external ? 'noopener' : undefined}
+                      class:list={[
+                        'group inline-flex items-center gap-1.5 [overflow-wrap:anywhere] transition-colors hover:text-flame',
+                        item.mono ? 'font-mono text-xs text-ink-muted' : 'text-sm font-semibold text-ink',
+                      ]}
+                    >
+                      <span x-cloak x-show={`lang==='es'`}>{item.es}</span>
+                      <span x-cloak x-show={`lang==='en'`}>{item.en}</span>
+                      {item.external && <Icon name="external" class="h-3 w-3 shrink-0 opacity-50" strokeWidth={2} />}
+                    </a>
+                  ) : (
+                    <span class="text-sm text-ink-muted">
+                      <span x-cloak x-show={`lang==='es'`}>{item.es}</span>
+                      <span x-cloak x-show={`lang==='en'`}>{item.en}</span>
+                    </span>
                   )}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
-
-      <!-- Logo column -->
-      <div>
-        <h3 class="font-mono text-[0.7rem] font-bold uppercase tracking-[0.18em] text-ink-ghost">
-          <span x-cloak x-show="lang==='es'">Edición</span>
-          <span x-cloak x-show="lang==='en'">Edition</span>
-        </h3>
-        <div class="mt-5 flex items-start gap-3">
-          <div class="relative flex h-14 w-14 shrink-0 items-center justify-center border border-ink">
-            <img src={baseUrl + 'assets/logo.png'} width={40} height={40} alt="Fun Phone" class="h-10 w-10 object-contain" loading="lazy" />
+                </li>
+              ))}
+            </ul>
           </div>
-          <div>
-            <p class="font-display text-sm font-extrabold text-ink">Fun Phone</p>
-            <p class="mt-0.5 font-mono text-[0.65rem] uppercase tracking-wider text-ink-ghost">{productFacts.minimumAndroidLabel}</p>
-          </div>
-        </div>
-        <p class="mt-4 text-xs text-ink-muted">
-          <span x-cloak x-show="lang==='es'">Por Bookverse · Colombia</span>
-          <span x-cloak x-show="lang==='en'">By Bookverse · Colombia</span>
-        </p>
+        ))}
       </div>
     </div>
 
-    <!-- Bottom -->
-    <div class="flex flex-col items-center justify-center gap-2 border-t border-ink/15 pt-8 text-center">
-      <p class="font-mono text-[0.7rem] uppercase tracking-[0.16em] text-ink-ghost">
-        © {year} Fun Phone · Bookverse
+    <div class="mt-14 flex flex-col gap-3 border-t border-ink/10 pt-8 text-xs text-ink-ghost md:flex-row md:items-center md:justify-between">
+      <p>© {year} Bookverse · Fun Phone</p>
+      <p>
+        <span x-cloak x-show="lang==='es'">App bajo licencia {productFacts.license}. Google Play es una marca de Google LLC.</span>
+        <span x-cloak x-show="lang==='en'">App licensed under {productFacts.license}. Google Play is a trademark of Google LLC.</span>
       </p>
     </div>
   </div>
