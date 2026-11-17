@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import ScreenshotCarousel from '../components/ScreenshotCarousel.astro';
 import ComparisonTable from '../components/ComparisonTable.astro';
 import { playStoreUrl } from '../data/play-store';
-import { productFacts } from '../data/site';
+import { latestReleaseUrl, productFacts, sourceRepoUrl } from '../data/site';
 
 const base = import.meta.env.BASE_URL;
 const heroBase = base + 'assets/store-v2/ui/';
@@ -94,6 +94,7 @@ const marqueeItems = [
   { es: 'Permisos claros', en: 'Clear permissions' },
   { es: 'Herramientas opcionales', en: 'Optional tools' },
   { es: 'Cifrado local', en: 'Local encryption' },
+  { es: 'Código abierto', en: 'Open source', accent: true },
   { es: 'Gratis en Google Play', en: 'Free on Google Play' },
 ];
 ---
@@ -114,6 +115,8 @@ const marqueeItems = [
     "inLanguage": ["es", "en"],
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
     "downloadUrl": "https://play.google.com/store/apps/details?id=com.bookverse.contacts",
+    "license": "https://www.gnu.org/licenses/gpl-3.0.html",
+    "sameAs": [sourceRepoUrl],
     "author": { "@type": "Organization", "name": "Bookverse" },
     "privacyPolicy": "https://moncada25.github.io/fun-phone-web/privacy/"
   })}></script>
@@ -158,6 +161,11 @@ const marqueeItems = [
               <span x-cloak x-show="lang==='en'">Free on Google Play</span>
             </span>
           </div>
+          <a href={sourceRepoUrl} target="_blank" rel="noopener" class="self-start font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em] text-ink-muted underline-link">
+            <span x-cloak x-show="lang==='es'">Código abierto · {productFacts.license}</span>
+            <span x-cloak x-show="lang==='en'">Open source · {productFacts.license}</span>
+            <span>↗</span>
+          </a>
         </div>
 
         <!-- CENTER HEADLINE -->
@@ -198,6 +206,11 @@ const marqueeItems = [
                 <span x-cloak x-show="lang==='en'">Install free</span>
                 <span class="ml-1 flex h-5 w-5 items-center justify-center rounded-full bg-paper/20 font-mono text-[0.6rem]">↗</span>
               </a>
+              <a href={sourceRepoUrl} target="_blank" rel="noopener" class="font-mono text-xs font-bold uppercase tracking-[0.18em] text-ink-muted underline-link">
+                <span x-cloak x-show="lang==='es'">Ver el código</span>
+                <span x-cloak x-show="lang==='en'">View source</span>
+                <span>↗</span>
+              </a>
               <a href={base + 'features/'} class="font-mono text-xs font-bold uppercase tracking-[0.18em] text-ink-muted underline-link">
                 <span x-cloak x-show="lang==='es'">Ver funciones</span>
                 <span x-cloak x-show="lang==='en'">See features</span>
@@ -229,6 +242,8 @@ const marqueeItems = [
             <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em]">{productFacts.minimumAndroidLabel}</span>
             <span class="h-3 w-px bg-paper/30"></span>
             <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em]">Play</span>
+            <span class="h-3 w-px bg-paper/30"></span>
+            <span class="font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em]">{productFacts.license}</span>
           </div>
         </div>
 
@@ -458,13 +473,18 @@ const marqueeItems = [
             </span>
           </div>
           <h3 class="font-display-condensed text-2xl font-extrabold leading-tight tracking-tightest">
-            <span x-cloak x-show="lang==='es'">Permisos claros</span>
-            <span x-cloak x-show="lang==='en'">Clear permissions</span>
+            <span x-cloak x-show="lang==='es'">Código abierto</span>
+            <span x-cloak x-show="lang==='en'">Open source</span>
           </h3>
           <p class="text-sm leading-relaxed text-paper/75 group-hover:text-paper">
-            <span x-cloak x-show="lang==='es'">Estado del teléfono explica qué falta, por qué importa y cómo resolverlo sin pedir permisos en bloque.</span>
-            <span x-cloak x-show="lang==='en'">Phone Status explains what is missing, why it matters and how to fix it without blanket permission requests.</span>
+            <span x-cloak x-show="lang==='es'">Código GPL-3.0 en GitHub: revisa qué hace cada permiso o instala el APK sin librerías de Google con Obtainium.</span>
+            <span x-cloak x-show="lang==='en'">GPL-3.0 code on GitHub: check what every permission does, or install the APK without Google libraries through Obtainium.</span>
           </p>
+          <a href={sourceRepoUrl} target="_blank" rel="noopener" class="mt-auto self-start font-mono text-[0.65rem] font-bold uppercase tracking-[0.18em] text-paper underline-link">
+            <span x-cloak x-show="lang==='es'">Ver en GitHub</span>
+            <span x-cloak x-show="lang==='en'">View on GitHub</span>
+            <span>↗</span>
+          </a>
         </article>
 
         <article class="group relative flex flex-col gap-4 border border-ink/15 bg-paper p-7 transition-all duration-500 hover:-translate-y-1 hover:border-ink" style="border-radius: 22px;">
@@ -512,6 +532,10 @@ const marqueeItems = [
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4" fill="currentColor"><path d="M3.609 1.814 13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893 2.302 2.302-10.937 6.333 8.635-8.635z"/></svg>
               <span x-cloak x-show="lang==='es'">Google Play</span>
               <span x-cloak x-show="lang==='en'">Google Play</span>
+            </a>
+            <a href={latestReleaseUrl} target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full border border-paper/30 px-6 py-3.5 text-sm font-bold text-paper transition hover:bg-paper/10">
+              <span x-cloak x-show="lang==='es'">APK en GitHub</span>
+              <span x-cloak x-show="lang==='en'">APK on GitHub</span>
             </a>
             <a href={base + 'privacy/'} class="inline-flex items-center gap-2 rounded-full border border-paper/30 px-6 py-3.5 text-sm font-bold text-paper transition hover:bg-paper/10">
               <span x-cloak x-show="lang==='es'">Política de privacidad</span>
