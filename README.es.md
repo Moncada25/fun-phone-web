@@ -15,6 +15,7 @@
 
 <p align="center">
   <a href="https://github.com/Moncada25/fun-phone-web/actions/workflows/deploy.yml"><img src="https://github.com/Moncada25/fun-phone-web/actions/workflows/deploy.yml/badge.svg" alt="Despliegue en GitHub Pages"></a>
+  <a href="https://github.com/Moncada25/fun-phone-web/actions/workflows/pr-checks.yml"><img src="https://github.com/Moncada25/fun-phone-web/actions/workflows/pr-checks.yml/badge.svg" alt="Comprobaciones de PR"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/licencia-GPL--3.0-blue" alt="Licencia: GPL-3.0"></a>
   <img src="https://img.shields.io/badge/Astro-7-BC52EE?logo=astro&logoColor=white" alt="Astro 7">
   <img src="https://img.shields.io/badge/Tailwind%20CSS-4-38B2AC?logo=tailwindcss&logoColor=white" alt="Tailwind CSS 4">
@@ -80,8 +81,8 @@ Qué hace el sitio:
 - **Funciona sin conexión.** Un service worker de Workbox guarda las páginas y las imágenes, así
   que puedes instalar el sitio como PWA. Los videos del promo no se guardan y solo se descargan
   cuando pulsas reproducir.
-- **Rápido y accesible.** El CI bloquea el despliegue si una página baja de 90 en rendimiento o
-  buenas prácticas de Lighthouse, o de 95 en accesibilidad o SEO. También lo bloquea si una página
+- **Rápido y accesible.** El CI rechaza el pull request o detiene el despliegue si una página baja de 90 en rendimiento o
+  buenas prácticas de Lighthouse, o de 95 en accesibilidad o SEO. Hace lo mismo si una página
   pasa de los presupuestos de Web Vitals: LCP 2,5 s, CLS 0,1 y TBT 200 ms.
 - **Textos honestos.** Cada afirmación coincide con el repositorio de la app (README, ficha de
   Play y política de privacidad), y todas las capturas usan datos ficticios.
@@ -139,12 +140,15 @@ fun-phone-web/
 └── docs/media/       # imágenes de este README
 ```
 
-## Despliegue
+## CI y despliegue
 
-Cada push a `main` ejecuta [`deploy.yml`](.github/workflows/deploy.yml): `npm audit`,
-`astro check`, el build y las comprobaciones de discovery, PWA y Lighthouse. Si todo pasa, el
-workflow publica el sitio en GitHub Pages. Ejecuta los mismos comandos en local antes de abrir un
-pull request.
+| Workflow | Cuándo | Qué hace |
+| --- | --- | --- |
+| [`pr-checks.yml`](.github/workflows/pr-checks.yml) (`validate`) | Pull requests a `main` | `npm audit`, `astro check`, el build y las comprobaciones de discovery, PWA y Lighthouse. |
+| [`deploy.yml`](.github/workflows/deploy.yml) | Pushes a `main` | Las mismas comprobaciones y después publica el sitio en GitHub Pages. |
+
+Si falla Lighthouse, los dos workflows suben sus informes como artefacto. Ejecuta los mismos
+comandos en local antes de abrir un pull request.
 
 ## Contribuir
 

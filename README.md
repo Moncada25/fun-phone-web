@@ -15,6 +15,7 @@
 
 <p align="center">
   <a href="https://github.com/Moncada25/fun-phone-web/actions/workflows/deploy.yml"><img src="https://github.com/Moncada25/fun-phone-web/actions/workflows/deploy.yml/badge.svg" alt="Deploy to GitHub Pages"></a>
+  <a href="https://github.com/Moncada25/fun-phone-web/actions/workflows/pr-checks.yml"><img src="https://github.com/Moncada25/fun-phone-web/actions/workflows/pr-checks.yml/badge.svg" alt="PR checks"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-GPL--3.0-blue" alt="License: GPL-3.0"></a>
   <img src="https://img.shields.io/badge/Astro-7-BC52EE?logo=astro&logoColor=white" alt="Astro 7">
   <img src="https://img.shields.io/badge/Tailwind%20CSS-4-38B2AC?logo=tailwindcss&logoColor=white" alt="Tailwind CSS 4">
@@ -78,8 +79,8 @@ What the site does:
 - **Light and dark.** It follows the system theme, and you can switch it by hand.
 - **Works offline.** A Workbox service worker precaches the pages and images, so you can install
   the site as a PWA. The promo videos are not precached and download only when you press play.
-- **Fast and accessible.** CI blocks the deploy if a page scores below 90 in Lighthouse
-  performance or best practices, or below 95 in accessibility or SEO. It also blocks it if a page
+- **Fast and accessible.** CI fails the pull request or stops the deploy if a page scores below 90 in Lighthouse
+  performance or best practices, or below 95 in accessibility or SEO. It does the same if a page
   goes over the Web Vitals budgets: LCP 2.5 s, CLS 0.1 and TBT 200 ms.
 - **Honest copy.** Every claim matches the app repository (README, Play listing and privacy
   policy), and every screenshot uses fictional demo data.
@@ -136,11 +137,15 @@ fun-phone-web/
 └── docs/media/       # images for this README
 ```
 
-## Deployment
+## CI and deployment
 
-Every push to `main` runs [`deploy.yml`](.github/workflows/deploy.yml): `npm audit`, `astro check`,
-the build, and the discovery, PWA and Lighthouse checks. When they all pass, the workflow
-publishes the site to GitHub Pages. Run the same commands locally before you open a pull request.
+| Workflow | Trigger | What it does |
+| --- | --- | --- |
+| [`pr-checks.yml`](.github/workflows/pr-checks.yml) (`validate`) | Pull requests to `main` | `npm audit`, `astro check`, the build, and the discovery, PWA and Lighthouse checks. |
+| [`deploy.yml`](.github/workflows/deploy.yml) | Pushes to `main` | The same checks, then publishes the site to GitHub Pages. |
+
+If Lighthouse fails, both workflows upload its reports as an artifact. Run the same commands
+locally before you open a pull request.
 
 ## Contributing
 
