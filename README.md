@@ -143,8 +143,12 @@ fun-phone-web/
 | --- | --- | --- |
 | [`pr-checks.yml`](.github/workflows/pr-checks.yml) (`validate`) | Pull requests to `main` | `npm audit`, `astro check`, the build, and the discovery, PWA and Lighthouse checks. |
 | [`deploy.yml`](.github/workflows/deploy.yml) | Pushes to `main` | The same checks, then publishes the site to GitHub Pages. |
+| [`secrets.yml`](.github/workflows/secrets.yml) (`gitleaks`) | Pushes and pull requests to `main` | Scans the new commits for leaked secrets. |
 
-If Lighthouse fails, both workflows upload its reports as an artifact. Run the same commands
+`main` is protected: changes land through pull requests, `validate` and `gitleaks` must pass on
+an up-to-date branch, review threads must be resolved, history stays linear (squash or rebase),
+and force pushes and branch deletion are blocked. If Lighthouse fails, the workflows upload its
+reports as an artifact. Run the same commands
 locally before you open a pull request.
 
 ## Contributing
