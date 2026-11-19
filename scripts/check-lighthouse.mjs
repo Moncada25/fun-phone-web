@@ -1,11 +1,12 @@
 import { createReadStream } from 'node:fs';
 import { createGzip } from 'node:zlib';
-import { mkdir, stat, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import { createServer } from 'node:http';
+import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import lighthouse from 'lighthouse';
-import { launch } from 'chrome-launcher';
+import { killAll, launch } from 'chrome-launcher';
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const distRoot = path.join(repoRoot, 'dist');
@@ -72,9 +73,38 @@ await mkdir(reportRoot, { recursive: true });
 await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
 const address = server.address();
 const serverPort = typeof address === 'object' && address ? address.port : 0;
-const chrome = await launch({
-  chromeFlags: ['--headless=new', '--no-sandbox', '--disable-dev-shm-usage'],
-});
+// A cold Chrome start on a shared CI runner can miss chrome-launcher's default 25 s readiness
+// window and fail with ECONNREFUSED on the debugging port. Wait longer, print Chrome's stderr
+// when it still fails, and retry with a fresh profile before giving up.
+async function launchChrome(attempts = 3) {
+  for (let attempt = 1; ; attempt++) {
+    // Own the profile directory so chrome-err.log can still be read after a failed launch.
+    const userDataDir = await mkdtemp(path.join(tmpdir(), 'lighthouse-chrome-'));
+    try {
+      const instance = await launch({
+        chromeFlags: ['--headless=new', '--no-sandbox', '--disable-dev-shm-usage'],
+        maxConnectionRetries: 120,
+        userDataDir,
+      });
+      return { ...instance, userDataDir };
+    } catch (error) {
+      killAll();
+      const chromeStderr = await readFile(path.join(userDataDir, 'chrome-err.log'), 'utf8').catch(() => '');
+      await rm(userDataDir, { recursive: true, force: true, maxRetries: 5 });
+      console.warn(`Chrome did not start (attempt ${attempt}/${attempts}): ${error.message}`);
+      if (chromeStderr.trim()) console.warn(`Chrome stderr:\n${chromeStderr.trim().split('\n').slice(-20).join('\n')}`);
+      if (attempt >= attempts) throw error;
+    }
+  }
+}
+
+let chrome;
+try {
+  chrome = await launchChrome();
+} catch (error) {
+  server.close();
+  throw error;
+}
 
 try {
   for (const route of routes) {
@@ -156,6 +186,8 @@ try {
 } finally {
   await chrome.kill();
   await new Promise((resolve) => server.close(resolve));
+  // chrome-launcher leaves a caller-provided profile in place; Chrome may still be exiting.
+  await rm(chrome.userDataDir, { recursive: true, force: true, maxRetries: 10, retryDelay: 200 });
 }
 
 console.log('Lighthouse category and Web Vitals budgets passed.');
