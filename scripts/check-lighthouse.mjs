@@ -5,7 +5,7 @@ import { createServer } from 'node:http';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import lighthouse from 'lighthouse';
-import { launch } from 'chrome-launcher';
+import { killAll, launch } from 'chrome-launcher';
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const distRoot = path.join(repoRoot, 'dist');
@@ -72,9 +72,32 @@ await mkdir(reportRoot, { recursive: true });
 await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
 const address = server.address();
 const serverPort = typeof address === 'object' && address ? address.port : 0;
-const chrome = await launch({
-  chromeFlags: ['--headless=new', '--no-sandbox', '--disable-dev-shm-usage'],
-});
+// A cold Chrome start on a shared CI runner can miss chrome-launcher's default 25 s readiness
+// window and fail with ECONNREFUSED on the debugging port. Wait longer, print Chrome's stderr
+// when it still fails, and retry with a fresh profile before giving up.
+async function launchChrome(attempts = 3) {
+  for (let attempt = 1; ; attempt++) {
+    try {
+      return await launch({
+        chromeFlags: ['--headless=new', '--no-sandbox', '--disable-dev-shm-usage'],
+        logLevel: 'error',
+        maxConnectionRetries: 120,
+      });
+    } catch (error) {
+      killAll();
+      if (attempt >= attempts) throw error;
+      console.warn(`Chrome did not start (attempt ${attempt}/${attempts}): ${error.message}. Retrying.`);
+    }
+  }
+}
+
+let chrome;
+try {
+  chrome = await launchChrome();
+} catch (error) {
+  server.close();
+  throw error;
+}
 
 try {
   for (const route of routes) {
