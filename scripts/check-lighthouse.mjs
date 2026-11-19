@@ -1,7 +1,8 @@
 import { createReadStream } from 'node:fs';
 import { createGzip } from 'node:zlib';
-import { mkdir, stat, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import { createServer } from 'node:http';
+import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import lighthouse from 'lighthouse';
@@ -77,16 +78,22 @@ const serverPort = typeof address === 'object' && address ? address.port : 0;
 // when it still fails, and retry with a fresh profile before giving up.
 async function launchChrome(attempts = 3) {
   for (let attempt = 1; ; attempt++) {
+    // Own the profile directory so chrome-err.log can still be read after a failed launch.
+    const userDataDir = await mkdtemp(path.join(tmpdir(), 'lighthouse-chrome-'));
     try {
-      return await launch({
+      const instance = await launch({
         chromeFlags: ['--headless=new', '--no-sandbox', '--disable-dev-shm-usage'],
-        logLevel: 'error',
         maxConnectionRetries: 120,
+        userDataDir,
       });
+      return { ...instance, userDataDir };
     } catch (error) {
       killAll();
+      const chromeStderr = await readFile(path.join(userDataDir, 'chrome-err.log'), 'utf8').catch(() => '');
+      await rm(userDataDir, { recursive: true, force: true, maxRetries: 5 });
+      console.warn(`Chrome did not start (attempt ${attempt}/${attempts}): ${error.message}`);
+      if (chromeStderr.trim()) console.warn(`Chrome stderr:\n${chromeStderr.trim().split('\n').slice(-20).join('\n')}`);
       if (attempt >= attempts) throw error;
-      console.warn(`Chrome did not start (attempt ${attempt}/${attempts}): ${error.message}. Retrying.`);
     }
   }
 }
@@ -179,6 +186,8 @@ try {
 } finally {
   await chrome.kill();
   await new Promise((resolve) => server.close(resolve));
+  // chrome-launcher leaves a caller-provided profile in place; Chrome may still be exiting.
+  await rm(chrome.userDataDir, { recursive: true, force: true, maxRetries: 10, retryDelay: 200 });
 }
 
 console.log('Lighthouse category and Web Vitals budgets passed.');
