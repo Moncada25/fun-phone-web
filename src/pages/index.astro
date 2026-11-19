@@ -88,6 +88,16 @@ const installOptions = [
   },
 ];
 
+const videos = [
+  { lang: 'es', label: 'Video de Fun Phone: recorrido de 38 segundos por la app' },
+  { lang: 'en', label: 'Fun Phone video: a 38-second tour of the app' },
+];
+
+const videoFormats = [
+  { file: 'promo-vertical', width: 720, height: 1280, aspect: 'aspect-[9/16]', wrapper: 'mx-auto max-w-[360px] md:hidden' },
+  { file: 'promo', width: 1280, height: 720, aspect: 'aspect-video', wrapper: 'hidden md:block' },
+];
+
 const faqTeaser = [
   {
     q: { es: '¿Puede reemplazar mi app de teléfono?', en: 'Can it replace my phone app?' },
@@ -207,6 +217,50 @@ const faqTeaser = [
             <span x-cloak x-show="lang==='es'">{fact.label.es}</span>
             <span x-cloak x-show="lang==='en'">{fact.label.en}</span>
           </p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- VIDEO -->
+  <section class="section" id="video">
+    <div class="container-editorial">
+      <div class="grid gap-6 lg:grid-cols-[1fr_1fr] lg:items-end">
+        <div>
+          <p class="eyebrow">
+            <span x-cloak x-show="lang==='es'">En video</span>
+            <span x-cloak x-show="lang==='en'">Video</span>
+          </p>
+          <h2 class="section-title mt-4 text-ink">
+            <span x-cloak x-show="lang==='es'">Fun Phone en 38 segundos.</span>
+            <span x-cloak x-show="lang==='en'">Fun Phone in 38 seconds.</span>
+          </h2>
+        </div>
+        <p class="max-w-xl text-pretty text-lg leading-relaxed text-ink-muted lg:justify-self-end">
+          <span x-cloak x-show="lang==='es'">Un recorrido por el marcador, las llamadas, los contactos, las notas, la bóveda, los gastos y los estilos. Todo con datos de ejemplo.</span>
+          <span x-cloak x-show="lang==='en'">A quick tour of the dialer, calls, contacts, notes, vault, expenses and styles, all with demo data.</span>
+        </p>
+      </div>
+
+      {videoFormats.map((format) => (
+        <div class:list={['reveal mt-12 overflow-hidden rounded-[2rem] border border-ink/10 bg-[#F4F2EE] shadow-[0_40px_80px_-40px_rgba(10,10,14,0.45)]', format.wrapper]}>
+          {videos.map((video) => (
+            <video
+              class={`block h-auto w-full ${format.aspect}`}
+              width={format.width}
+              height={format.height}
+              controls
+              playsinline
+              preload="none"
+              poster={base + `assets/video/${format.file}-${video.lang}.webp`}
+              aria-label={video.label}
+              x-cloak
+              x-show={`lang==='${video.lang}'`}
+              x-effect={`if (lang !== '${video.lang}') $el.pause()`}
+            >
+              <source src={base + `assets/video/${format.file}-${video.lang}.mp4`} type="video/mp4" />
+            </video>
+          ))}
         </div>
       ))}
     </div>
