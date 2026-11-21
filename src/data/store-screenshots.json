@@ -4,12 +4,9 @@
     "scene": "dialer",
     "layout": "full",
     "theme": {
-      "bg": [
-        "#2B95F0",
-        "#0F56B3"
-      ],
-      "ink": "#FFFFFF",
-      "glow": "#8CC8FF"
+      "bg": "#E4E8ED",
+      "ink": "#1C1B19",
+      "accent": "#2F69AC"
     },
     "appearance": "MODERN · light · blue",
     "headline": {
@@ -40,12 +37,9 @@
     "scene": "favorites",
     "layout": "full",
     "theme": {
-      "bg": [
-        "#4A1230",
-        "#16050D"
-      ],
-      "ink": "#FFFFFF",
-      "glow": "#E0457F"
+      "bg": "#F0E4E2",
+      "ink": "#1C1B19",
+      "accent": "#A63D5A"
     },
     "appearance": "MODERN · dark (AMOLED) · pink",
     "headline": {
@@ -67,8 +61,8 @@
       "en": "Favorites"
     },
     "alt": {
-      "es": "Favoritos de Fun Phone en modo oscuro con seis contactos ficticios ilustrados.",
-      "en": "Fun Phone favorites in dark mode with six illustrated fictional contacts."
+      "es": "Favoritos de Fun Phone en modo oscuro con seis contactos ficticios con foto.",
+      "en": "Fun Phone favorites in dark mode with six fictional contacts with photos."
     }
   },
   {
@@ -76,12 +70,9 @@
     "scene": "call",
     "layout": "full",
     "theme": {
-      "bg": [
-        "#8E66DB",
-        "#472C8C"
-      ],
-      "ink": "#FFFFFF",
-      "glow": "#C9B0FF"
+      "bg": "#E7E3EE",
+      "ink": "#1C1B19",
+      "accent": "#6548A8"
     },
     "appearance": "MODERN · dark (dim) · purple",
     "headline": {
@@ -112,12 +103,9 @@
     "scene": "notes",
     "layout": "bleed",
     "theme": {
-      "bg": [
-        "#FFF3DF",
-        "#FFD08A"
-      ],
-      "ink": "#2A1A06",
-      "glow": "#FFFFFF"
+      "bg": "#F4E8D8",
+      "ink": "#1C1B19",
+      "accent": "#B8581A"
     },
     "appearance": "RETRO · light · orange",
     "headline": {
@@ -148,12 +136,9 @@
     "scene": "vault",
     "layout": "bleed",
     "theme": {
-      "bg": [
-        "#1C3A26",
-        "#08120B"
-      ],
-      "ink": "#FFFFFF",
-      "glow": "#43A047"
+      "bg": "#1F2621",
+      "ink": "#F2EFE8",
+      "accent": "#9CC9A3"
     },
     "appearance": "MINIMAL · dark (gray) · green",
     "headline": {
@@ -184,12 +169,9 @@
     "scene": "expenses",
     "layout": "bleed",
     "theme": {
-      "bg": [
-        "#E9F7F4",
-        "#AEDFD7"
-      ],
-      "ink": "#062B27",
-      "glow": "#FFFFFF"
+      "bg": "#DFEAE6",
+      "ink": "#1C1B19",
+      "accent": "#25786C"
     },
     "appearance": "MINIMAL · light · teal",
     "headline": {
@@ -220,12 +202,9 @@
     "scene": "tools",
     "layout": "pair",
     "theme": {
-      "bg": [
-        "#FFC233",
-        "#F59300"
-      ],
-      "ink": "#2A1B00",
-      "glow": "#FFE9A8"
+      "bg": "#F2E8D0",
+      "ink": "#1C1B19",
+      "accent": "#9A6A0C"
     },
     "appearance": "RETRO · dark (AMOLED) · amber",
     "headline": {
@@ -257,12 +236,9 @@
     "scene": "style-modern",
     "layout": "trio",
     "theme": {
-      "bg": [
-        "#F4F1EC",
-        "#E4DED4"
-      ],
-      "ink": "#1D1B19",
-      "glow": "#FFFFFF"
+      "bg": "#ECE8E1",
+      "ink": "#1C1B19",
+      "accent": "#5A544C"
     },
     "appearance": "MODERN light blue · MINIMAL dark purple · RETRO light red",
     "headline": {

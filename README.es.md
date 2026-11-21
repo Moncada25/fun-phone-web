@@ -133,7 +133,7 @@ fun-phone-web/
 │   ├── data/         # textos del producto (funciones, preguntas), datos y enlaces de Google Play
 │   └── styles/       # global.css (entrada de Tailwind y tokens de diseño) y fuentes
 ├── public/
-│   ├── assets/       # logo, capturas store-v3 y videos del promo
+│   ├── assets/       # logo, capturas de la tienda y videos del promo
 │   └── licenses/     # licencias de las fuentes
 ├── scripts/          # generador del service worker, comprobaciones de CI y render de imágenes de tienda
 ├── tools/            # plantilla de mockups que usa render:store

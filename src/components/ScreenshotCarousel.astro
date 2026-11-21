@@ -1,6 +1,6 @@
 ---
 import campaign from '../data/store-screenshots.json';
-const basePath = import.meta.env.BASE_URL + 'assets/store-v3/';
+const basePath = import.meta.env.BASE_URL + 'assets/store/';
 const screenshots = campaign.map((slide, index) => ({
   src: { es: `${basePath}es/${slide.id}.webp`, en: `${basePath}en/${slide.id}.webp` },
   alt: slide.alt,
