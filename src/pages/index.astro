@@ -9,7 +9,7 @@ import { coreFeatures, customization, toolFeatures } from '../data/features';
 import { latestReleaseUrl, obtainiumUrl, productFacts, sourceRepoUrl } from '../data/site';
 
 const base = import.meta.env.BASE_URL;
-const socialImg = base + 'assets/store-v3/en/feature-graphic.jpg';
+const socialImg = base + 'assets/store/en/feature-graphic.jpg';
 
 const trust = [
   { es: 'Gratis', en: 'Free' },
@@ -191,12 +191,12 @@ const faqTeaser = [
       <div class="relative mx-auto w-full max-w-[420px] lg:max-w-[460px]">
         <div class="absolute -right-4 top-10 hidden w-[62%] rotate-6 opacity-90 sm:block lg:-right-10" aria-hidden="true">
           <div class="phone-frame">
-            <LocalizedImage src="assets/store-v3/ui/{lang}/favorites.webp" alt={{ es: '', en: '' }} width={720} height={1607} fetchpriority="low" />
+            <LocalizedImage src="assets/store/ui/{lang}/favorites.webp" alt={{ es: '', en: '' }} width={720} height={1607} fetchpriority="low" />
           </div>
         </div>
         <div class="phone-frame relative mx-auto w-[78%] sm:mx-0 sm:-rotate-2">
           <LocalizedImage
-            src="assets/store-v3/ui/{lang}/dialer.webp"
+            src="assets/store/ui/{lang}/dialer.webp"
             alt={{ es: 'Marcador de Fun Phone con búsqueda T9 y prefijo del país', en: 'Fun Phone dialer with T9 search and the country code' }}
             width={720}
             height={1607}
@@ -310,7 +310,7 @@ const faqTeaser = [
             <div class="relative mt-8 h-72 overflow-hidden px-10 md:h-80">
               <div class="phone-frame mx-auto max-w-[260px] rounded-b-none pb-0">
                 <LocalizedImage
-                  src={`assets/store-v3/ui/{lang}/${feature.screen}.webp`}
+                  src={`assets/store/ui/{lang}/${feature.screen}.webp`}
                   alt={{ es: `Pantalla de ${feature.title.es} en Fun Phone`, en: `Fun Phone ${feature.title.en} screen` }}
                   width={720}
                   height={1607}
@@ -380,7 +380,7 @@ const faqTeaser = [
       <div class="order-2 lg:order-1">
         <div class="mx-auto max-w-[400px] overflow-hidden rounded-[2rem] border border-ink/10 shadow-[0_40px_80px_-40px_rgba(10,10,14,0.45)]">
           <LocalizedImage
-            src="assets/store-v3/{lang}/08-styles.webp"
+            src="assets/store/{lang}/08-styles.webp"
             alt={{ es: 'Tres estilos de Fun Phone: Moderno, Minimalista y Retro', en: 'Three Fun Phone styles: Modern, Minimalist and Retro' }}
             width={1080}
             height={1920}

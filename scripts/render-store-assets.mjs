@@ -9,17 +9,18 @@ import sharp from 'sharp';
 
 const repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
-const source = path.resolve(args.find(arg => !arg.startsWith('--')) || path.join(repo, '../fun-phone/screenshots/store-v3'));
+const source = path.resolve(args.find(arg => !arg.startsWith('--')) || path.join(repo, '../fun-phone/screenshots/store'));
 const campaign = JSON.parse(await readFile(path.join(source, 'campaign.json'), 'utf8'));
 const requestedLocales = args.find(arg => arg.startsWith('--locales='))?.slice('--locales='.length).split(',');
 const locales = requestedLocales || campaign.export.locales;
 if (!locales.length || locales.some(lang => !campaign.export.locales.includes(lang))) throw new Error('Choose supported campaign locales with --locales=de,fr,pt.');
 const webLocales = campaign.export.webLocales;
-const webAssets = path.join(repo, 'public/assets/store-v3');
+const webAssets = path.join(repo, 'public/assets/store');
 const studio = (await readFile(path.join(repo, 'tools/store-mockups/studio.html'), 'utf8')).replace('CAMPAIGN_DATA', JSON.stringify(campaign).replaceAll('<', '\\u003c'));
 const fonts = {
   '/fonts/display.woff2': path.join(repo, 'node_modules/@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2'),
-  '/fonts/mono.woff2': path.join(repo, 'node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2'),
+  '/fonts/serif.woff2': path.join(repo, 'node_modules/@fontsource/instrument-serif/files/instrument-serif-latin-400-normal.woff2'),
+  '/fonts/serif-italic.woff2': path.join(repo, 'node_modules/@fontsource/instrument-serif/files/instrument-serif-latin-400-italic.woff2'),
 };
 for (const lang of locales) {
   const scenes = new Set([...campaign.feature.scenes, ...Object.values(campaign.export.webUi)]);
